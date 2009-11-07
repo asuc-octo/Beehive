@@ -16,10 +16,18 @@
   timeout: 5000
 
 ***REMOVED***
-  adapter: sqlite3
-  database: db/production.sqlite3
+***REMOVED***  adapter: sqlite3
+***REMOVED***  database: db/production.sqlite3
+***REMOVED***  pool: 5
+***REMOVED***  timeout: 5000
+  adapter: mysql
+  encoding: utf8
+  reconnect: false
+  database: myapp_production
   pool: 5
-  timeout: 5000
+  username: root
+  password: research
+  host: localhost
 
 cucumber:
   <<: *TEST
