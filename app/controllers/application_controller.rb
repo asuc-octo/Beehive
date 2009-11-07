@@ -2,6 +2,7 @@
 ***REMOVED*** Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  include AuthenticatedSystem
   helper :all ***REMOVED*** include all helpers, all the time
   protect_from_forgery ***REMOVED*** See ActionController::RequestForgeryProtection for details
 
