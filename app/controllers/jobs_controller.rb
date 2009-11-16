@@ -9,7 +9,19 @@ class JobsController < ApplicationController
       format.xml  { render :xml => @jobs }
     end
   end
-
+  
+  def list
+	d_id = params[:department_select]
+	if(d_id == "0")
+		@department = "All Departments"
+		@jobs = Job.all
+	else
+		@department = Department.find(d_id).name
+		@jobs = Job.all
+	end
+	
+  end
+  
   ***REMOVED*** GET /jobs/1
   ***REMOVED*** GET /jobs/1.xml
   def show

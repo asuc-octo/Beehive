@@ -50,6 +50,12 @@ body > ***REMOVED***everything {
 	background: url("../images/header_bg.gif") no-repeat;
 }
 
+***REMOVED***header_image a { 
+display: block; 
+height: 100%; 
+width: 100%; 
+}
+
 
 ***REMOVED***searchbar{
 	position: relative;
@@ -70,6 +76,11 @@ body > ***REMOVED***everything {
 	position: relative;
 	float: right;
 	right: 2em;
+	top: -89px;
+}
+
+***REMOVED***side a{
+	display: inline;
 }
 
 ***REMOVED***header_tabs{
@@ -185,7 +196,7 @@ body > ***REMOVED***everything {
 /**Links**/
 
 a { 
-	color: ***REMOVED***6ac0cf; 
+	color: ***REMOVED***abe68b; 
 	text-decoration: none;
 }
 a:hover {
