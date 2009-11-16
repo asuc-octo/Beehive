@@ -55,10 +55,11 @@ body > ***REMOVED***everything {
 	position: relative;
 	text-align: right;
 	right: 0px;
-	bottom: 0px;
+	top: 20px;
 }
 
 ***REMOVED***loginbar{
+	position: relative;
 	text-align: right;
 	right: 0px;
 	top: 10px;
@@ -138,17 +139,49 @@ body > ***REMOVED***everything {
 
 /**HOME**/
 
-***REMOVED***find_box{
+***REMOVED***browse_listings_menu{
+	position: relative;
+	left: -275px;
+	top: 180px;
+	width: 200px;
+	height: 30px;
+	text-align: left;
+}
+
+***REMOVED***home_display{
+	width: 898px;
+	height: 203px;
+}
+
+***REMOVED***display_up{
+	width: 898px;
+	height: 144px;
+	background: url("../images/research_match_display_01.png");
+}
+
+***REMOVED***display_left{
+	position: relative;
+	left: -295px;
+	width: 308px;
+	height: 59px;
+	background: url("../images/research_match_display_02.png");
+}
+
+***REMOVED***display_mid{
+	position: relative;
+	margin-left: 308px;
+	width: 254px;
+	height: 59px;
+	background: url("../images/research_match_display_03.png");
 
 }
 
-***REMOVED***list_box{
-
+***REMOVED***display_right{
+	width: 336px;
+	height: 59px;
+	background: url("../images/research_match_display_04.png");
 }
 
-***REMOVED***rate_box{
-
-}
 /**Links**/
 
 a { 
