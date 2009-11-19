@@ -9,10 +9,10 @@ class User < ActiveRecord::Base
   has_many :reviews
   has_one :picture
 
-  validates_presence_of     :login
-  validates_length_of       :login,    :within => 3..40
-  validates_uniqueness_of   :login
-  validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
+  ***REMOVED***validates_presence_of     :login
+  ***REMOVED***validates_length_of       :login,    :within => 3..40
+  ***REMOVED***validates_uniqueness_of   :login
+  ***REMOVED***validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
 
   validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
   validates_length_of       :name,     :maximum => 100
@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   ***REMOVED*** HACK HACK HACK -- how to do attr_accessible from here?
   ***REMOVED*** prevents a user from submitting a crafted form that bypasses activation
   ***REMOVED*** anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name, :password, :password_confirmation
+  attr_accessible :email, :name, :password, :password_confirmation
 
 
   ***REMOVED*** Activates the user in the database.
@@ -54,15 +54,15 @@ class User < ActiveRecord::Base
   ***REMOVED*** We really need a Dispatch Chain here or something.
   ***REMOVED*** This will also let us return a human error message.
   ***REMOVED***
-  def self.authenticate(login, password)
-    return nil if login.blank? || password.blank?
-    u = find :first, :conditions => ['login = ? and activated_at IS NOT NULL', login] ***REMOVED*** need to get the salt
+  def self.authenticate(email, password)
+    return nil if email.blank? || password.blank?
+    u = find :first, :conditions => ['email = ? and activated_at IS NOT NULL', email] ***REMOVED*** need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 
-  def login=(value)
-    write_attribute :login, (value ? value.downcase : nil)
-  end
+  ***REMOVED***def login=(value)
+  ***REMOVED***  write_attribute :login, (value ? value.downcase : nil)
+  ***REMOVED***end
 
   def email=(value)
     write_attribute :email, (value ? value.downcase : nil)
