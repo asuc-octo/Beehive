@@ -1,0 +1,145 @@
+***REMOVED***!/bin/bash
+***REMOVED***
+***REMOVED*** Licensed to the Apache Software Foundation (ASF) under one or more
+***REMOVED*** contributor license agreements.  See the NOTICE file distributed with
+***REMOVED*** this work for additional information regarding copyright ownership.
+***REMOVED*** The ASF licenses this file to You under the Apache License, Version 2.0
+***REMOVED*** (the "License"); you may not use this file except in compliance with
+***REMOVED*** the License.  You may obtain a copy of the License at
+***REMOVED***
+***REMOVED***     http://www.apache.org/licenses/LICENSE-2.0
+***REMOVED***
+***REMOVED*** Unless required by applicable law or agreed to in writing, software
+***REMOVED*** distributed under the License is distributed on an "AS IS" BASIS,
+***REMOVED*** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+***REMOVED*** See the License for the specific language governing permissions and
+***REMOVED*** limitations under the License.
+***REMOVED***
+***REMOVED*** Shell script to start rsyncd on master Solr server
+
+orig_dir=$(pwd)
+cd ${0%/*}/..
+solr_root=$(pwd)
+cd ${orig_dir}
+
+unset data_dir solr_port rsyncd_port user verbose debug
+. ${solr_root}/bin/scripts-util
+
+***REMOVED*** set up variables
+prog=${0***REMOVED******REMOVED****/}
+log=${solr_root}/logs/rsyncd.log
+
+***REMOVED*** define usage string
+USAGE="\
+usage: $prog [-d dir] [-p portnum] [-u username] [-v]
+       -d          specify directory holding index data
+       -p          specify rsyncd port number
+       -u          specify user to sudo to before running script
+       -v          increase verbosity
+       -V          output debugging info
+"
+
+***REMOVED*** parse args
+while getopts d:p:u:vV OPTION
+do
+    case $OPTION in
+    d)
+        data_dir="$OPTARG"
+        ;;
+    p)
+        rsyncd_port="$OPTARG"
+        ;;
+    u)
+        user="$OPTARG"
+        ;;
+    v)
+        verbose="v"
+        ;;
+    V)
+        debug="V"
+        ;;
+    *)
+        echo "$USAGE"
+        exit 1
+    esac
+done
+
+[[ -n $debug ]] && set -x
+
+fixUser "$@"
+
+***REMOVED*** try to determine rsyncd port number from $confFile if not specified on
+***REMOVED*** command line, default to solr_port+10000
+if [[ -z ${rsyncd_port} ]]
+then
+    if [[ "${solr_port}" ]]
+    then
+        rsyncd_port=`expr 10000 + ${solr_port}`
+    else
+        echo "rsyncd port number missing in $confFile or command line."
+        echo "$USAGE"
+        exit 1
+    fi
+fi
+
+***REMOVED*** use default value for data_dir if not specified
+***REMOVED*** relative path starts at ${solr_root}
+if [[ -z ${data_dir} ]]
+then
+    data_dir=${solr_root}/data
+elif [[ "`echo ${data_dir}|cut -c1`" != "/" ]]
+then
+    data_dir=${solr_root}/${data_dir}
+fi
+
+logMessage started by $oldwhoami
+logMessage command: $0 $@
+
+if [[ ! -f ${solr_root}/logs/rsyncd-enabled ]]
+then
+    logMessage rsyncd disabled
+    exit 1
+fi
+
+if \
+    rsync rsync://localhost:${rsyncd_port} >/dev/null 2>&1
+then
+    logMessage "rsyncd already running at port ${rsyncd_port}"
+    exit 1
+fi
+
+***REMOVED*** create conf/rsyncd.conf on the fly, creating solrlogs directory if needed
+if [[ ! -d ${solr_root}/conf ]]
+then
+    mkdir ${solr_root}/conf
+fi
+cat <<EOF > ${solr_root}/conf/rsyncd.conf
+***REMOVED******REMOVED******REMOVED******REMOVED*** rsyncd.conf file ***REMOVED******REMOVED******REMOVED******REMOVED***
+ 
+uid = $(whoami)
+gid = $(whoami)
+use chroot = no
+list = no
+pid file = ${solr_root}/logs/rsyncd.pid
+log file = ${solr_root}/logs/rsyncd.log
+[solr]
+    path = ${data_dir}
+    comment = Solr
+EOF
+
+rsync --daemon --port=${rsyncd_port} --config=${solr_root}/conf/rsyncd.conf
+
+***REMOVED*** first make sure rsyncd is accepting connections
+i=1
+while \
+ ! rsync rsync://localhost:${rsyncd_port} >/dev/null 2>&1
+do
+    if (( i++ > 15 ))
+    then
+        logMessage "rsyncd not accepting connections, exiting" >&2
+        exit 2
+    fi
+    sleep 1
+done
+
+logMessage rsyncd started with data_dir=${data_dir} and accepting requests

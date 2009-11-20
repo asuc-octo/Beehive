@@ -1,0 +1,15 @@
+***REMOVED*** Config file for the acts_as_solr plugin.
+***REMOVED***
+***REMOVED*** If you change the host or port number here, make sure you update 
+***REMOVED*** them in your Solr config file
+
+***REMOVED***
+  url: http://127.0.0.1:8982/solr
+  
+***REMOVED***
+  url: http://127.0.0.1:8983/solr
+  jvm_options: -server -d64 -Xmx1024M -Xms64M
+
+***REMOVED***
+  url: http://127.0.0.1:8981/solr
+
