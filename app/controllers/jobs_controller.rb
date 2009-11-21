@@ -1,6 +1,10 @@
 class JobsController < ApplicationController
   ***REMOVED*** GET /jobs
   ***REMOVED*** GET /jobs.xml
+  
+  ***REMOVED*** Ensures that only logged-in users can create, edit, or delete jobs
+  before_filter :login_required, :except => [ :index, :show, :list ]
+  
   def index
     @jobs = Job.all
 

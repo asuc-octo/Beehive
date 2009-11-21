@@ -1,6 +1,10 @@
 class ReviewsController < ApplicationController
   ***REMOVED*** GET /reviews
   ***REMOVED*** GET /reviews.xml
+  
+  ***REMOVED*** Ensures that only logged-in users can create, edit, or delete reviews
+  before_filter :login_required, :except => [ :index, :show ]
+  
   def index
     @reviews = Review.all
 
