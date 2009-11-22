@@ -82,21 +82,8 @@ class User < ActiveRecord::Base
       self.activation_code = self.class.make_token
     end
 
-***REMOVED***	def faculty_email; self.email; end
-***REMOVED***	def faculty_email=(value); write_attribute :faculty_email, value; end
-***REMOVED***	def student_email; self.email; end
-***REMOVED***	def student_email=(value); write_attribute :student_email, value; end
-
 	def handle_email
-		if self.is_faculty then puts "\n\n\n\nIZ FACULTY\n\n\n\n"
-		else puts "\n\n\n\n\nIZ NOT FACULTY\n\n\n\n" end
-		puts "\n\n\nFACK ***REMOVED***{self.faculty_email} STOOD ***REMOVED***{self.student_email}\n\n\n"
 		self.email = (self.is_faculty ? self.faculty_email : self.student_email)
-***REMOVED***		if self.is_faculty
-***REMOVED***			self.email = self.faculty_email
-***REMOVED***		else
-***REMOVED***			self.email = self.student_email
-***REMOVED***		end
 	end
 	
 end
