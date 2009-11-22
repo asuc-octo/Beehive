@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
   
   ***REMOVED*** Check that the email address is @*.berkeley.edu or @*.lbl.gov
-  ***REMOVED***validates_format_of		:email,	   :with =>
+  validates_format_of		:email,	   :with => /([^@]+@(?:.+\.)?(?:berkeley\.edu)|(?:lbl\.gov))$/i, :message => "The specified email is not a Berkeley or LBL address."
 
   before_create :make_activation_code 
   before_validation :handle_email
