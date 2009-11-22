@@ -26,12 +26,14 @@ class User < ActiveRecord::Base
   ***REMOVED***validates_format_of		:email,	   :with =>
 
   before_create :make_activation_code 
-  before_validation :handle_faculty
+  before_validation :handle_email
   
   ***REMOVED*** HACK HACK HACK -- how to do attr_accessible from here?
   ***REMOVED*** prevents a user from submitting a crafted form that bypasses activation
   ***REMOVED*** anything else you want your user to change should be added here.
-  attr_accessible :email, :name, :password, :password_confirmation, :faculty_email, :is_faculty
+  attr_accessible :email, :name, :password, :password_confirmation, :faculty_email, :student_email, :is_faculty
+  attr_reader :faculty_email; attr_writer :faculty_email;  
+  attr_reader :student_email; attr_writer :student_email;
   
   ***REMOVED*** Activates the user in the database.
   def activate!
@@ -68,7 +70,7 @@ class User < ActiveRecord::Base
   ***REMOVED***end
 
   def email=(value)
-  puts "\n\n\n\nEMAIL IZ ***REMOVED***{self.email}\n\n\n\n"
+  puts "\n\n\n\nEMAIL WUZ ***REMOVED***{self.email} NAO IZ ***REMOVED***{value}\n\n\n\n"
     write_attribute :email, (value && !value.empty? ? value.downcase : self.email)
   end
   
@@ -80,13 +82,21 @@ class User < ActiveRecord::Base
       self.activation_code = self.class.make_token
     end
 
-	def faculty_email; self.email; end
-	def faculty_email=(value); self.email=value; end
+***REMOVED***	def faculty_email; self.email; end
+***REMOVED***	def faculty_email=(value); write_attribute :faculty_email, value; end
+***REMOVED***	def student_email; self.email; end
+***REMOVED***	def student_email=(value); write_attribute :student_email, value; end
 
-	def handle_faculty
-		if self.is_faculty != "false"
-			self.email = self.faculty_email
-		end
+	def handle_email
+		if self.is_faculty then puts "\n\n\n\nIZ FACULTY\n\n\n\n"
+		else puts "\n\n\n\n\nIZ NOT FACULTY\n\n\n\n" end
+		puts "\n\n\nFACK ***REMOVED***{self.faculty_email} STOOD ***REMOVED***{self.student_email}\n\n\n"
+		self.email = (self.is_faculty ? self.faculty_email : self.student_email)
+***REMOVED***		if self.is_faculty
+***REMOVED***			self.email = self.faculty_email
+***REMOVED***		else
+***REMOVED***			self.email = self.student_email
+***REMOVED***		end
 	end
 	
 end
