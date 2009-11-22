@@ -70,7 +70,6 @@ class User < ActiveRecord::Base
   ***REMOVED***end
 
   def email=(value)
-  puts "\n\n\n\nEMAIL WUZ ***REMOVED***{self.email} NAO IZ ***REMOVED***{value}\n\n\n\n"
     write_attribute :email, (value && !value.empty? ? value.downcase : self.email)
   end
   
@@ -82,6 +81,9 @@ class User < ActiveRecord::Base
       self.activation_code = self.class.make_token
     end
 
+	***REMOVED*** Dynamically assign the value of :email, based on whether this user
+	***REMOVED*** is marked as faculty or not. This should occur as a before_validation
+	***REMOVED*** since we want to save a value for :email, not :faculty_ or :student_email.
 	def handle_email
 		self.email = (self.is_faculty ? self.faculty_email : self.student_email)
 	end
