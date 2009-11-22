@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   ***REMOVED*** Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
+  ***REMOVED*** include AuthenticatedSystem    --- ^ did this.
   
 
   ***REMOVED*** render new.rhtml
