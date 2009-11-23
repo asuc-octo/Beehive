@@ -109,6 +109,7 @@ width: 100%;
 
 ***REMOVED***content{	
 	padding: 50px;
+	margin-top: 20px;
 	padding-top: 30px;
 	/*position: relative;
 	top: -159px;*/
@@ -120,18 +121,16 @@ width: 100%;
 }
 
 ***REMOVED***footer{
-	display: none;
+	
 	position: relative;
-	bottom: 0px;
+	margin-bottom: 0px;
 	overflow: hidden;	
 }
 
 ***REMOVED***footer_inside{
-	
-	width: 2000px;
-	height: 80px;
-	background: url("../images/footer.png");
-
+	color: gray;
+	text-align: center;
+	height: 40px;
 }
 
 /**HOME**/
@@ -181,6 +180,9 @@ width: 100%;
 
 /**Menu**/
 
+***REMOVED***department_speech{
+	display: none;
+}
 ***REMOVED***department_speech_top{
 	width: 163px;
 	height: 32px;
