@@ -57,7 +57,7 @@ end ***REMOVED***end params[:query]
     @job = Job.new
 
     respond_to do |format|
-      format.html ***REMOVED*** new.html.erb
+      format.html { render :action => :modify }
       format.xml  { render :xml => @job }
     end
   end
@@ -65,6 +65,11 @@ end ***REMOVED***end params[:query]
   ***REMOVED*** GET /jobs/1/edit
   def edit
     @job = Job.find(params[:id])
+	
+	respond_to do |format|
+		format.html { render :action => :modify }
+		format.xml { render :xml => @job }
+	end
   end
 
   ***REMOVED*** POST /jobs
