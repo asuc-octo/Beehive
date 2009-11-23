@@ -31,7 +31,7 @@ namespace :thin do
   %w(start stop restart).each do |action| 
   desc "***REMOVED***{action} the app's Thin Cluster"  
     task action.to_sym, :roles => :app do  
-      run "thin ***REMOVED***{action} -c ***REMOVED***{deploy_to}/current -e production -p 80" 
+      run "thin ***REMOVED***{action} -c ***REMOVED***{deploy_to}/current/research -e production -p 80" 
     end
   end
 end
