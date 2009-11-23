@@ -1,6 +1,4 @@
 class JobsController < ApplicationController
-  require "digest" ***REMOVED*** Used to generate codes for activation e-mails
-  
   ***REMOVED*** GET /jobs
   ***REMOVED*** GET /jobs.xml
   
@@ -77,20 +75,16 @@ end ***REMOVED***end params[:query]
   ***REMOVED*** POST /jobs
   ***REMOVED*** POST /jobs.xml
   def create
-    ***REMOVED*** This create does not actually create the job - an activation is necessary from the professor to actually create it.
-	
 	params[:job][:user] = current_user
-	params[:job][:activation_code] = rand(99999) + 100000 ***REMOVED*** Generates a random 7 digit number.
-    @job = JobInactive.new(params[:job])
+    @job = Job.new(params[:job])
+	
+	***REMOVED***params[:job][:user] = current_user
+	***REMOVED***params[:job][:activation_code] = rand(99999) + 100000 ***REMOVED*** Generates a random 7 digit number.
+    ***REMOVED***@job = JobInactive.new(params[:job])
 
     respond_to do |format|
       if @job.save
-        flash[:notice] = 'Thanks for submitting your job.  An e-mail has been dispatched to the professor in charge and will require e-mail confirmation before this job is posted to our main page.'
-		
-		***REMOVED*** Sends an e-mail to the appropriate faculty member in charge.
-		
-		***REMOVED*** This doesn't actually send the e-mail yet, so you'll have to look in the database to find the activation code.
-		
+        flash[:notice] = 'Job was successfully created.'
         format.html { redirect_to(@job) }
         format.xml  { render :xml => @job, :status => :created, :location => @job }
       else
