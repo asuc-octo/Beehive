@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   ***REMOVED*** Be sure to include AuthenticationSystem in Application Controller instead
   ***REMOVED*** include AuthenticatedSystem    --- ^ did this.
   
+  auto_complete_for :course, :name
 
   ***REMOVED*** render new.rhtml
   def new
