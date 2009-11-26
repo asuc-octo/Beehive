@@ -207,6 +207,10 @@ width: 100%;
 	z-index: 10;
 }
 
+***REMOVED***create_job_hidden{
+	display: none;
+}
+
 /**Dashboard**/
 
 ***REMOVED***dashboard_container{
