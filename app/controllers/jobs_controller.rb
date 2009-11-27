@@ -86,7 +86,7 @@ class JobsController < ApplicationController
 		
 		***REMOVED*** Send an e-mail to the faculty member(s) involved.
 		
-		***REMOVED***FacultyMailer.deliver_faculty_confirmer(found_faculty.email, found_faculty.name, params[:job][:title], params[:job][:desc], params[:job][:activation_code])
+		***REMOVED***FacultyMailer.deliver_faculty_confirmer(found_faculty.email, found_faculty.name, @job.id, @job.title, @job.desc, @job.activation_code)
 		
         format.html { redirect_to(@job) }
         format.xml  { render :xml => @job, :status => :created, :location => @job }
