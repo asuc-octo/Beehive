@@ -134,7 +134,8 @@ width: 100%;
 }
 
 ***REMOVED***flash_notice{
-	color: ***REMOVED***91d57c;
+	/* color: ***REMOVED***91d57c; */
+	color: ***REMOVED***339900;
 	background: ***REMOVED***f9ffea;
 	border: 1px solid ***REMOVED***F0FFD2;
 	padding:10px;
@@ -239,11 +240,16 @@ width: 100%;
 }
 
 
+/**Userbar**/
+***REMOVED***loginbar a {
+	color: ***REMOVED***abe68b;
+}
 
 /**Links**/
 
 a { 
-	color: ***REMOVED***abe68b; 
+	/* color: ***REMOVED***abe68b; */
+	color: ***REMOVED***339900;
 	text-decoration: none;
 }
 a:hover {
