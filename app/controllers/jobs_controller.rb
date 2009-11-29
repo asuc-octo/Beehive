@@ -153,12 +153,7 @@ class JobsController < ApplicationController
       @faculty_names << faculty.name
     end
 	
-	
-	***REMOVED*** Populates the tag_list of the job.
-	tags_string = ""
-	tags_string << @job.category_list_of_job 
-	@job.tag_list = tags_string
-	
+	populate_tag_list
 	
     respond_to do |format|
       if @job.update_attributes(params[:job])
@@ -191,10 +186,7 @@ class JobsController < ApplicationController
 	
 	if @job != nil
 	
-		***REMOVED*** Populates the tag_list of the job.
-		tags_string = ""
-		tags_string << @job.category_list_of_job 
-		@job.tag_list = tags_string
+		populate_tag_list
 		
 		@job.skip_handle_categories = true
 		@job.active = true
@@ -214,5 +206,24 @@ class JobsController < ApplicationController
 		end
 	end
 	
+  end
+  
+  
+  protected
+  
+  def populate_tag_list
+  
+	***REMOVED*** Debug code
+	puts "\n\n\n\n\n LAWL \n"
+	puts @job.paid
+	puts "\n done \n "
+	
+  
+	***REMOVED*** Populates the tag_list of the job.
+	tags_string = ""
+	tags_string << @job.category_list_of_job 
+	tags_string << ',' + (@job.paid ? 'paid' : 'unpaid')
+	tags_string << ',' + (@job.credit ? 'credit' : 'no credit')
+	@job.tag_list = tags_string
   end
 end
