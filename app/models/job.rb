@@ -62,6 +62,21 @@ class Job < ActiveRecord::Base
   	course_list[0..(course_list.length - 2)].upcase
   end
   
+	***REMOVED*** Performs an OR search for all terms in 'query', then sorts results
+	***REMOVED*** by solr_score. Note that this method returns the actual results,
+	***REMOVED*** not a SearchResults object like find_by_solr does.
+	def self.find_by_solr_by_relevance(query)
+		results = (self.find_by_solr query, :operator => :or, :scores => true).results
+		results.sort do |a,b|
+			a.solr_score <=> b.solr_score
+		end
+		puts "\n***REMOVED***{query}\n"
+		results.each do |r|
+			puts "\n\n***REMOVED***{r.title}: ***REMOVED***{r.solr_score}"
+		end
+		results
+	end
+  
   protected
   
   	***REMOVED*** Parses the textbox list of category names from "Signal Processing, Robotics"
