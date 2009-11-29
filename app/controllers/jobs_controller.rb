@@ -114,6 +114,11 @@ class JobsController < ApplicationController
 	end
 	@job = Job.new(params[:job])
 	
+	***REMOVED*** Populates the tag_list of the job.
+	tags_string = ""
+	tags_string << @job.category_list_of_job 
+	@job.tag_list = tags_string
+	
     respond_to do |format|
       if @job.save
 		***REMOVED***@sponsorship.save
@@ -143,6 +148,8 @@ class JobsController < ApplicationController
 	***REMOVED***params[:job][:sponsorships] = Sponsorship.new(:faculty => Faculty.find(:first, :conditions => [ "name = ?", params[:job][:faculties] ]), :job => nil)	
     @job = Job.find(params[:id])
 
+	
+	***REMOVED*** Handles the text_field_with_auto_complete for categories.
 	params[:job][:category_names] = params[:category][:name]
 	
     @all_faculty = Faculty.find(:all)
@@ -150,6 +157,13 @@ class JobsController < ApplicationController
     @all_faculty.each do |faculty|
       @faculty_names << faculty.name
     end
+	
+	
+	***REMOVED*** Populates the tag_list of the job.
+	tags_string = ""
+	tags_string << @job.category_list_of_job 
+	@job.tag_list = tags_string
+	
 	
     respond_to do |format|
       if @job.update_attributes(params[:job])
