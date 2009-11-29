@@ -6,6 +6,8 @@ class Job < ActiveRecord::Base
   
   has_many :sponsorships
   has_many :faculties, :through => :sponsorships
+  has_many :coursereqs
+  has_many :courses, :through => :coursereqs
   
   ***REMOVED*** Before carrying out validations and creating the actual object, 
   ***REMOVED*** handle the name of the category(ies) so as to deal with associations
@@ -28,6 +30,7 @@ class Job < ActiveRecord::Base
   
   
   attr_accessor :category_names
+  attr_accessor :course_names
   
   ***REMOVED*** If true, handle_categories doesn't do anything. The purpose of this is so that in activating a job, 
   ***REMOVED*** categories data isn't lost.
@@ -42,10 +45,20 @@ class Job < ActiveRecord::Base
   ***REMOVED*** e.g. "robotics,signal processing"
   def category_list_of_job
   	category_list = ''
-  	categories.each do |item|
-  		category_list << item.name + ','
+  	categories.each do |cat|
+  		category_list << cat.name + ','
   	end
   	category_list[0..(category_list.length - 2)].downcase
+  end
+  
+  ***REMOVED*** Returns a string containing the 'required course' names taken by job @job
+  ***REMOVED*** e.g. "CS61A,CS61B"
+  def course_list_of_job
+  	course_list = ''
+  	courses.each do |c|
+  		course_list << c.name + ','
+  	end
+  	course_list[0..(course_list.length - 2)].upcase
   end
   
   protected
