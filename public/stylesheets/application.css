@@ -218,25 +218,57 @@ width: 100%;
 	width: 900px;
 }
 
-***REMOVED***dashboard_container_smartmatch{
+/*smartmatch*/
+***REMOVED***dashboard_wrapper_smartmatch{
 	width: 55%;
-	padding: 15px;
 	margin-bottom: 15px;
-	background: ***REMOVED***E5FEB4;
+	border-left: 1px solid ***REMOVED***f5f5f5;
+	border-right: 1px solid ***REMOVED***f5f5f5;
 }
 
-***REMOVED***dashboard_container_watched{
+***REMOVED***dashboard_container_smartmatch{
+	padding: 15px;
+	background: ***REMOVED***E5FEB4 url("../images/dashboard_box_grad.png") repeat-x bottom left;
+}
+
+***REMOVED***dashboard_shadow_smartmatch{
+	height: 7px;
+	background: url("../images/trans_down_small.png") repeat-x top left;
+}
+
+/*watched*/
+***REMOVED***dashboard_wrapper_watched{
 	float:right;
 	width: 35%;
-	padding: 15px;
 	margin-bottom: 15px;
-	background: ***REMOVED***E5FEB4;
+	border-left: 1px solid ***REMOVED***f5f5f5;
+	border-right: 1px solid ***REMOVED***f5f5f5;
+}
+***REMOVED***dashboard_container_watched{
+	padding: 15px;
+	background: ***REMOVED***E5FEB4 url("../images/dashboard_box_grad.png") repeat-x bottom left;
 }
 
+***REMOVED***dashboard_shadow_watched{
+	height: 7px;
+	background: url("../images/trans_down_small.png") repeat-x top left;
+	z-index: 1000;
+}
+
+/*long*/
+***REMOVED***dashboard_wrapper_long{
+	margin-bottom: 15px;
+	border-left: 1px solid ***REMOVED***f5f5f5;
+	border-right: 1px solid ***REMOVED***f5f5f5;
+}
 ***REMOVED***dashboard_container_long{
 	padding: 15px;
-	margin-bottom: 15px;
-	background: ***REMOVED***E5FEB4;
+	background: ***REMOVED***E5FEB4 url("../images/dashboard_box_grad.png") repeat-x bottom left;
+}
+
+***REMOVED***dashboard_shadow_long{
+	height: 7px;
+	background: url("../images/trans_down_small.png") repeat-x top left;
 }
 
 
@@ -246,7 +278,7 @@ width: 100%;
 }
 
 a { 
-	color: ***REMOVED***53ae26; 
+	color: ***REMOVED***65b960; 
 	/* color: ***REMOVED***abe68b; */
 	text-decoration: none;
 }
