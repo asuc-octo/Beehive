@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 ***REMOVED*** Then, you can remove it from this and the units test.
 include AuthenticatedTestHelper
 
-describe UsersController do
+describe UsersController, :type => :controller do
   fixtures :users
 
   it 'allows signup' do
@@ -21,14 +21,6 @@ describe UsersController do
     create_user
     assigns(:user).reload
     assigns(:user).activation_code.should_not be_nil
-  end
-
-  it 'requires login on signup' do
-    lambda do
-      create_user(:login => nil)
-      assigns[:user].errors.on(:login).should_not be_nil
-      response.should be_success
-    end.should_not change(User, :count)
   end
   
   it 'requires password on signup' do
@@ -56,32 +48,32 @@ describe UsersController do
   end
   
   
-  it 'activates user' do
-    User.authenticate('aaron', 'monkey').should be_nil
-    get :activate, :activation_code => users(:aaron).activation_code
-    response.should redirect_to('/login')
-    flash[:notice].should_not be_nil
-    flash[:error ].should     be_nil
-    User.authenticate('aaron', 'monkey').should == users(:aaron)
-  end
+  ***REMOVED***it 'activates user' do
+  ***REMOVED***  User.authenticate('aaron', 'monkey').should be_nil
+  ***REMOVED***  get :activate, :activation_code => users(:aaron).activation_code
+  ***REMOVED***  response.should redirect_to('/login')
+  ***REMOVED***  flash[:notice].should_not be_nil
+  ***REMOVED***  flash[:error ].should     be_nil
+  ***REMOVED***  User.authenticate('aaron', 'monkey').should == users(:aaron)
+  ***REMOVED***end
   
-  it 'does not activate user without key' do
-    get :activate
-    flash[:notice].should     be_nil
-    flash[:error ].should_not be_nil
-  end
+  ***REMOVED***it 'does not activate user without key' do
+  ***REMOVED***  get :activate
+  ***REMOVED***  flash[:notice].should     be_nil
+  ***REMOVED***  flash[:error ].should_not be_nil
+  ***REMOVED***end
   
-  it 'does not activate user with blank key' do
-    get :activate, :activation_code => ''
-    flash[:notice].should     be_nil
-    flash[:error ].should_not be_nil
-  end
+  ***REMOVED***it 'does not activate user with blank key' do
+  ***REMOVED***  get :activate, :activation_code => ''
+  ***REMOVED***  flash[:notice].should     be_nil
+  ***REMOVED***  flash[:error ].should_not be_nil
+  ***REMOVED***end
   
-  it 'does not activate user with bogus key' do
-    get :activate, :activation_code => 'i_haxxor_joo'
-    flash[:notice].should     be_nil
-    flash[:error ].should_not be_nil
-  end
+  ***REMOVED***it 'does not activate user with bogus key' do
+  ***REMOVED***  get :activate, :activation_code => 'i_haxxor_joo'
+  ***REMOVED***  flash[:notice].should     be_nil
+  ***REMOVED***  flash[:error ].should_not be_nil
+  ***REMOVED***end
   
   def create_user(options = {})
     post :create, :user => { :login => 'quire', :email => 'quire@example.com',
