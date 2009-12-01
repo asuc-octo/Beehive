@@ -5,7 +5,7 @@ require 'active_record'
 
 namespace :solr do
 
-  desc 'Starts Solr. Options accepted: RAILS_ENV=your_env, PORT=XX. Defaults to development if none.'
+  desc 'Starts Solr on a 'nix machine. WILL NOT WORK IN WINDOWS. Options accepted: RAILS_ENV=your_env, PORT=XX. Defaults to development if none.'
   task :start do
     require "***REMOVED***{File.dirname(__FILE__)}/../../config/solr_environment.rb"
     begin
@@ -18,20 +18,36 @@ namespace :solr do
     rescue Errno::ECONNREFUSED ***REMOVED***not responding
       Dir.chdir(SOLR_PATH) do
 		pid = -1
-		begin
-		1/0
-			pid = fork do
+		pid = fork do
 			***REMOVED***STDERR.close
 			exec "java ***REMOVED***{SOLR_JVM_OPTIONS} -Dsolr.data.dir=***REMOVED***{SOLR_DATA_PATH} -Djetty.logs=***REMOVED***{SOLR_LOGS_PATH} -Djetty.port=***REMOVED***{SOLR_PORT} -jar start.jar"
-			end
-		rescue
-			puts "ZOMG"
-			cmd = "start \"Solr server\" java ***REMOVED***{SOLR_JVM_OPTIONS} -Dsolr.data.dir=\"***REMOVED***{SOLR_DATA_PATH}\" -Djetty.logs=\"***REMOVED***{SOLR_LOGS_PATH}\" -Djetty.port=***REMOVED***{SOLR_PORT} -jar start.jar"
-			javathing = IO.popen cmd
-			***REMOVED***"start \"Solr server\" java ***REMOVED***{SOLR_JVM_OPTIONS} -Dsolr.data.dir=***REMOVED***{SOLR_DATA_PATH} -Djetty.logs=***REMOVED***{SOLR_LOGS_PATH} -Djetty.port=***REMOVED***{SOLR_PORT} -jar start.jar"
-			pidthing = IO.popen "tasklist /FI \"IMAGENAME eq JAVA.EXE\" /FO LIST | findstr PID:"
-			pid = pidthing.gets.chomp.scan(/\d+/)[0]
 		end
+        sleep(5)
+        File.open("***REMOVED***{SOLR_PIDS_PATH}/***REMOVED***{ENV['RAILS_ENV']}_pid", "w"){ |f| f << pid}
+        puts "***REMOVED***{ENV['RAILS_ENV']} Solr started successfully on ***REMOVED***{SOLR_PORT}, pid: ***REMOVED***{pid}."
+      end
+    end
+  end
+
+  desc 'Starts Solr on a Windows machine. Options accepted: RAILS_ENV=your_env, PORT=XX. Defaults to development if none.'
+  task :start_win do
+    require "***REMOVED***{File.dirname(__FILE__)}/../../config/solr_environment.rb"
+    begin
+      n = Net::HTTP.new('127.0.0.1', SOLR_PORT)
+      n.request_head('/').value 
+
+    rescue Net::HTTPServerException ***REMOVED***responding
+      puts "Port ***REMOVED***{SOLR_PORT} in use" and return
+
+    rescue Errno::ECONNREFUSED ***REMOVED***not responding
+      Dir.chdir(SOLR_PATH) do
+		pid = -1
+		puts "Using Windows"
+		cmd = "start \"Solr server\" java ***REMOVED***{SOLR_JVM_OPTIONS} -Dsolr.data.dir=\"***REMOVED***{SOLR_DATA_PATH}\" -Djetty.logs=\"***REMOVED***{SOLR_LOGS_PATH}\" -Djetty.port=***REMOVED***{SOLR_PORT} -jar start.jar"
+		javathing = IO.popen cmd
+		***REMOVED***"start \"Solr server\" java ***REMOVED***{SOLR_JVM_OPTIONS} -Dsolr.data.dir=***REMOVED***{SOLR_DATA_PATH} -Djetty.logs=***REMOVED***{SOLR_LOGS_PATH} -Djetty.port=***REMOVED***{SOLR_PORT} -jar start.jar"
+		pidthing = IO.popen "tasklist /FI \"IMAGENAME eq JAVA.EXE\" /FO LIST | findstr PID:"
+		pid = pidthing.gets.chomp.scan(/\d+/)[0]
         sleep(5)
         File.open("***REMOVED***{SOLR_PIDS_PATH}/***REMOVED***{ENV['RAILS_ENV']}_pid", "w"){ |f| f << pid}
         puts "***REMOVED***{ENV['RAILS_ENV']} Solr started successfully on ***REMOVED***{SOLR_PORT}, pid: ***REMOVED***{pid}."
