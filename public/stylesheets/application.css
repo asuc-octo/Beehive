@@ -373,14 +373,17 @@ span.tag {
 }
 
 /**Links**/
-***REMOVED***header a {
-	color: ***REMOVED***abe68b;
-}
-
 a { 
-	color: ***REMOVED***50a025; 
+	color: ***REMOVED***71c146; 
 	text-decoration: none;
 }
+
+***REMOVED***header a {
+	/* color: ***REMOVED***abe68b; */
+	color: ***REMOVED***71c146;
+}
+
+
 a:hover {
 	text-decoration: underline;
 }
