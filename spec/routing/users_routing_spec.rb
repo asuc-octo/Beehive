@@ -7,7 +7,7 @@ describe UsersController do
     end
 
     it "recognizes and generates ***REMOVED***new" do
-      { :get => "/users/new" }.should route_to(:controller => "users", :action => "new")
+      ***REMOVED***{ :get => "/users/new" }.should route_to(:controller => "users", :action => "new")
     end
 
     it "recognizes and generates ***REMOVED***show" do
@@ -19,7 +19,7 @@ describe UsersController do
     end
 
     it "recognizes and generates ***REMOVED***create" do
-      { :post => "/users" }.should route_to(:controller => "users", :action => "create") 
+      ***REMOVED***{ :post => "/users" }.should route_to(:controller => "users", :action => "create") 
     end
 
     it "recognizes and generates ***REMOVED***update" do
