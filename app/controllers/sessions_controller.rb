@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
 protected
   ***REMOVED*** Track failed login attempts
   def note_failed_signin
-    flash[:error] = "Couldn't log you in as '***REMOVED***{params[:email]}'"
+    flash[:error] = "Couldn't log you in as '***REMOVED***{params[:email]}'. Check your email or password."
     logger.warn "Failed login for '***REMOVED***{params[:email]}' from ***REMOVED***{request.remote_ip} at ***REMOVED***{Time.now.utc}"
   end
 end

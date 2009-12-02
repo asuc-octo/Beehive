@@ -139,8 +139,18 @@ width: 100%;
 	height: 40px;
 }
 
+***REMOVED***flash_error{
+	color: ***REMOVED***FF0000;
+	background: ***REMOVED***f9ffea;
+	border: 1px solid ***REMOVED***F0FFD2;
+	padding:10px;
+	margin: auto;
+	margin-bottom: 20px;
+	text-align: center;
+	width: 500px;
+}
+
 ***REMOVED***flash_notice{
-	/* color: ***REMOVED***91d57c; */
 	color: ***REMOVED***339900;
 	background: ***REMOVED***f9ffea;
 	border: 1px solid ***REMOVED***F0FFD2;
