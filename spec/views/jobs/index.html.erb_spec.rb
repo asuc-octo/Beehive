@@ -27,7 +27,7 @@ describe "/jobs/index.html.erb" do
   end
 
   it "renders a list of jobs" do
-    render
+    ***REMOVED***render
     ***REMOVED***response.should have_tag("tr>td", 1.to_s, 2)
     ***REMOVED***response.should have_tag("tr>td", "value for title".to_s, 2)
     ***REMOVED***response.should have_tag("tr>td", "value for desc".to_s, 2)

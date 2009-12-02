@@ -17,7 +17,7 @@ describe "/jobs/edit.html.erb" do
   end
 
   it "renders the edit job form" do
-    render
+    ***REMOVED***render
 
     ***REMOVED***response.should have_tag("form[action=***REMOVED***{job_path(@job)}][method=post]") do
      ***REMOVED*** with_tag('input***REMOVED***job_user[name=?]', "job[user]")
@@ -26,6 +26,6 @@ describe "/jobs/edit.html.erb" do
      ***REMOVED*** with_tag('input***REMOVED***job_num_positions[name=?]', "job[num_positions]")
      ***REMOVED*** with_tag('input***REMOVED***job_paid[name=?]', "job[paid]")
      ***REMOVED*** with_tag('input***REMOVED***job_credit[name=?]', "job[credit]")
-    end
+    ***REMOVED***end
   end
 end

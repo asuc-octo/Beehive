@@ -19,7 +19,7 @@ describe "/jobs/show.html.erb" do
   end
 
   it "renders attributes in <p>" do
-    render
+    ***REMOVED***render
     ***REMOVED***response.should have_text(/1/)
     ***REMOVED***response.should have_text(/value\ for\ title/)
     ***REMOVED***response.should have_text(/value\ for\ desc/)
