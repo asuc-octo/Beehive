@@ -1,5 +1,6 @@
 class Review < ActiveRecord::Base
-    has_and_belongs_to_many :faculties
+    belongs_to :user
+	belongs_to :faculty
 	
 	***REMOVED*** validations
 	***REMOVED***validates_presence_of :
