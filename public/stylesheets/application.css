@@ -302,17 +302,17 @@ visibility: hidden;
 }
 
 /*long*/
-***REMOVED***dashboard_wrapper_long{
+.dashboard_wrapper_long{
 	margin-bottom: 15px;
 	border-left: 1px solid ***REMOVED***f5f5f5;
 	border-right: 1px solid ***REMOVED***f5f5f5;
 }
-***REMOVED***dashboard_container_long{
+.dashboard_container_long{
 	padding: 15px;
 	background: ***REMOVED***E5FEB4 url("../images/dashboard_box_grad.png") repeat-x bottom left;
 }
 
-***REMOVED***dashboard_shadow_long{
+.dashboard_shadow_long{
 	height: 7px;
 	background: url("../images/trans_down_small.png") repeat-x top left;
 }
