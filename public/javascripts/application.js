@@ -47,5 +47,23 @@ function menu_bar_three(){
 	});
 }
 
+/* users/new signup page sliding effects */
 
+function user_signup_student_fields() {
+    $('***REMOVED***fields_student_above_password').slideDown();
+    $('***REMOVED***fields_student_below_password').slideDown();
+    $('***REMOVED***fields_faculty').slideUp();
+}
+
+function user_signup_faculty_fields() {
+    $('***REMOVED***fields_student_above_password').slideUp();
+    $('***REMOVED***fields_student_below_password').slideUp();
+    $('***REMOVED***fields_faculty').slideDown();
+}
+
+
+/* autocomplete endpoint GET requests */
+function get_categories() {
+    return $.getJSON('/categories/json');
+}
 
