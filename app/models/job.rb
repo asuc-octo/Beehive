@@ -112,7 +112,12 @@ class Job < ActiveRecord::Base
   		proglang_list << pl.name + ','
   	end
   	proglang_list[0..(proglang_list.length - 2)].downcase
-  end  
+  end
+  
+  ***REMOVED*** Returns the activation url for this job
+  def activation_url
+    "***REMOVED***{$rm_root}jobs/activate/***REMOVED***{self.id}?a=***REMOVED***{self.activation_code}"
+  end
   
   protected
   
