@@ -44,6 +44,33 @@ class Job < ActiveRecord::Base
   @skip_handlers = false
   attr_accessor :skip_handlers
   
+  def self.active_jobs
+    Job.find(:all, :conditions => {:active => true}, :order => "created_at DESC")
+  end
+  
+  ***REMOVED*** This is the main search handler.
+  ***REMOVED*** It should be the ONLY interface between search queries and jobs;
+  ***REMOVED*** hopefully this will make the choice of search engine transparent
+  ***REMOVED*** to our app.
+  ***REMOVED***
+  ***REMOVED*** Currently uses the simple acts_as_index
+  ***REMOVED***   (http://douglasfshearer.com/blog/rails-plugin-acts_as_indexed)
+  ***REMOVED***
+  def self.find_jobs(query, department, faculty, paid, credit)
+    paid = from_binary(paid)
+    credit = from_binary(credit)
+    
+    ***REMOVED***results = Job.find(:all, :conditions => {:active => true }) ***REMOVED*** TODO: exclude expired jobs too
+    jobs = Job.active_jobs
+    jobs = Job.find_with_index(query, {:conditions => {:active=>true}}) if !query.empty?
+    
+    jobs = jobs.select {|j| j.department_id.to_i == department } if department != 0
+    jobs = jobs.select {|j| j.faculties.collect{|f| f.id.to_i}.include?(faculty) }  if faculty != 0
+    jobs = jobs.select {|j| j.paid == paid} if paid
+    jobs = jobs.select {|j| j.credit == credit} if credit
+    return jobs
+  end
+   
   def self.find_recently_added(n)
 	Job.find(:all, :order => "created_at DESC", :limit=>n)
   end
@@ -122,6 +149,11 @@ class Job < ActiveRecord::Base
 	def validate_sponsorships
 	  errors.add_to_base("Job posting must have at least one faculty sponsor.") unless (sponsorships.size > 0)
 	end
+	
+	def self.from_binary(n)
+	  return false if n == 0
+	  return true
+  end
 
 	
 end
