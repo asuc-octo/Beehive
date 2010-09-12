@@ -49,12 +49,12 @@ class Job < ActiveRecord::Base
   end
   
   def self.smartmatches_for(my, limit=4) ***REMOVED*** matches for a user
-	  courses = my.course_list_of_user.gsub ",", " "
+	courses = my.course_list_of_user.gsub ",", " "
   	cats = my.category_list_of_user.gsub ",", " "
   	pls = my.proglang_list_of_user.gsub ",", " "
   	query = "***REMOVED***{cats} ***REMOVED***{courses} ***REMOVED***{pls}"
-  	***REMOVED***Job.find_by_solr_by_relevance(query)
-    self.find_jobs(query, 0, 0, 0, 0, limit)
+    Job.find_jobs(query, 0, 0, 0, 0, limit)
+    Job.all
   end
   
   ***REMOVED*** This is the main search handler.
@@ -69,38 +69,39 @@ class Job < ActiveRecord::Base
   ***REMOVED*** Currently uses the simple acts_as_indexed plugin
   ***REMOVED***   (http://douglasfshearer.com/blog/rails-plugin-acts_as_indexed)
   ***REMOVED***
-  def self.find_jobs(query="", department=0, faculty=0, paid=0, credit=0, limit=0)
+  def self.find_jobs(query="", department=0, faculty=0, paid=0, credit=0, limit=0, extra_conditions={})
     paid = from_binary(paid)
     credit = from_binary(credit)
-    
-***REMOVED***    conditions = {:active=>true}
-***REMOVED***    conditions.update( {:department_id => department}   ) if department != 0
-***REMOVED***    conditions.update( {:paid => true}                  ) if paid
-***REMOVED***    conditions.update( {:credit => true}                ) if credit
-    
-***REMOVED***    date_conditions = {:conditions => "(exp_date > '***REMOVED***{Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}')"}
-    
+
+    ***REMOVED*** Build conditions. Job must [optionally]:
+    ***REMOVED***  - be active
+    ***REMOVED***  - expire in the future
+    ***REMOVED***  - [match requested department]
+    ***REMOVED***  - [be paid]
+    ***REMOVED***  - [be credit]
     conditions = "active='t'"
     conditions += " AND (exp_date > '***REMOVED***{Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}')"
     conditions += " AND department_id=***REMOVED***{department}" if department != 0
     conditions += " AND paid"                      if paid
-    conditions += " AND credit"                    if credit
+    conditions += " AND credit"                    if credit    
     
+    if extra_conditions.is_a? String then
+        conditions += " AND "+extra_conditions
+    else extra_conditions.each do |key, value|
+        conditions += " AND ***REMOVED***{key}=***REMOVED***{value}"
+        end
+    end
 
     ***REMOVED*** Find results matching search criteria
+    ***REMOVED*** Also apply a result limit, if any
     results = {}
     find_args = {:conditions=>conditions}
     find_args.update( {:limit=>limit} ) if limit > 0
-***REMOVED***    date_conditions.update( {:limit=>limit} ) if limit > 0
     if (query and !query.empty?)
         results = Job.with_query(query).find(:all, find_args)
       else
         results = Job.find(:all, find_args)
     end
-    
-    ***REMOVED*** Filter out expired jobs, and apply result count limit, if any
-    date_conditions.update( {:limit=>limit} ) if limit > 0
-***REMOVED***    results = results.find(:all, date_conditions)
     
     ***REMOVED*** Filter by requested faculty
     ***REMOVED*** TODO: do this in the database
@@ -109,7 +110,8 @@ class Job < ActiveRecord::Base
   end
    
   def self.find_recently_added(n)
-	Job.find(:all, {:order => "created_at DESC", :limit=>n, :active=>true} )
+	***REMOVED***Job.find(:all, {:order => "created_at DESC", :limit=>n, :active=>true} )
+    Job.find_jobs( :extra_conditions => {:order=>"created_at DESC", :limit=>n} )
   end
   
   ***REMOVED*** Returns a string containing the category names taken by job @job
