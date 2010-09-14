@@ -71,31 +71,54 @@ class Job < ActiveRecord::Base
   ***REMOVED***
 ***REMOVED***  def self.find_jobs(query="", department=0, faculty=0, paid=0, credit=0, limit=0, extra_conditions={}, extra_options={ })
   def self.find_jobs(query="", extra_options={ })
-    paid = from_binary(paid)
-    credit = from_binary(credit)
     
-    options = { :exclude_expired    => true,
-                :department         => 0,
-                :faculty            => 0,
-                :paid               => false,
-                :credit             => false,
-                :limit              => 0,
-                :conditions         => {}
+    puts "\n\n\n\n",extra_options
+    
+    ***REMOVED*** Sanitize some boolean options to avoid false positives.
+    ***REMOVED*** This happens in situations like paid=0 => paid=true
+    [:paid, :credit].each do |attrib|
+        extra_options[attrib] = from_binary(extra_options[attrib])
+    end
+    
+    puts extra_options, "\n\n\n\n\n\n"
+    
+    ***REMOVED*** Set up default options, and merge the extras
+    options = { :exclude_expired    => true,        ***REMOVED*** return expired jobs too
+                :department         => 0,           ***REMOVED*** department ID
+                :faculty            => 0,           ***REMOVED*** faculty ID
+                :paid               => false,       ***REMOVED*** paid?
+                :credit             => false,       ***REMOVED*** credit?
+                :limit              => 0,           ***REMOVED*** max. num results
+                :conditions         => {},          ***REMOVED*** more SQL conditions
+                :operator           => :AND,        ***REMOVED*** search operator <:AND | :OR>
                 }.update(extra_options)
 
+    ***REMOVED*** Choose an operator from the list; i.e. sanitize the operator.
+    op = [:AND, :OR].detect {|o| o==options[:operator]} || :AND
+                
     ***REMOVED*** Build conditions. Job must [optionally]:
     ***REMOVED***  - be active
     ***REMOVED***  - expire in the future
     ***REMOVED***  - [match requested department]
     ***REMOVED***  - [be paid]
     ***REMOVED***  - [be credit]
-    conditions = ""
-    conditions += "active='t'"                       if options[:exclude_expired]
-    conditions += " AND (exp_date > '***REMOVED***{Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}')"
-    conditions += " AND department_id=***REMOVED***{department}" if options[:department] != 0
-    conditions += " AND paid"                        if options[:paid]
-    conditions += " AND credit"                      if options[:credit]
     
+    ***REMOVED*** These are the necessary conditions. Jobs MUST be active and non-expired (unless we really want
+    ***REMOVED*** to exclude the expired ones.. but you get the idea).
+    conditions = "( active='t'"
+    conditions += " AND exp_date > '***REMOVED***{Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}'" if options[:exclude_expired]
+    conditions += ")"
+    
+    ***REMOVED*** These are the optional conditions.
+    moar_conditions = []
+    moar_conditions << "department_id=***REMOVED***{department}" if options[:department] != 0
+    moar_conditions << "paid='t'"                        if options[:paid]
+    moar_conditions << "credit='t'"                      if options[:credit]
+    
+    ***REMOVED*** Concat the optional conditions onto the necessary ones
+    conditions += " AND (***REMOVED***{moar_conditions.join(op.to_s+" ")})" if moar_conditions.length > 0
+    
+    ***REMOVED*** Merge additional SQL conditions
     if options[:conditions].is_a? String then
         conditions += " AND "+options[:conditions]
     else options[:conditions].each do |key, value|
@@ -204,11 +227,6 @@ class Job < ActiveRecord::Base
 	def validate_sponsorships
 	  errors.add_to_base("Job posting must have at least one faculty sponsor.") unless (sponsorships.size > 0)
 	end
-	
-	def self.from_binary(n)
-	  return false if n == 0
-	  return true
-  end
 
 	
 end
