@@ -43,8 +43,8 @@ end
 
   ***REMOVED*** This is the root url for our app (like localhost:3000/)
   ***REMOVED*** WITH trailing slash
-  $rm_root = "http://localhost:3000/"
+  $rm_root = "http://upe.cs.berkeley.edu/research/"
   
   ***REMOVED*** Set up ActionMailer
   ActionMailer::Base.default_url_options[:host] = $rm_root
-  ActionMailer::Base.delivery_method = :test
+  ***REMOVED***ActionMailer::Base.delivery_method = :test ***REMOVED*** Defaults to STMP
