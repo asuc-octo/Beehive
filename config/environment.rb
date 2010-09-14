@@ -47,4 +47,4 @@ end
   
   ***REMOVED*** Set up ActionMailer
   ActionMailer::Base.default_url_options[:host] = $rm_root
-  ***REMOVED***ActionMailer::Base.delivery_method = :test ***REMOVED*** Defaults to STMP
+  ActionMailer::Base.delivery_method = :test ***REMOVED*** Defaults to STMP
