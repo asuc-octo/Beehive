@@ -5,13 +5,6 @@ require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environ
 require 'spec/autorun'
 require 'spec/rails'
 
-***REMOVED*** Mocks out acts_as_solr functionality
-class ActsAsSolr::Post
-  def self.execute(request)
-	true
-  end
-end
-
 ***REMOVED*** Uncomment the next line to use webrat's matchers
 ***REMOVED***require 'webrat/integrations/rspec-rails'
 
