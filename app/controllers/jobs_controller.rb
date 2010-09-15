@@ -248,7 +248,6 @@ class JobsController < ApplicationController
 		tags_string << ',' + (@job.paid ? 'paid' : 'unpaid')
 		tags_string << ',' + (@job.credit ? 'credit' : 'no credit')
 		@job.tag_list = tags_string
-        print "\n\n\n\nPROGZ: ***REMOVED***{@job.proglang_list_of_job}\nCOURSEZ: ***REMOVED***{@job.course_list_of_job}\nTAGZ: ***REMOVED***{@job.tag_list.to_s}\n\n\n\n\n"
 	end
   
   private
