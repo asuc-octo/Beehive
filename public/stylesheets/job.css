@@ -45,19 +45,19 @@
 
 
 ***REMOVED***browse_results_wrapper{
-	
+
 }
 
 ***REMOVED***browse_results{
-	/*c1c1c1*/
+    /* drop shadow */
+    -box-shadow: 0px 3px 10px ***REMOVED***ccc;  
+    -moz-box-shadow: 0px 3px 10px ***REMOVED***ccc;  
+    -webkit-box-shadow: 0px 3px 10px ***REMOVED***ccc;  
+    
+
 	border-right: 1px solid ***REMOVED***e2e2e2;
 	border-left: 1px solid ***REMOVED***e2e2e2;
 	border-bottom: 1px solid ***REMOVED***e2e2e2;
-}
-
-***REMOVED***browse_results_shadow{
-	height: 7px;
-	background: url("../images/trans_down_small.png") repeat-x top left;
 }
 
 ***REMOVED***browse_search_bar{
