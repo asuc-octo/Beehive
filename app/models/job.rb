@@ -23,9 +23,6 @@ class Job < ActiveRecord::Base
   before_validation :handle_courses
   before_validation :handle_proglangs
   
-  acts_as_taggable
-  acts_as_indexed :fields => [:title, :desc, :tag_list]
-  
   validates_presence_of :title, :desc, :exp_date, :num_positions, :department
   
   ***REMOVED*** Validates that expiration dates are no earlier than right now.
@@ -47,17 +44,45 @@ class Job < ActiveRecord::Base
   @skip_handlers = false
   attr_accessor :skip_handlers
   
+  acts_as_taggable
+  acts_as_xapian :texts => [:title, :desc, :tag_list],
+    :values => [
+        [:paid,             0, "paid",          :number],
+        [:credit,           1, "credit",        :number],
+        [:exp_date,         2, "exp_date",      :date],
+        [:active,           3, "active",        :number],
+        [:updated_at,       4, "updated_at",    :date],
+        [:department_id,    5, "department_id", :number],
+        [:num_positions,    6, "num_positions", :number]
+    ]
+  ***REMOVED***xapit do |index|
+    ***REMOVED***index.text :title, :desc, :tag_list
+    ***REMOVED***index.field :active, :paid, :credit
+    ***REMOVED***index.sortable :exp_date
+  ***REMOVED***end
+  
   def self.active_jobs
     Job.find(:all, :conditions => {:active => true}, :order => "created_at DESC")
   end
   
   def self.smartmatches_for(my, limit=4) ***REMOVED*** matches for a user
-	courses = my.course_list_of_user.gsub ",", " "
-  	cats = my.category_list_of_user.gsub ",", " "
-  	pls = my.proglang_list_of_user.gsub ",", " "
-  	query = "***REMOVED***{cats} ***REMOVED***{courses} ***REMOVED***{pls}"
-    ***REMOVED***Job.find_jobs(query, 0, 0, 0, 0, limit)
-    Job.find_jobs(query, {:limit=>limit, :exclude_expired=>true})
+	***REMOVED*** courses = my.course_list_of_user.gsub ",", " "
+  	***REMOVED*** cats = my.category_list_of_user.gsub ",", " "
+  	***REMOVED*** pls = my.proglang_list_of_user.gsub ",", " "
+  	***REMOVED*** query = "***REMOVED***{cats} ***REMOVED***{courses} ***REMOVED***{pls}"
+    ***REMOVED***Job.find_jobs(query, {:limit=>limit, :exclude_expired=>true})
+    
+    
+    list_separator = ","        ***REMOVED*** string that separates items in the stored list
+    
+    query = []
+    [my.course_list_of_user,
+     my.category_list_of_user,
+     my.proglang_list_of_user].each do |list|
+        query.concat list.split(list_separator)
+    end
+    Job.find_jobs(query, {:operator=>:OR, :exclude_expired=>true})
+    ***REMOVED*** TODO: limit
   end
   
   ***REMOVED*** This is the main search handler.
@@ -69,21 +94,70 @@ class Job < ActiveRecord::Base
   ***REMOVED*** You can also restrict by query, department, faculty, paid, credit,
   ***REMOVED*** and set a limit of max number of results.
   ***REMOVED***
-  ***REMOVED*** Currently uses the simple acts_as_indexed plugin
-  ***REMOVED***   (http://douglasfshearer.com/blog/rails-plugin-acts_as_indexed)
+  ***REMOVED*** Currently uses Xapian/xapit
+  ***REMOVED***   (http://github.com/ryanb/xapit***REMOVED***readme)
+  ***REMOVED***   windows binaries from (http://www.flax.co.uk/xapian_binaries)
   ***REMOVED***
-***REMOVED***  def self.find_jobs(query="", department=0, faculty=0, paid=0, credit=0, limit=0, extra_conditions={}, extra_options={ })
-  def self.find_jobs(query="", extra_options={ })
-    
-    puts "\n\n\n\n",extra_options
-    
+  ***REMOVED*** query: Array of search terms.
+  ***REMOVED*** extra_options: Hash of additional options:
+  ***REMOVED***   - exclude_expired: if true, don't include expired jobs
+  ***REMOVED***   - department: ID of department you want to search, or 0 for all depts
+  ***REMOVED***   - faculty: ID of faculty member you want to search, or 0 for all
+  ***REMOVED***   - paid: if true, return jobs that have paid=true; else return paid and nonpaid
+  ***REMOVED***   - credit: if true, return jobs that have credit=true; else return credit and noncredit
+  ***REMOVED***   - limit: max. number of results, or 0 for no limit
+  ***REMOVED***   - conditions: more raw SQL conditions. Be careful with this.
+  ***REMOVED***   - operator: [:AND | :OR], search operator used to join query terms
+  ***REMOVED***
+  def self.find_jobs(query=[], extra_options={})
     ***REMOVED*** Sanitize some boolean options to avoid false positives.
     ***REMOVED*** This happens in situations like paid=0 => paid=true
     [:paid, :credit].each do |attrib|
         extra_options[attrib] = from_binary(extra_options[attrib])
     end
     
-    puts extra_options, "\n\n\n\n\n\n"
+    ***REMOVED*** Set up default options, and merge the extras
+    options = { :exclude_expired    => true,        ***REMOVED*** return expired jobs too
+                :department         => 0,           ***REMOVED*** department ID
+                :faculty            => 0,           ***REMOVED*** faculty ID
+                :paid               => false,       ***REMOVED*** paid?
+                :credit             => false,       ***REMOVED*** credit?
+                :limit              => 0,           ***REMOVED*** max. num results
+                :conditions         => {},          ***REMOVED*** more SQL conditions
+                :operator           => :AND,        ***REMOVED*** search operator <:AND | :OR>
+                }.update(extra_options)
+                
+    ***REMOVED*** ohai
+    conditions = {}
+    conditions[:active]     = true
+    conditions[:exp_date]   = Time.at(0)..Time.now  unless options[:exclude_expired]
+    conditions[:paid]       = true                  if options[:paid]
+    conditions[:credit]     = true                  if options[:credit]
+
+    ***REMOVED*** Choose an operator from the list; i.e. sanitize the operator.
+    op = [:AND, :OR].detect {|o| o==options[:operator]} || :AND
+    opstring = op.to_s+" "
+    
+    queryoptions = []
+    queryoptions << "active:1"                      if options[:exclude_expired]
+    queryoptions << "department:***REMOVED***{department}"      if options[:department] != 0
+    queryoptions << "paid:1"                        if options[:paid]
+    queryoptions << "credit:1"                      if options[:credit]
+    
+    querystring = ""
+    querystring += query.join(opstring) unless query.empty?
+    querystring += " AND (***REMOVED***{queryoptions.join(" AND ")})" unless queryoptions.empty?
+    
+    ***REMOVED***jobs = Job.search(query.join(opstring), :conditions => conditions)
+    jobs = ActsAsXapian::Search.new([Job], querystring)
+  end
+  
+  def self.find_jobs_OLD(query={}, extra_options={ })
+    ***REMOVED*** Sanitize some boolean options to avoid false positives.
+    ***REMOVED*** This happens in situations like paid=0 => paid=true
+    [:paid, :credit].each do |attrib|
+        extra_options[attrib] = from_binary(extra_options[attrib])
+    end
     
     ***REMOVED*** Set up default options, and merge the extras
     options = { :exclude_expired    => true,        ***REMOVED*** return expired jobs too
@@ -98,6 +172,7 @@ class Job < ActiveRecord::Base
 
     ***REMOVED*** Choose an operator from the list; i.e. sanitize the operator.
     op = [:AND, :OR].detect {|o| o==options[:operator]} || :AND
+    opstring = op.to_s+" "
                 
     ***REMOVED*** Build conditions. Job must [optionally]:
     ***REMOVED***  - be active
@@ -108,18 +183,18 @@ class Job < ActiveRecord::Base
     
     ***REMOVED*** These are the necessary conditions. Jobs MUST be active and non-expired (unless we really want
     ***REMOVED*** to exclude the expired ones.. but you get the idea).
-    conditions = "( active='t'"
+    conditions = "(active='t'"
     conditions += " AND exp_date > '***REMOVED***{Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}'" if options[:exclude_expired]
     conditions += ")"
     
     ***REMOVED*** These are the optional conditions.
     moar_conditions = []
-    moar_conditions << "department_id=***REMOVED***{department}" if options[:department] != 0
+    moar_conditions << "department_id=***REMOVED***{department}"     if options[:department] != 0
     moar_conditions << "paid='t'"                        if options[:paid]
     moar_conditions << "credit='t'"                      if options[:credit]
     
     ***REMOVED*** Concat the optional conditions onto the necessary ones
-    conditions += " AND (***REMOVED***{moar_conditions.join(op.to_s+" ")})" if moar_conditions.length > 0
+    conditions += " AND (***REMOVED***{moar_conditions.join(opstring)})" if moar_conditions.length > 0
     
     ***REMOVED*** Merge additional SQL conditions
     if options[:conditions].is_a? String then
@@ -135,7 +210,7 @@ class Job < ActiveRecord::Base
     find_args = {:conditions=>conditions}
     find_args.update( {:limit=>options[:limit]} ) if options[:limit] > 0
     if (query and !query.empty?)
-        results = Job.with_query(query).find(:all, find_args)
+        results = Job.with_query(query.join(opstring)).find(:all, find_args)
       else
         results = Job.find(:all, find_args)
     end
