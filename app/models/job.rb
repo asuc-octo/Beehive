@@ -112,15 +112,17 @@ class Job < ActiveRecord::Base
   ***REMOVED***   - conditions: more raw SQL conditions. Be careful with this.
   ***REMOVED***   - operator: [:AND | :OR], search operator used to join query terms
   ***REMOVED***
-  def self.find_jobs(query=[], extra_options={})
+  def self.find_jobs(query="*", extra_options={})
     ***REMOVED*** Sanitize some boolean options to avoid false positives.
     ***REMOVED*** This happens in situations like paid=0 => paid=true
     [:paid, :credit].each do |attrib|
         extra_options[attrib] = from_binary(extra_options[attrib])
     end
     
-    ***REMOVED*** Maybe we're doing a plaintext search..
-    query = query.split if query.kind_of? String
+    ***REMOVED*** Handle weird cases with bad query
+    query = "*" if query.nil?
+    ***REMOVED***query = query.split if query.kind_of? String
+    query = query.join(' ') if query.kind_of? Array
     
     ***REMOVED*** Set up default options, and merge the extras
     options = { :exclude_expired    => true,        ***REMOVED*** return expired jobs too
@@ -145,79 +147,9 @@ class Job < ActiveRecord::Base
     op = [:AND, :OR].detect {|o| o==options[:operator]} || :AND
     opstring = op.to_s+" "
 
-    puts "\n\n\n\n\nquery: ***REMOVED***{query.join(opstring)}\nextra_options: ***REMOVED***{extra_options.inspect}\nconditions: ***REMOVED***{conditions.inspect}\n\n\n\n"
-
-    jobs = Job.search(query.join(opstring), :conditions => conditions)
+    ***REMOVED***jobs = Job.search(query.join(opstring), :conditions => conditions)
+    jobs = Job.search(query, :conditions => conditions)
 ***REMOVED***    jobs = ActsAsXapian::Search.new([Job], querystring)
-  end
-  
-  def self.find_jobs_OLD(query={}, extra_options={ })
-    ***REMOVED*** Sanitize some boolean options to avoid false positives.
-    ***REMOVED*** This happens in situations like paid=0 => paid=true
-    [:paid, :credit].each do |attrib|
-        extra_options[attrib] = from_binary(extra_options[attrib])
-    end
-    
-    ***REMOVED*** Set up default options, and merge the extras
-    options = { :exclude_expired    => true,        ***REMOVED*** return expired jobs too
-                :department         => 0,           ***REMOVED*** department ID
-                :faculty            => 0,           ***REMOVED*** faculty ID
-                :paid               => false,       ***REMOVED*** paid?
-                :credit             => false,       ***REMOVED*** credit?
-                :limit              => 0,           ***REMOVED*** max. num results
-                :conditions         => {},          ***REMOVED*** more SQL conditions
-                :operator           => :AND,        ***REMOVED*** search operator <:AND | :OR>
-                }.update(extra_options)
-
-    ***REMOVED*** Choose an operator from the list; i.e. sanitize the operator.
-    op = [:AND, :OR].detect {|o| o==options[:operator]} || :AND
-    opstring = op.to_s+" "
-                
-    ***REMOVED*** Build conditions. Job must [optionally]:
-    ***REMOVED***  - be active
-    ***REMOVED***  - expire in the future
-    ***REMOVED***  - [match requested department]
-    ***REMOVED***  - [be paid]
-    ***REMOVED***  - [be credit]
-    
-    ***REMOVED*** These are the necessary conditions. Jobs MUST be active and non-expired (unless we really want
-    ***REMOVED*** to exclude the expired ones.. but you get the idea).
-    conditions = "(active='t'"
-    conditions += " AND exp_date > '***REMOVED***{Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}'" if options[:exclude_expired]
-    conditions += ")"
-    
-    ***REMOVED*** These are the optional conditions.
-    moar_conditions = []
-    moar_conditions << "department_id=***REMOVED***{department}"     if options[:department] != 0
-    moar_conditions << "paid='t'"                        if options[:paid]
-    moar_conditions << "credit='t'"                      if options[:credit]
-    
-    ***REMOVED*** Concat the optional conditions onto the necessary ones
-    conditions += " AND (***REMOVED***{moar_conditions.join(opstring)})" if moar_conditions.length > 0
-    
-    ***REMOVED*** Merge additional SQL conditions
-    if options[:conditions].is_a? String then
-        conditions += " AND "+options[:conditions]
-    else options[:conditions].each do |key, value|
-        conditions += " AND ***REMOVED***{key}=***REMOVED***{value}"
-        end
-    end
-
-    ***REMOVED*** Find results matching search criteria
-    ***REMOVED*** Also apply a result limit, if any
-    results = {}
-    find_args = {:conditions=>conditions}
-    find_args.update( {:limit=>options[:limit]} ) if options[:limit] > 0
-    if (query and !query.empty?)
-        results = Job.with_query(query.join(opstring)).find(:all, find_args)
-      else
-        results = Job.find(:all, find_args)
-    end
-    
-    ***REMOVED*** Filter by requested faculty
-    ***REMOVED*** TODO: do this in the database
-    results = results.select {|j| j.faculties.collect{|f| f.id.to_i}.include?(options[:faculty]) }  if options[:faculty] != 0
-    return results
   end
    
   def self.find_recently_added(n)
