@@ -45,21 +45,24 @@ class Job < ActiveRecord::Base
   attr_accessor :skip_handlers
   
   acts_as_taggable
-  acts_as_xapian :texts => [:title, :desc, :tag_list],
-    :values => [
-        [:paid,             0, "paid",          :number],
-        [:credit,           1, "credit",        :number],
-        [:exp_date,         2, "exp_date",      :date],
-        [:active,           3, "active",        :number],
-        [:updated_at,       4, "updated_at",    :date],
-        [:department_id,    5, "department_id", :number],
-        [:num_positions,    6, "num_positions", :number]
-    ]
-  ***REMOVED***xapit do |index|
-    ***REMOVED***index.text :title, :desc, :tag_list
-    ***REMOVED***index.field :active, :paid, :credit
-    ***REMOVED***index.sortable :exp_date
-  ***REMOVED***end
+***REMOVED***  acts_as_xapian :texts => [:title, :desc, :tag_list],
+***REMOVED***    :values => [
+***REMOVED***        [:paid,             0, "paid",          :number],
+***REMOVED***        [:credit,           1, "credit",        :number],
+***REMOVED***        [:exp_date,         2, "exp_date",      :date],
+***REMOVED***        [:active,           3, "active",        :number],
+***REMOVED***        [:updated_at,       4, "updated_at",    :date],
+***REMOVED***        [:department_id,    5, "department_id", :number],
+***REMOVED***        [:num_positions,    6, "num_positions", :number]
+***REMOVED***    ]
+  xapit do |index|
+    index.text :title, :desc, :tag_list
+    index.field :active, :num_positions ***REMOVED***, :paid, :credit
+    index.sortable :exp_date
+    index.facet :department_id, "Department"
+    index.facet :paid, "Paid"
+    index.facet :credit, "Credit"
+  end
   
   def self.active_jobs
     Job.find(:all, :conditions => {:active => true}, :order => "created_at DESC")
@@ -116,6 +119,9 @@ class Job < ActiveRecord::Base
         extra_options[attrib] = from_binary(extra_options[attrib])
     end
     
+    ***REMOVED*** Maybe we're doing a plaintext search..
+    query = query.split if query.kind_of? String
+    
     ***REMOVED*** Set up default options, and merge the extras
     options = { :exclude_expired    => true,        ***REMOVED*** return expired jobs too
                 :department         => 0,           ***REMOVED*** department ID
@@ -130,26 +136,19 @@ class Job < ActiveRecord::Base
     ***REMOVED*** ohai
     conditions = {}
     conditions[:active]     = true
-    conditions[:exp_date]   = Time.at(0)..Time.now  unless options[:exclude_expired]
+    conditions[:exp_date]   = Time.now..100.years.since  unless options[:exclude_expired]
     conditions[:paid]       = true                  if options[:paid]
     conditions[:credit]     = true                  if options[:credit]
+    conditions[:department_id] = options[:department] if options[:department] > 0
 
     ***REMOVED*** Choose an operator from the list; i.e. sanitize the operator.
     op = [:AND, :OR].detect {|o| o==options[:operator]} || :AND
     opstring = op.to_s+" "
-    
-    queryoptions = []
-    queryoptions << "active:1"                      if options[:exclude_expired]
-    queryoptions << "department:***REMOVED***{department}"      if options[:department] != 0
-    queryoptions << "paid:1"                        if options[:paid]
-    queryoptions << "credit:1"                      if options[:credit]
-    
-    querystring = ""
-    querystring += query.join(opstring) unless query.empty?
-    querystring += " AND (***REMOVED***{queryoptions.join(" AND ")})" unless queryoptions.empty?
-    
-    ***REMOVED***jobs = Job.search(query.join(opstring), :conditions => conditions)
-    jobs = ActsAsXapian::Search.new([Job], querystring)
+
+    puts "\n\n\n\n\nquery: ***REMOVED***{query.join(opstring)}\nextra_options: ***REMOVED***{extra_options.inspect}\nconditions: ***REMOVED***{conditions.inspect}\n\n\n\n"
+
+    jobs = Job.search(query.join(opstring), :conditions => conditions)
+***REMOVED***    jobs = ActsAsXapian::Search.new([Job], querystring)
   end
   
   def self.find_jobs_OLD(query={}, extra_options={ })
