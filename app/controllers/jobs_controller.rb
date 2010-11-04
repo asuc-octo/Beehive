@@ -223,6 +223,14 @@ class JobsController < ApplicationController
 	
   end
   
+  ***REMOVED*** the landing page for applying for a job
+  def goapply
+     @job = Job.find(params[:id])
+     applic = Applic.new({:user => current_user, :job => @job})   
+  end
+  
+  
+  ***REMOVED*** the action for actually applying.
   def apply
     job = Job.find(params[:id])
     applic = Applic.new({:user => current_user, :job => job})
