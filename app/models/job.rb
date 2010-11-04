@@ -49,23 +49,26 @@ class Job < ActiveRecord::Base
   attr_accessor :skip_handlers
   
   acts_as_taggable
-***REMOVED***  acts_as_xapian :texts => [:title, :desc, :tag_list],
-***REMOVED***    :values => [
-***REMOVED***        [:paid,             0, "paid",          :number],
-***REMOVED***        [:credit,           1, "credit",        :number],
-***REMOVED***        [:exp_date,         2, "exp_date",      :date],
-***REMOVED***        [:active,           3, "active",        :number],
-***REMOVED***        [:updated_at,       4, "updated_at",    :date],
-***REMOVED***        [:department_id,    5, "department_id", :number],
-***REMOVED***        [:num_positions,    6, "num_positions", :number]
-***REMOVED***    ]
-  xapit do |index|
-    index.text :title, :desc, :tag_list
-    index.field :active, :num_positions ***REMOVED***, :paid, :credit
-    index.sortable :exp_date
-    index.facet :department_id, "Department"
-    index.facet :paid, "Paid"
-    index.facet :credit, "Credit"
+***REMOVED***  xapit do |index|
+***REMOVED***    index.text :title, :desc, :tag_list
+***REMOVED***    index.field :active, :num_positions ***REMOVED***, :paid, :credit
+***REMOVED***    index.sortable :exp_date
+***REMOVED***    index.facet :department_id, "Department"
+***REMOVED***    index.facet :paid, "Paid"
+***REMOVED***    index.facet :credit, "Credit"
+***REMOVED***  end
+  define_index do
+    indexes :title
+    indexes :desc
+    indexes taggings.tag.name, :as => :tag
+    indexes department.name, :as => :department, :facet => true
+    
+    has :active
+    has :paid
+    has :credit
+    has :created_at
+    has :updated_at
+    has :exp_date
   end
   
   def self.active_jobs
@@ -117,6 +120,34 @@ class Job < ActiveRecord::Base
   ***REMOVED***   - operator: [:AND | :OR], search operator used to join query terms
   ***REMOVED***
   def self.find_jobs(query="*", extra_options={})
+    ***REMOVED*** Sanitize some boolean options to avoid false positives.
+    ***REMOVED*** This happens in situations like paid=0 => paid=true
+    [:paid, :credit].each do |attrib|
+        extra_options[attrib] = from_binary(extra_options[attrib])
+    end
+    
+    ***REMOVED*** Handle weird cases with bad query
+    query = query.join(' ') if query.kind_of? Array
+    
+    
+    ts_conditions = {}
+    ts_conditions[:active]      = true
+    
+    ts_conditions[:paid]        = true          if extra_options[:paid]
+    ts_conditions[:credit]      = true          if extra_options[:credit]
+
+    if query.nil?
+        Job.search :conditions => ts_conditions
+    else
+        Job.search query, :conditions => ts_conditions
+    end
+    
+  end
+  
+  
+  
+  
+  def self.find_jobs____FUUUUUUUUUUUUUUUUUUUUU_____(query="*", extra_options={})
     ***REMOVED*** Sanitize some boolean options to avoid false positives.
     ***REMOVED*** This happens in situations like paid=0 => paid=true
     [:paid, :credit].each do |attrib|
