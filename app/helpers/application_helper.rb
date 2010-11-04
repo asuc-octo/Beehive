@@ -25,5 +25,6 @@ end
     ***REMOVED***      true  |  true
     ***REMOVED***
     def from_binary(n)
+***REMOVED***      puts "\n\n***REMOVED***{n} => ***REMOVED***{n && n!=0}\n\n"
       n && n!=0
     end
