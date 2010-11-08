@@ -2,4 +2,4 @@
     morphology: stem_en
 
 ***REMOVED***
-    searchd_file_path: "/researchmatch/shared/db/sphinx"
+    searchd_file_path: "/home/amber/researchmatch/shared/db/sphinx"

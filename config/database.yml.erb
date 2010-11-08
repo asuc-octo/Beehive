@@ -1,0 +1,22 @@
+***REMOVED*** store your custom template at foo/bar/database.yml.erb
+set :template_dir, "config"
+***REMOVED***
+***REMOVED*** example of database template
+
+base: &base
+  adapter: sqlite3
+  timeout: 5000
+***REMOVED***
+  database: <%= shared_path %>/db/development.sqlite3
+  <<: *base
+***REMOVED***
+  database: <%= shared_path %>/db/test.sqlite3
+  <<: *base
+***REMOVED***
+  adapter: mysql
+  database: researchmatch_production
+  username: <%= user %>
+  password: <%= Capistrano::CLI.ui.ask("Enter MySQL database password: ") %>
+  encoding: utf8
+  timeout: 5000
+  
