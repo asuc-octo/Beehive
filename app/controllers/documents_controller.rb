@@ -16,7 +16,7 @@ def create
     @document.document_type = params[:document][:document_type]
     
     if @document.save
-        flash[:notice] = "Thanks for the upload! It should now show up in your profile."
+        flash[:notice] = "Thanks for the upload! It should now show up in your profile. paramsdoctype=***REMOVED***{params[:document][:document_type]}, doctype=***REMOVED***{@document.document_type}"
     else
         flash[:notice] = "Oops! Something went wrong with your upload. No changes were made."
     end
