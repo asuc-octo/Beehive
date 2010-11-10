@@ -105,8 +105,8 @@ width: 100%;
 
 ***REMOVED***header_tabs{
 	background: ***REMOVED***A7D787;
-	background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(***REMOVED***A7D787), to(***REMOVED***a7d787), color-stop(.2,***REMOVED***D1F19F), color-stop(.8,***REMOVED***D1F19F));
-	background: -moz-linear-gradient(0% 50% 0deg,***REMOVED***A7D787, ***REMOVED***A7D787, ***REMOVED***D1F19F 20%,***REMOVED***a7d787 80%);
+	background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(***REMOVED***A7D787), to(***REMOVED***a7d787), color-stop(.15,***REMOVED***D1F19F), color-stop(.85,***REMOVED***D1F19F));
+	background: -moz-linear-gradient(0% 50% 0deg,***REMOVED***A7D787, ***REMOVED***A7D787, ***REMOVED***D1F19F 15%,***REMOVED***a7d787 85%);
 	min-width: 1000px;
 	height: 17px;
 }
