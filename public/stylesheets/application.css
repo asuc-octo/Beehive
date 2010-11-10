@@ -104,7 +104,9 @@ width: 100%;
 }
 
 ***REMOVED***header_tabs{
-	background: ***REMOVED***a7d787;
+	background: ***REMOVED***A7D787;
+	background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(***REMOVED***A7D787), to(***REMOVED***a7d787), color-stop(.2,***REMOVED***D1F19F), color-stop(.8,***REMOVED***D1F19F));
+	background: -moz-linear-gradient(0% 50% 0deg,***REMOVED***A7D787, ***REMOVED***A7D787, ***REMOVED***D1F19F 20%,***REMOVED***a7d787 80%);
 	min-width: 1000px;
 	height: 17px;
 }
@@ -127,7 +129,9 @@ width: 100%;
             box-shadow: 0px 2px 5px ***REMOVED***CCCCCC;            
             -moz-border-radius: 0px 0px 6px 6px;
             border-radius: 0px 0px 6px 6px;
-            background-color: ***REMOVED***A7D787; /****REMOVED***D1F19F;*/
+            background: ***REMOVED***A7D787; /****REMOVED***D1F19F;*/
+          	background: -webkit-gradient(linear, 50% 0%, 50% 100%, from(***REMOVED***D1F19F), to(***REMOVED***A7D787));
+            background: -moz-linear-gradient(0% 50% 90deg,***REMOVED***A7D787, ***REMOVED***d1f19f);
             padding: 10px;
             padding-top: 9px;
             padding-bottom: 7px;
@@ -139,7 +143,7 @@ width: 100%;
         }
             
             ***REMOVED***tabs ul li:hover{
-                background-color: ***REMOVED***D1F19F;
+                background: ***REMOVED***D1F19F;
             }
             
             ***REMOVED***tabs a {
