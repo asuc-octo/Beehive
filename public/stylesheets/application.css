@@ -222,27 +222,23 @@ width: 100%;
 	
 }
 
-***REMOVED***flash_error{
-	color: ***REMOVED***FF0000;
-	background: ***REMOVED***f9ffea;
-	border: 1px solid ***REMOVED***F0FFD2;
-	padding:10px;
-	margin: auto;
-	margin-bottom: 20px;
-	text-align: center;
-	width: 500px;
-}
-
-***REMOVED***flash_notice{
+***REMOVED***flash_error, ***REMOVED***flash_notice{
 	color: ***REMOVED***339900;
 	background: ***REMOVED***f9ffea;
 	border: 1px solid ***REMOVED***F0FFD2;
 	padding:10px;
 	margin: auto;
-	margin-bottom: 20px;
+	margin-top: 15px;
 	text-align: center;
 	width: 500px;
 }
+
+
+***REMOVED***flash_error{
+	color: ***REMOVED***FF0000;
+	background: ***REMOVED***f9ffea;
+}
+
 
 div.vertlist {
 	padding-left: 30px; 
@@ -356,11 +352,11 @@ input.wide {
 
 /**Dashboard**/
 
-***REMOVED***dashboard_container{
+.dashboard_container{
 	width: 900px;
 }
 
-***REMOVED***dashboard_container:after {
+.dashboard_container:after {
 content: ".";
 display: block;
 height: 0;
@@ -373,7 +369,7 @@ h2***REMOVED***dashboard_header {
 }
 
 /*smartmatch*/
-***REMOVED***dashboard_wrapper_smartmatch{
+.dashboard_wrapper_smartmatch{
 	width: 60%;
 	height: 100%;
 	margin-bottom: 15px;
@@ -381,7 +377,7 @@ h2***REMOVED***dashboard_header {
 	border-right: 1px solid ***REMOVED***f5f5f5;
 }
 
-***REMOVED***dashboard_container_smartmatch{
+.dashboard_container_smartmatch{
 	height: 100%;
 	padding: 15px;
 	background: ***REMOVED***E5FEB4 url("../images/dashboard_box_grad.png") repeat-x bottom left;
@@ -392,7 +388,7 @@ h2***REMOVED***dashboard_header {
 
 
 /*watched*/
-***REMOVED***dashboard_wrapper_watched{
+.dashboard_wrapper_watched{
 	float:right;
 	clear: both;
 	width: 37.5%;
@@ -401,7 +397,7 @@ h2***REMOVED***dashboard_header {
 	border-right: 1px solid ***REMOVED***f5f5f5;
     
 }
-***REMOVED***dashboard_container_watched{
+.dashboard_container_watched{
 	padding: 15px;
 	background: ***REMOVED***E5FEB4 url("../images/dashboard_box_grad.png") repeat-x bottom left;
 }
