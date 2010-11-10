@@ -1,4 +1,5 @@
 require "config/capistrano_database"
+require "thinking_sphinx/deploy/capistrano"
 
 ***REMOVED*** Replace with the HTTP (NOT HTTPS) read-only URL of your Google Code SVN.
 set :repository, "http://research-cs194.googlecode.com/svn/trunk/research"
@@ -24,6 +25,10 @@ namespace :mod_rails do
   task :restart, :roles => :app do
     run "touch  ***REMOVED***{release_path}/tmp/restart.txt"
   end
+  
+  task :search_rebuild, :roles => :app do
+  end
+  
 end
 
 namespace :deploy do
