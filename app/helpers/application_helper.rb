@@ -26,14 +26,16 @@ end
 
 ***REMOVED*** Finds value in find_from, and returns the corresponding item from choose_from,
 ***REMOVED*** or default (nil) if find_from does not contain the value.
-***REMOVED*** Comparisons are done using == .
+***REMOVED*** Comparisons are done using == and then eql? .
 ***REMOVED***
 ***REMOVED*** Ex. find_and_choose(["apples", "oranges"], [:red, :orange], "apples")
 ***REMOVED***        would return :red.
 ***REMOVED***
 def find_and_choose(find_from=[], choose_from=[], value=nil, default=nil)
     find_from.each_index do |i|
-        return choose_from[i] if find_from[i] == value
+        puts "\n\nchecking ***REMOVED***{value} == ***REMOVED***{find_from[i]}\n"
+        return choose_from[i] if find_from[i] == value || find_from[i].eql?(value)
+        puts "\n\n\n***REMOVED***{value} wasn't ***REMOVED***{find_from[i]}\n\n\n"
     end
     return default
 end
