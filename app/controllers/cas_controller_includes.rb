@@ -12,19 +12,23 @@ module CASControllerIncludes
       ***REMOVED***TODO: Set user metadata [obtained from LDAP] here, including user_type, rather than all 
       ***REMOVED*** this fake garbage data!!
       ***REMOVED***     (note: the login here is correct; the rest is garbage)
-      @current_user = User.new(
-                            :login => session[:cas_user].to_s,
-                            :name => "CalNet User",
-                            :email => "fakeemailaddress" + rand.to_s[2..16] + "@herpderp" + rand.to_s[2..16] + ".berkeley.edu", 
-                            :password => "password", 
-                            :password_confirmation => "password"
-                              ) ***REMOVED*** necessary to pass validations
-                              
+***REMOVED***      @person = UCB::LDAP::Person.find_by_uid(session[:cas_user]) 
+***REMOVED***      @current_user = User.new(
+***REMOVED***                            :login => session[:cas_user].to_s,
+***REMOVED***                            :name => "***REMOVED***{@person.firstname} ***REMOVED***{@person.lastname}",
+***REMOVED***                            :email => @person.email,
+***REMOVED***                            :password => "password", 
+***REMOVED***                            :password_confirmation => "password"
+***REMOVED***                              ) ***REMOVED*** necessary to pass validations
+                          
+      ***REMOVED*** This has all been moved to users/new.
            
                               
-      @current_user.save!
+      ***REMOVED*** @current_user.save!
 
       ***REMOVED***redirect_to :controller => "users", :action => "edit", :id => @current_user.id
+      redirect_to :controller => :users, :action => :new
+      return false
     end
     
     @current_user.present?

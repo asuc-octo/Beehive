@@ -165,6 +165,54 @@ class User < ActiveRecord::Base
   def can_post?
     [User::Types::Grad, User::Types::Faculty].include? self.user_type
   end
+
+
+  ***REMOVED*** Returns the UCB::LDAP::Person for this User
+  def ldap_person
+    @person ||= UCB::LDAP::Person.find_by_uid(self.login) if self.login
+  end
+
+  def ldap_person_full_name
+    "***REMOVED***{self.ldap_person.firstname} ***REMOVED***{self.ldap_person.lastname}".titleize
+  end
+
+
+  ***REMOVED*** Updates (but does *NOT* save) this User's role, based on the LDAP information
+  def update_user_type
+    person = self.ldap_person
+
+    ***REMOVED*** test
+    self.user_type = User::Types::Grad
+    return self.user_type
+    ***REMOVED*** end test
+
+    case
+    when (person.employee_academic? and not person.employee_expired?)
+      self.user_type = User::Types::Faculty
+    when true
+      self.user_type = User::Types::Grad
+    when (person.student? and person.student_registered?)
+      self.user_type = User::Types::Undergrad
+    else
+      logger.error "User.update_user_type: Couldn't determine user type for login ***REMOVED***{self.login}"
+    end
+    self.user_type
+  end
+
+  ***REMOVED*** User type, as a string
+  ***REMOVED*** TODO: there's probably a better way to do this programmatically
+  def user_type_string
+    case self.user_type
+    when User::Types::Faculty
+      'Faculty'
+    when User::Types::Grad
+      'Grad student/postdoc'
+    when
+      'Undergrad'
+    else
+      '(undefined)'
+    end
+  end
   
   protected
     
