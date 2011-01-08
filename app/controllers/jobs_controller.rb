@@ -139,17 +139,7 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
     @faculty_names = Faculty.all.map {|f| f.name }
 	
-	update_sponsorships
-	
-***REMOVED***	sponsorships = []
-***REMOVED***  	if @job.faculties.first
-***REMOVED***        if params[:faculty_name] != @job.faculties.first.id
-***REMOVED***            @sponsorship = Sponsorship.new(:faculty => Faculty.find(params[:faculty_name]), :job => nil)
-***REMOVED***            params[:job][:sponsorships] = [@sponsorship]
-***REMOVED***        end
-***REMOVED***    end
-	
-  	
+	  update_sponsorships  	
 			
     respond_to do |format|
       if @job.update_attributes(params[:job])
