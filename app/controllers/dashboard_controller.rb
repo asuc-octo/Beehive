@@ -1,27 +1,23 @@
 class DashboardController < ApplicationController
-
   ***REMOVED*** This filter is probably not necessary because of the CAS authentication stuff.
   ***REMOVED*** Hence, it's commented out:
   ***REMOVED***      before_filter :login_required
   
   include CASControllerIncludes
-  
       
   ***REMOVED***CalNet / CAS Authentication
-  before_filter CASClient::Frameworks::Rails::Filter
+  before_filter :cas_unless_logged_in  ***REMOVED***CASClient::Frameworks::Rails::Filter
   before_filter :setup_cas_user  
   
-  
   def index
-    @user = current_user
-    
-	  @departments = Department.all
-  	@recently_added_jobs = Job.find(:all, :conditions => [ "active = ?", true], :order => "created_at DESC", :limit => 5 )
-  	@relevant_jobs = Job.smartmatches_for(current_user, 4)
-	
-    @watched_jobs = current_user.watched_jobs_list_of_user
-	
-  	@your_jobs = Job.find(:all, :conditions => [ "user_id = ?", current_user.id ])
-	
+      @user = current_user
+
+      @departments = Department.all
+      @recently_added_jobs = Job.find(:all, :conditions => ["active = ?", true], :order => "created_at DESC", :limit => 5 )
+      @relevant_jobs = Job.smartmatches_for(current_user, 4)
+
+      @watched_jobs = current_user.watched_jobs_list_of_user
+
+      @your_jobs = Job.find(:all, :conditions => [ "user_id = ?", current_user.id ])
   end  
 end
