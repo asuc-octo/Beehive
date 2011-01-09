@@ -6,6 +6,9 @@
 ***REMOVED*** Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+***REMOVED*** Get the SMTP password for ActionMailer
+require File.join(File.dirname(__FILE__), 'smtp_pw')
+
 Rails::Initializer.run do |config|
   ***REMOVED*** Settings in config/environments/* take precedence over those specified here.
   ***REMOVED*** Application configuration should go into files in config/initializers
@@ -39,6 +42,19 @@ Rails::Initializer.run do |config|
   ***REMOVED*** config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   ***REMOVED*** config.i18n.default_locale = :de
   config.action_controller.relative_url_root = '/research'
+  
+  ***REMOVED*** ActionMailer config for Gmail
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {      ***REMOVED*** FIXME please
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'localhost',
+    :user_name            => 'ucbresearchmatch@gmail.com',
+    :password             => @@smtp_pw,
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  }
+
+
 end
 
 ***REMOVED*** This is the root url for our app (like localhost:3000/)
@@ -50,6 +66,7 @@ ActionMailer::Base.default_url_options[:host] = $rm_root
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.perform_deliveries = true  
 
+***REMOVED*** CAS authentication
 CASClient::Frameworks::Rails::Filter.configure(
   :cas_base_url => ({'development' => "https://auth-test.berkeley.edu/cas/",
                     'test'        => "https://auth-test.berkeley.edu/cas/",
@@ -57,6 +74,7 @@ CASClient::Frameworks::Rails::Filter.configure(
   ***REMOVED***:cas_base_url => "https://auth.berkeley.edu/cas/"
 )
 
+***REMOVED*** LDAP 
 require 'ucb_ldap'
 UCB::LDAP.host = ({'development' => 'ldap-test.berkeley.edu', 'test' => 'ldap-test.berkeley.edu', 'production' => 'ldap.berkeley.edu'}[RAILS_ENV])
 UCB::LDAP.bind_for_rails()
