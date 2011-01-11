@@ -32,6 +32,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :session
 
+  map.dashboard '/dashboard', :controller => :dashboard, :action => :index
+
   ***REMOVED*** The priority is based upon order of creation: first created -> highest priority.
 
   ***REMOVED*** Sample of regular route:

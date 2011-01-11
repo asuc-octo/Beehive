@@ -69,43 +69,24 @@ end
 
 
 module CASControllerIncludes
-  def cas_unless_logged_in
+  def goto_cas_unless_logged_in
     CASClient::Frameworks::Rails::Filter.filter(self) unless logged_in?
   end
 
+  def rm_login_required
+    flash[:setjmp] = request.url
+    login_required
+  end
 
-  ***REMOVED*** this before_filter takes the results of the rubyCAS-client filter and sets up the current_user, 
-  ***REMOVED*** thereby "logging you in" as the proper user in the ResearchMatch database.
-  def setup_cas_user
-    return unless session[:cas_user].present?
-    @current_user = User.find_by_login(session[:cas_user])
-    
-    ***REMOVED*** if user doesn't exist, create it, and then redirect to edit profile page
-    if @current_user.blank?
+  ***REMOVED*** Redirects to signup page if user hasn't registered.
+  ***REMOVED*** Filter fails if no CAS session is present, or if user was redirected to
+  ***REMOVED*** signup page.
+  ***REMOVED*** Filter passes if CAS session is present, and a user exists.
+  def require_signed_up
+    return true if session[:cas_user].present? and User.exists?(:login => session[:cas_user])
 
-      ***REMOVED***TODO: Set user metadata [obtained from LDAP] here, including user_type, rather than all 
-      ***REMOVED*** this fake garbage data!!
-      ***REMOVED***     (note: the login here is correct; the rest is garbage)
-***REMOVED***      @person = UCB::LDAP::Person.find_by_uid(session[:cas_user]) 
-***REMOVED***      @current_user = User.new(
-***REMOVED***                            :login => session[:cas_user].to_s,
-***REMOVED***                            :name => "***REMOVED***{@person.firstname} ***REMOVED***{@person.lastname}",
-***REMOVED***                            :email => @person.email,
-***REMOVED***                            :password => "password", 
-***REMOVED***                            :password_confirmation => "password"
-***REMOVED***                              ) ***REMOVED*** necessary to pass validations
-                          
-      ***REMOVED*** This has all been moved to users/new.
-           
-                              
-      ***REMOVED*** @current_user.save!
-
-      ***REMOVED***redirect_to :controller => "users", :action => "edit", :id => @current_user.id
-      redirect_to :controller => :users, :action => :new
-      return false
-    end
-    
-    @current_user.present?
+    redirect_to :controller => :users, :action => :new
+    return false
   end
 
 end
