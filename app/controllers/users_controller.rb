@@ -100,7 +100,7 @@ class UsersController < ApplicationController
     ***REMOVED*** Ruby magic
     ***REMOVED*** This saves the form data, in the event you tried to update but failed a validation
     [:course, :category, :proglang].each do |list|
-      params[list] ||= {:name => @user.send("***REMOVED***{list}_list_of_user".to_sym, true)}
+      params[list.to_s] ||= {:name=>@user.send("***REMOVED***{list}_list_of_user".to_sym, true)}
     end
 
   end
