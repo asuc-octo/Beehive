@@ -1,4 +1,6 @@
 class Job < ActiveRecord::Base
+  include ActionController::UrlWriter ***REMOVED*** for activate_job_url
+
   belongs_to :user
   belongs_to :department
   has_and_belongs_to_many :categories
@@ -223,12 +225,6 @@ class Job < ActiveRecord::Base
     	return proglang_list[0..(proglang_list.length - 2)]
   	end
   end
-  
-  ***REMOVED*** Returns the activation url for this job
-  def activation_url
-    "***REMOVED***{$rm_root}jobs/activate/***REMOVED***{self.id}?a=***REMOVED***{self.activation_code}"
-  end
-  
   
   ***REMOVED*** Ensures all fields are valid
   def mend
