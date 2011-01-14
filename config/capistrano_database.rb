@@ -146,6 +146,10 @@ Capistrano::Configuration.instance.load do
       DESC
       task :symlink, :except => { :no_release => true } do
         run "ln -nfs ***REMOVED***{shared_path}/config/database.yml ***REMOVED***{release_path}/config/database.yml" 
+        
+        ***REMOVED*** for LDAP and SMTP_PW shared files
+        run "ln -nfs ***REMOVED***{shared_path}/config/ldap.yml ***REMOVED***{release_path}/config/ldap.yml" 
+        run "ln -nfs ***REMOVED***{shared_path}/config/smtp_pw.rb ***REMOVED***{release_path}/config/smtp_pw.rb"         
       end
 
     end
