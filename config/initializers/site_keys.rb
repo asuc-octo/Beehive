@@ -16,7 +16,7 @@
 ***REMOVED*** Please note: if you change this, all the passwords will be invalidated, so DO
 ***REMOVED*** keep it someplace secure.  Use the random value given or type in the lyrics to
 ***REMOVED*** your favorite Jay-Z song or something; any moderately long, unpredictable text.
-REST_AUTH_SITE_KEY         = '2aa6124dbd6a2f79364c8d231e2d1b9b1f7cca43'
+***REMOVED***REST_AUTH_SITE_KEY         = '2aa6124dbd6a2f79364c8d231e2d1b9b1f7cca43'
   
 ***REMOVED*** Repeated applications of the hash make brute force (even with a compromised
 ***REMOVED*** database and site key) harder, and scale with Moore's law.
