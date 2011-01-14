@@ -15,7 +15,7 @@ class JobsController < ApplicationController
   ***REMOVED***before_filter :goto_cas_unless_logged_in
     
   ***REMOVED*** Ensures that only logged-in users can create, edit, or delete jobs
-  before_filter :rm_login_required, :except => [ :index, :show ]
+  before_filter :rm_login_required
   
   ***REMOVED*** Ensures that only the user who created a job -- and no other users -- can edit 
   ***REMOVED*** or destroy it.
