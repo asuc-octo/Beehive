@@ -63,7 +63,9 @@ $rm_root = "http://upe.cs.berkeley.edu/research/"
 
 ***REMOVED*** Set up ActionMailer
 ActionMailer::Base.default_url_options[:host] = $rm_root
+ActionMailer::Base.default_content_type = "text/html"
 ActionMailer::Base.delivery_method = ({'development' => :test, 'test' => :test, 'production' => :smtp}[RAILS_ENV])
+***REMOVED***ActionMailer::Base.delivery_method = :smtp
 
 ActionMailer::Base.perform_deliveries = true  
 
