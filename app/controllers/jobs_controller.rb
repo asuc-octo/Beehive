@@ -30,8 +30,8 @@ class JobsController < ApplicationController
       h[param] = params[param] if ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[param]) ***REMOVED***unless params[param].nil?
     end
     
-    ***REMOVED*** strings
-    [:query, :faculty].each do |param|
+    ***REMOVED*** strings, directly copy attribs
+    [:query, :faculty, :tags].each do |param|
       h[param] = params[param] unless params[param].blank?
     end
 
@@ -53,12 +53,12 @@ class JobsController < ApplicationController
     @jobs = Job.find_jobs(params[:query], {
                                 :department => params[:department].to_i, 
                                 :faculty => params[:faculty].to_i, 
-                                :paid => params[:paid].to_i, 
-                                :credit => params[:credit].to_i
+                                :paid => ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:paid]),
+                                :credit => ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:credit])
                           })
     
-    @department_id = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:department]) ***REMOVED***params[:department] ? params[:department].to_i : 0
-    @faculty_id    = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:faculty]) ***REMOVED***params[:faculty]    ? params[:faculty].to_i    : 0
+    @department_id = params[:department] ? params[:department].to_i : 0
+    @faculty_id    = params[:faculty]    ? params[:faculty].to_i    : 0
     @query         = ((not params[:query].nil?) and (not params[:query].empty?)) ? params[:query] : nil
     
     if params[:tags].present?
