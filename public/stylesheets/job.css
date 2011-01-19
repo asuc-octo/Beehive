@@ -57,9 +57,15 @@
 .tag_l { font-size: 1.2em; }
 .tag_xl { font-size: 1.3em; }
 
+.left { float: left; }
+.right { float: right; }
 
 ***REMOVED***browse_results_wrapper{
 
+}
+
+***REMOVED***browse_results_pagination {
+  text-align: right;
 }
 
 ***REMOVED***browse_results{
@@ -75,7 +81,11 @@
 }
 
 ***REMOVED***browse_search_bar{
-	text-align: center;
+	text-align: left;
+}
+
+***REMOVED***more_options {
+  font-size: x-small;
 }
 
 ***REMOVED***browse_header{
