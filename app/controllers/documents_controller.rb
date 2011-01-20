@@ -3,9 +3,9 @@ class DocumentsController < ApplicationController
 include CASControllerIncludes
 
 ***REMOVED***CalNet / CAS Authentication
-***REMOVED***before_filter CASClient::Frameworks::Rails::Filter
+before_filter CASClient::Frameworks::Rails::Filter
 ***REMOVED***before_filter :setup_cas_user  
-before_filter :login_required
+before_filter :rm_login_required
 
 def new
     @document = Document.new

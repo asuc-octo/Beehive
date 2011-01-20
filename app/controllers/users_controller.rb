@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     
   ***REMOVED***CalNet / CAS Authentication
   before_filter CASClient::Frameworks::Rails::Filter
-  before_filter :login_required, :except => [:new, :create]
+  before_filter :rm_login_required, :except => [:new, :create]
   ***REMOVED***before_filter :setup_cas_user, :except => [:new, :create]
    
   ***REMOVED*** Ensures that only this user -- and no other users -- can edit his/her profile
@@ -19,7 +19,8 @@ class UsersController < ApplicationController
     redirect_to :controller => :dashboard, :action => :index unless params[:id].to_s == current_user.id.to_s
   end
   
-  ***REMOVED*** render new.rhtml
+  ***REMOVED*** Don't render new.rhtml; instead, create the user immediately 
+  ***REMOVED*** and redirect to the edit profile page.
   def new
       ***REMOVED*** Make sure user isn't already signed up
       if User.exists?(:login => session[:cas_user]) then
@@ -41,11 +42,16 @@ class UsersController < ApplicationController
       @user.name  = @user.ldap_person_full_name
       @user.email = person.email
       @user.update_user_type
+      
+      ***REMOVED*** create
+      create
   end
+ 
+ 
  
   def create
     logout_keeping_session!
-    
+
     ***REMOVED*** See if this user was already created
     ***REMOVED*** TODO: handle this better
     if User.exists?(:login=>session[:cas_user].to_s) then
@@ -61,19 +67,29 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.login = session[:cas_user]
     @user.name = @user.ldap_person_full_name
+
+    ***REMOVED*** For some reason, the email doesn't persist when coming from 
+    ***REMOVED*** the new action. This band-aid works.
+    @user.email ||= @user.ldap_person.email
+
     @user.update_user_type
-    
-    if @user.save && @user.errors.empty? then
-      respond_to do |format|
-        @user.activate! ***REMOVED***FIXME: Remove this when we get ActionMailer up for email activations
-        flash[:notice] = "Thanks for signing up! You're activated so go ahead and sign in." ***REMOVED***FIXME: Change back when we get activation emails up
-        ***REMOVED***flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
-        format.html { redirect_back_or_default(:controller=>"dashboard", :action=>:index) }
-      end
+    if @user.save && @user.errors.empty? then 
+      flash[:notice] = "Thanks for signing up! You're activated so go ahead and sign in."
+      redirect_to :controller => "jobs", :action => "index"
+           
+      
+***REMOVED***      respond_to do |format|
+***REMOVED***        @user.activate! ***REMOVED***FIXME: Remove this when we get ActionMailer up for email activations
+***REMOVED***        flash[:notice] = "Thanks for signing up! You're activated so go ahead and sign in." ***REMOVED***FIXME: Change back when we get activation emails up 
+***REMOVED***        ***REMOVED*** format.html { redirect_back_or_default(:controller=>"users", :action=>"edit") }
+***REMOVED***        format.html { redirect_to :controller=>"users", :action=>"edit", :id=> @user.id }
+***REMOVED***      end
+      
     else
       flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact support."
       ***REMOVED*** format.html { render :action => 'new' }
-      redirect_to new_user_path
+      ***REMOVED*** redirect_to new_user_path
+      redirect_to :controller => "dashboard", :action => "index"
     end
   end
 
