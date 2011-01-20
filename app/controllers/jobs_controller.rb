@@ -97,6 +97,11 @@ class JobsController < ApplicationController
   ***REMOVED*** GET /jobs/new.xml
   def new
     @job = Job.new
+
+    respond_to do |format|
+      format.html { render :action => 'edit' }
+      format.xml
+    end
 	
   end
 
@@ -117,11 +122,8 @@ class JobsController < ApplicationController
   def create
     params[:job][:user] = current_user
             
-    ***REMOVED*** Handles the text_fields for categories, courses, and programming languages
-    params[:job][:category_names] = params[:category][:name] if params[:category]
-    params[:job][:course_names] = params[:course][:name] if params[:course]
-    params[:job][:proglang_names] = params[:proglang][:name] if params[:proglang]
-    
+    process_form_params
+
     params[:job][:active] = false
     params[:job][:activation_code] = 0
     
@@ -156,17 +158,11 @@ class JobsController < ApplicationController
   ***REMOVED*** PUT /jobs/1
   ***REMOVED*** PUT /jobs/1.xml
   def update	
-	  ***REMOVED***params[:job][:sponsorships] = Sponsorship.new(:faculty => Faculty.find(:first, :conditions => [ "name = ?", params[:job][:faculties] ]), :job => nil)	
-      
-    ***REMOVED*** Handles the text_fields for categories, courses, and programming languages
-  	params[:job][:category_names] = params[:category][:name]
-  	params[:job][:course_names] = params[:course][:name]
-  	params[:job][:proglang_names] = params[:proglang][:name] 
-    
+    process_form_params
+
     @job = Job.find(params[:id])
-    @faculty_names = Faculty.all.map {|f| f.name }
 	
-	  update_sponsorships  	
+    update_sponsorships  	
 			
     respond_to do |format|
       if @job.update_attributes(params[:job])
@@ -278,52 +274,22 @@ class JobsController < ApplicationController
   end
   
   
-***REMOVED******REMOVED***  ***REMOVED*** the action for actually applying.
-***REMOVED******REMOVED***  def apply
-***REMOVED******REMOVED***    job = Job.find(params[:id])
-***REMOVED******REMOVED***    
-***REMOVED******REMOVED***    if job.nil? or params[:applic].nil?
-***REMOVED******REMOVED***        flash[:error] = "Error: Couldn't tell which job you want to apply to. Please try again from the listing page."
-***REMOVED******REMOVED***        redirect_to(:controller=>:jobs, :action=>:index)
-***REMOVED******REMOVED***        return
-***REMOVED******REMOVED***    end
-***REMOVED******REMOVED***    
-***REMOVED******REMOVED***    applic = Applic.new({:user_id => current_user.id, :job_id => job.id}.update(params[:applic]))
-***REMOVED******REMOVED***    applic.resume_id = current_user.resume.nil? ? nil : current_user.resume.id
-***REMOVED******REMOVED***    applic.transcript_id = current_user.transcript.nil? ? nil : current_user.transcript.id
-***REMOVED******REMOVED***    
-***REMOVED******REMOVED***    respond_to do |format|
-***REMOVED******REMOVED***        if applic.save
-***REMOVED******REMOVED***            flash[:notice] = 'Applied for job successfully. Time to cross your fingers and wait for a reply!'
-***REMOVED******REMOVED***            format.html { redirect_to(:controller=>:dashboard) }
-***REMOVED******REMOVED***        else
-***REMOVED******REMOVED***            flash[:error] = "Could not apply to position. Make sure you've written " + 
-***REMOVED******REMOVED***                            "a message to the faculty sponsor!"
-***REMOVED******REMOVED***            format.html { redirect_to(:controller=>:jobs, :action => :goapply, :id => params[:id]) }
-***REMOVED******REMOVED***        end
-***REMOVED******REMOVED***    end
-***REMOVED******REMOVED***  end
-***REMOVED******REMOVED***  
-***REMOVED******REMOVED***  ***REMOVED*** withdraw from an application (destroy the applic)
-***REMOVED******REMOVED***  def withdraw
-***REMOVED******REMOVED***    applic = Applic.find(:job_id=>params[:id])
-***REMOVED******REMOVED***    if !applic.nil? && applic.user == current_user
-***REMOVED******REMOVED***        respond_to do |format|
-***REMOVED******REMOVED***            if applic.destroy
-***REMOVED******REMOVED***                flash[:error] = "Withdrew your application successfully. Keep in mind that your initial application email has already been sent."
-***REMOVED******REMOVED***                format.html { redirect_to(:controller=>:jobs, :action=>:index) }
-***REMOVED******REMOVED***            else
-***REMOVED******REMOVED***                flash[:error] = "Couldn't withdraw your application. Try again, or contact support."
-***REMOVED******REMOVED***                format.html { redirect_to(:controller=>:dashboard) }
-***REMOVED******REMOVED***            end
-***REMOVED******REMOVED***        end
-***REMOVED******REMOVED***    else
-***REMOVED******REMOVED***        flash[:error] = "Error: Couldn't find that application."
-***REMOVED******REMOVED***        redirect_to(:controller=>:dashboard)
-***REMOVED******REMOVED***    end
-***REMOVED******REMOVED***  end
   
   protected
+  ***REMOVED*** Preprocesses form data for direct input to Job.update
+  def process_form_params
+    ***REMOVED*** Handles the text_fields for categories, courses, and programming languages
+    [:category, :course, :proglang].each do |k|
+      params[:job]["***REMOVED***{k.to_s}_names".to_sym] = params[k][:name]
+    end
+
+    ***REMOVED*** Handle three-state booleans
+    [:paid, :credit].each do |k|
+      params[:job][k] = [false,true,nil][params[:job][k].to_i]
+    end
+  end
+
+
     ***REMOVED*** Saves sponsorship specified in the params page
     def update_sponsorships
         fac = Faculty.exists?(params[:faculty_name]) ? params[:faculty_name] : 0
