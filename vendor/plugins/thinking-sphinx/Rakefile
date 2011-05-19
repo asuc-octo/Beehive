@@ -1,4 +1,0 @@
-require 'rubygems'
-
-require "***REMOVED***{File.dirname(__FILE__)}/tasks/distribution"
-require "***REMOVED***{File.dirname(__FILE__)}/tasks/testing"
