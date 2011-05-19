@@ -6,6 +6,8 @@ require 'rails/all'
 ***REMOVED*** you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
+require 'ucb_ldap'
+
 module ResearchMatch
   class Application < Rails::Application
     ***REMOVED*** Settings in config/environments/* take precedence over those specified here.
@@ -13,7 +15,7 @@ module ResearchMatch
     ***REMOVED*** -- all .rb files in that directory are automatically loaded.
 
     ***REMOVED*** Custom directories with classes and modules you want to be autoloadable.
-    ***REMOVED*** config.autoload_paths += %W(***REMOVED***{config.root}/extras)
+    config.autoload_paths += %W(***REMOVED***{config.root}/extras ***REMOVED***{config.root}/lib)
 
     ***REMOVED*** Only load the plugins named here, in the order given (default is alphabetical).
     ***REMOVED*** :all can be used as a placeholder for all plugins not explicitly named.

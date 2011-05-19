@@ -13,11 +13,11 @@ module Technoweenie ***REMOVED*** :nodoc:
       ***REMOVED***
       ***REMOVED*** == Configuration
       ***REMOVED***
-      ***REMOVED*** Configuration is done via <tt>RAILS_ROOT/config/rackspace_cloudfiles.yml</tt> and is loaded according to the <tt>RAILS_ENV</tt>.
+      ***REMOVED*** Configuration is done via <tt>Rails.root/config/rackspace_cloudfiles.yml</tt> and is loaded according to the <tt>RAILS_ENV</tt>.
       ***REMOVED*** The minimum connection options that you must specify are a container name, your Mosso login name and your Mosso API key.
       ***REMOVED*** You can sign up for Cloud Files and get access keys by visiting https://www.mosso.com/buy.htm 
       ***REMOVED***
-      ***REMOVED*** Example configuration (RAILS_ROOT/config/rackspace_cloudfiles.yml)
+      ***REMOVED*** Example configuration (Rails.root/config/rackspace_cloudfiles.yml)
       ***REMOVED***
       ***REMOVED***   ***REMOVED***
       ***REMOVED***     container_name: appname_development
@@ -36,7 +36,7 @@ module Technoweenie ***REMOVED*** :nodoc:
       ***REMOVED***
       ***REMOVED*** You can change the location of the config path by passing a full path to the :cloudfiles_config_path option.
       ***REMOVED***
-      ***REMOVED***   has_attachment :storage => :cloud_files, :cloudfiles_config_path => (RAILS_ROOT + '/config/mosso.yml')
+      ***REMOVED***   has_attachment :storage => :cloud_files, :cloudfiles_config_path => (Rails.root + '/config/mosso.yml')
       ***REMOVED***
       ***REMOVED*** === Required configuration parameters
       ***REMOVED***
@@ -116,7 +116,7 @@ module Technoweenie ***REMOVED*** :nodoc:
           end
 
           begin
-            @@cloudfiles_config_path = base.attachment_options[:cloudfiles_config_path] || (RAILS_ROOT + '/config/rackspace_cloudfiles.yml')
+            @@cloudfiles_config_path = base.attachment_options[:cloudfiles_config_path] || (Rails.root + '/config/rackspace_cloudfiles.yml')
             @@cloudfiles_config = @@cloudfiles_config = YAML.load(ERB.new(File.read(@@cloudfiles_config_path)).result)[RAILS_ENV].symbolize_keys
           rescue
             ***REMOVED***raise ConfigFileNotFoundError.new('File %s not found' % @@cloudfiles_config_path)

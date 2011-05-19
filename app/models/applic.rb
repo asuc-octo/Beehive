@@ -1,4 +1,16 @@
 class Applic < ActiveRecord::Base
+
+  ***REMOVED*** === List of columns ===
+  ***REMOVED***   id            : integer 
+  ***REMOVED***   job_id        : integer 
+  ***REMOVED***   user_id       : integer 
+  ***REMOVED***   created_at    : datetime 
+  ***REMOVED***   updated_at    : datetime 
+  ***REMOVED***   message       : text 
+  ***REMOVED***   resume_id     : integer 
+  ***REMOVED***   transcript_id : integer 
+  ***REMOVED*** =======================
+
   belongs_to :job
   belongs_to :user
   belongs_to :resume,      :class_name => 'Document', :conditions => {:document_type => Document::Types::Resume}

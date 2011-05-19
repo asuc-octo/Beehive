@@ -1,0 +1,7 @@
+***REMOVED***
+  :adapter: sqlite3
+  :database: ":memory:"
+
+***REMOVED***
+  :adapter: sqlite3
+  :database: ":memory:"

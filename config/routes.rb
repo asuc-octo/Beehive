@@ -1,4 +1,48 @@
 ResearchMatch::Application.routes.draw do
+
+  get  'courses_json'    => 'courses***REMOVED***json'
+  get  'categories_json' => 'categories***REMOVED***json'
+  get  'proglangs'       => 'proglangs***REMOVED***json'
+
+  resources :pictures
+
+  ***REMOVED*** Jobs
+  scope '/jobs', :as => :jobs do
+    get  '/activate/:id' => 'jobs***REMOVED***activate', :as => :activate
+    get  '/search' => 'jobs***REMOVED***index', :as => :search
+  end
+  resources :jobs
+
+  ***REMOVED*** Applics
+  scope :applics do
+    get  '/jobs/:job_id/apply' => 'applics***REMOVED***new', :as => :new_job_applic
+    get  '/jobs/:job_id/doapply' => 'applics***REMOVED***create', :method => 'post', :as => :create_job_applic
+    get  '/jobs/:job_id/applications' => 'applics***REMOVED***index', :as => :list_jobs_applics
+    get  '/applications/:id' => 'applics***REMOVED***show', :as => :applic
+    get  '/applications/:id/withdraw' => 'applics***REMOVED***destroy', :as => :destroy_applic
+    get  '/applications/:id/resume' => 'applics***REMOVED***resume', :as => :applic_resume
+    get  '/applications/:id/transcript'=>'applics***REMOVED***transcript', :as => :applic_transcript
+  end ***REMOVED*** applics
+
+  ***REMOVED*** Categories
+  resources :categories
+
+  ***REMOVED*** Documents
+  resources :documents
+
+  ***REMOVED*** Access control
+  match '/logout' => 'sessions***REMOVED***destroy'
+  match '/login'  => 'sessions***REMOVED***new'
+  resources :session
+
+  ***REMOVED*** Users
+  resources :users
+  get  '/dashboard' => 'dashboard***REMOVED***index'
+
+  ***REMOVED*** Home
+  get  '/' => 'home***REMOVED***index'
+
+
   ***REMOVED*** The priority is based upon order of creation:
   ***REMOVED*** first created -> highest priority.
 

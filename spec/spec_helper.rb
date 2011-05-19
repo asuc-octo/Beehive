@@ -18,7 +18,7 @@ Spec::Runner.configure do |config|
   ***REMOVED*** in your config/boot.rb
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
-  config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
+  config.fixture_path = Rails.root + '/spec/fixtures/'
 
   ***REMOVED*** == Fixtures
   ***REMOVED***
@@ -37,7 +37,7 @@ Spec::Runner.configure do |config|
   ***REMOVED***
   ***REMOVED*** You can also declare which fixtures to use (for example fixtures for test/fixtures):
   ***REMOVED***
-  ***REMOVED*** config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
+  ***REMOVED*** config.fixture_path = Rails.root + '/spec/fixtures/'
   ***REMOVED***
   ***REMOVED*** == Mock Framework
   ***REMOVED***

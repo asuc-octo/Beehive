@@ -14,18 +14,18 @@ module Technoweenie ***REMOVED*** :nodoc:
         ***REMOVED***
         ***REMOVED***   ***REMOVED*** This assumes a model name like MyModel
         ***REMOVED***   ***REMOVED*** public/***REMOVED***{table_name} is the default filesystem path 
-        ***REMOVED***   RAILS_ROOT/public/my_models/5/blah.jpg
+        ***REMOVED***   Rails.root/public/my_models/5/blah.jpg
         ***REMOVED***
         ***REMOVED*** Overwrite this method in your model to customize the filename.
         ***REMOVED*** The optional thumbnail argument will output the thumbnail's filename.
         def full_filename(thumbnail = nil)
           file_system_path = (thumbnail ? thumbnail_class : self).attachment_options[:path_prefix].to_s
-          File.join(RAILS_ROOT, file_system_path, *partitioned_path(thumbnail_name_for(thumbnail)))
+          File.join(Rails.root, file_system_path, *partitioned_path(thumbnail_name_for(thumbnail)))
         end
       
         ***REMOVED*** Used as the base path that ***REMOVED***public_filename strips off full_filename to create the public path
         def base_path
-          @base_path ||= File.join(RAILS_ROOT, 'public')
+          @base_path ||= File.join(Rails.root, 'public')
         end
       
         ***REMOVED*** The attachment ID used in the full path of a file

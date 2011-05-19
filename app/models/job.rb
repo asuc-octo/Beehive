@@ -1,4 +1,23 @@
 class Job < ActiveRecord::Base
+
+  ***REMOVED*** === List of columns ===
+  ***REMOVED***   id              : integer 
+  ***REMOVED***   user_id         : integer 
+  ***REMOVED***   title           : string 
+  ***REMOVED***   desc            : text 
+  ***REMOVED***   category_id     : integer 
+  ***REMOVED***   exp_date        : datetime 
+  ***REMOVED***   num_positions   : integer 
+  ***REMOVED***   paid            : boolean 
+  ***REMOVED***   credit          : boolean 
+  ***REMOVED***   created_at      : datetime 
+  ***REMOVED***   updated_at      : datetime 
+  ***REMOVED***   department_id   : integer 
+  ***REMOVED***   activation_code : integer 
+  ***REMOVED***   active          : boolean 
+  ***REMOVED***   delta           : boolean 
+  ***REMOVED*** =======================
+
   include ActionController::UrlWriter ***REMOVED*** for activate_job_url
 
   belongs_to :user

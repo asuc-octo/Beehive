@@ -1,4 +1,16 @@
 class Document < ActiveRecord::Base
+
+  ***REMOVED*** === List of columns ===
+  ***REMOVED***   id            : integer 
+  ***REMOVED***   user_id       : integer 
+  ***REMOVED***   document_type : integer 
+  ***REMOVED***   size          : integer 
+  ***REMOVED***   content_type  : string 
+  ***REMOVED***   filename      : string 
+  ***REMOVED***   created_at    : datetime 
+  ***REMOVED***   updated_at    : datetime 
+  ***REMOVED*** =======================
+
   belongs_to :user
   
   class Types

@@ -32,4 +32,12 @@ ResearchMatch::Application.configure do
 
   ***REMOVED*** Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  ***REMOVED*** CAS authentication
+  CASClient::Frameworks::Rails::Filter.configure(
+    :cas_base_url => "https://auth-test.berkeley.edu/cas/"
+  )
+
+  ***REMOVED*** LDAP
+  UCB::LDAP.host = 'ldap-test.berkeley.edu'
 end

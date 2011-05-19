@@ -1,10 +1,34 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  include Authentication
+
+  ***REMOVED*** === List of columns ===
+  ***REMOVED***   id                  : integer 
+  ***REMOVED***   name                : string 
+  ***REMOVED***   login               : string 
+  ***REMOVED***   email               : string 
+  ***REMOVED***   persistence_token   : string 
+  ***REMOVED***   single_access_token : string 
+  ***REMOVED***   perishable_token    : string 
+  ***REMOVED***   login_count         : integer 
+  ***REMOVED***   failed_login_count  : integer 
+  ***REMOVED***   last_request_at     : datetime 
+  ***REMOVED***   current_login_at    : datetime 
+  ***REMOVED***   last_login_at       : datetime 
+  ***REMOVED***   current_login_ip    : string 
+  ***REMOVED***   last_login_ip       : string 
+  ***REMOVED***   user_type           : integer 
+  ***REMOVED*** =======================
+
+***REMOVED***  include Authentication
 ***REMOVED***  include Authentication::ByPassword
-  include Authentication::ByCookieToken
+***REMOVED***  include Authentication::ByCookieToken
   
+
+  ***REMOVED*** Authlogic
+  acts_as_authentic do |u|
+  end
+
   class Types
       Undergrad = 0
       Grad      = 1
@@ -36,13 +60,18 @@ class User < ActiveRecord::Base
   ***REMOVED***validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
   
   validates_presence_of     :name
-  validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
+
+  ***REMOVED*** TODO i think authlogic handles this for us
+  ***REMOVED***validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
+
   validates_length_of       :name,     :within => 0..100
 
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100 ***REMOVED***r@a.wk
   validates_uniqueness_of   :email
-  validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
+
+  ***REMOVED*** TODO i think authlogic handles this for us
+  ***REMOVED***validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
   
   ***REMOVED*** Check that the email address is @*.berkeley.edu or @*.lbl.gov
   ***REMOVED*** validates_format_of		:email,	   :with => /^[^@]+@(?:.+\.)?(?:(?:berkeley\.edu)|(?:lbl\.gov))$/i, :message => "is not a Berkeley or LBL address."
@@ -50,8 +79,6 @@ class User < ActiveRecord::Base
   ***REMOVED*** Check that user type is valid
   validates_inclusion_of    :user_type, :in => [Types::Undergrad, Types::Grad, Types::Faculty]
 
-  before_create :make_activation_code 
-  
   ***REMOVED*** Before carrying out validations (i.e., before actually creating the user object), assign the proper 
   ***REMOVED*** email address to the user (depending on whether the user is a student or gsi or a faculty) 
   ***REMOVED*** and handle the courses for the user.
@@ -288,12 +315,6 @@ class User < ActiveRecord::Base
   
   protected
     
-
-    def make_activation_code
-  
-      self.activation_code = self.class.make_token
-    end
-
     ***REMOVED*** Dynamically assign the value of :email, based on whether this user
     ***REMOVED*** is marked as faculty or not. This should occur as a before_validation
     ***REMOVED*** since we want to save a value for :email, not :faculty_email or :student_email.

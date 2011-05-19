@@ -122,7 +122,7 @@ module UCB ***REMOVED***:nodoc:
       ***REMOVED*** Runtime error will be raised if bind_file not found or if environment key not
       ***REMOVED*** found in bind_file.
       ***REMOVED***
-      def bind_for_rails(bind_file = "***REMOVED***{RAILS_ROOT}/config/ldap.yml", environment = RAILS_ENV)
+      def bind_for_rails(bind_file = "***REMOVED***{Rails.root}/config/ldap.yml", environment = RAILS_ENV)
         bind(bind_file, environment)
       end
       

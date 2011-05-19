@@ -22,5 +22,16 @@ ResearchMatch::Application.configure do
 
   ***REMOVED*** Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+  ***REMOVED*** Logging
+  config.log_level = :warn
+
+  ***REMOVED*** CAS authentication
+  CASClient::Frameworks::Rails::Filter.configure(
+    :cas_base_url => "https://auth-test.berkeley.edu/cas/"
+  )
+
+  ***REMOVED*** LDAP
+  UCB::LDAP.host = 'ldap-test.berkeley.edu'
 end
 
