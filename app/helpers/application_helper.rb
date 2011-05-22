@@ -24,7 +24,7 @@ module ActionView
         check_box_tag(name, value, checked, options.merge({:onclick=>onclick}))
       end
 
-      ThreeStateLabels ||= {true=>'Yes', false=>'No', nil=>'N/A'}
+      ***REMOVED***ThreeStateLabels ||= {true=>'Yes', false=>'No', nil=>'N/A'}
 
       ***REMOVED*** Select box that maps {true=>1, false=>0, nil=>2}
       def three_state_select_tag(name, value=nil, options={})
