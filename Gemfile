@@ -6,7 +6,8 @@ gem 'rails', '~> 3.0.3'
 ***REMOVED*** gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 ***REMOVED*** Data
-gem 'mysql2', '< 0.3.0'  ***REMOVED*** rails 3.0.3 and mysql >= .3 don't mix
+***REMOVED***gem 'mysql2', '< 0.3.0'  ***REMOVED*** rails 3.0.3 and mysql >= .3 don't mix
+gem 'mysql2'
 
 ***REMOVED*** Testing
 gem 'rspec-rails'
