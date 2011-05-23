@@ -34,7 +34,7 @@ ResearchMatch::Application.routes.draw do
   ***REMOVED*** Access control
   match '/logout' => 'sessions***REMOVED***destroy'
   match '/login'  => 'sessions***REMOVED***new'
-  resources :session
+  resources :sessions
 
   ***REMOVED*** Users
   resources :users
