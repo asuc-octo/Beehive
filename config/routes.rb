@@ -1,9 +1,5 @@
 ResearchMatch::Application.routes.draw do
 
-  get  'courses_json'    => 'courses***REMOVED***json'
-  get  'categories_json' => 'categories***REMOVED***json'
-  get  'proglangs'       => 'proglangs***REMOVED***json'
-
   resources :pictures
 
   ***REMOVED*** Jobs
@@ -43,6 +39,10 @@ ResearchMatch::Application.routes.draw do
   ***REMOVED*** Home
   get  '/' => 'home***REMOVED***index'
 
+  ***REMOVED*** Autocomplete routes
+  get '/categories/json' => 'categories***REMOVED***json', :as => :categories_json
+  get '/courses/json' => 'courses***REMOVED***json', :as => :courses_json
+  get '/proglangs/json' => 'proglangs***REMOVED***json', :as => :proglangs_json
 
   ***REMOVED*** The priority is based upon order of creation:
   ***REMOVED*** first created -> highest priority.
