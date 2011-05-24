@@ -1,4 +1,5 @@
 class Job < ActiveRecord::Base
+  include AttribsHelper
 
   ***REMOVED*** === List of columns ===
   ***REMOVED***   id              : integer 
