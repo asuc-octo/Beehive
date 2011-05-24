@@ -1,6 +1,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  include AttribsHelper
 
   ***REMOVED*** === List of columns ===
   ***REMOVED***   id                  : integer 
