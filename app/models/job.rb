@@ -289,6 +289,20 @@ class Job < ActiveRecord::Base
     retval
   end
   
+  ***REMOVED*** Makes the job not active, and reassigns it an activation code.
+  ***REMOVED*** Used when creating a job or if, when updating the job, a new 
+  ***REMOVED***   faculty sponsor is specified.
+  def reset_activation
+    self.active = false
+    self.activation_code = ActiveSupport::SecureRandom.random_number(10e6.to_i)
+    ***REMOVED*** don't have id at this point     ***REMOVED***(@job.id * 10000000) + (rand(99999) + 100000) ***REMOVED*** Job ID appended to a random 6 digit number.
+
+    ***REMOVED***TODO: Send an e-mail to the faculty member(s) involved.
+    ***REMOVED*** At this point, ActionMailer should have been set up by /config/environment.rb
+    puts "[][][] ACTIVATION CODE: " + self.activation_code.to_s
+    ***REMOVED***FacultyMailer.deliver_faculty_confirmer(sponsor.email, sponsor.name, @job)
+  end
+
   protected
   
   	***REMOVED*** Parses the textbox list of category names from "Signal Processing, Robotics"
