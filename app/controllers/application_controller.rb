@@ -2,16 +2,17 @@
 ***REMOVED*** Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  include AuthenticatedSystem
   helper :all ***REMOVED*** include all helpers, all the time
   protect_from_forgery ***REMOVED*** See ActionController::RequestForgeryProtection for details
- 
-  before_filter :current_user_if_logged_in
-  
-  def current_user_if_logged_in
-	  @user = current_user if logged_in?
+
+  before_filter :set_current_user
+
+  def current_user
+    ***REMOVED*** TODO: transition this out in favor of @current_user
+    ActiveSupport::Deprecation.warn "current_user is deprecated in favor of @current_user", caller
+    @current_user
   end
-  
+
   ***REMOVED*** Puts a flash[:notice] error message and redirects if condition isn't true.
   ***REMOVED*** Returns true if redirected.
   ***REMOVED***
@@ -22,6 +23,17 @@ class ApplicationController < ActionController::Base
     flash[:error] = error_msg
     redirect_to redirect_url unless redirect_url.nil?
     return true
+  end
+
+  private
+
+  def set_current_user
+    @user_session = UserSession.find
+    if @user_session
+      @current_user ||= @user_session.user
+    else
+      @current_user = nil
+    end
   end
   
 end

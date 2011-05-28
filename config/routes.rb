@@ -31,16 +31,15 @@ ResearchMatch::Application.routes.draw do
   resources :documents
 
   ***REMOVED*** Access control
-  match '/logout' => 'sessions***REMOVED***destroy'
-  match '/login'  => 'sessions***REMOVED***new'
-  resources :sessions
+  match '/logout' => 'user_sessions***REMOVED***destroy'
+  match '/login'  => 'user_sessions***REMOVED***new'
 
   ***REMOVED*** Users
   resources :users
   get  '/dashboard' => 'dashboard***REMOVED***index'
 
   ***REMOVED*** Home
-  get  '/' => 'home***REMOVED***index'
+  get  '/' => 'home***REMOVED***index', :as => :home
 
   ***REMOVED*** Autocomplete routes
   get '/categories/json' => 'categories***REMOVED***json', :as => :categories_json
