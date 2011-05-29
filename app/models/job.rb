@@ -1,5 +1,4 @@
 class Job < ActiveRecord::Base
-  include AttribsHelper
 
   ***REMOVED*** === List of columns ===
   ***REMOVED***   id              : integer 
@@ -19,6 +18,7 @@ class Job < ActiveRecord::Base
   ***REMOVED***   delta           : boolean 
   ***REMOVED*** =======================
 
+  include AttribsHelper
   include ActionController::UrlWriter ***REMOVED*** for activate_job_url
 
   belongs_to :user

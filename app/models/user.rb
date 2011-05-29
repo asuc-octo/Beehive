@@ -1,7 +1,6 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  include AttribsHelper
 
   ***REMOVED*** === List of columns ===
   ***REMOVED***   id                  : integer 
@@ -21,6 +20,7 @@ class User < ActiveRecord::Base
   ***REMOVED***   user_type           : integer 
   ***REMOVED*** =======================
 
+  include AttribsHelper
 ***REMOVED***  include Authentication
 ***REMOVED***  include Authentication::ByPassword
 ***REMOVED***  include Authentication::ByCookieToken
