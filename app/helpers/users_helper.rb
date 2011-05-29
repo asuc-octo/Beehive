@@ -80,8 +80,8 @@ module UsersHelper
   ***REMOVED*** (using link_to_login_with_IP).
   ***REMOVED***
   def link_to_current_user(options={})
-    if current_user
-      link_to_user current_user, options
+    if @current_user
+      link_to_user @current_user, options
     else
       content_text = options.delete(:content_text) || 'not signed in'
       ***REMOVED*** kill ignored options from link_to_user
