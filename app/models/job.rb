@@ -1,21 +1,24 @@
 class Job < ActiveRecord::Base
 
   ***REMOVED*** === List of columns ===
-  ***REMOVED***   id              : integer 
-  ***REMOVED***   user_id         : integer 
-  ***REMOVED***   title           : string 
-  ***REMOVED***   desc            : text 
-  ***REMOVED***   category_id     : integer 
-  ***REMOVED***   exp_date        : datetime 
-  ***REMOVED***   num_positions   : integer 
-  ***REMOVED***   paid            : boolean 
-  ***REMOVED***   credit          : boolean 
-  ***REMOVED***   created_at      : datetime 
-  ***REMOVED***   updated_at      : datetime 
-  ***REMOVED***   department_id   : integer 
-  ***REMOVED***   activation_code : integer 
-  ***REMOVED***   active          : boolean 
-  ***REMOVED***   delta           : boolean 
+  ***REMOVED***   id                  : integer 
+  ***REMOVED***   user_id             : integer 
+  ***REMOVED***   title               : string 
+  ***REMOVED***   desc                : text 
+  ***REMOVED***   category_id         : integer 
+  ***REMOVED***   num_positions       : integer 
+  ***REMOVED***   paid                : boolean 
+  ***REMOVED***   credit              : boolean 
+  ***REMOVED***   created_at          : datetime 
+  ***REMOVED***   updated_at          : datetime 
+  ***REMOVED***   department_id       : integer 
+  ***REMOVED***   activation_code     : integer 
+  ***REMOVED***   active              : boolean 
+  ***REMOVED***   delta               : boolean 
+  ***REMOVED***   earliest_start_date : datetime 
+  ***REMOVED***   latest_start_date   : datetime 
+  ***REMOVED***   end_date            : datetime 
+  ***REMOVED***   open_ended_end_date : boolean 
   ***REMOVED*** =======================
 
   include AttribsHelper
@@ -38,11 +41,11 @@ class Job < ActiveRecord::Base
   has_many :proglangreqs, :dependent => :destroy
   has_many :proglangs, :through => :proglangreqs
   
-  validates_presence_of :title, :desc, :department ***REMOVED***:exp_date, :num_positions
+  validates_presence_of :title, :desc, :department
   
-  ***REMOVED*** Validates that expiration dates are no earlier than right now.
-  validates_each :exp_date do |record, attr, value|
-	record.errors.add attr, 'Expiration date cannot be earlier than right now.' if value.present? && (value < Time.now - 1.hour)
+  ***REMOVED*** Validates that end dates are no earlier than right now.
+  validates_each :end_date do |record, attr, value|
+	record.errors.add attr, 'End date cannot be earlier than right now.' if value.present? && (value < Time.now - 1.hour)
   end
   
   validates_length_of :title, :within => 10..200
@@ -78,7 +81,7 @@ class Job < ActiveRecord::Base
     has :credit
     has :created_at
     has :updated_at
-    has :exp_date
+    has :end_date
     has tags.name
     
     set_property :delta => true
@@ -116,7 +119,7 @@ class Job < ActiveRecord::Base
   ***REMOVED*** hopefully this will make the choice of search engine transparent
   ***REMOVED*** to our app.
   ***REMOVED***
-  ***REMOVED*** By default, it finds an unlimited number of active and non-expired jobs.
+  ***REMOVED*** By default, it finds an unlimited number of active and non-ended jobs.
   ***REMOVED*** You can also restrict by query, department, faculty, paid, credit,
   ***REMOVED*** and set a limit of max number of results.
   ***REMOVED***
@@ -124,7 +127,7 @@ class Job < ActiveRecord::Base
   ***REMOVED***
   ***REMOVED*** query: Array or string of search terms.
   ***REMOVED*** extra_options: Hash of additional options:
-  ***REMOVED***   - exclude_expired: if true, don't include expired jobs
+  ***REMOVED***   - exclude_ended: if true, don't include ended jobs
   ***REMOVED***   - department: ID of department you want to search, or 0 for all depts
   ***REMOVED***   - faculty: ID of faculty member you want to search, or 0 for all
   ***REMOVED***   - paid: if true, return jobs that have paid=true; else return paid and nonpaid
@@ -146,7 +149,7 @@ class Job < ActiveRecord::Base
     
     ***REMOVED*** Default options
     options = {
-        :exclude_expired        => true,
+        :exclude_ended        => true,
         :paid                   => false,
         :credit                 => false,
         :faculty                => 0,
@@ -159,14 +162,14 @@ class Job < ActiveRecord::Base
     ts_options = {
         :match_mode     => :any,
         :sort_mode      => :extended,
-        :order          => "@relevance DESC, exp_date ASC",
+        :order          => "@relevance DESC, end_date ASC",
         :rank_mode      => :proximity_bm25
         }
     
     ***REMOVED*** Selectively build conditions
     ts_conditions = {}
     ts_conditions[:active]      = true
-    ts_conditions[:exp_date]    = Time.now..100.years.since unless options[:exclude_expired]
+    ts_conditions[:end_date]    = Time.now..100.years.since unless options[:exclude_ended]
     ts_conditions[:paid]        = true              if options[:paid]
     ts_conditions[:credit]      = true              if options[:credit]
     ts_conditions[:sponsor_id]  = options[:faculty] if options[:faculty] > 0 and Faculty.exists?(options[:faculty])
