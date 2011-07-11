@@ -54,4 +54,7 @@ ResearchMatch::Application.configure do
 
   ***REMOVED*** LDAP
   UCB::LDAP.host = 'ldap.berkeley.edu'
+
+  ***REMOVED*** Enable Action Mailer
+  config.action_mailer.delivery_method = :smtp
 end

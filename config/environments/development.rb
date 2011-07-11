@@ -33,5 +33,8 @@ ResearchMatch::Application.configure do
 
   ***REMOVED*** LDAP
   UCB::LDAP.host = 'ldap-test.berkeley.edu'
+
+  ***REMOVED*** ActionMailer
+  config.action_mailer.delivery_method = :test
 end
 
