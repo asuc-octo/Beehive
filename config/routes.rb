@@ -20,7 +20,7 @@ ResearchMatch::Application.routes.draw do
   ***REMOVED*** Applics
   scope :applics do
     get  '/jobs/:job_id/apply' => 'applics***REMOVED***new', :as => :new_job_applic
-    get  '/jobs/:job_id/doapply' => 'applics***REMOVED***create', :method => 'post', :as => :create_job_applic
+    post  '/jobs/:job_id/doapply' => 'applics***REMOVED***create', :as => :create_job_applic
     get  '/jobs/:job_id/applications' => 'applics***REMOVED***index', :as => :list_jobs_applics
     get  '/applications/:id' => 'applics***REMOVED***show', :as => :applic
     get  '/applications/:id/withdraw' => 'applics***REMOVED***destroy', :as => :destroy_applic
@@ -29,6 +29,7 @@ ResearchMatch::Application.routes.draw do
   end ***REMOVED*** applics
 
   ***REMOVED*** Documents
+  match '/documents/:id/destroy' => 'documents***REMOVED***destroy', :as => :destroy_document
   resources :documents
 
   ***REMOVED*** Access control
