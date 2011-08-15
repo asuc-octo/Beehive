@@ -1,8 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-  ***REMOVED*** Be sure to include AuthenticatedTestHelper in spec/spec_helper.rb instead
-***REMOVED*** Then, you can remove it from this and the units test.
-include AuthenticatedTestHelper
-include AuthenticatedSystem
 
 ***REMOVED***
 ***REMOVED*** A test controller with and without access controls
