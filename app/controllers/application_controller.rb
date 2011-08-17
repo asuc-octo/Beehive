@@ -31,6 +31,8 @@ class ApplicationController < ActionController::Base
 ***REMOVED***     FILTERS      ***REMOVED***
 ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
 
+  ***REMOVED*** Only the user to whom the job belongs is permitted to view the particular
+  ***REMOVED*** action for this job.
   def view_ok_for_unactivated_job
     j = Job.find(params[:id].present? ? params[:id] : params[:job_id])
       ***REMOVED*** id and job_id because this filter is used by both the JobsController
@@ -41,6 +43,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  ***REMOVED*** Only users other than the user to whom the job belongs is permitted to watch
+  ***REMOVED*** or apply to the job.
+  def watch_apply_ok_for_job
+    j = Job.find(params[:id].present? ? params[:id] : params[:job_id])
+      ***REMOVED*** id and job_id because this filter is used by both the JobsController
+      ***REMOVED*** and the ApplicsController
+    if (j == nil || @current_user == j.user)
+      flash[:error] = "You cannot watch or apply to your own listing."
+      redirect_to job_path(j)
+    end
+  end
 
   private
 
