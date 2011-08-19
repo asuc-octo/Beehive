@@ -22,7 +22,6 @@ class Job < ActiveRecord::Base
   ***REMOVED*** =======================
 
   include AttribsHelper
-  include ActionController::UrlWriter ***REMOVED*** for activate_job_url
 
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
   ***REMOVED***  ASSOCIATIONS  ***REMOVED***
