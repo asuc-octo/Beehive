@@ -27,7 +27,10 @@ class User < ActiveRecord::Base
   
 
   ***REMOVED*** Authlogic
-  acts_as_authentic do |u|
+  acts_as_authentic do |c|
+    c.merge_validates_length_of_login_field_options :within => 1..100
+      ***REMOVED*** so that logins can be 1 character in length even; 'login' is provided
+      ***REMOVED*** by CAS so we don't want to artificially limit the values we get for it.
   end
 
   class Types
