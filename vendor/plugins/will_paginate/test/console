@@ -1,8 +1,0 @@
-***REMOVED***!/usr/bin/env ruby
-irb = RUBY_PLATFORM =~ /(:?mswin|mingw)/ ? 'irb.bat' : 'irb'
-libs = []
-
-libs << 'irb/completion'
-libs << File.join('lib', 'load_fixtures')
-
-exec "***REMOVED***{irb} -Ilib:test***REMOVED***{libs.map{ |l| " -r ***REMOVED***{l}" }.join} --simple-prompt"

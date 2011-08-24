@@ -52,9 +52,6 @@ ResearchMatch::Application.configure do
     :cas_base_url => "https://auth.berkeley.edu/cas/"
   )
 
-  ***REMOVED*** LDAP
-  UCB::LDAP.host = 'ldap.berkeley.edu'
-
   ***REMOVED*** Enable Action Mailer
   config.action_mailer.delivery_method = :smtp
 end
