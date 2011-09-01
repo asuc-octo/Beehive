@@ -134,7 +134,7 @@ class Job < ActiveRecord::Base
   end
 
   def open_ended_end_date
-    end_date.nil?
+    end_date.blank?
   end
   
   ***REMOVED*** This is the main search handler.
@@ -374,7 +374,7 @@ class Job < ActiveRecord::Base
     ***REMOVED*** Save, skipping validations, so that we just change the activation code
     ***REMOVED*** and leave the rest alone! (Also so that we don't encounter weird bugs with
     ***REMOVED*** activating jobs whose end dates are in the past, etc.)
-    self.save(false)
+    self.save(:validate => false)
 
     if send_email
       ***REMOVED*** Send the email for activation.
