@@ -69,6 +69,7 @@ class User < ActiveRecord::Base
 
   ***REMOVED*** Check that user type is valid
   validates_inclusion_of    :user_type, :in => Types::All, :message => "is invalid"
+  ***REMOVED***validates :user_type, :inclusion => { :in => [0,1,2,3], :message => "is invalid" }
 
   ***REMOVED*** Before carrying out validations (i.e., before actually creating the user object), assign the proper 
   ***REMOVED*** email address to the user (depending on whether the user is a student or gsi or a faculty) 

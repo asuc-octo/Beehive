@@ -149,7 +149,7 @@ Capistrano::Configuration.instance.load do
         
         ***REMOVED*** for LDAP and SMTP_PW shared files
         run "ln -nfs ***REMOVED***{shared_path}/config/ldap.yml ***REMOVED***{release_path}/config/ldap.yml" 
-        run "ln -nfs ***REMOVED***{shared_path}/config/smtp_pw.rb ***REMOVED***{release_path}/config/smtp_pw.rb"         
+        run "ln -nfs ***REMOVED***{shared_path}/config/smtp_settings.rb ***REMOVED***{release_path}/config/smtp_settings.rb"         
       end
 
     end
