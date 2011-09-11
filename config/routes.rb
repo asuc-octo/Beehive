@@ -1,56 +1,53 @@
 ResearchMatch::Application.routes.draw do
 
-  scope "/research" do
 
-    resources :pictures
+  resources :pictures
 
-    ***REMOVED*** Jobs
-    scope '/jobs', :as => :jobs do
-      get  '/search' => 'jobs***REMOVED***index', :as => :search
-    end
-
-    resources :jobs do
-      member do 
-        get 'activate'
-        get 'delete'
-        get 'resend_activation_email'
-        get 'watch'
-        get 'unwatch'
-      end
-    end
-
-    ***REMOVED*** Applics
-    scope :applics do
-      get  '/jobs/:job_id/apply' => 'applics***REMOVED***new', :as => :new_job_applic
-      post  '/jobs/:job_id/doapply' => 'applics***REMOVED***create', :as => :create_job_applic
-      get  '/jobs/:job_id/applications' => 'applics***REMOVED***index', :as => :list_jobs_applics
-      get  '/applications/:id' => 'applics***REMOVED***show', :as => :applic
-      get  '/applications/:id/withdraw' => 'applics***REMOVED***destroy', :as => :destroy_applic
-      get  '/applications/:id/resume' => 'applics***REMOVED***resume', :as => :applic_resume
-      get  '/applications/:id/transcript'=>'applics***REMOVED***transcript', :as => :applic_transcript
-    end ***REMOVED*** applics
-
-    ***REMOVED*** Documents
-    match '/documents/:id/destroy' => 'documents***REMOVED***destroy', :as => :destroy_document
-    resources :documents
-
-    ***REMOVED*** Access control
-    match '/logout' => 'user_sessions***REMOVED***destroy'
-    match '/login'  => 'user_sessions***REMOVED***new'
-
-    ***REMOVED*** Users
-    resources :users
-    get  '/dashboard' => 'dashboard***REMOVED***index'
-
-    ***REMOVED*** Home
-    get  '/' => 'home***REMOVED***index', :as => :home
-
-    ***REMOVED*** Autocomplete routes
-    get '/categories/json' => 'categories***REMOVED***json', :as => :categories_json
-    get '/courses/json' => 'courses***REMOVED***json', :as => :courses_json
-    get '/proglangs/json' => 'proglangs***REMOVED***json', :as => :proglangs_json
-
+  ***REMOVED*** Jobs
+  scope '/jobs', :as => :jobs do
+    get  '/search' => 'jobs***REMOVED***index', :as => :search
   end
+
+  resources :jobs do
+    member do 
+      get 'activate'
+      get 'delete'
+      get 'resend_activation_email'
+      get 'watch'
+      get 'unwatch'
+    end
+  end
+
+  ***REMOVED*** Applics
+  scope :applics do
+    get  '/jobs/:job_id/apply' => 'applics***REMOVED***new', :as => :new_job_applic
+    post  '/jobs/:job_id/doapply' => 'applics***REMOVED***create', :as => :create_job_applic
+    get  '/jobs/:job_id/applications' => 'applics***REMOVED***index', :as => :list_jobs_applics
+    get  '/applications/:id' => 'applics***REMOVED***show', :as => :applic
+    get  '/applications/:id/withdraw' => 'applics***REMOVED***destroy', :as => :destroy_applic
+    get  '/applications/:id/resume' => 'applics***REMOVED***resume', :as => :applic_resume
+    get  '/applications/:id/transcript'=>'applics***REMOVED***transcript', :as => :applic_transcript
+  end ***REMOVED*** applics
+
+  ***REMOVED*** Documents
+  match '/documents/:id/destroy' => 'documents***REMOVED***destroy', :as => :destroy_document
+  resources :documents
+
+  ***REMOVED*** Access control
+  match '/logout' => 'user_sessions***REMOVED***destroy'
+  match '/login'  => 'user_sessions***REMOVED***new'
+
+  ***REMOVED*** Users
+  resources :users
+  get  '/dashboard' => 'dashboard***REMOVED***index'
+
+  ***REMOVED*** Home
+  get  '/' => 'home***REMOVED***index', :as => :home
+
+  ***REMOVED*** Autocomplete routes
+  get '/categories/json' => 'categories***REMOVED***json', :as => :categories_json
+  get '/courses/json' => 'courses***REMOVED***json', :as => :courses_json
+  get '/proglangs/json' => 'proglangs***REMOVED***json', :as => :proglangs_json
 
   ***REMOVED*** The priority is based upon order of creation:
   ***REMOVED*** first created -> highest priority.
