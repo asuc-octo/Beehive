@@ -8,7 +8,6 @@ class Category < ActiveRecord::Base
   ***REMOVED*** =======================
 
   has_and_belongs_to_many :jobs
-
   has_many :interests
   has_many :users, :through => :interests
   
