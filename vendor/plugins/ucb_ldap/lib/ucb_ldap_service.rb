@@ -8,7 +8,7 @@ module UCB
     ***REMOVED***
     ***REMOVED***   services = Services.find_by_uid("1234")       ***REMOVED***=> [***REMOVED***<UCB::LDAP::Service: ...>, ...]
     ***REMOVED***
-    ***REMOVED*** Servicess are usually loaded through a Person instance:
+    ***REMOVED*** Services are usually loaded through a Person instance:
     ***REMOVED***
     ***REMOVED***   p = Person.find_by_uid("1234")    ***REMOVED***=> ***REMOVED***<UCB::LDAP::Person: ...>
     ***REMOVED***   services = p.services        ***REMOVED***=> [***REMOVED***<UCB::LDAP::Service: ...>, ...]
