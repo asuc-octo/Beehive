@@ -1,6 +1,10 @@
 require 'spec_helper'
 
+require 'thinking_sphinx/test'
+ThinkingSphinx::Test.init
+
 describe Job do
+  fixtures :jobs
 
   before(:each) do
     @controller = mock('JobsController')
@@ -116,29 +120,35 @@ describe Job do
   end ***REMOVED*** validations
 
   describe "searching" do
-    before :each do
-      @valid_jobs = []
-      create_job({
-        :title => "regular job",
-        :active => true
-      })
-      create_job({
-        :title => "inactive job",
-        :active => false
-      })
-      create_job({
-        :title => "another regular job",
-        :active => true
-      })
-    end
-
-    after :each do
-      @valid_jobs.each {|j| j.destroy}
-    end
+    ***REMOVED*** before :each do
+      ***REMOVED*** @valid_jobs = []
+      ***REMOVED*** create_job({
+        ***REMOVED*** :title => "regular job",
+        ***REMOVED*** :active => true
+      ***REMOVED*** })
+      ***REMOVED*** create_job({
+        ***REMOVED*** :title => "inactive job",
+        ***REMOVED*** :active => false
+      ***REMOVED*** })
+      ***REMOVED*** create_job({
+        ***REMOVED*** :title => "another regular job",
+        ***REMOVED*** :active => true
+      ***REMOVED*** })
+    ***REMOVED*** end
+***REMOVED*** 
+    ***REMOVED*** after :each do
+      ***REMOVED*** @valid_jobs.each {|j| j.destroy}
+    ***REMOVED*** end
 
     describe "search with default options" do
       it "should return all active jobs" do
-        Job.find_jobs.count.should == @valid_jobs.select{|j| j.active}.count
+        ThinkingSphinx::Test.start
+        
+        results = Job.find_jobs "interesting"
+        results.length.should == 1
+        results[0].should == jobs(:four)
+        
+        ThinkingSphinx::Test.stop
       end
     end
   end ***REMOVED*** searching
