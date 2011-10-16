@@ -7,8 +7,7 @@ class Category < ActiveRecord::Base
   ***REMOVED***   updated_at : datetime 
   ***REMOVED*** =======================
 
-  has_many :categories_jobs
-  has_many :jobs, :through => :categories_jobs
+  has_and_belongs_to_many :jobs
   
   has_many :interests
   has_many :users, :through => :interests
