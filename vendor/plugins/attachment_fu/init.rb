@@ -1,12 +1,12 @@
 require 'tempfile'
 
-Tempfile.class_eval do
-  ***REMOVED*** overwrite so tempfiles use the extension of the basename.  important for rmagick and image science
-  def make_tmpname(basename, n)
-    ext = nil
-    sprintf("%s%d-%d%s", basename.to_s.gsub(/\.\w+$/) { |s| ext = s; '' }, $$, n, ext)
-  end
-end
+***REMOVED*** Tempfile.class_eval do
+***REMOVED***   ***REMOVED*** overwrite so tempfiles use the extension of the basename.  important for rmagick and image science
+***REMOVED***   def make_tmpname(basename, n)
+***REMOVED***     ext = nil
+***REMOVED***     sprintf("%s%d-%d%s", basename.to_s.gsub(/\.\w+$/) { |s| ext = s; '' }, $$, n, ext)
+***REMOVED***   end
+***REMOVED*** end
 
 require 'geometry'
 ActiveRecord::Base.send(:extend, Technoweenie::AttachmentFu::ActMethods)
