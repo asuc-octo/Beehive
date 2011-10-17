@@ -52,9 +52,9 @@ $(function() {
         
     }
     
-    autocomplete_setup('/research/courses/json', '***REMOVED***course_name');
-    autocomplete_setup('/research/categories/json', '***REMOVED***category_name');
-    autocomplete_setup('/research/proglangs/json', '***REMOVED***proglang_name');
+    autocomplete_setup('/courses/json', '***REMOVED***course_name');
+    autocomplete_setup('/categories/json', '***REMOVED***category_name');
+    autocomplete_setup('/proglangs/json', '***REMOVED***proglang_name');
 });
 
 
