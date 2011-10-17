@@ -49,6 +49,13 @@ ResearchMatch::Application.routes.draw do
   get '/courses/json' => 'courses***REMOVED***json', :as => :courses_json
   get '/proglangs/json' => 'proglangs***REMOVED***json', :as => :proglangs_json
 
+  namespace :admin do
+    scope 'faculties', :as => :faculties do
+      get  '/' => 'faculties***REMOVED***index', :as => ''
+      put  '/:id' => 'faculties***REMOVED***update', :as => :update
+    end
+  end
+
   ***REMOVED*** The priority is based upon order of creation:
   ***REMOVED*** first created -> highest priority.
 
