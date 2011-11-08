@@ -262,6 +262,11 @@ class User < ActiveRecord::Base
     user_type == User::Types::Undergrad
   end
 
+  ***REMOVED*** @return [Boolean] is the user an {Types::Admin Admin}?
+  def admin?
+    user_type == User::Types::Admin
+  end
+
   ***REMOVED*** User type, as a string
   ***REMOVED*** TODO: there's probably a better way to do this programmatically
   def user_type_string(options={})
