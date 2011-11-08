@@ -60,6 +60,8 @@ ResearchMatch::Application.routes.draw do
 
   root :to => 'home***REMOVED***index'
 
+  match '/test_error(/:code)' => 'application***REMOVED***test_exception_notification'
+
   ***REMOVED*** The priority is based upon order of creation:
   ***REMOVED*** first created -> highest priority.
 
