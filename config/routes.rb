@@ -58,6 +58,8 @@ ResearchMatch::Application.routes.draw do
     end
   end
 
+  root :to => 'home***REMOVED***index'
+
   ***REMOVED*** The priority is based upon order of creation:
   ***REMOVED*** first created -> highest priority.
 
