@@ -1,7 +1,9 @@
 ***REMOVED******REMOVED***
 ***REMOVED*** Takes a range and yields pairs of [value, valid?]
 ***REMOVED***
-***REMOVED*** Ex:
+***REMOVED*** @param r [Range] range to test
+***REMOVED***
+***REMOVED*** @example
 ***REMOVED***   test_range(10..20) do |value, valid|
 ***REMOVED***     MyModel.new(:value => value).valid?.should == valid
 ***REMOVED***   end
