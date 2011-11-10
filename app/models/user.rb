@@ -196,12 +196,13 @@ class User < ActiveRecord::Base
   end
 
 
-  ***REMOVED*** Updates (but does *NOT* save, by default) this User's role, based on the
+  ***REMOVED*** Updates this User's role, based on the
   ***REMOVED*** LDAP information. Raises an error if the user type can't be determined.
   ***REMOVED***
   ***REMOVED*** @param options [Hash]
-  ***REMOVED***   @option options [Boolean] :save Also commit user type to the database
-  ***REMOVED***   @option options [Boolean] :update Same as :save
+  ***REMOVED*** @option options [Boolean] :save Also commit user type to the database (default +false+)
+  ***REMOVED*** @option options [Boolean] :update Same as +:save+
+  ***REMOVED*** @return [Integer] Inferred user {Types Type}
   ***REMOVED***
   def update_user_type(options={})
     unless options[:stub].blank?   ***REMOVED*** stub type
@@ -211,7 +212,7 @@ class User < ActiveRecord::Base
       person = self.ldap_person
       case   ***REMOVED*** Determine role
         ***REMOVED*** Faculty
-        when (person.employee_academic? and not person.employee_expired?)
+        when (person.employee_academic? and not person.employee_expired? and not ['G','U'].include?(person.berkeleyEduStuUGCode))
           self.user_type = User::Types::Faculty
 
         ***REMOVED*** Student
