@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-require 'thinking_sphinx/test'
-ThinkingSphinx::Test.init
-ThinkingSphinx::Test.start_with_autostop
+***REMOVED*** require 'thinking_sphinx/test'
+***REMOVED*** ThinkingSphinx::Test.init
+***REMOVED*** ThinkingSphinx::Test.start_with_autostop
 
 describe Job do
   fixtures :all
@@ -148,6 +148,10 @@ describe Job do
         results = Job.find_jobs "Log Mining"
         expected = [jobs(:console)]
         verify_match results, expected
+        
+        results = Job.find_jobs "advanced"
+        expected = [jobs(:bridges), jobs(:airplanes)]
+        verify_match results, expected
       end
       
       it "should match description" do
@@ -174,8 +178,8 @@ describe Job do
             
       it "should match faculty" do
         results = Job.find_jobs "fox"
-        expected = [jobs(:sejits), jobs(:scads), jobs(:cloud), jobs(:console), jobs(:awe)]
-        verify_match results, expected
+        excluded = [jobs(:brain), jobs(:airplanes), jobs(:raid), jobs(:inactive)]
+        verify_exclusion results, excluded
                                    
         results = Job.find_jobs "joseph"
         expected = [jobs(:cloud), jobs(:console), jobs(:bridges)]
@@ -199,96 +203,17 @@ describe Job do
         excluded = [jobs(:brain), jobs(:bridges), jobs(:airplanes), jobs(:raid), jobs(:inactive)]
         verify_exclusion results, excluded
         
-        results = Job.find_jobs "Cognative Science"
+        results = Job.find_jobs "Cognitive Science"
         expected = [jobs(:brain)]
         verify_match results, expected
         
-        results = Job.find_jobs "Cognative"
+        results = Job.find_jobs "Cognitive"
         expected = [jobs(:brain)]
         verify_match results, expected
-      end
         
-      it "should be case insensitive" do
-        results1 = Job.find_jobs "sejits"
-        results2 = Job.find_jobs "sEJitS"
-        results3 = Job.find_jobs "SEJITS"
-        expected = [jobs(:sejits)]
-        verify_match results1, expected
-        verify_match results2, expected
-        verify_match results3, expected
-        
-        results = Job.find_jobs "rad lab"
-        expected = [jobs(:cloud)]
+        results = Job.find_jobs "Engineering"
+        expected = [jobs(:bridges), jobs(:airplanes)]
         verify_match results, expected
-        
-        results = Job.find_jobs "eecs"
-        excluded = [jobs(:brain), jobs(:bridges), jobs(:airplanes), jobs(:raid), jobs(:inactive)]
-        verify_exclusion results, excluded
-      end
-      
-      ***REMOVED*** the following specs don't pass yet; we will make them pass
-
-      it "should match partial words" do
-        ***REMOVED*** results = Job.find_jobs "SEJIT"
-        ***REMOVED*** expected = [jobs(:sejits)]
-        ***REMOVED*** verify_match results, expected
-***REMOVED***         
-        ***REMOVED*** results = Job.find_jobs "eval"
-        ***REMOVED*** expected = [jobs(:awe), jobs(:cloud)]
-        ***REMOVED*** verify_match results, expected
-***REMOVED***         
-        ***REMOVED*** results = Job.find_jobs("faceboo")
-        ***REMOVED*** expected = [jobs(:scads)]
-        ***REMOVED*** verify_match results, expected
-***REMOVED***         
-        ***REMOVED*** results = Job.find_jobs("modern sml technique")
-        ***REMOVED*** expected = [jobs(:awe)]
-        ***REMOVED*** verify_match results, expected
-***REMOVED***         
-        ***REMOVED*** results = Job.find_jobs("app")
-        ***REMOVED*** expected = [jobs(:sejits), jobs(:scads), jobs(:cloud), jobs(:console), jobs(:awe)]
-        ***REMOVED*** verify_match results, expected
-***REMOVED***         
-        ***REMOVED*** results = Job.find_jobs "Cognative Scienc"
-        ***REMOVED*** expected = [jobs(:brain)]
-        ***REMOVED*** verify_match results, expected
-***REMOVED***         
-        ***REMOVED*** ***REMOVED***DO WE WANT THIS TO PASS????
-        ***REMOVED*** results = Job.find_jobs "Cog Sci"
-        ***REMOVED*** expected = [jobs(:brain)]
-        ***REMOVED*** verify_match results, expected
-***REMOVED***         
-        ***REMOVED*** results = Job.find_jobs "Operatin"
-        ***REMOVED*** expected = [jobs(:console)]
-        ***REMOVED*** verify_match results, expected
-***REMOVED***         
-        ***REMOVED*** results = Job.find_jobs "Operating System"
-        ***REMOVED*** expected = [jobs(:console)]
-        ***REMOVED*** verify_match results, expected
-***REMOVED***         
-        ***REMOVED*** results = Job.find_jobs "Data Structure"
-        ***REMOVED*** expected = [jobs(:awe), jobs(:sejits)]
-        ***REMOVED*** verify_match results, expected
-        
-        ***REMOVED*** results = Job.find_jobs "Visual Bas"
-        ***REMOVED*** expected = [jobs(:awe)]
-        ***REMOVED*** verify_match results, expected
-      end
-      
-      it "should match hyphens" do
-        ***REMOVED*** results = Job.find_jobs "just-in-time"
-        ***REMOVED*** expected = [jobs(:sejits)]
-        ***REMOVED*** verify_match results, expected
-        
-        ***REMOVED*** results = Job.find_jobs "three-winged"
-        ***REMOVED*** expected = [jobs(:airplanes)]
-        ***REMOVED*** verify_match results, expected
-      end
-      
-      it "should return multiple jobs with the same title keyword" do
-        ***REMOVED*** results = Job.find_jobs "advanced"
-        ***REMOVED*** expected = [jobs(:bridges), jobs(:airplanes)]
-        ***REMOVED*** verify_match results, expected
       end
       
       it "should match categories" do
@@ -344,6 +269,104 @@ describe Job do
         ***REMOVED*** expected = [jobs(:awe)]
         ***REMOVED*** verify_match results, expected
       end
+              
+      it "should match partial words" do
+        results = Job.find_jobs "SEJIT"
+        expected = [jobs(:sejits)]
+        verify_match results, expected
+        
+        results = Job.find_jobs "eval"
+        expected = [jobs(:awe), jobs(:cloud)]
+        verify_match results, expected
+        
+        results = Job.find_jobs("faceboo")
+        expected = [jobs(:scads)]
+        verify_match results, expected
+        
+        results = Job.find_jobs("modern sml technique")
+        expected = [jobs(:awe)]
+        verify_match results, expected
+        
+        results = Job.find_jobs("app")
+        expected = [jobs(:sejits), jobs(:scads), jobs(:cloud), jobs(:console), jobs(:awe)]
+        verify_match results, expected
+        
+        ***REMOVED*** results = Job.find_jobs "Cognitive Scienc"
+        ***REMOVED*** expected = [jobs(:brain)]
+        ***REMOVED*** verify_match results, expected
+***REMOVED***         
+        ***REMOVED*** results = Job.find_jobs "Operatin"
+        ***REMOVED*** expected = [jobs(:console)]
+        ***REMOVED*** verify_match results, expected
+***REMOVED***         
+        ***REMOVED*** results = Job.find_jobs "Operating System"
+        ***REMOVED*** expected = [jobs(:console)]
+        ***REMOVED*** verify_match results, expected
+***REMOVED***         
+        ***REMOVED*** results = Job.find_jobs "Data Structure"
+        ***REMOVED*** expected = [jobs(:awe), jobs(:sejits)]
+        ***REMOVED*** verify_match results, expected
+***REMOVED***         
+        ***REMOVED*** results = Job.find_jobs "Visual Bas"
+        ***REMOVED*** expected = [jobs(:awe)]
+        ***REMOVED*** verify_match results, expected
+      end
+      
+      it "should be case insensitive" do
+        results1 = Job.find_jobs "sejits"
+        results2 = Job.find_jobs "sEJitS"
+        results3 = Job.find_jobs "SEJITS"
+        expected = [jobs(:sejits)]
+        verify_match results1, expected
+        verify_match results2, expected
+        verify_match results3, expected
+        
+        results = Job.find_jobs "rad lab"
+        expected = [jobs(:cloud)]
+        verify_match results, expected
+        
+        results = Job.find_jobs "eecs"
+        excluded = [jobs(:brain), jobs(:bridges), jobs(:airplanes), jobs(:raid), jobs(:inactive)]
+        verify_exclusion results, excluded
+      end
+      
+      it "should match strange characters" do
+        results = Job.find_jobs "just-in-time"
+        expected = [jobs(:sejits)]
+        verify_match results, expected
+        
+        results = Job.find_jobs "three-winged"
+        expected = [jobs(:airplanes)]
+        verify_match results, expected
+        
+        results = Job.find_jobs "i.e."
+        expected = [jobs(:awe)]
+        verify_match results, expected
+        
+        results = Job.find_jobs "20%"
+        expected = [jobs(:awe)]
+        verify_match results, expected
+        
+        results = Job.find_jobs "$20.00"
+        expected = [jobs(:brain)]
+        verify_match results, expected
+        
+        results = Job.find_jobs "under_score"
+        expected = [jobs(:bridges)]
+        verify_match results, expected
+        
+        results = Job.find_jobs "/geek"
+        expected = [jobs(:bridges)]
+        verify_match results, expected
+        
+        results = Job.find_jobs "http://"
+        expected = [jobs(:bridges)]
+        verify_match results, expected
+        
+        results = Job.find_jobs "\\\\test" ***REMOVED***this actually searches "\\test"
+        expected = [jobs(:bridges)]
+        verify_match results, expected
+      end
     end
     
     describe "search with params" do
@@ -354,7 +377,7 @@ describe Job do
         excluded = [jobs(:brain), jobs(:bridges), jobs(:airplanes), jobs(:raid), jobs(:inactive)]
         verify_exclusion results, excluded
         
-        params = {:department_id => Department.find_by_name('Cognative Science').id}
+        params = {:department_id => Department.find_by_name('Cognitive Science').id}
         results = Job.find_jobs nil, params
         expected = [jobs(:brain)]
         verify_match results, expected
@@ -388,8 +411,6 @@ describe Job do
         results.length.should == 3
       end
       
-      ***REMOVED*** not sure why this isn't passing... it should be considering ts is working.
-      ***REMOVED*** maybe it will pass after the refactor?
       it "should respect :tags" do
         ***REMOVED*** for job in Job.all[0..2]
           ***REMOVED*** populate_tag_list job
@@ -417,55 +438,55 @@ describe Job do
         ***REMOVED*** verify_match results, expected
       end
       
-      ***REMOVED*** the following specs don't pass yet; we will make them pass
-      
-      it "should respect :exclude_ended" do
-        ***REMOVED*** params = {:exclude_ended => true}
-        ***REMOVED*** results = Job.find_jobs "RAID", params
-        ***REMOVED*** expected = []
-        ***REMOVED*** verify_match results, expected
-  ***REMOVED***       
-        ***REMOVED*** params = {:exclude_ended => false}
-        ***REMOVED*** results = Job.find_jobs "RAID", params
-        ***REMOVED*** expected = [jobs(:raid)]
-        ***REMOVED*** verify_match results, expected
+      it "should respect :include_ended" do
+        params = {:include_ended => false}
+        results = Job.find_jobs "RAID", params
+        expected = []
+        verify_match results, expected
+        
+        params = {:include_ended => true}
+        results = Job.find_jobs "RAID", params
+        expected = [jobs(:raid)]
+        verify_match results, expected
       end
       
       it "should respect :compensation" do
-        ***REMOVED*** params = {:compensation => nil}
-        ***REMOVED*** results = Job.find_jobs nil, params
-        ***REMOVED*** unexpected = [jobs(:raid), jobs(:inactive)]
-        ***REMOVED*** verify_exclusion results, unexpected
-  ***REMOVED***       
-        ***REMOVED*** params = {:compensation => 'paid'}
-        ***REMOVED*** results = Job.find_jobs nil, params
-        ***REMOVED*** unexpected = [jobs(:awe), jobs(:airplanes), jobs(:raid), jobs(:inactive)]
-        ***REMOVED*** verify_exclusion results, unexpected
-  ***REMOVED***       
-        ***REMOVED*** params = {:compensation => 'credit'}
-        ***REMOVED*** results = Job.find_jobs nil, params
-        ***REMOVED*** expected = [jobs(:sejits), jobs(:cloud), jobs(:brain), jobs(:airplanes)]
-        ***REMOVED*** verify_match results, expected
+        params = {:compensation => nil}
+        results = Job.find_jobs nil, params
+        unexpected = [jobs(:raid), jobs(:inactive)]
+        verify_exclusion results, unexpected
+        
+        params = {:compensation => 'Paid Only'}
+        results = Job.find_jobs nil, params
+        unexpected = [jobs(:awe), jobs(:airplanes), jobs(:raid), jobs(:inactive)]
+        verify_exclusion results, unexpected
+        
+        params = {:compensation => 'Credit Only'}
+        results = Job.find_jobs nil, params
+        expected = [jobs(:sejits), jobs(:cloud), jobs(:brain), jobs(:airplanes)]
+        verify_match results, expected
       end
       
       it "should respect :order" do
-        ***REMOVED*** params = {:limit => 3, :order => "created_at DESC"}
-        ***REMOVED*** results = Job.find_jobs nil, params
-        ***REMOVED*** results.should == [jobs(:airplanes), jobs(:bridges), jobs(:brain)]
+        params = {:limit => 3, :order => "created_at DESC"}
+        results = Job.find_jobs nil, params
+        results.should == [jobs(:airplanes), jobs(:bridges), jobs(:brain)]
         
-        ***REMOVED***add more?
+        params = {:limit => 3, :order => "title ASC"}
+        results = Job.find_jobs nil, params
+        results.should == [jobs(:airplanes), jobs(:awe), jobs(:cloud)]
       end
       
       it "should respect :include_inactive" do
-        ***REMOVED*** params = {:include_inactive => true}
-        ***REMOVED*** results = Job.find_jobs nil, params
-        ***REMOVED*** unexpected = [jobs(:raid)]
-        ***REMOVED*** verify_exclusion results, unexpected
-***REMOVED***         
-        ***REMOVED*** params = {:include_inactive => false}
-        ***REMOVED*** results = Job.find_jobs nil, params
-        ***REMOVED*** unexpected = [jobs(:raid), jobs(:inactive)]
-        ***REMOVED*** verify_exclusion results, unexpected
+        params = {:include_inactive => true}
+        results = Job.find_jobs nil, params
+        unexpected = [jobs(:raid)]
+        verify_exclusion results, unexpected
+        
+        params = {:include_inactive => false}
+        results = Job.find_jobs nil, params
+        unexpected = [jobs(:raid), jobs(:inactive)]
+        verify_exclusion results, unexpected
       end
     end
   end ***REMOVED*** searching
@@ -494,38 +515,6 @@ def verify_exclusion(actual_results, unexpected_results)
   end
 end
   
-def printTitles(jobs)
-  puts ""
-  for j in jobs
-    puts "*" * 50
-    puts j.title
-  end
-  puts "*" * 50
-  puts ""
-end
-  
-def printJobs(jobs)
-  for j in jobs
-    puts "%" * 200
-    puts j.inspect
-    puts "*" * 50
-    puts "faculties:"
-    puts j.faculties.inspect
-    puts "*" * 50
-    puts "proglangs:"
-    puts j.proglangs.inspect
-    puts "*" * 50
-    puts "courses:"
-    puts j.courses.inspect
-    puts "*" * 50
-    puts "categories:"
-    puts j.categories.inspect
-    puts "*" * 50
-    puts "department:"
-    puts j.department.inspect
-  end
-end
-
 def populate_tag_list(job)
   tags_string = ""
   tags_string << job.department.name

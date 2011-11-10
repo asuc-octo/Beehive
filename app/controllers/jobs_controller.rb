@@ -34,19 +34,16 @@ class JobsController < ApplicationController
   def search_params_hash
     h = {}
     ***REMOVED*** booleans
-    [:paid, :credit, :ended, :filled].each do |param|
-      h[param] = params[param] if ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[param]) ***REMOVED***unless params[param].nil?
-    end
+    h[:include_ended] = params[:include_ended] if ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:include_ended]) ***REMOVED***unless params[param].nil?
     
     ***REMOVED*** strings, directly copy attribs
-    [:query, :tags, :page, :per_page, :as].each do |param|
+    [:query, :tags, :page, :per_page, :as, :compensation].each do |param|
       h[param] = params[param] unless params[param].blank?
     end
 
     ***REMOVED*** dept. 0 => all
     h[:department] = params[:department] if params[:department].to_i > 0
     h[:faculty]    = params[:faculty]    if params[:faculty].to_i    > 0
-
     h
   end
 
@@ -61,10 +58,8 @@ class JobsController < ApplicationController
     query_parms = {}
     query_parms[:department_id] = params[:department].to_i if params[:department] && params[:department].to_i > 0
     query_parms[:faculty_id   ] = params[:faculty].to_i    if params[:faculty] && params[:faculty].to_i > 0
-    query_parms[:paid         ] = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:paid])
-    query_parms[:credit       ] = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:credit])
-    query_parms[:ended        ] = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:ended])
-    query_parms[:filled       ] = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:filled])
+    query_parms[:include_ended] = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:include_ended])
+    query_parms[:compensation ] = params[:compensation] if params[:compensation].present?
     query_parms[:tags         ] = params[:tags] if params[:tags].present?
 
     ***REMOVED*** will_paginate
@@ -75,8 +70,9 @@ class JobsController < ApplicationController
     @jobs = Job.find_jobs(@query, query_parms)
     
     ***REMOVED*** Set some view props
-    @department_id = params[:department] ? params[:department].to_i : 0
-    @faculty_id    = params[:faculty]    ? params[:faculty].to_i    : 0
+    @department_id = params[:department]   ? params[:department].to_i : 0
+    @faculty_id    = params[:faculty]      ? params[:faculty].to_i    : 0
+    @compensation  = params[:compensation]
 
     respond_to do |format|
             format.html { render :action => :index }
