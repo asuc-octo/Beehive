@@ -18,13 +18,16 @@ class User < ActiveRecord::Base
   ***REMOVED***   current_login_ip    : string 
   ***REMOVED***   last_login_ip       : string 
   ***REMOVED***   user_type           : integer 
+  ***REMOVED***   units               : integer 
+  ***REMOVED***   free_hours          : integer 
+  ***REMOVED***   research_blurb      : text 
+  ***REMOVED***   experience          : string 
+  ***REMOVED***   summer              : boolean 
+  ***REMOVED***   url                 : string 
+  ***REMOVED***   year                : integer 
   ***REMOVED*** =======================
 
   include AttribsHelper
-***REMOVED***  include Authentication
-***REMOVED***  include Authentication::ByPassword
-***REMOVED***  include Authentication::ByCookieToken
-  
 
   ***REMOVED*** Authlogic
   acts_as_authentic do |c|
@@ -42,7 +45,7 @@ class User < ActiveRecord::Base
       Admin     = 3
       All       = [Undergrad, Grad, Faculty, Admin]
   end
-  
+
   has_many :jobs,        :dependent => :nullify
   has_many :reviews
   has_one  :picture
@@ -59,78 +62,58 @@ class User < ActiveRecord::Base
   has_many :proficiencies, :dependent => :destroy
   has_many :proglangs,     :through => :proficiencies
 
+  ***REMOVED*** Name
   validates_presence_of     :name
   validates_length_of       :name,     :within => 0..100
   validates_format_of       :name,     :with => /\A[A-Za-z\-_ \.]+\z/
 
+  ***REMOVED*** Email
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100 ***REMOVED***r@a.wk
   validates_uniqueness_of   :email
 
+  ***REMOVED*** Misc info
+  validates_numericality_of :units,          :allow_nil => true
+  validates_numericality_of :free_hours,     :allow_nil => true
+  validates_length_of       :experience,     :maximum => 255
+  validates_length_of       :research_blurb, :maximum => 300
+  validates_length_of       :url,            :maximum => 255
+  validates_numericality_of :year,           :allow_nil => true
+  validates_inclusion_of    :year,           :in => (1..4), :allow_nil => true
+
   ***REMOVED*** Check that user type is valid
   validates_inclusion_of    :user_type, :in => Types::All, :message => "is invalid"
-  ***REMOVED***validates :user_type, :inclusion => { :in => [0,1,2,3], :message => "is invalid" }
 
-  ***REMOVED*** Before carrying out validations (i.e., before actually creating the user object), assign the proper 
-  ***REMOVED*** email address to the user (depending on whether the user is a student or gsi or a faculty) 
-  ***REMOVED*** and handle the courses for the user.
-  ***REMOVED*** before_validation :handle_email       ***REMOVED*** Handled by CAS
-  ***REMOVED*** before_validation :handle_name        ***REMOVED*** Handled by LDAP
   before_validation :handle_courses
   before_validation :handle_categories
   before_validation :handle_proglangs
 
-  ***REMOVED*** HACK HACK HACK -- how to do attr_accessible from here?
-  ***REMOVED*** prevents a user from submitting a crafted form that bypasses activation
-  ***REMOVED*** anything else you want your user to change should be added here.
-  attr_accessible :email
+  attr_accessible :email, :units, :free_hours, :research_blurb, :experience, :summer, :url
 
   attr_reader :course_names; attr_writer :course_names
   attr_reader :proglang_names; attr_writer :proglang_names
   attr_reader :category_names; attr_writer :category_names
 
-  ***REMOVED*** (DEPRECATED) Returns true if the user has just been activated.
+  ***REMOVED*** @return [Boolean] true if the user has just been activated.
+  ***REMOVED*** @deprecated
   def recently_activated?
     false 
   end
 
-  ***REMOVED*** Return the user corresponding to given login
+  ***REMOVED*** @return [User] the user corresponding to given login
   def self.authenticate_by_login(loggin)
     ***REMOVED*** Return user corresponding to login, or nil if there isn't one
     User.find_by_login(loggin)
   end
 
-  ***REMOVED*** Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
-  ***REMOVED***
-  ***REMOVED*** what is this
-  ***REMOVED*** |
-  ***REMOVED*** v
-  ***REMOVED*** uff.  this is really an authorization, not authentication routine.  
-  ***REMOVED*** We really need a Dispatch Chain here or something.
-  ***REMOVED*** This will also let us return a human error message.
-  ***REMOVED***
-  ***REMOVED*** *** Password authentication is deprecated
-  ***REMOVED***
-***REMOVED***  def self.authenticate_by_password(email, password)
-***REMOVED***    ***REMOVED*** Since we authenticate with CAS, the existence of a valid CAS session is enough.
-***REMOVED***    session[:cas_user].present?
-***REMOVED***
-***REMOVED***    return nil if email.blank? || password.blank?
-***REMOVED***    u = find :first, :conditions => ['email = ? and activated_at IS NOT NULL', email] ***REMOVED*** need to get the salt
-***REMOVED***    u && u.authenticated?(password) ? u : nil
-***REMOVED***  end
-
-  ***REMOVED***def login=(value)
-  ***REMOVED***  write_attribute :login, (value ? value.downcase : nil)
-  ***REMOVED***end
-
+  ***REMOVED*** Downcases email address
   def email=(value)
     write_attribute :email, (value && !value.empty? ? value.downcase : self.email)
   end
   
   
-  ***REMOVED*** Returns a string containing the 'required course' names taken by this User
-  ***REMOVED*** e.g. "CS61A,CS61B"
+  ***REMOVED*** @param add_spaces [Boolean] use ', ' as separator instead of ','
+  ***REMOVED*** @return [String] the 'required course' names taken by this User, e.g. "CS61A,CS61B"
   def course_list_of_user(add_spaces = false)
   	course_list = ''
   	courses.each do |c|
@@ -145,8 +128,8 @@ class User < ActiveRecord::Base
   	end
   end
 
-  ***REMOVED*** Returns a string containing the category names taken by this User
-  ***REMOVED*** e.g. "robotics,signal processing"
+  ***REMOVED*** @param add_spaces [Boolean] use ', ' as separator instead of ','
+  ***REMOVED*** @return [String] the category names taken by this User, e.g. "robotics,signal processing"
   def category_list_of_user(add_spaces = false)
   	category_list = ''
   	categories.each do |cat|
@@ -161,8 +144,7 @@ class User < ActiveRecord::Base
   	end
   end
   
-  ***REMOVED*** Returns a string containing the 'desired proglang' names taken by this User
-  ***REMOVED*** e.g. "java,scheme,c++"
+  ***REMOVED*** @return [String] the 'desired proglang' names taken by this User, e.g. "java,scheme,c++"
   def proglang_list_of_user(add_spaces = false)
   	proglang_list = ''
   	proglangs.each do |pl|
@@ -177,7 +159,7 @@ class User < ActiveRecord::Base
   	end
   end
   
-  ***REMOVED*** Returns an array of this user's watched jobs
+  ***REMOVED*** @return [Array<Job>] this user's watched jobs
   def watched_jobs_list_of_user
     jobs = []
     self.watches.all.each do |w|
@@ -203,11 +185,12 @@ class User < ActiveRecord::Base
   end
 
 
-  ***REMOVED*** Returns the UCB::LDAP::Person for this User
+  ***REMOVED*** @return [UCB::LDAP::Person] for this User
   def ldap_person
     @person ||= UCB::LDAP::Person.find_by_uid(self.login) if self.login
   end
 
+  ***REMOVED*** @return [String] Full name, as provided by LDAP
   def ldap_person_full_name
     "***REMOVED***{self.ldap_person.firstname} ***REMOVED***{self.ldap_person.lastname}".titleize
   end
@@ -216,8 +199,9 @@ class User < ActiveRecord::Base
   ***REMOVED*** Updates (but does *NOT* save, by default) this User's role, based on the
   ***REMOVED*** LDAP information. Raises an error if the user type can't be determined.
   ***REMOVED***
-  ***REMOVED*** Options:
-  ***REMOVED***  - save|update: If true, DO update user type in the database.
+  ***REMOVED*** @param options [Hash]
+  ***REMOVED***   @option options [Boolean] :save Also commit user type to the database
+  ***REMOVED***   @option options [Boolean] :update Same as :save
   ***REMOVED***
   def update_user_type(options={})
     unless options[:stub].blank?   ***REMOVED*** stub type
