@@ -21,12 +21,12 @@ ResearchMatch::Application.routes.draw do
   ***REMOVED*** Applics
   scope :applics do
     get  '/jobs/:job_id/apply' => 'applics***REMOVED***new', :as => :new_job_applic
-    post  '/jobs/:job_id/doapply' => 'applics***REMOVED***create', :as => :create_job_applic
+    post '/jobs/:job_id/apply' => 'applics***REMOVED***create', :as => :create_job_applic
     get  '/jobs/:job_id/applications' => 'applics***REMOVED***index', :as => :list_jobs_applics
     get  '/applications/:id' => 'applics***REMOVED***show', :as => :applic
     get  '/applications/:id/withdraw' => 'applics***REMOVED***destroy', :as => :destroy_applic
-    get  '/applications/:id/resume' => 'applics***REMOVED***resume', :as => :applic_resume
-    get  '/applications/:id/transcript'=>'applics***REMOVED***transcript', :as => :applic_transcript
+    ***REMOVED***get  '/applications/:id/resume' => 'applics***REMOVED***resume', :as => :applic_resume
+    ***REMOVED***get  '/applications/:id/transcript'=>'applics***REMOVED***transcript', :as => :applic_transcript
   end ***REMOVED*** applics
 
   ***REMOVED*** Documents
@@ -40,6 +40,7 @@ ResearchMatch::Application.routes.draw do
   ***REMOVED*** Users
   resources :users
   get  '/dashboard' => 'dashboard***REMOVED***index'
+  get  '/profile'   => 'users***REMOVED***profile', :as => :profile
 
   ***REMOVED*** Home
   get  '/' => 'home***REMOVED***index', :as => :home
