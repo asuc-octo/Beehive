@@ -79,32 +79,6 @@ class Job < ActiveRecord::Base
   
   acts_as_taggable
 
-  ***REMOVED*** ThinkingSphinx
-  define_index do
-    indexes :title
-    indexes :desc
-    indexes tags(:name),       :as => :tag_names,     :facet => true
-    indexes department(:name), :as => :department,    :facet => true
-    indexes faculties(:name),  :as => :faculty,       :facet => true
-    
-    has :active
-    has :paid
-    has :credit
-    has :created_at
-    has :updated_at
-    has :end_date
-    has :num_positions
-    has department(:id),  :as => :department_id
-    has faculties(:id),   :as => :faculty_ids
-    
-    set_property :delta => true
-  end
-
-  sphinx_scope(:tagged_with) do |tags|
-    tags = tags.collect {|t| t.is_a?(Tag) ? t.name : t.to_s}
-    {:conditions=>{:tag_names=>tags}, :match_mode=>:extended}
-  end
-
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
   ***REMOVED***  METHODS  ***REMOVED***
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
@@ -147,8 +121,6 @@ class Job < ActiveRecord::Base
   ***REMOVED*** By default, it finds an unlimited number of active and non-ended jobs.
   ***REMOVED*** You can also restrict by query, department, faculty, paid, credit,
   ***REMOVED*** and set a limit of max number of results.
-  ***REMOVED***
-  ***REMOVED*** Currently uses Sphinx/ThinkingSphinx
   ***REMOVED***
   ***REMOVED*** query: Array or string of search terms.
   ***REMOVED*** extra_options: Hash of additional options:
@@ -199,115 +171,8 @@ class Job < ActiveRecord::Base
     per_page = options[:per_page] || 16
     return results.all.paginate(:page => page, :per_page => per_page)
     
-    ***REMOVED*** begin thinkingsphinx code
-    
-    ***REMOVED*** Sanitize input
-    query ||= ""
-    query.gsub! /[^a-zA-Z0-9 ,]/, ''
-    options[:tags] = [*options[:tags]]
-
-    ***REMOVED*** Sanitize some boolean options to avoid false positives.
-    ***REMOVED*** This happens in situations like paid=0 => paid=true
-    [:paid, :credit].each do |attrib|
-        options[attrib] = from_binary(options[attrib])
-    end
-
-    ***REMOVED*** Common conditions
-    ts_common_options = {}
-    ts_common_options[:max_matches]    = options[:limit] if options[:limit].present? && options[:limit] > 0
-    ts_common_options[:page]         ||= options[:page]
-    ts_common_options[:per_page]     ||= options[:per_page]
-    ts_common_options[:rank_mode]      = :proximity_bm25
-
-    ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
-    ***REMOVED*** ALL conditions ***REMOVED***
-    ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
-    ts_options = { :conditions => {}, :with => {}, :without => {} }
-    ts_options[:with][:active]        = true
-    ts_options[:with][:paid]          = true if options[:paid]
-    ts_options[:with][:credit]        = true if options[:credit]
-    ts_options[:with][:faculty_ids]   = [options[:faculty_id].to_i]   if options[:faculty_id].present? && Faculty.exists?(options[:faculty_id])
-    ts_options[:with][:department_id] = options[:department_id].to_i  if options[:department_id].present? && Department.exists?(options[:department_id])
-    ***REMOVED***ts_options[:with][:end_date]      = (Time.now .. 100.years.since) unless options[:ended]
-
-    ts_options[:without][:end_date]    = (Time.at(1) .. Time.now)  unless options[:ended]
-      ***REMOVED*** Implementation detail: Sphinx indexes nil times as 0, so search from (0, now]
-    ts_options[:without][:num_positions] = -1 unless options[:filled]
-      ***REMOVED*** Assume -1, not 0, means it's filled.
-
-    ts_options[:match_mode] = :extended
-    ts_options.update(ts_common_options)
-
-    results = Job.search query, ts_options
-
-    ***REMOVED*** Final filters
-    results = results.tagged_with(options[:tags]) if options[:tags].present?
-    
-    return results
   end ***REMOVED*** find_jobs
 
-
-  def self.find_jobs_ASDF(query, extra_options={})
-    ***REMOVED*** Sanitize some boolean options to avoid false positives.
-    ***REMOVED*** This happens in situations like paid=0 => paid=true
-    [:paid, :credit].each do |attrib|
-        extra_options[attrib] = from_binary(extra_options[attrib])
-    end
-    
-    ***REMOVED*** Handle weird cases with bad query
-    query = query.join(' ') if query.kind_of? Array
-    
-    ***REMOVED*** Default options
-    options = {
-        :exclude_ended          => true,
-        :paid                   => false,
-        :credit                 => false,
-        :faculty                => 0,
-        :match_mode             => :any,
-        :limit                  => 0,
-        :tags                   => [],
-        :custom_rank            => ""
-        }.update(extra_options)
-
-    ts_options = {
-        :match_mode     => :any,
-        :sort_mode      => :extended,
-        :order          => "@relevance DESC, end_date ASC",
-        :rank_mode      => :proximity_bm25
-        }
-    
-    ***REMOVED*** Selectively build conditions
-    ts_conditions = {}
-    ts_conditions[:active]      = true
-    ts_conditions[:end_date]    = Time.now..100.years.since unless options[:exclude_ended]
-    ts_conditions[:paid]        = true              if options[:paid]
-    ts_conditions[:credit]      = true              if options[:credit]
-    ts_conditions[:sponsor_id]  = options[:faculty] if options[:faculty] > 0 and Faculty.exists?(options[:faculty])
-    ***REMOVED***ts_conditions[:tag_names]   = options[:tags].split(/[\s,]+/)    unless options[:tags].blank?
-    
-    ***REMOVED*** Custom parsing
-    options[:tags] = options[:tags].split(/[\s,]+/) unless options[:tags].blank?
-
-    ***REMOVED*** Selectively build options
-    ts_options[:match_mode]     = options[:match_mode] if [:all, :any, :extended].include? options[:match_mode]
-    ts_options[:max_matches]    = options[:limit]   if options[:limit] > 0
-    ts_options[:rank_mode]      = options[:rank_mode] if [:proximity_bm25, :bm25, :wordcount].include? options[:rank_mode]
-    ts_options[:page]           ||= options[:page]
-    ts_options[:per_page]       ||= options[:per_page]
-    ts_options[:field_weights]  = {:tag_names=>150}
-   
-    if options[:custom_rank] && !options[:custom_rank].empty?
-        ts_options[:sort_mode] = :expr
-        ts_options[:order]     = options[:custom_rank]
-    end
-    
-    ***REMOVED*** Do the search
-    results = Job
-    results = Job.search query, {:conditions => ts_conditions}.update(ts_options)
-    results = results.tagged_with(options[:tags]) if options[:tags].present?
-    return results
-  end
- 
   def self.query_url(options)
     params = {}
     params[:query]          = options[:query]               if options[:query]
