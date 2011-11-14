@@ -18,6 +18,8 @@ class Job < ActiveRecord::Base
   ***REMOVED***   earliest_start_date : datetime 
   ***REMOVED***   latest_start_date   : datetime 
   ***REMOVED***   end_date            : datetime 
+  ***REMOVED***   compensation        : string 
+  ***REMOVED***   open                : boolean 
   ***REMOVED*** =======================
 
   include AttribsHelper
