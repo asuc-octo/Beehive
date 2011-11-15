@@ -9,8 +9,6 @@ class Job < ActiveRecord::Base
   ***REMOVED***   desc                : text 
   ***REMOVED***   category_id         : integer 
   ***REMOVED***   num_positions       : integer 
-  ***REMOVED***   paid                : boolean 
-  ***REMOVED***   credit              : boolean 
   ***REMOVED***   created_at          : datetime 
   ***REMOVED***   updated_at          : datetime 
   ***REMOVED***   department_id       : integer 
@@ -20,11 +18,25 @@ class Job < ActiveRecord::Base
   ***REMOVED***   earliest_start_date : datetime 
   ***REMOVED***   latest_start_date   : datetime 
   ***REMOVED***   end_date            : datetime 
-  ***REMOVED***   compensation        : string 
+  ***REMOVED***   compensation        : integer 
   ***REMOVED***   open                : boolean 
   ***REMOVED*** =======================
 
   include AttribsHelper
+
+  module Compensation         ***REMOVED*** bit flags
+    None   = 0
+    Pay    = 1
+    Credit = 2
+    Both   = Pay | Credit
+
+    All    = {
+      'None'   => None,
+      'Pay'    => Pay,
+      'Credit' => Credit,
+      'Pay and Credit'   => Both
+    }
+  end
 
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
   ***REMOVED***  ASSOCIATIONS  ***REMOVED***
@@ -67,6 +79,8 @@ class Job < ActiveRecord::Base
   validate :earliest_start_date_must_be_before_latest
   validate :latest_start_date_must_be_before_end_date
 
+  validates_inclusion_of :compensation, :in => Compensation::All.values
+
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
   ***REMOVED*** Scopes ***REMOVED***
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
@@ -90,6 +104,14 @@ class Job < ActiveRecord::Base
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
   ***REMOVED***  METHODS  ***REMOVED***
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
+
+  def pay?
+    (self.compensation & Compensation::Pay) > 0
+  end
+
+  def credit?
+    (self.compensation & Compensation::Credit) > 0
+  end
 
   def self.active_jobs
     Job.find(:all, :conditions => {:active => true}, :order => "created_at DESC")
@@ -121,7 +143,7 @@ class Job < ActiveRecord::Base
     end_date.blank?
   end
   
-  ***REMOVED*** This is the main search handler.
+  ***REMOVED*** The main search handler.
   ***REMOVED*** It should be the ONLY interface between search queries and jobs;
   ***REMOVED*** hopefully this will make the choice of search engine transparent
   ***REMOVED*** to our app.
@@ -130,16 +152,16 @@ class Job < ActiveRecord::Base
   ***REMOVED*** You can also restrict by query, department, faculty, paid, credit,
   ***REMOVED*** and set a limit of max number of results.
   ***REMOVED***
-  ***REMOVED*** query: Array or string of search terms.
-  ***REMOVED*** extra_options: Hash of additional options:
-  ***REMOVED***   - included_ended: if false, don't include ended jobs
-  ***REMOVED***   - department_id: ID of department you want to search, or 0 for all depts
-  ***REMOVED***   - faculty: ID of faculty member you want to search, or 0 for all
-  ***REMOVED***   - compensation: can be "Paid Only", "Credit Only", or "Paid and Credit"
-  ***REMOVED***   - limit: max. number of results, or 0 for no limit
-  ***REMOVED***   - tags: array of tag strings to match (searches only tags and not body, title, etc.)
-  ***REMOVED***   - order: ARRAY of custom sorting conditions, besides @relevance. Conditions concatenated left to right.
-  ***REMOVED***   - include_inactive: if true, include inactive jobs
+  ***REMOVED*** @param query [Array, String] search terms
+  ***REMOVED*** @param options [Hash]
+  ***REMOVED*** @option options [Boolean] :included_ended if +false+, don't include jobs with end dates in the past
+  ***REMOVED*** @option options [Integer] :department_id ID of department you want to search, or +0+ for all depts
+  ***REMOVED*** @option options [Integer] :faculty ID of faculty member you want to search, or +0+ for all
+  ***REMOVED*** @option options [Integer] :compensation a constant from {Compensation}. If {Compensation::Both}, search for {Compensation::Paid paid} OR {Compensation::Credit credit}.
+  ***REMOVED*** @option options [Integer] :limit max. number of results, or +0+ for no limit
+  ***REMOVED*** @option options [Array] :tags tag strings to match (searches only tags and not body, title, etc.)
+  ***REMOVED*** @option options [Array] :order custom sorting conditions, besides @relevance. Conditions concatenated left to right.
+  ***REMOVED*** @option options [Boolean] :include_inactive if +true+, include inactive jobs
   ***REMOVED***
   def self.find_jobs(query=nil, options={})
     throw "Query must be a string" unless query.nil? || query.is_a?(String)
@@ -166,14 +188,22 @@ class Job < ActiveRecord::Base
     results = results.where(jobs[:end_date].gt(Time.now).or(jobs[:end_date].eq(nil))) unless options[:include_ended]
     results = results.where(departments[:id].eq(options[:department_id])) if options[:department_id]
     results = results.where(faculties[:id].eq(options[:faculty_id])) if options[:faculty_id]
-    results = results.where(jobs[:paid].eq(true)) if options[:compensation] == "Paid Only"
-    results = results.where(jobs[:credit].eq(true)) if options[:compensation] == "Credit Only"
+
+    ***REMOVED*** Search paid, credit
+    if options[:compensation].present? and options[:compensation].to_i != Compensation::None
+      compensations = []
+      compensations << Compensation::Pay if (options[:compensation].to_i & Compensation::Pay) != 0
+      compensations << Compensation::Credit if (options[:compensation].to_i & Compensation::Credit) != 0
+      compensations << Compensation::Both unless compensations.empty?
+      results = results.where(jobs[:compensation].in_any(compensations))
+    end
+
     results = results.limit(options[:limit]) if options[:limit]
     order = options[:order] || "created_at DESC"
     results = results.order(order)
     results = results.where(jobs[:active].eq(true)) unless options[:include_inactive]
     
-    ***REMOVED*** results = results.tagged_with(options[:tags]) if options[:tags].present?
+    results = results.tagged_with(options[:tags]) if options[:tags].present?
     
     page = options[:page] || 1
     per_page = options[:per_page] || 16
@@ -185,8 +215,7 @@ class Job < ActiveRecord::Base
     params = {}
     params[:query]          = options[:query]               if options[:query]
     params[:department]     = options[:department_id]       if options[:department_id] and Department.exists?(options[:department_id])
-    params[:paid]           = true                          if options[:paid]
-    params[:credit]         = true                          if options[:credit]
+    params[:compensation]   = options[:compensation]        if options[:compensation] and Job::Compensation::All.key(options[:compensation].to_i)
     url_for(:controller => 'jobs', :only_path=>true)+"?***REMOVED***{params.collect { |param, value| param+'='+value }.join('&')}"
   end
    
