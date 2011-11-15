@@ -6,7 +6,7 @@ gem 'rails', ['~> 3.0.3', '< 3.1.0']
 ***REMOVED*** gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 ***REMOVED*** Data
-gem 'mysql2', '< 0.3.0'  ***REMOVED*** rails 3.0.x and mysql >= .3 don't mix
+gem 'pg'
 
 ***REMOVED*** Debugging
 gem 'exception_notification'
@@ -35,6 +35,7 @@ end
 ***REMOVED*** Development
 group :development do
   gem 'yard'
+  gem 'mysql2', '< 0.3.0'  ***REMOVED*** rails 3.0.x and mysql >= .3 don't mix
 end
 
 ***REMOVED*** Testing
