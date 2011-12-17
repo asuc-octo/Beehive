@@ -42,7 +42,7 @@ ResearchMatch::Application.routes.draw do
 
   ***REMOVED*** Users
   resources :users
-  get  '/dashboard' => 'dashboard***REMOVED***index'
+  get  '/dashboard' => 'dashboard***REMOVED***index', :as => :dashboard
   get  '/profile'   => 'users***REMOVED***profile', :as => :profile
 
   ***REMOVED*** Home

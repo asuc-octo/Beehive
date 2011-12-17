@@ -3,6 +3,7 @@
 
 class ApplicationController < ActionController::Base
   helper :all ***REMOVED*** include all helpers, all the time
+  include ApplicationHelper
   include CASControllerIncludes
   protect_from_forgery ***REMOVED*** See ActionController::RequestForgeryProtection for details
 
