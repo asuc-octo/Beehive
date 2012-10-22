@@ -3,8 +3,9 @@
 ***REMOVED*** newer version of cucumber-rails. Consider adding your own code to a new file 
 ***REMOVED*** instead of editing this one. Cucumber will automatically load all features/**/*.rb
 ***REMOVED*** files.
-
+require 'simplecov'
 require 'cucumber/rails'
+SimpleCov.start 'rails'
 
 ***REMOVED*** Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 ***REMOVED*** order to ease the transition to Capybara we set the default here. If you'd
