@@ -39,7 +39,9 @@ ResearchMatch::Application.routes.draw do
 
   ***REMOVED*** Access control
   match '/logout' => 'user_sessions***REMOVED***destroy'
-  match '/login'  => 'user_sessions***REMOVED***new'
+  ***REMOVED***match '/login'  => 'user_sessions***REMOVED***new'
+  match '/login'  => redirect('/auth/cas')
+  match '/auth/:provider/callback' => 'user_sessions***REMOVED***new'
 
   ***REMOVED*** Users
   resources :users
