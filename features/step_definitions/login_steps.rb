@@ -15,16 +15,30 @@ When /^I log out$/ do
   visit "/"
 end
 
-Given /^I am signed in with provider "([^"]*)" as Henry$/ do |provider|
+Given /^I am signed in with provider "([^"]*)" as Justin$/ do |provider|
   OmniAuth.config.add_mock(:cas, {
-    :uid => '764489'
+    :uid => '758752'
   })
   visit "/auth/***REMOVED***{provider.downcase}"
 end
 
-Given /^I am signed in with provider "([^"]*)" as Edward$/ do |provider|
+Given /^I am signed in with provider "([^"]*)" as Justina$/ do |provider|
   OmniAuth.config.add_mock(:cas, {
-    :uid => '762062'
+    :uid => '1005472'
   })
   visit "/auth/***REMOVED***{provider.downcase}"
+end
+
+Given /^I am signed in with provider "([^"]*)" as Fox$/ do |provider|
+  OmniAuth.config.add_mock(:cas, {
+    :uid => '49538'
+  })
+  visit "/auth/***REMOVED***{provider.downcase}"
+end
+
+Then /^I should see "(.*)" after "(.*)"$/ do |e1, e2|
+  ***REMOVED***  ensure that that e1 occurs before e2.
+  ***REMOVED***  page.content  is the entire content of the page as a string.
+  regexp = /***REMOVED***{e2}.****REMOVED***{e1}/m
+  assert_match regexp, page.body
 end
