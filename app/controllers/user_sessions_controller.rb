@@ -1,11 +1,12 @@
 class UserSessionsController < ApplicationController
-***REMOVED***include CASControllerIncludes
+include CASControllerIncludes
 
 ***REMOVED***before_filter CASClient::Frameworks::Rails::Filter, :except => :destroy
+***REMOVED***before_filter :goto_home_unless_logged_in, :except => :destroy
 
   def new
-    ***REMOVED***if login_user!(User.find_by_login(session[:cas_user]))
-    if login_user!(User.find_by_login(auth_hash[:uid]))
+    session[:cas_user] = request.env['omniauth.auth'][:uid]
+    if login_user!(User.find_by_login(session[:cas_user]))
       redirect_to request.referer || home_path
     elsif !first_login
       ***REMOVED*** user's first login; redirect already done for us
