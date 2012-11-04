@@ -1,6 +1,10 @@
 Given /^I am logged in as "(.*)"$/ do |user|
-  CASClient::Frameworks::Rails::Filter.fake(user)
-  visit "/login"
+  ***REMOVED***CASClient::Frameworks::Rails::Filter.fake(user)
+  ***REMOVED***visit "/login"
+  OmniAuth.config.add_mock(:cas, {
+    :uid => user
+  })
+  visit "/auth/cas"
 end
 
 When /^I log out$/ do
