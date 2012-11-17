@@ -18,7 +18,7 @@ class Job < ActiveRecord::Base
   ***REMOVED***   earliest_start_date : datetime 
   ***REMOVED***   latest_start_date   : datetime 
   ***REMOVED***   end_date            : datetime 
-  ***REMOVED***   open                : boolean    ***REMOVED***legacy (use status)
+  ***REMOVED***   open                : boolean 
   ***REMOVED***   compensation        : integer 
   ***REMOVED***   status              : integer 
   ***REMOVED*** =======================
