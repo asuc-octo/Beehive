@@ -1,0 +1,11 @@
+***REMOVED*** Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+***REMOVED*** This model initially had no columns defined.  If you add columns to the
+***REMOVED*** model remove the '{}' from the fixture names and add the columns immediately
+***REMOVED*** below each fixture, per the syntax in the comments below
+***REMOVED***
+one: {}
+***REMOVED*** column: value
+***REMOVED***
+two: {}
+***REMOVED***  column: value
