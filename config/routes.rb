@@ -51,6 +51,9 @@ ResearchMatch::Application.routes.draw do
   ***REMOVED*** Home
   get  '/' => 'home***REMOVED***index', :as => :home
 
+  ***REMOVED*** Statistics
+  get '/statistics'      => 'statistics***REMOVED***index', :as => :statistics
+
   ***REMOVED*** Autocomplete routes
   get '/categories/json' => 'categories***REMOVED***json', :as => :categories_json
   get '/courses/json' => 'courses***REMOVED***json', :as => :courses_json
