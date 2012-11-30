@@ -59,9 +59,12 @@ ResearchMatch::Application.routes.draw do
   get '/courses/json' => 'courses***REMOVED***json', :as => :courses_json
   get '/proglangs/json' => 'proglangs***REMOVED***json', :as => :proglangs_json
 
+  ***REMOVED*** Admin
+  get '/admin' => 'admin***REMOVED***index', :as => :admin
+
   namespace :admin do
     scope 'faculties', :as => :faculties do
-      get  '/' => 'faculties***REMOVED***index', :as => ''
+      get  '/' => 'faculties***REMOVED***index', :as => :faculties
       put  '/:id' => 'faculties***REMOVED***update', :as => :update
       delete '/:id' => 'faculties***REMOVED***destroy', :as => :destroy
       post '/' => 'faculties***REMOVED***create', :as => :create
