@@ -62,14 +62,10 @@ ResearchMatch::Application.routes.draw do
   ***REMOVED*** Admin
   get '/admin' => 'admin***REMOVED***index', :as => :admin
 
-  namespace :admin do
-    scope 'faculties', :as => :faculties do
-      get  '/' => 'faculties***REMOVED***index', :as => :faculties
-      put  '/:id' => 'faculties***REMOVED***update', :as => :update
-      delete '/:id' => 'faculties***REMOVED***destroy', :as => :destroy
-      post '/' => 'faculties***REMOVED***create', :as => :create
-    end
-  end
+  ***REMOVED*** get  '/faculties' => 'faculties***REMOVED***index', :as => :faculties
+  ***REMOVED*** put  'faculties/:id' => 'faculties***REMOVED***update', :as => :faculties_update
+  ***REMOVED*** delete 'faculties/:id' => 'faculties***REMOVED***destroy', :as => :faculties_destroy
+  ***REMOVED*** post 'faculties' => 'faculties***REMOVED***create', :as => :faculties_create
 
   root :to => 'home***REMOVED***index'
 
