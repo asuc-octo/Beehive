@@ -61,6 +61,7 @@ ResearchMatch::Application.routes.draw do
 
   ***REMOVED*** Admin
   get '/admin' => 'admin***REMOVED***index', :as => :admin
+  match '/admin/upload' => 'admin***REMOVED***upload', :as => :admin_upload
 
   ***REMOVED*** get  '/faculties' => 'faculties***REMOVED***index', :as => :faculties
   ***REMOVED*** put  'faculties/:id' => 'faculties***REMOVED***update', :as => :faculties_update
