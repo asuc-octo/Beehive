@@ -29,6 +29,7 @@ ResearchMatch::Application.routes.draw do
     get  '/applications/:id' => 'applics***REMOVED***show', :as => :applic
     get  '/applications/:id/withdraw' => 'applics***REMOVED***destroy', :as => :destroy_applic
     post '/applications/:applic_id' => 'applics***REMOVED***accept'
+    post '/applications/:applic_id/unaccept' => 'applics***REMOVED***unaccept'
     ***REMOVED***get  '/applications/:id/resume' => 'applics***REMOVED***resume', :as => :applic_resume
     ***REMOVED***get  '/applications/:id/transcript'=>'applics***REMOVED***transcript', :as => :applic_transcript
   end ***REMOVED*** applics
