@@ -1,12 +1,11 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.19'
+gem 'rails', '~> 3.0.19'
+***REMOVED*** 3.0.19 fixes security vulnerability CVE-2013-0156
+***REMOVED*** not tested with Rails >= 3.1
 
 ***REMOVED*** Bundle edge Rails instead:
 ***REMOVED*** gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-***REMOVED*** Data
-gem 'pg'
 
 ***REMOVED*** Debugging
 gem 'exception_notification'
@@ -32,6 +31,7 @@ gem 'heroku'
 
 ***REMOVED*** Production-specific
 group :production do
+  gem 'pg'
 end
 
 ***REMOVED*** Development
