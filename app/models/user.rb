@@ -213,7 +213,7 @@ class User < ActiveRecord::Base
       case   ***REMOVED*** Determine role
         ***REMOVED*** Faculty & staff
         when (person.employee? and not person.employee_expired? and not ['G','U'].include?(person.berkeleyEduStuUGCode))
-          self.user_type = User::Types::Faculty
+        self.user_type = User::Types::Faculty
 
         ***REMOVED*** Student
         when (person.student? and person.student_registered?)
@@ -224,12 +224,13 @@ class User < ActiveRecord::Base
               self.user_type = User::Types::Undergrad
             else
               logger.error "User.update_user_type: Couldn't determine student type for login ***REMOVED***{self.login}"
-              raise StandardError, "berkeleyEduStuUGCode not accessible. Have you authenticated with LDAP?"
+              ***REMOVED*** Some people don't have this...
+              ***REMOVED***raise StandardError, "berkeleyEduStuUGCode not accessible. Have you authenticated with LDAP?"
+              self.user_type = User::Types::Undergrad
           end ***REMOVED*** under/grad
         else
-          logger.error "User.update_user_type: Couldn't determine user type for login ***REMOVED***{self.login}, defaulting to Undergrad"
-          ***REMOVED***raise StandardError, "couldn't determine user type for login ***REMOVED***{self.login}"
-          self.user_type = User::Types::Undergrad
+            logger.error "User.update_user_type: Couldn't determine user type for login ***REMOVED***{self.login}, defaulting to Undergrad"
+            raise StandardError, "couldn't determine user type for login ***REMOVED***{self.login}"
         end ***REMOVED*** student
     end ***REMOVED*** stub
 
