@@ -9,6 +9,7 @@ class Applic < ActiveRecord::Base
   ***REMOVED***   message       : text 
   ***REMOVED***   resume_id     : integer 
   ***REMOVED***   transcript_id : integer 
+  ***REMOVED***   status        : string 
   ***REMOVED*** =======================
 
   belongs_to :job

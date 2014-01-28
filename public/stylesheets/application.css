@@ -472,6 +472,10 @@ a:hover {
     color: red;
 }
 
+***REMOVED***maintenance {
+  color: red;
+}
+
 /****REMOVED***errorExplanation h2 {
   text-align: left;
   font-weight: bold;

@@ -29,6 +29,7 @@ ResearchMatch::Application.routes.draw do
     get  '/applications/:id' => 'applics***REMOVED***show', :as => :applic
     get  '/applications/:id/withdraw' => 'applics***REMOVED***destroy', :as => :destroy_applic
     post '/applications/:applic_id' => 'applics***REMOVED***accept'
+    post '/applications/:applic_id/unaccept' => 'applics***REMOVED***unaccept'
     ***REMOVED***get  '/applications/:id/resume' => 'applics***REMOVED***resume', :as => :applic_resume
     ***REMOVED***get  '/applications/:id/transcript'=>'applics***REMOVED***transcript', :as => :applic_transcript
   end ***REMOVED*** applics
@@ -39,7 +40,9 @@ ResearchMatch::Application.routes.draw do
 
   ***REMOVED*** Access control
   match '/logout' => 'user_sessions***REMOVED***destroy'
-  match '/login'  => 'user_sessions***REMOVED***new'
+  ***REMOVED***match '/login'  => 'user_sessions***REMOVED***new'
+  match '/login'  => redirect('/auth/cas')
+  match '/auth/:provider/callback' => 'user_sessions***REMOVED***new'
 
   ***REMOVED*** Users
   resources :users
@@ -49,19 +52,22 @@ ResearchMatch::Application.routes.draw do
   ***REMOVED*** Home
   get  '/' => 'home***REMOVED***index', :as => :home
 
+  ***REMOVED*** Statistics
+  get '/statistics'      => 'statistics***REMOVED***index', :as => :statistics
+
   ***REMOVED*** Autocomplete routes
   get '/categories/json' => 'categories***REMOVED***json', :as => :categories_json
   get '/courses/json' => 'courses***REMOVED***json', :as => :courses_json
   get '/proglangs/json' => 'proglangs***REMOVED***json', :as => :proglangs_json
 
-  namespace :admin do
-    scope 'faculties', :as => :faculties do
-      get  '/' => 'faculties***REMOVED***index', :as => ''
-      put  '/:id' => 'faculties***REMOVED***update', :as => :update
-      delete '/:id' => 'faculties***REMOVED***destroy', :as => :destroy
-      post '/' => 'faculties***REMOVED***create', :as => :create
-    end
-  end
+  ***REMOVED*** Admin
+  get '/admin' => 'admin***REMOVED***index', :as => :admin
+  match '/admin/upload' => 'admin***REMOVED***upload', :as => :admin_upload
+
+  ***REMOVED*** get  '/faculties' => 'faculties***REMOVED***index', :as => :faculties
+  ***REMOVED*** put  'faculties/:id' => 'faculties***REMOVED***update', :as => :faculties_update
+  ***REMOVED*** delete 'faculties/:id' => 'faculties***REMOVED***destroy', :as => :faculties_destroy
+  ***REMOVED*** post 'faculties' => 'faculties***REMOVED***create', :as => :faculties_create
 
   root :to => 'home***REMOVED***index'
 

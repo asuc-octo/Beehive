@@ -31,11 +31,12 @@ class User < ActiveRecord::Base
 
   ***REMOVED*** Authlogic
   acts_as_authentic do |c|
-    c.merge_validates_length_of_login_field_options :within => 1..100
-      ***REMOVED*** so that logins can be 1 character in length even; 'login' is provided
-      ***REMOVED*** by CAS so we don't want to artificially limit the values we get for it.
+    ***REMOVED***c.merge_validates_length_of_login_field_options :within => 1..100
+    ***REMOVED*** so that logins can be 1 character in length even; 'login' is provided
+    ***REMOVED*** by CAS so we don't want to artificially limit the values we get for it.
 
-    c.validate_email_field = true
+    ***REMOVED***c.validate_email_field = true
+    c.validate_login_field = false
   end
 
   class Types
@@ -51,9 +52,11 @@ class User < ActiveRecord::Base
   has_one  :picture
   has_one  :resume,      :class_name => 'Document', :conditions => {:document_type => Document::Types::Resume}, :dependent => :destroy
   has_one  :transcript,  :class_name => 'Document', :conditions => {:document_type => Document::Types::Transcript}, :dependent => :destroy
-  
   has_many :reviews
-  has_many :applied_jobs,  :class_name => 'Job', :through => :applics
+  has_many :owns
+  has_many :applics
+  has_many :applied_jobs,  :through => :applics, :source => :job
+  has_many :owned_jobs,    :through => :owns, :source => :job
   has_many :watches,       :dependent => :destroy
   has_many :enrollments,   :dependent => :destroy
   has_many :courses,       :through => :enrollments
@@ -70,7 +73,10 @@ class User < ActiveRecord::Base
   ***REMOVED*** Email
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100 ***REMOVED***r@a.wk
-  validates_uniqueness_of   :email
+***REMOVED***validates_uniqueness_of   :email
+
+  ***REMOVED*** Login
+  validates_uniqueness_of   :login
 
   ***REMOVED*** Misc info
   validates_numericality_of :units,          :allow_nil => true
@@ -268,6 +274,8 @@ class User < ActiveRecord::Base
     when User::Types::Undergrad
       s = 'Undergrad'
       s += 'uate' if options[:long]
+    when User::Types::Admin
+      s = 'Administrator'
     else
       s = '(undefined)'
       logger.warn "Couldn't find user type string for user type ***REMOVED***{self.user_type}"
