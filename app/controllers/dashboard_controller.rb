@@ -6,7 +6,7 @@ class DashboardController < ApplicationController
   include CASControllerIncludes
 
   ***REMOVED***CalNet / CAS Authentication
-  before_filter :goto_home_unless_logged_in  ***REMOVED***CASClient::Frameworks::Rails::Filter
+  before_filter :rm_login_required  ***REMOVED***CASClient::Frameworks::Rails::Filter
   ***REMOVED*** before_filter :setup_cas_user
   before_filter :rm_login_required
 
