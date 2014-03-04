@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1'
+gem 'rails', '3.1.1' 
 ***REMOVED*** gem 'rails', '~> 3.0.19'
 ***REMOVED*** 3.0.19 fixes security vulnerability CVE-2013-0156
 ***REMOVED*** not tested with Rails >= 3.1
