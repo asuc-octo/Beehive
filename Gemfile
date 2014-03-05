@@ -5,11 +5,18 @@ gem 'rails', '3.1.1'
 ***REMOVED*** 3.0.19 fixes security vulnerability CVE-2013-0156
 ***REMOVED*** not tested with Rails >= 3.1
 
+***REMOVED*** Use unicorn web server
+gem 'unicorn'
+
 ***REMOVED*** Bundle edge Rails instead:
 ***REMOVED*** gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 ***REMOVED*** Debugging
 gem 'exception_notification'
+
+***REMOVED*** Performance optimization
+***REMOVED*** Bullet alerts N+1 query problems
+***REMOVED*** gem "bullet", :group => "development"
 
 ***REMOVED*** Misc
 gem 'authlogic',
