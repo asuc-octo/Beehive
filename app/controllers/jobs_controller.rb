@@ -1,4 +1,5 @@
 class JobsController < ApplicationController
+
   ***REMOVED*** GET /jobs
   ***REMOVED*** GET /jobs.xml
 

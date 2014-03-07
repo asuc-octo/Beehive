@@ -16,7 +16,7 @@ gem 'exception_notification'
 
 ***REMOVED*** Performance optimization
 ***REMOVED*** Bullet alerts N+1 query problems
-***REMOVED*** gem "bullet", :group => "development"
+gem "bullet", :group => "development"
 
 ***REMOVED*** Misc
 gem 'authlogic',
