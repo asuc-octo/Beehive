@@ -12,7 +12,7 @@ gem 'unicorn'
 ***REMOVED*** gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 ***REMOVED*** Debugging
-gem "exception_notification", git: "git://github.com/smartinez87/exception_notification.git"
+gem 'exception_notification' , '3.0.1'
 
 ***REMOVED*** Performance optimization
 ***REMOVED*** Bullet alerts N+1 query problems
