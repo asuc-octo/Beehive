@@ -34,13 +34,13 @@ ResearchMatch::Application.configure do
   ActionMailer::Base.delivery_method = !!(ENV['action_mailer'] =~ /1|true/i) ? :smtp : :test
   puts "INFO: ActionMailer ON" if ActionMailer::Base.delivery_method == :smtp
   
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.alert = true
-    Bullet.bullet_logger = true
-    Bullet.console = true
+  ***REMOVED***config.after_initialize do
+  ***REMOVED***  Bullet.enable = true
+  ***REMOVED***  Bullet.alert = true
+  ***REMOVED***  Bullet.bullet_logger = true
+  ***REMOVED***  Bullet.console = true
     ***REMOVED***  Bullet.growl = true
-    Bullet.rails_logger = true
-    Bullet.add_footer = true
-  end
+  ***REMOVED***  Bullet.rails_logger = true
+  ***REMOVED***  Bullet.add_footer = true
+  ***REMOVED***end
 end
