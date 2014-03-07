@@ -31,7 +31,7 @@ module ResearchMatch
 
     ***REMOVED*** JavaScript files you want as :defaults (application.js is always included).
     ***REMOVED*** config.action_view.javascript_expansions[:defaults] = %w(jquery jquery_ujs jquery-ui-1.8.4.custom.min autocomplete_setup)
-    config.action_view.javascript_expansions[:defaults] = %w(jquery-1.8.3 jquery_ujs jquery-ui-1.9.2 autocomplete_setup)
+    ***REMOVED*** config.action_view.javascript_expansions[:defaults] = %w(jquery-1.8.3 jquery_ujs jquery-ui-1.9.2 autocomplete_setup)
 
 
     ***REMOVED*** Configure the default encoding used in templates for Ruby 1.9.
@@ -39,5 +39,16 @@ module ResearchMatch
 
     ***REMOVED*** Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    ***REMOVED*** Enable the asset pipeline
+    config.assets.enabled = true
+
+    ***REMOVED*** Version of your assets, change this if you want to expire all your assets
+    config.assets.version = '1.0'
+
+    ***REMOVED*** Prevent initializing application and connecting to the database
+    config.assets.initialize_on_precompile = false
+
+    config.assets.precompile += ['*.js']
   end
 end
