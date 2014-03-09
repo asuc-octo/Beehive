@@ -44,3 +44,4 @@ ResearchMatch::Application.configure do
   ***REMOVED***  Bullet.add_footer = true
   ***REMOVED***end
 end
+
