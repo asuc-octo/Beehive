@@ -15,7 +15,6 @@ p, ol, ul, td {
   font-family: trebuchet ms, lucida grande, arial, helvetica, sans-serif;
   font-size: 12px;
   color: ***REMOVED***333;
-  margin: auto;
   width: 100%;
   cursor: default;
 }
@@ -63,15 +62,12 @@ body > ***REMOVED***everything {
 
 ***REMOVED***header {
   /* background-color: ***REMOVED***353d41; */
-  height: 89px;
-  width: 100%;
+  padding:22px;
 }
 
-***REMOVED***header_image {
+.header_image {
   color: ***REMOVED***777777;
-  margin: auto;
   height: 89px;
-  width: 1000px;
   background: url("header_coe.gif") no-repeat;
   a {
     display: block;
