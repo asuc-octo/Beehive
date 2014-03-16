@@ -90,4 +90,8 @@ module UsersHelper
     end
   end
 
+  ***REMOVED***This attaches http to user's outside urls, if it doesn't exist
+  def url_with_protocol(url)
+    /^http/.match(url) ? url : "http://***REMOVED***{url}"
+  end
 end
