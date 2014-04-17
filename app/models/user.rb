@@ -222,6 +222,7 @@ class User < ActiveRecord::Base
         self.user_type = User::Types::Faculty
 
         ***REMOVED*** Student
+        
         when (person.student? and person.student_registered?)
           case person.berkeleyEduStuUGCode
             when 'G'
@@ -236,7 +237,8 @@ class User < ActiveRecord::Base
           end ***REMOVED*** under/grad
         else
             logger.error "User.update_user_type: Couldn't determine user type for login ***REMOVED***{self.login}, defaulting to Undergrad"
-            raise StandardError, "couldn't determine user type for login ***REMOVED***{self.login}"
+            self.user_type = User::Types::Grad
+            ***REMOVED***raise StandardError, "couldn't determine user type for login ***REMOVED***{self.login}"
         end ***REMOVED*** student
     end ***REMOVED*** stub
 
