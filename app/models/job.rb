@@ -21,7 +21,6 @@ class Job < ActiveRecord::Base
   ***REMOVED***   open                : boolean 
   ***REMOVED***   compensation        : integer 
   ***REMOVED***   status              : integer 
-  ***REMOVED***   primary_contact_id  : integer
   ***REMOVED*** =======================
 
   include AttribsHelper
@@ -387,7 +386,9 @@ class Job < ActiveRecord::Base
     if send_email
       ***REMOVED*** Send the email for activation.
       begin
-        JobMailer.activate_job_email(self).deliver
+        if !self.faculties.empty?
+          JobMailer.activate_job_email(self).deliver
+        end
       rescue => e
         Rails.logger.error "Failed to send activation mail for job***REMOVED******REMOVED***{self.id}: ***REMOVED***{e.inspect}"
         raise if Rails.development?
