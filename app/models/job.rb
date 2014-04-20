@@ -13,14 +13,15 @@ class Job < ActiveRecord::Base
   ***REMOVED***   updated_at          : datetime 
   ***REMOVED***   department_id       : integer 
   ***REMOVED***   activation_code     : integer 
-  ***REMOVED***   active              : boolean 
   ***REMOVED***   delta               : boolean 
   ***REMOVED***   earliest_start_date : datetime 
   ***REMOVED***   latest_start_date   : datetime 
   ***REMOVED***   end_date            : datetime 
-  ***REMOVED***   open                : boolean 
   ***REMOVED***   compensation        : integer 
   ***REMOVED***   status              : integer 
+  ***REMOVED***   primary_contact_id  : integer 
+  ***REMOVED***   project_type        : integer 
+  ***REMOVED***   open                : boolean 
   ***REMOVED*** =======================
 
   include AttribsHelper
@@ -42,12 +43,10 @@ class Job < ActiveRecord::Base
   module Status
     Open = 0
     Filled = 1
-    Inactive = 2
 
     All = {
       'Open' => Open,
       'Filled' => Filled,
-      'Inactive' => Inactive
     }
   end
 
@@ -100,7 +99,6 @@ class Job < ActiveRecord::Base
   ***REMOVED*** Scopes ***REMOVED***
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
 
-  scope :active, lambda { where(:active => true) }
  
   attr_accessor :category_names
   attr_accessor :course_names
@@ -143,10 +141,6 @@ class Job < ActiveRecord::Base
   def credit?
     (self.compensation & Compensation::Credit) > 0
   end
-
-  def self.active_jobs
-    Job.find(:all, :conditions => {:active => true}, :order => "created_at DESC")
-  end
   
   def self.smartmatches_for(my, limit=4) ***REMOVED*** matches for a user
     list_separator = ','        ***REMOVED*** string that separates items in the stored list
@@ -179,7 +173,7 @@ class Job < ActiveRecord::Base
   ***REMOVED*** hopefully this will make the choice of search engine transparent
   ***REMOVED*** to our app.
   ***REMOVED***
-  ***REMOVED*** By default, it finds an unlimited number of active and non-ended jobs.
+  ***REMOVED*** By default, it finds an unlimited number of non-ended jobs.
   ***REMOVED*** You can also restrict by query, department, faculty, paid, credit,
   ***REMOVED*** and set a limit of max number of results.
   ***REMOVED***
@@ -221,7 +215,6 @@ class Job < ActiveRecord::Base
   end
   
   def self.filter_by_options(options, relation, tables)
-    relation = relation.where(tables['jobs'][:active].eq(true))
     relation = relation.where(tables['jobs'][:end_date].gt(Time.now).or(tables['jobs'][:end_date].eq(nil))) unless options[:include_ended]
     relation = relation.where(tables['departments'][:id].eq(options[:department_id])) if options[:department_id]
     relation = relation.where(tables['faculties'][:id].eq(options[:faculty_id])) if options[:faculty_id]
@@ -238,7 +231,7 @@ class Job < ActiveRecord::Base
       statuses = [options[:post_status]]
       relation = relation.where(tables['jobs'][:status].in_any(statuses))
     end
-    relation = relation.where(tables['jobs'][:active].eq(true)) unless options[:include_inactive]
+
     relation = relation.where(tables['tags'][:name].matches(options[:tags])) if options[:tags].present?
     relation = relation.limit(options[:limit]) if options[:limit]
     order = options[:order] || "jobs.created_at DESC"
@@ -285,8 +278,7 @@ class Job < ActiveRecord::Base
   end
    
   def self.find_recently_added(n)
-  ***REMOVED***Job.find(:all, {:order => "created_at DESC", :limit=>n, :active=>true} )
-    Job.find_jobs( :extra_conditions => {:order=>"created_at DESC", :limit=>n} )
+    Job.find_jobs :extra_conditions => { order: "created_at DESC", limit: n } 
   end
 
   def self.human_attribute_name(attr, options = {})
@@ -371,7 +363,7 @@ class Job < ActiveRecord::Base
     self.user == u or self.faculties.include?(u)
   end
 
-  ***REMOVED*** Makes the job not active, and reassigns it an activation code.
+  ***REMOVED*** Reassigns it an activation code.
   ***REMOVED*** Used when creating a job or if, when updating the job, a new 
   ***REMOVED***   faculty sponsor is specified.
   def resend_email(send_email = false)
