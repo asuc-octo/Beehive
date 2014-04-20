@@ -10,23 +10,23 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_user
   before_filter :set_actionmailer_base_url
 
-  rescue_from Exception do |e|
-    @exception = e
-    render 'common/exception', :status => 500
+  ***REMOVED*** rescue_from Exception do |e|
+  ***REMOVED***   @exception = e
+  ***REMOVED***   render 'common/exception', :status => 500
 
-    Rails.logger.error "ERROR 500: ***REMOVED***{e.inspect}"
+  ***REMOVED***   Rails.logger.error "ERROR 500: ***REMOVED***{e.inspect}"
 
-    request.env["exception_notifier.exception_data"] = {
-      :timestamp => Time.now.to_i
-    }
+  ***REMOVED***   request.env["exception_notifier.exception_data"] = {
+  ***REMOVED***     :timestamp => Time.now.to_i
+  ***REMOVED***   }
 
-    begin
-      ExceptionNotifier::Notifier.exception_notification(request.env, e).deliver
-    rescue => f
-      Rails.logger.error "ExceptionNotifier: Failed to deliver because ***REMOVED***{f.inspect}"
-    end
-    raise if Rails.test?
-  end
+  ***REMOVED***   begin
+  ***REMOVED***     ExceptionNotifier::Notifier.exception_notification(request.env, e).deliver
+  ***REMOVED***   rescue => f
+  ***REMOVED***     Rails.logger.error "ExceptionNotifier: Failed to deliver because ***REMOVED***{f.inspect}"
+  ***REMOVED***   end
+  ***REMOVED***   raise if Rails.test?
+  ***REMOVED*** end
 
   def current_user
     ***REMOVED*** TODO: transition this out in favor of @current_user
@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
     j = (Job.find(params[:id].present? ? params[:id] : params[:job_id]) rescue nil)
       ***REMOVED*** id and job_id because this filter is used by both the JobsController
       ***REMOVED*** and the ApplicsController
-    if (j == nil || ! j.active && @current_user != j.user)
+    if (j == nil || @current_user != j.user)
       flash[:error] = "Unauthorized access denied. Do not pass Go. Do not collect $200."
       redirect_to :controller => 'dashboard', :action => :index
     end
