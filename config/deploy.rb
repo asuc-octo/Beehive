@@ -1,6 +1,6 @@
 require "***REMOVED***{File.dirname(__FILE__)}/capistrano_database"
 
-set :application, "BeeHive"
+set :application, "Beehive"
 set :repository,  "git://github.com/jonathank/ResearchMatch.git"
 set :scm, "git"
 ***REMOVED*** Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
@@ -10,7 +10,7 @@ set :branch, "rails3"
 set :machine_name, "upe.cs.berkeley.edu"
 
 ***REMOVED*** Directory for deployment on the production (remote) machine.
-set :deploy_to, "/home/amber/BeeHive/"
+set :deploy_to, "/home/amber/Beehive/"
 
 role :web, "***REMOVED***{machine_name}"                          ***REMOVED*** Your HTTP server, Apache/etc
 role :app, "***REMOVED***{machine_name}"                          ***REMOVED*** This may be the same as your `Web` server
