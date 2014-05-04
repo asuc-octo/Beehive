@@ -6,12 +6,12 @@ class FeedbackMailer < ActionMailer::Base
     ***REMOVED***recipients  'beehive-support@lists.berkeley.edu'
     ***REMOVED***reply_to    sender
     ***REMOVED***from        sender
-    ***REMOVED***subject     "[BeeHive Feedback] ***REMOVED***{subject_line}"
+    ***REMOVED***subject     "[Beehive Feedback] ***REMOVED***{subject_line}"
     ***REMOVED***body        body_text
     mail(:to => 'beehive-support@lists.berkeley.edu',
          :from => sender,
          :reply_to => sender,
-         :subject => "BeeHive Feedback ***REMOVED***{subject_line}",
+         :subject => "Beehive Feedback ***REMOVED***{subject_line}",
          :body => body_text) 
   end
 end
