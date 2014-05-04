@@ -21,7 +21,7 @@ gem 'exception_notification' , '3.0.1'
 
 ***REMOVED*** Misc
 gem 'pothoven-attachment_fu'
-gem 'authlogic', '3.4.2'
+gem 'authlogic'
 gem 'will_paginate', "~> 3.0.pre2"
 gem 'rubycas-client', "~> 2.3.9", :require => ['casclient', 'casclient/frameworks/rails/filter']
 
@@ -31,6 +31,7 @@ gem 'actionmailer-with-request', '~> 0.3'
 gem 'omniauth'
 gem 'omniauth-cas'
 gem 'bcrypt' 
+
 
 ***REMOVED*** gem "jquery-rails", "~> 3.1.0"
 ***REMOVED*** gem 'jquery-ui-rails', "~> 4.2.0"
