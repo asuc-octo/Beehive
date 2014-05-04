@@ -21,7 +21,6 @@ class Job < ActiveRecord::Base
   ***REMOVED***   status              : integer 
   ***REMOVED***   primary_contact_id  : integer 
   ***REMOVED***   project_type        : integer 
-  ***REMOVED***   open                : boolean 
   ***REMOVED*** =======================
 
   include AttribsHelper

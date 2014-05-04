@@ -97,7 +97,8 @@ module UCB::LDAP
       ***REMOVED*** (defalut is <tt>false</tt>).
       ***REMOVED***
       def include_test_entries?
-        @include_test_entries ? true : false
+        ***REMOVED*** @include_test_entries ? true : false
+        true
       end
 
       ***REMOVED******REMOVED***

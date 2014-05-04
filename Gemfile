@@ -19,10 +19,6 @@ gem 'unicorn'
 ***REMOVED*** Debugging
 gem 'exception_notification' , '3.0.1'
 
-***REMOVED*** Performance optimization
-***REMOVED*** Bullet alerts N+1 query problems
-gem "bullet", :group => "development"
-
 ***REMOVED*** Misc
 gem 'pothoven-attachment_fu'
 gem 'authlogic'
@@ -34,7 +30,8 @@ gem 'nokogiri'
 gem 'actionmailer-with-request', '~> 0.3'
 gem 'omniauth'
 gem 'omniauth-cas'
-gem 'bcrypt'
+gem 'bcrypt' 
+
 
 ***REMOVED*** gem "jquery-rails", "~> 3.1.0"
 ***REMOVED*** gem 'jquery-ui-rails', "~> 4.2.0"
@@ -56,6 +53,7 @@ group :development do
   gem "mysql2", "~> 0.3.11"
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem "bullet"
 end
 
 ***REMOVED*** Testing
