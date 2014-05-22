@@ -205,6 +205,7 @@ body > ***REMOVED***everything {
 /** Quick Search Bar **/
 
 ***REMOVED***quicksearch_form {
+
   margin-top: 5px;
 }
 
@@ -213,9 +214,10 @@ body > ***REMOVED***everything {
   border: none;
   border: 1px solid ***REMOVED***CCC;
   color: ***REMOVED***AAA;
-  width: 150px;
+  width: 100%;
   text-align: left;
   padding: 4px;
+  height: 60px;
 }
 
 ***REMOVED***quicksearch_button {
@@ -517,6 +519,15 @@ table {
   display: block;
 }
 
+/**Top Bar**/
+.top-bar-section .has-form {
+  background-color: ***REMOVED***2D637F;
+}
+
+.top-bar input {
+  position: auto;
+}
+
 .top-bar-section ul li.active > a {
-  background: ***REMOVED***2D637F;
+  background: ***REMOVED***f3f6ff;
 }
