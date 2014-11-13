@@ -1,4 +1,4 @@
-class Memberships < ActiveRecord::Base
+class Membership < ActiveRecord::Base
 
   ***REMOVED*** === List of columns ===
   ***REMOVED***   id         : integer 
