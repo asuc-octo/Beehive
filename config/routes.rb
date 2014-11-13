@@ -55,7 +55,7 @@ ResearchMatch::Application.routes.draw do
 
   ***REMOVED*** Orgs
   resources :orgs
-  match '/orgs/:id/curate' => 'orgs***REMOVED***curate', :as => :orgs_curate
+  match '/orgs/:id/curate/:job_id' => 'orgs***REMOVED***curate', :as => :orgs_curate
 
   ***REMOVED*** Statistics
   get '/statistics'      => 'statistics***REMOVED***index', :as => :statistics
