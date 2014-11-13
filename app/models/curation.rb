@@ -1,4 +1,4 @@
-class Curations < ActiveRecord::Base
+class Curation < ActiveRecord::Base
 
   ***REMOVED*** === List of columns ===
   ***REMOVED***   id         : integer 

@@ -1,4 +1,15 @@
 class OrgsController < ApplicationController
+
+  ***REMOVED*** Only logged in users can view this page
+  before_filter :goto_home_unless_logged_in
+  before_filter :rm_login_required
+
+  ***REMOVED*** Only users in the org can modify it
+  before_filter :correct_user_access, :only => [:edit, :update]
+
+  ***REMOVED*** Only admins can create or delete orgs
+  before_filter :require_admin, :only => [:new, :create, :destroy]
+
   ***REMOVED*** GET /orgs
   ***REMOVED*** GET /orgs.json
   def index
@@ -78,6 +89,18 @@ class OrgsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to orgs_url }
       format.json { head :no_content }
+    end
+  end
+
+***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
+***REMOVED***     FILTERS      ***REMOVED***
+***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
+
+  private
+  def correct_user_access
+    if (Org.find(params[:id]) == nil || (!@current_user.admin? and !Org.find(params[:id]).members.include(@current_user)))
+      flash[:error] = "You don't have permissions to edit or delete that org."
+      redirect_to :controller => 'dashboard', :action => :index
     end
   end
 end
