@@ -250,18 +250,16 @@ class User < ActiveRecord::Base
   ***REMOVED*** @return [Integer] Inferred user {Types Type}
   ***REMOVED***
   def update_user_type(options={})
+    ***REMOVED*** what the heck is the purpose of this check? please add comment!
     unless options[:stub].blank?   ***REMOVED*** stub type
       options[:stub] = User::Types::Undergrad unless User::Types::All.include?(options[:stub].to_i)
       self.user_type = options[:stub].to_i
     else  ***REMOVED*** update via LDAP
       person = self.ldap_person
       case   ***REMOVED*** Determine role
-        ***REMOVED*** Faculty & staff
-        when (person.employee? and not person.employee_expired?)
-        self.user_type = User::Types::Faculty
-
         ***REMOVED*** Student
-        
+        ***REMOVED*** count student employees as students: do student check before employee check!
+        ***REMOVED*** why only registered students? should we include non-registered students too?
         when (person.student? and person.student_registered?)
           case person.berkeleyEduStuUGCode
             when 'G'
@@ -269,16 +267,20 @@ class User < ActiveRecord::Base
             when 'U' 
               self.user_type = User::Types::Undergrad
             else
+              ***REMOVED***all students should have either G or U, but if not, default to undergrad 
               logger.error "User.update_user_type: Couldn't determine student type for login ***REMOVED***{self.login}"
-              ***REMOVED*** Some people don't have this...
-              ***REMOVED***raise StandardError, "berkeleyEduStuUGCode not accessible. Have you authenticated with LDAP?"
               self.user_type = User::Types::Undergrad
-          end ***REMOVED*** under/grad
+          end
+        ***REMOVED*** Faculty & staff
+        ***REMOVED*** can we add an Employee type, to correctly identify non-faculty staff?
+        when (person.employee? and not person.employee_expired?)
+          self.user_type = User::Types::Faculty
         else
-            logger.error "User.update_user_type: Couldn't determine user type for login ***REMOVED***{self.login}, defaulting to Undergrad"
-            self.user_type = User::Types::Grad
-            ***REMOVED***raise StandardError, "couldn't determine user type for login ***REMOVED***{self.login}"
-        end ***REMOVED*** student
+          ***REMOVED*** Affiliate, Non-registered student, or Expired Employee...
+          ***REMOVED*** why do we default to Grad? can we add a Guest type instead?
+          logger.error "User.update_user_type: Couldn't determine user type for login ***REMOVED***{self.login}, defaulting to Undergrad"
+          self.user_type = User::Types::Grad
+        end
     end ***REMOVED*** stub
 
     self.update_attribute(:user_type, self.user_type) if options[:save] || options[:update]
