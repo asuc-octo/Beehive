@@ -7,6 +7,7 @@ class Faculty < ActiveRecord::Base
   ***REMOVED***   created_at    : datetime 
   ***REMOVED***   updated_at    : datetime 
   ***REMOVED***   department_id : integer 
+  ***REMOVED***   calnetuid     : string 
   ***REMOVED*** =======================
 
   default_scope order('name')
