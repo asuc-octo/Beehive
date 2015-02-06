@@ -27,3 +27,7 @@ app/controllers/application_controller.rb
 
 ***REMOVED*** ignore extra dump files
 *.dump
+
+***REMOVED***ignore hiddern files
+.*
+app/assets/.*
