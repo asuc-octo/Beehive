@@ -10,6 +10,7 @@ class Applic < ActiveRecord::Base
   ***REMOVED***   resume_id     : integer 
   ***REMOVED***   transcript_id : integer 
   ***REMOVED***   status        : string 
+  ***REMOVED***   applied       : boolean 
   ***REMOVED*** =======================
 
   belongs_to :job
