@@ -24,7 +24,6 @@ ResearchMatch::Application.configure do
   config.log_level = :info
 
   ***REMOVED***asset
-  config.assets.compile = true
   config.serve_static_assets = true
 
   ***REMOVED*** CAS authentication
