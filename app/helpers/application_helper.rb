@@ -10,18 +10,6 @@ module ApplicationHelper
       end
   end
 
-  def current_user
-    ***REMOVED*** TODO: transition this out in favor of @current_user
-    ActiveSupport::Deprecation.warn "current_user is deprecated in favor of @current_user", caller
-    @current_user
-  end
-
-  def logged_in?
-    ***REMOVED*** TODO: transition out in favor of @current_user
-    ActiveSupport::Deprecation.warn "logged_in? is deprecated in favor of @current_user", caller
-    !!@current_user
-  end
-
   ***REMOVED*** Checks if user is logged in as an admin.
   ***REMOVED*** @return [Boolean] true if {***REMOVED***current_user} is set and is {User***REMOVED***admin?}
   def logged_in_as_admin?
