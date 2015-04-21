@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
       ***REMOVED*** id and job_id because this filter is used by both the JobsController
       ***REMOVED*** and the ApplicsController
     if j == nil
-      flash[:error] = "Unauthorized access denied. Do not pass Go. Do not collect $200."
+      flash[:error] = "Sorry, that project isn't active."
       redirect_to :controller => 'dashboard', :action => :index
     end
   end

@@ -121,7 +121,7 @@ class UsersController < ApplicationController
     if (User.find_by_id(params[:id]) == nil || @current_user != User.find_by_id(params[:id]))
       ***REMOVED*** flash[:error] = "params[:id] is " + params[:id] + "<br />"
       ***REMOVED*** flash[:error] = "@current_user is " + @current_user + "<br />"
-      flash[:error] = "Unauthorized access denied. Do not pass Go. Do not collect $200."
+      flash[:error] = "You don't have permission to access that."
             redirect_to :controller => 'dashboard', :action => :index
     end
   end
