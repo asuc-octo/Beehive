@@ -39,9 +39,6 @@ gem 'acts_as_taggable_on_steroids'
 ***REMOVED*** Deploy with Capistrano
 gem 'capistrano'
 
-***REMOVED*** Heroku
-gem 'heroku'
-
 ***REMOVED*** Production-specific
 group :production do
   gem 'pg'
