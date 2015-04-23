@@ -5,6 +5,9 @@ ResearchMatch::Application.configure do
   ***REMOVED*** Code is not reloaded between requests
   config.cache_classes = true
 
+  ***REMOVED*** for multithreaded deploy
+  config.eager_load = true
+
   ***REMOVED*** Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
@@ -30,6 +33,10 @@ ResearchMatch::Application.configure do
   ***REMOVED*** Disable Rails's static asset server
   ***REMOVED*** In production, Apache or nginx will already do this
   config.serve_static_assets = false
+
+  ***REMOVED*** compression
+  ***REMOVED*** sass-rails compresses CSS by default
+  config.assets.js_compressor = :uglifier
 
   ***REMOVED*** Enable serving of images, stylesheets, and javascripts from an asset server
   ***REMOVED*** config.action_controller.asset_host = "http://assets.example.com"

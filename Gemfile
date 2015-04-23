@@ -1,56 +1,52 @@
 source 'http://rubygems.org'
 
-***REMOVED*** ruby '1.9.3'
-
-***REMOVED*** gem 'rails', '~> 4'
-***REMOVED*** 3.0.19 fixes security vulnerability CVE-2013-0156
-***REMOVED*** not tested with Rails >= 3.1
-
-***REMOVED*** adding pagination
-gem "kaminari", "~> 0.15.1"
-
-***REMOVED*** Use unicorn web server
-gem 'unicorn'
-
+ruby '1.9.3'
+gem 'rails', '~> 4'
+gem 'pg'
+***REMOVED*** store sessions in db rather than in cookies
+gem 'activerecord-session_store'
+gem 'protected_attributes' ***REMOVED*** legacy
 ***REMOVED*** Bundle edge Rails instead:
 ***REMOVED*** gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+***REMOVED*** web server
+gem 'unicorn'
+
+***REMOVED*** pagination & tagging
+gem "kaminari", "~> 0.15.1"
+gem 'will_paginate', "~> 3.0.pre2"
+gem 'acts-as-taggable-on'
+
 ***REMOVED*** Debugging
-gem 'exception_notification' , '3.0.1'
+gem 'exception_notification' , '~> 4'
+
+***REMOVED*** Auth
+gem 'authlogic'
+gem 'rubycas-client', "~> 2.3.9", :require => ['casclient', 'casclient/frameworks/rails/filter']
+gem 'ucb_ldap', "2.0.0.pre5"
+gem 'omniauth'
+gem 'omniauth-cas'
+gem 'bcrypt'
 
 ***REMOVED*** Misc
 gem 'pothoven-attachment_fu'
-gem 'authlogic'
-gem 'will_paginate', "~> 3.0.pre2"
-gem 'rubycas-client', "~> 2.3.9", :require => ['casclient', 'casclient/frameworks/rails/filter']
-
-gem 'ucb_ldap'
 gem 'nokogiri'
 gem 'actionmailer-with-request', '~> 0.3'
-gem 'omniauth'
-gem 'omniauth-cas'
-gem 'bcrypt' 
-gem 'acts_as_taggable_on_steroids'
-
-
-***REMOVED*** gem "jquery-rails", "~> 3.1.0"
-***REMOVED*** gem 'jquery-ui-rails', "~> 4.2.0"
 
 ***REMOVED*** Deploy with Capistrano
 gem 'capistrano'
 
 ***REMOVED*** Production-specific
 group :production do
-  gem 'pg'
+  
 end
 
 ***REMOVED*** Development
 group :development do
   gem 'yard'
-  gem "mysql2", "~> 0.3.11"
   gem 'better_errors', "1.1.0"
   gem 'binding_of_caller'
-  gem "bullet"
+  gem 'bullet'
 end
 
 ***REMOVED*** Testing
@@ -63,10 +59,15 @@ group :test do
   gem 'simplecov'
 end
 
-***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
+gem 'therubyracer'
+gem 'uglifier'
+gem 'sass-rails', '>= 3.2'
+gem 'bootstrap-sass', '~> 3.3.3'
+gem 'bootstrap_form'
+***REMOVED*** gem "jquery-rails", "~> 3.1.0"
+***REMOVED*** gem 'jquery-ui-rails', "~> 4.2.0"
 
-***REMOVED*** Use unicorn as the web server
-***REMOVED*** gem 'unicorn'
+***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
 
 ***REMOVED*** To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 ***REMOVED*** gem 'ruby-debug'
@@ -74,7 +75,6 @@ end
 
 ***REMOVED*** Bundle the extra gems:
 ***REMOVED*** gem 'bj'
-***REMOVED*** gem 'nokogiri'
 ***REMOVED*** gem 'sqlite3-ruby', :require => 'sqlite3'
 ***REMOVED*** gem 'aws-s3', :require => 'aws/s3'
 
@@ -84,10 +84,3 @@ end
 ***REMOVED*** group :development, :test do
 ***REMOVED***   gem 'webrat'
 ***REMOVED*** end
-
-gem 'therubyracer'
-***REMOVED*** gem 'coffee-rails', "~> 3.2.2"
-gem 'uglifier'
-
-gem 'sass-rails', '>= 3.2'
-gem 'bootstrap-sass', '~> 3.3.3'

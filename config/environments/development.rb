@@ -6,6 +6,8 @@ ResearchMatch::Application.configure do
   ***REMOVED*** since you don't have to restart the webserver when you make code changes.
   config.cache_classes = false
 
+  config.eager_load = false
+
   ***REMOVED*** Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
 

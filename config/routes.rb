@@ -34,14 +34,14 @@ ResearchMatch::Application.routes.draw do
   end ***REMOVED*** applics
 
   ***REMOVED*** Documents
-  match '/documents/:id/destroy' => 'documents***REMOVED***destroy', :as => :destroy_document
+  ***REMOVED*** post '/documents/:id/destroy' => 'documents***REMOVED***destroy', :as => :destroy_document
   resources :documents
 
   ***REMOVED*** Access control
-  match '/logout' => 'user_sessions***REMOVED***destroy'
+  get '/logout' => 'user_sessions***REMOVED***destroy'
   ***REMOVED***match '/login'  => 'user_sessions***REMOVED***new'
-  match '/login'  => redirect('/auth/cas')
-  match '/auth/:provider/callback' => 'user_sessions***REMOVED***new'
+  get '/login'  => redirect('/auth/cas')
+  get '/auth/:provider/callback' => 'user_sessions***REMOVED***new'
 
   ***REMOVED*** Users
   resources :users
@@ -68,7 +68,7 @@ ResearchMatch::Application.routes.draw do
 
   ***REMOVED*** Admin
   get '/admin' => 'admin***REMOVED***index', :as => :admin
-  match '/admin/upload' => 'admin***REMOVED***upload', :as => :admin_upload
+  post '/admin/upload' => 'admin***REMOVED***upload', :as => :admin_upload
 
   ***REMOVED*** get  '/faculties' => 'faculties***REMOVED***index', :as => :faculties
   ***REMOVED*** put  'faculties/:id' => 'faculties***REMOVED***update', :as => :faculties_update
@@ -77,7 +77,7 @@ ResearchMatch::Application.routes.draw do
 
   root :to => 'home***REMOVED***index'
 
-  match '/test_error(/:code)' => 'application***REMOVED***test_exception_notification'
+  get '/test_error(/:code)' => 'application***REMOVED***test_exception_notification'
 
   ***REMOVED*** The priority is based upon order of creation:
   ***REMOVED*** first created -> highest priority.

@@ -7,6 +7,8 @@ ResearchMatch::Application.configure do
   ***REMOVED*** and recreated between test runs.  Don't rely on the data there!
   config.cache_classes = true
 
+  config.eager_load = false
+
   ***REMOVED*** Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
 
