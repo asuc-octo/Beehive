@@ -6,11 +6,11 @@ class JobsController < ApplicationController
   include CASControllerIncludes
   include AttribsHelper
 
-  skip_before_filter :verify_authenticity_token, :only => [:auto_complete_for_category_name,
-    :auto_complete_for_course_name, :auto_complete_for_proglang_name]
-  auto_complete_for :category, :name
-  auto_complete_for :course, :name
-  auto_complete_for :proglang, :name
+  ***REMOVED*** skip_before_filter :verify_authenticity_token, :only => [:auto_complete_for_category_name,
+    ***REMOVED*** :auto_complete_for_course_name, :auto_complete_for_proglang_name]
+  ***REMOVED*** auto_complete_for :category, :name
+  ***REMOVED*** auto_complete_for :course, :name
+  ***REMOVED*** auto_complete_for :proglang, :name
 
   ***REMOVED***CalNet / CAS Authentication
   ***REMOVED***before_filter CASClient::Frameworks::Rails::Filter

@@ -10,7 +10,7 @@ class Faculty < ActiveRecord::Base
   ***REMOVED***   calnetuid     : string 
   ***REMOVED*** =======================
 
-  default_scope order('name')
+  default_scope {order('name')}
   
   has_many :sponsorships
   has_many :jobs, :through => :sponsorships
