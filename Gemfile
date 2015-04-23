@@ -1,9 +1,8 @@
 source 'http://rubygems.org'
 
-***REMOVED*** gem 'rails', '3.2.17' 
 ***REMOVED*** ruby '1.9.3'
 
-***REMOVED*** gem 'rails', '~> 3.0.19'
+***REMOVED*** gem 'rails', '~> 4'
 ***REMOVED*** 3.0.19 fixes security vulnerability CVE-2013-0156
 ***REMOVED*** not tested with Rails >= 3.1
 
@@ -25,12 +24,13 @@ gem 'authlogic'
 gem 'will_paginate', "~> 3.0.pre2"
 gem 'rubycas-client', "~> 2.3.9", :require => ['casclient', 'casclient/frameworks/rails/filter']
 
-gem 'net-ldap', :require => 'net/ldap'
+gem 'ucb_ldap'
 gem 'nokogiri'
 gem 'actionmailer-with-request', '~> 0.3'
 gem 'omniauth'
 gem 'omniauth-cas'
 gem 'bcrypt' 
+gem 'acts_as_taggable_on_steroids'
 
 
 ***REMOVED*** gem "jquery-rails", "~> 3.1.0"
@@ -60,7 +60,7 @@ end
 group :test do
   gem 'autotest-rails'
   gem 'rspec-rails'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', "~> 1.4.2"
   gem 'capybara'
   gem 'database_cleaner'
   gem 'simplecov'
@@ -88,11 +88,9 @@ end
 ***REMOVED***   gem 'webrat'
 ***REMOVED*** end
 
-group :assets do
-  gem 'therubyracer'
-  gem 'coffee-rails', "~> 3.2.2"
-  gem 'uglifier'
-end
+gem 'therubyracer'
+***REMOVED*** gem 'coffee-rails', "~> 3.2.2"
+gem 'uglifier'
 
-gem 'bootstrap-sass', '~> 3.3.3'
 gem 'sass-rails', '>= 3.2'
+gem 'bootstrap-sass', '~> 3.3.3'

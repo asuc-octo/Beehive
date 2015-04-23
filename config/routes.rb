@@ -55,8 +55,8 @@ ResearchMatch::Application.routes.draw do
 
   ***REMOVED*** Orgs
   resources :orgs, param: :abbr
-  post 'orgs/:id/curate' => 'orgs***REMOVED***curate', :as => :orgs_curate
-  post 'orgs/:id/uncurate' => 'orgs***REMOVED***uncurate', :as => :orgs_uncurate
+  post '/orgs/:abbr/curate' => 'orgs***REMOVED***curate', :as => :orgs_curate
+  post '/orgs/:abbr/uncurate' => 'orgs***REMOVED***uncurate', :as => :orgs_uncurate
 
   ***REMOVED*** Statistics
   get '/statistics'      => 'statistics***REMOVED***index', :as => :statistics
