@@ -9,7 +9,7 @@
 ***REMOVED*** Create departments
 [ ['Elec Eng & Comp Sci', 'EECS'] ].each do |name, abbrev|
   ***REMOVED***Department.find_or_create_by_name_and_abbrev(name, abbrev)   ***REMOVED*** TODO: add abbrev
-  Department.find_or_create_by_name abbrev
+  Department.find_or_create_by(name: abbrev)
 end
 
 ***REMOVED***   Development-specific seeds

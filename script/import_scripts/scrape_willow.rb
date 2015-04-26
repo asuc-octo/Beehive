@@ -1,7 +1,7 @@
 ***REMOVED***!/usr/bin/env ruby
 ***REMOVED***
 ***REMOVED*** This script scrapes research listings from the Willow site.
-***REMOVED***
+***REMOVED*** Deprecated
 ***REMOVED***
 @options = {:listings_page => "jobs.html", :verbose => true}
 

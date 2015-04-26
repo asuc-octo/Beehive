@@ -9,7 +9,7 @@ class Org < ActiveRecord::Base
   ***REMOVED***   abbr       : string 
   ***REMOVED*** =======================
 
-  attr_accessible :desc, :name
+  ***REMOVED*** attr_accessible :desc, :name
   has_many :memberships
   has_many :members, :through => :memberships, :source => :user
   has_many :curations
