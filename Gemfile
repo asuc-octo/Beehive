@@ -1,12 +1,14 @@
 source 'http://rubygems.org'
 
 ruby '1.9.3'
+***REMOVED*** Bundle edge Rails instead:
+***REMOVED*** gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'rails', '~> 4'
 gem 'pg'
 ***REMOVED*** store sessions in db rather than in cookies
 gem 'activerecord-session_store'
-***REMOVED*** Bundle edge Rails instead:
-***REMOVED*** gem 'rails', :git => 'git://github.com/rails/rails.git'
+***REMOVED*** deprecated, to remove, user.UserObserver is the only place we use this
+gem 'rails-observers'
 
 ***REMOVED*** web server
 gem 'unicorn'
