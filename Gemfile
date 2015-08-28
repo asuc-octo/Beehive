@@ -9,6 +9,7 @@ gem 'pg'
 gem 'activerecord-session_store'
 ***REMOVED*** deprecated, to remove, user.UserObserver is the only place we use this
 gem 'rails-observers'
+gem "haml-rails", "~> 0.9"
 
 ***REMOVED*** web server
 gem 'unicorn'
