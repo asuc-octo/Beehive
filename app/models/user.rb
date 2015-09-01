@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
 
   ***REMOVED*** Name
   validates_presence_of     :name
-  validates_length_of       :name,     :within => 0..100  
+  validates_length_of       :name,     :within => 0..100
   ***REMOVED*** ignore validation for now
   ***REMOVED*** validates_format_of       :name,     :with => /\A[A-Za-z\-_ \.']+\z/
 
