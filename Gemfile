@@ -72,21 +72,4 @@ gem 'bootstrap_form'
 gem 'bootstrap-material-design'
 
 gem 'jquery-datatables-rails', '~> 3.3.0'
-
-***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
-
-***REMOVED*** To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-***REMOVED*** gem 'ruby-debug'
-***REMOVED*** gem 'ruby-debug19'
-
-***REMOVED*** Bundle the extra gems:
-***REMOVED*** gem 'bj'
-***REMOVED*** gem 'sqlite3-ruby', :require => 'sqlite3'
-***REMOVED*** gem 'aws-s3', :require => 'aws/s3'
-
-***REMOVED*** Bundle gems for the local environment. Make sure to
-***REMOVED*** put test-only gems in this group so their generators
-***REMOVED*** and rake tasks are available in development mode:
-***REMOVED*** group :development, :test do
-***REMOVED***   gem 'webrat'
-***REMOVED*** end
+gem 'will_paginate-bootstrap'
