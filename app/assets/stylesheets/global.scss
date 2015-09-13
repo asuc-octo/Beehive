@@ -57,3 +57,13 @@ dt {
 dd {
   line-height: 30px !important;
 }
+
+.btn-cal:not(.btn-link):not(.btn-flat) {
+  background-color: ***REMOVED***003366 !important;
+  a {
+    color: white !important;
+  }
+  &:hover {
+    background-color: ***REMOVED***1A436B !important;
+  }
+}
