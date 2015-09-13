@@ -1,23 +1,24 @@
+***REMOVED*** == Schema Information
+***REMOVED***
+***REMOVED*** Table name: applics
+***REMOVED***
+***REMOVED***  id            :integer          not null, primary key
+***REMOVED***  job_id        :integer
+***REMOVED***  user_id       :integer
+***REMOVED***  created_at    :datetime
+***REMOVED***  updated_at    :datetime
+***REMOVED***  message       :text
+***REMOVED***  resume_id     :integer
+***REMOVED***  transcript_id :integer
+***REMOVED***  status        :string(255)      default("undecided")
+***REMOVED***  applied       :boolean
+***REMOVED***
+
 class Applic < ActiveRecord::Base
 
-  ***REMOVED*** === List of columns ===
-  ***REMOVED***   id            : integer 
-  ***REMOVED***   job_id        : integer 
-  ***REMOVED***   user_id       : integer 
-  ***REMOVED***   created_at    : datetime 
-  ***REMOVED***   updated_at    : datetime 
-  ***REMOVED***   message       : text 
-  ***REMOVED***   resume_id     : integer 
-  ***REMOVED***   transcript_id : integer 
-  ***REMOVED***   status        : string   ***REMOVED*** default "undecided"; also possible "accepted" or nil
-  ***REMOVED***   applied       : boolean 
-  ***REMOVED*** =======================
 
   belongs_to :job
   belongs_to :user
-  ***REMOVED*** belongs_to :resume,      :class_name => 'Document', :conditions => {:document_type => Document::Types::Resume}
-  ***REMOVED*** belongs_to :transcript,  :class_name => 'Document', :conditions => {:document_type => Document::Types::Transcript}
-  
   validates_presence_of   :message
   validates_length_of     :message, :minimum => 1, :too_short => 'Please enter a message to the faculty sponsor of this listing.'
   validates_length_of     :message, :maximum => 65536, :too_long => 'Please enter a message to the faculty sponsor of this listing that is shorter than 65536 characters.'

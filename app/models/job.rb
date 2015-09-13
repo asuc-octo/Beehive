@@ -1,27 +1,30 @@
+***REMOVED*** == Schema Information
+***REMOVED***
+***REMOVED*** Table name: jobs
+***REMOVED***
+***REMOVED***  id                  :integer          not null, primary key
+***REMOVED***  user_id             :integer
+***REMOVED***  title               :string(255)
+***REMOVED***  desc                :text
+***REMOVED***  category_id         :integer
+***REMOVED***  num_positions       :integer
+***REMOVED***  created_at          :datetime
+***REMOVED***  updated_at          :datetime
+***REMOVED***  department_id       :integer
+***REMOVED***  activation_code     :integer
+***REMOVED***  delta               :boolean          default(TRUE), not null
+***REMOVED***  earliest_start_date :datetime
+***REMOVED***  latest_start_date   :datetime
+***REMOVED***  end_date            :datetime
+***REMOVED***  compensation        :integer          default(0)
+***REMOVED***  status              :integer          default(0)
+***REMOVED***  primary_contact_id  :integer
+***REMOVED***  project_type        :integer
+***REMOVED***
+
 require 'will_paginate/array'
 
 class Job < ActiveRecord::Base
-
-  ***REMOVED*** === List of columns ===
-  ***REMOVED***   id                  : integer 
-  ***REMOVED***   user_id             : integer 
-  ***REMOVED***   title               : string 
-  ***REMOVED***   desc                : text 
-  ***REMOVED***   category_id         : integer 
-  ***REMOVED***   num_positions       : integer 
-  ***REMOVED***   created_at          : datetime 
-  ***REMOVED***   updated_at          : datetime 
-  ***REMOVED***   department_id       : integer 
-  ***REMOVED***   activation_code     : integer  ***REMOVED*** deprecated
-  ***REMOVED***   delta               : boolean  ***REMOVED*** deprecated
-  ***REMOVED***   earliest_start_date : datetime 
-  ***REMOVED***   latest_start_date   : datetime 
-  ***REMOVED***   end_date            : datetime 
-  ***REMOVED***   compensation        : integer 
-  ***REMOVED***   status              : integer 
-  ***REMOVED***   primary_contact_id  : integer 
-  ***REMOVED***   project_type        : integer 
-  ***REMOVED*** =======================
 
   include AttribsHelper
 

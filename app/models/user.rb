@@ -1,32 +1,34 @@
+***REMOVED*** == Schema Information
+***REMOVED***
+***REMOVED*** Table name: users
+***REMOVED***
+***REMOVED***  id                  :integer          not null, primary key
+***REMOVED***  name                :string(255)
+***REMOVED***  login               :string(255)
+***REMOVED***  email               :string(255)
+***REMOVED***  persistence_token   :string(255)      not null
+***REMOVED***  single_access_token :string(255)      not null
+***REMOVED***  perishable_token    :string(255)      not null
+***REMOVED***  login_count         :integer          default(0), not null
+***REMOVED***  failed_login_count  :integer          default(0), not null
+***REMOVED***  last_request_at     :datetime
+***REMOVED***  current_login_at    :datetime
+***REMOVED***  last_login_at       :datetime
+***REMOVED***  current_login_ip    :string(255)
+***REMOVED***  last_login_ip       :string(255)
+***REMOVED***  user_type           :integer          default(0), not null
+***REMOVED***  units               :integer
+***REMOVED***  free_hours          :integer
+***REMOVED***  research_blurb      :text
+***REMOVED***  experience          :string(255)
+***REMOVED***  summer              :boolean
+***REMOVED***  url                 :string(255)
+***REMOVED***  year                :integer
+***REMOVED***
+
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-
-  ***REMOVED*** === List of columns ===
-  ***REMOVED***   id                  : integer 
-  ***REMOVED***   name                : string 
-  ***REMOVED***   login               : string 
-  ***REMOVED***   email               : string 
-  ***REMOVED***   persistence_token   : string 
-  ***REMOVED***   single_access_token : string 
-  ***REMOVED***   perishable_token    : string 
-  ***REMOVED***   login_count         : integer 
-  ***REMOVED***   failed_login_count  : integer 
-  ***REMOVED***   last_request_at     : datetime 
-  ***REMOVED***   current_login_at    : datetime 
-  ***REMOVED***   last_login_at       : datetime 
-  ***REMOVED***   current_login_ip    : string 
-  ***REMOVED***   last_login_ip       : string 
-  ***REMOVED***   user_type           : integer 
-  ***REMOVED***   units               : integer 
-  ***REMOVED***   free_hours          : integer 
-  ***REMOVED***   research_blurb      : text 
-  ***REMOVED***   experience          : string 
-  ***REMOVED***   summer              : boolean 
-  ***REMOVED***   url                 : string 
-  ***REMOVED***   year                : integer 
-  ***REMOVED*** =======================
-
   include AttribsHelper
 
   ***REMOVED*** Authlogic

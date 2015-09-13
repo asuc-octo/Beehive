@@ -1,15 +1,16 @@
+***REMOVED*** == Schema Information
+***REMOVED***
+***REMOVED*** Table name: orgs
+***REMOVED***
+***REMOVED***  id         :integer          not null, primary key
+***REMOVED***  name       :string(255)
+***REMOVED***  desc       :text
+***REMOVED***  created_at :datetime         not null
+***REMOVED***  updated_at :datetime         not null
+***REMOVED***  abbr       :string(255)
+***REMOVED***
+
 class Org < ActiveRecord::Base
-
-  ***REMOVED*** === List of columns ===
-  ***REMOVED***   id         : integer 
-  ***REMOVED***   name       : string 
-  ***REMOVED***   desc       : text 
-  ***REMOVED***   created_at : datetime 
-  ***REMOVED***   updated_at : datetime 
-  ***REMOVED***   abbr       : string 
-  ***REMOVED*** =======================
-
-  ***REMOVED*** attr_accessible :desc, :name
   has_many :memberships
   has_many :members, :through => :memberships, :source => :user
   has_many :curations

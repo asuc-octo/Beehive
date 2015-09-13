@@ -1,32 +1,31 @@
+***REMOVED*** == Schema Information
+***REMOVED***
+***REMOVED*** Table name: documents
+***REMOVED***
+***REMOVED***  id            :integer          not null, primary key
+***REMOVED***  user_id       :integer
+***REMOVED***  document_type :integer
+***REMOVED***  size          :integer
+***REMOVED***  content_type  :string(255)
+***REMOVED***  filename      :string(255)
+***REMOVED***  created_at    :datetime
+***REMOVED***  updated_at    :datetime
+***REMOVED***
+
 class Document < ActiveRecord::Base
 
-  ***REMOVED*** === List of columns ===
-  ***REMOVED***   id            : integer 
-  ***REMOVED***   user_id       : integer 
-  ***REMOVED***   document_type : integer 
-  ***REMOVED***   size          : integer 
-  ***REMOVED***   content_type  : string 
-  ***REMOVED***   filename      : string 
-  ***REMOVED***   created_at    : datetime 
-  ***REMOVED***   updated_at    : datetime 
-  ***REMOVED*** =======================
-
   belongs_to :user
-  
   class Types
     Generic    = 0
     Resume     = 1
     Transcript = 2
   end
-  
   has_attachment(:content_type => ['application/pdf', 'application/msword', 'text/plain'],
                  :max_size     => 1.megabyte,
                  :storage      => :file_system,
                  :path_prefix  => 'files')
-                 
   validates_as_attachment
   validates_inclusion_of :document_type, :in => [Types::Generic, Types::Resume, Types::Transcript]
-  
   before_validation :set_document_type
 
   def self.type_string(type)
@@ -53,6 +52,5 @@ class Document < ActiveRecord::Base
                ]
     self.document_type = find_and_choose(values, doctypes, t, Types::Generic)
   end
-  
 end
 
