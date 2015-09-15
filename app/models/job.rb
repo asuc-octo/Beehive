@@ -77,10 +77,10 @@ class Job < ActiveRecord::Base
 
   has_many :watches
   has_many :users,        :through => :watches ***REMOVED*** TODO rename to watchers
-  has_many :applics
+  has_many :applics,      :dependent => :destroy
   has_many :applicants,   :through => :applics, :source => :user
   ***REMOVED***has_many :applicants, :class_name => 'User', :through => :applics
-  
+
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
   ***REMOVED***  VALIDATIONS  ***REMOVED***
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
