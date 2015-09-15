@@ -86,7 +86,7 @@ class Job < ActiveRecord::Base
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
 
   validates_presence_of :title, :desc, :department
-  
+
   ***REMOVED*** Validates that end dates are no earlier than right now.
   validates_each :end_date do |record, attr, value|
     record.errors.add attr, 'cannot be earlier than right now' if
