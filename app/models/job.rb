@@ -200,10 +200,10 @@ class Job < ActiveRecord::Base
     end
     curations
   end
-  
+
   def self.smartmatches_for(my, limit=4) ***REMOVED*** matches for a user
     list_separator = ','        ***REMOVED*** string that separates items in the stored list
-    
+
     query = []
     [my.course_list_of_user,
      my.category_list_of_user,
