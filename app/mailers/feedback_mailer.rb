@@ -1,7 +1,7 @@
 
 ***REMOVED*** The mailer for feedback
-class FeedbackMailer < ActionMailer::Base
-  
+class FeedbackMailer < ApplicationMailer
+
   def send_feedback(sender, subject_line, body_text)
     ***REMOVED***recipients  'beehive-support@lists.berkeley.edu'
     ***REMOVED***reply_to    sender
@@ -12,6 +12,6 @@ class FeedbackMailer < ActionMailer::Base
          :from => sender,
          :reply_to => sender,
          :subject => "Beehive Feedback ***REMOVED***{subject_line}",
-         :body => body_text) 
+         :body => body_text)
   end
 end
