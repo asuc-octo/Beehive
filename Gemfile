@@ -34,6 +34,7 @@ gem 'bcrypt'
 ***REMOVED*** Misc
 gem 'pothoven-attachment_fu'
 gem 'nokogiri'
+gem 'email_validator'
 
 ***REMOVED*** Deploy with Capistrano
 gem 'capistrano'
