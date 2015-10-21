@@ -1,11 +1,5 @@
 ResearchMatch::Application.routes.draw do
 
-  get 'errors/not_found'
-  get 'errors/internal_server_error'
-
-  get "/404" => "errors***REMOVED***not_found"
-  get "/500" => "errors***REMOVED***internal_server_error"
-
   get "contact_us/contact", :as => :contact_us
   post "contact_us/send_email", :as => :feedback_email_link
 
@@ -84,6 +78,9 @@ ResearchMatch::Application.routes.draw do
   root :to => 'home***REMOVED***index'
 
   get '/test_error(/:code)' => 'application***REMOVED***test_exception_notification'
+
+  ***REMOVED*** Routing for Errors
+  get "*any", via: :all, to: "errors***REMOVED***not_found"
 
   ***REMOVED*** The priority is based upon order of creation:
   ***REMOVED*** first created -> highest priority.
