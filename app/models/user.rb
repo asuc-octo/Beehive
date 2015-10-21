@@ -1,3 +1,4 @@
+***REMOVED*** TODO update schema
 ***REMOVED*** == Schema Information
 ***REMOVED***
 ***REMOVED*** Table name: users
@@ -115,50 +116,54 @@ class User < ActiveRecord::Base
   attr_reader :proglang_names; attr_writer :proglang_names
   attr_reader :category_names; attr_writer :category_names
 
-  ***REMOVED*** Downcases email address
-  def email=(value)
-    write_attribute :email, (value && !value.empty? ? value.downcase : self.email)
-  end
-
-  ***REMOVED*** @return [UCB::LDAP::Person] for this User
+  ***REMOVED*** Returns the UCB::LDAP::Person for this User
   def ldap_person
     @person ||= UCB::LDAP::Person.find_by_uid(self.login) if self.login
   end
 
-  ***REMOVED*** @return [String] Full name, as provided by LDAP
-  def ldap_person_full_name
-    "***REMOVED***{self.ldap_person.firstname} ***REMOVED***{self.ldap_person.lastname}".titleize
-  end
-
-
-  ***REMOVED*** Updates this User's Type based on LDAP information.
-  ***REMOVED*** Raises an error if the user type can't be determined.
-  ***REMOVED***
-  ***REMOVED*** @param save [Hash] Also commit user type to the database (default +false+)
-  ***REMOVED*** @return [Integer] Inferred user {Types Type}
-  ***REMOVED***
-  def update_user_type(save = false)
+  ***REMOVED*** Updates basic User information from LDAP
+  ***REMOVED*** Returns whether the LDAP lookup succeeded
+  def fill_from_ldap
     person = self.ldap_person
     if person.nil?
-      self.user_type = User::Types::Affiliate
-    else
-      self.user_type = case
-                       when person.berkeleyEduStuUGCode == 'G'
-                         User::Types::Grad
-                       when person.student?
-                         User::Types::Undergrad
-                       when person.employee_expired?
-                         User::Types::Affiliate
-                       when person.employee_academic?
-                         User::Types::Faculty
-                       when person.employee?
-                         User::Types::Staff
-                       else
-                         User::Types::Affiliate
-                       end
+      if Rails.development?
+        self.name = "Susan ***REMOVED***{self.login}"
+        self.email = "beehive+***REMOVED***{self.login}@berkeley.edu"
+        self.user_type = case self.login
+                         when 212388, 232588
+                           User::Types::Grad
+                         when 212381, 300846, 300847, 300848, 300849, 300850
+                           User::Types::Undergrad
+                         when 212386, 322587, 322588, 322589, 322590
+                           User::Types::Faculty
+                         when 212387, 322583, 322584, 322585, 322586
+                           User::Types::Staff
+                         else
+                           User::Types::Affiliate
+                         end
+        return true
+      else
+        self.name = 'Unknown Name'
+        self.email = ''
+        self.user_type = User::Types::Affiliate
+        return false
+      end
     end
-    self.update_attribute(:user_type, self.user_type) if save
-    self.user_type
+    self.name = "***REMOVED***{person.firstname} ***REMOVED***{person.lastname}".titleize
+    self.email = person.email
+    self.user_type = case
+                     when person.berkeleyEduStuUGCode == 'G'
+                       User::Types::Grad
+                     when person.student?
+                       User::Types::Undergrad
+                     when person.employee_academic?
+                       User::Types::Faculty
+                     when person.employee?
+                       User::Types::Staff
+                     else
+                       User::Types::Affiliate
+                     end
+    return true
   end
 
   def admin?
@@ -195,6 +200,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  ***REMOVED*** Downcase email address
+  def email=(value)
+    write_attribute :email, value.downcase if value
+  end
+
+  def firstname
+    self.name.blank? ? "" : self.name.split(" ")[0]
+  end
+
   ***REMOVED*** @param add_spaces [Boolean] use ', ' as separator instead of ','
   ***REMOVED*** @return [String] the 'required course' names taken by this User, e.g. "CS61A,CS61B"
   def course_list_of_user(add_spaces = false)
@@ -227,7 +241,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  ***REMOVED*** @return [String] the 'desired proglang' names taken by this User, e.g. "java,scheme,c++"
+  ***REMOVED*** @return [String] the skills taken by this User, e.g. "java,scheme,c++"
   def proglang_list_of_user(add_spaces = false)
     proglang_list = ''
     proglangs.each do |pl|
@@ -269,7 +283,7 @@ class User < ActiveRecord::Base
   ***REMOVED*** Parses the textbox list of categories from "signal processing,robotics"
   ***REMOVED*** etc. to an enumerable object categories
   def handle_categories(category_names)
-    return if !self.apply? || category_names
+    return if !self.apply? || category_names.nil?
     self.categories = []  ***REMOVED*** eliminates any previous interests so as to avoid duplicates
     category_array = []
     category_array = category_names.split(',').uniq if category_names
@@ -295,35 +309,4 @@ class User < ActiveRecord::Base
   def recently_activated?
     false
   end
-
-  ***REMOVED*** @return [User] the user corresponding to given login
-  ***REMOVED*** @deprecated
-  def self.authenticate_by_login(loggin)
-    ***REMOVED*** Return user corresponding to login, or nil if there isn't one
-    User.find_by_login(loggin)
-  end
-
-  ***REMOVED*** @deprecated
-  def is_faculty?
-    user_type == User::Types::Faculty
-  end
-  protected
-
-    ***REMOVED*** Dynamically assign the value of :email, based on whether this user
-    ***REMOVED*** is marked as faculty or not. This should occur as a before_validation
-    ***REMOVED*** since we want to save a value for :email, not :faculty_email or :student_email.
-    ***REMOVED*** @deprecated
-    def handle_email
-      self.email = (self.is_faculty? ? Faculty.find_by_name(self.faculty_name).email : self.student_email)
-    end
-
-    ***REMOVED*** Dynamically assign the value of :name, based on whether this user
-    ***REMOVED*** is marked as faculty or not. This should occur as a before_validation
-    ***REMOVED*** since we want to save a value for :name, not :faculty_name or :student_name.
-    ***REMOVED*** @deprecated
-    def handle_name
-      if self.name.nil? || self.name == ""
-        self.name = is_faculty? ? faculty_name : student_name
-      end
-    end
 end
