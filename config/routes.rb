@@ -1,5 +1,11 @@
 ResearchMatch::Application.routes.draw do
 
+  get 'errors/not_found'
+  get 'errors/internal_server_error'
+
+  get "/404" => "errors***REMOVED***not_found"
+  get "/500" => "errors***REMOVED***internal_server_error"
+
   get "contact_us/contact", :as => :contact_us
   post "contact_us/send_email", :as => :feedback_email_link
 
