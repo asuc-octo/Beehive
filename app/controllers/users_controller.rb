@@ -78,7 +78,10 @@ class UsersController < ApplicationController
       flash[:notice] = 'Your profile was successfully updated.'
       redirect_to profile_path
     else
-      render 'edit'
+      @user = @current_user
+      render :edit
+      ***REMOVED***1/0
+      ***REMOVED***redirect_to :action => :edit
     end
   end
 
