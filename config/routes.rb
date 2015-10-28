@@ -80,6 +80,9 @@ ResearchMatch::Application.routes.draw do
 
   get '/test_error(/:code)' => 'application***REMOVED***test_exception_notification'
 
+  ***REMOVED*** Routing for Errors
+  get "*any", via: :all, to: "errors***REMOVED***not_found"
+
   ***REMOVED*** The priority is based upon order of creation:
   ***REMOVED*** first created -> highest priority.
 
