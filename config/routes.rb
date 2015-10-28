@@ -63,9 +63,9 @@ ResearchMatch::Application.routes.draw do
   get '/statistics'      => 'statistics***REMOVED***index', :as => :statistics
 
   ***REMOVED*** Autocomplete routes
-  get '/categories/json' => 'categories***REMOVED***json', :as => :categories_json
-  get '/courses/json' => 'courses***REMOVED***json', :as => :courses_json
-  get '/proglangs/json' => 'proglangs***REMOVED***json', :as => :proglangs_json
+  get '/categories/json' => 'categories***REMOVED***json', :as => :categories_json, :defaults => {format: 'json'}
+  get '/courses/json' => 'courses***REMOVED***json', :as => :courses_json, :defaults => {format: 'json'}
+  get '/proglangs/json' => 'proglangs***REMOVED***json', :as => :proglangs_json, :defaults => {format: 'json'}
 
   ***REMOVED*** Admin
   get '/admin' => 'admin***REMOVED***index', :as => :admin
