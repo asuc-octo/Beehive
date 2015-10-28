@@ -80,8 +80,6 @@ class UsersController < ApplicationController
     else
       @user = @current_user
       render :edit
-      ***REMOVED***1/0
-      ***REMOVED***redirect_to :action => :edit
     end
   end
 
