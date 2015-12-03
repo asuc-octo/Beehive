@@ -1,7 +1,7 @@
 class OrgsController < ApplicationController
 
   ***REMOVED*** Only logged in users can view this page
-  before_filter :goto_home_unless_logged_in
+***REMOVED***  before_filter :goto_home_unless_logged_in
   before_filter :rm_login_required
 
   ***REMOVED*** Only users in the org can modify it

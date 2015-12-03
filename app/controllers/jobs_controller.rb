@@ -14,7 +14,6 @@ class JobsController < ApplicationController
 
   ***REMOVED***CalNet / CAS Authentication
   ***REMOVED***before_filter CASClient::Frameworks::Rails::Filter
-  before_filter :goto_home_unless_logged_in
 
   ***REMOVED*** Ensures that only logged-in users can create, edit, or delete jobs
   before_filter :rm_login_required ***REMOVED***, :except => [ :index, :show ]
