@@ -20,6 +20,12 @@ ResearchMatch::Application.routes.draw do
     end
   end
 
+  ***REMOVED***Intro
+  get '/intro', :to => 'intro***REMOVED***intro'
+
+  ***REMOVED***Team
+  get '/team', :to => 'team***REMOVED***team'
+
   ***REMOVED*** Applics
   scope :applics do
     get  '/jobs/:job_id/apply' => 'applics***REMOVED***new', :as => :new_job_applic
