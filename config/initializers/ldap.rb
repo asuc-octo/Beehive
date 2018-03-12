@@ -15,8 +15,8 @@ begin
   UCB::LDAP.host = case Rails.env
     when 'production'
       UCB::LDAP::HOST_PRODUCTION
-    else
-      UCB::LDAP::HOST_TEST
+    ***REMOVED*** else
+    ***REMOVED***   UCB::LDAP::HOST_TEST
   end
 
   unless Rails.env == 'test'
@@ -24,7 +24,6 @@ begin
     username, password = ENV['LDAP_USERNAME'], ENV['LDAP_PASSWORD']
     if username && password
       UCB::LDAP::authenticate(username, password)
-
     ***REMOVED*** 2) Use config/ldap.yml
     else
       UCB::LDAP.bind_for_rails
