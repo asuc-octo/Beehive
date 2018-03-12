@@ -1,7 +1,7 @@
 'use strict';
 
 // Currently only included in user/edit and jobs/_form
-$(function() { 
+$(function() {
   // strict autocomplete: exclude entries that are too long or have chars ( ) ; /
   var PURGE_FUZZ = true;
   // Replacement for default autocomplete filter function to search only from the beginning of the string
@@ -27,7 +27,7 @@ $(function() {
    * @param {boolean} match_begins - if true, limit autocomplete results to startsWith(term)
    */
   function autocomplete_setup(get_url, field_selector, length_limit, match_begins) {
-    $.getJSON(get_url, {}, function(data) { 
+    $.getJSON(get_url, {}, function(data) {
       $(field_selector).autocomplete({
         minLength: 0,
         maxLength: 6,
@@ -45,7 +45,7 @@ $(function() {
               return !(item.length > length_limit || item.match(new RegExp('[();\/]')));
             });
           }
-          
+
           response(terms.slice(0,12));
         },
         focus: function() {
@@ -77,8 +77,7 @@ $(function() {
     });
   }
 
-  autocomplete_setup('/courses/json', '***REMOVED***courses-input', 20, true);
-  autocomplete_setup('/categories/json', '***REMOVED***categories-input', 50, false);
-  autocomplete_setup('/proglangs/json', '***REMOVED***proglangs-input', 20, true);
+  // autocomplete_setup('/courses/json', '***REMOVED***courses-input', 20, true);
+  // autocomplete_setup('/categories/json', '***REMOVED***categories-input', 50, false);
+  // autocomplete_setup('/proglangs/json', '***REMOVED***proglangs-input', 20, true);
 });
-

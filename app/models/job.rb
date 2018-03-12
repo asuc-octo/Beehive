@@ -106,12 +106,12 @@ class Job < ActiveRecord::Base
   ***REMOVED*** Scopes ***REMOVED***
   ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
 
- 
+
   attr_accessor :category_names
   attr_accessor :course_names
   attr_accessor :proglang_names
-  
-  ***REMOVED*** If true, handle_categories, handle_courses, and handle_proglangs don't do anything. 
+
+  ***REMOVED*** If true, handle_categories, handle_courses, and handle_proglangs don't do anything.
   ***REMOVED*** The purpose of this is so that in activating a job, these data aren't lost.
   @skip_handlers = false
   attr_accessor :skip_handlers
@@ -222,7 +222,7 @@ class Job < ActiveRecord::Base
     puts "\n\n\n" + opts.inspect + "\n\n\n"
     Job.find_jobs(qu, opts)
   end
-  
+
   ***REMOVED*** The main search handler.
   ***REMOVED*** It should be the ONLY interface between search queries and jobs;
   ***REMOVED*** hopefully this will make the choice of search engine transparent
@@ -255,13 +255,13 @@ class Job < ActiveRecord::Base
     per_page = options[:per_page] || 16
     return relation.paginate(:page => page, :per_page => per_page)
   end
-  
+
   ***REMOVED*** @return query for jobs joined with relevant tables
   def self.make_relation
     Job.all.includes(:faculties).includes(:department).includes(:tags)
        .includes(:proglangs).includes(:courses).includes(:categories)
   end
-  
+
   ***REMOVED*** @return all results with at least one field that matches the search query
   def self.filter_by_query(query, relation, tables)
     relation.where(tables['jobs'][:title].matches(query)
@@ -274,7 +274,7 @@ class Job < ActiveRecord::Base
                   )
             .references(:proglangs).references(:courses).references(:categories)
   end
-  
+
   ***REMOVED*** @return results filtered by the options
   def self.filter_by_options(options, relation, tables)
     relation = relation.where(tables['jobs'][:end_date].gt(Time.now).or(tables['jobs'][:end_date].eq(nil))) unless options[:include_ended]
@@ -300,7 +300,7 @@ class Job < ActiveRecord::Base
     relation = relation.order(order)
     return relation
   end
-  
+
   ***REMOVED*** Build complex queries with arel tables
   def self.generate_relation_tables
     {
@@ -313,7 +313,7 @@ class Job < ActiveRecord::Base
       'tags' => ActsAsTaggableOn::Tag.arel_table,
     }
   end
-  
+
   ***REMOVED*** Processes user input to send to the database
   def self.sanitize_query(query)
     throw "Query must be a string" unless query.nil? || query.is_a?(String)
@@ -330,9 +330,9 @@ class Job < ActiveRecord::Base
     params[:compensation]   = options[:compensation]        if options[:compensation] and Job::Compensation::All.key(options[:compensation].to_i)
     url_for(:controller => 'jobs', :only_path=>true)+"?***REMOVED***{params.collect { |param, value| param+'='+value }.join('&')}"
   end
-   
+
   def self.find_recently_added(n)
-    Job.find_jobs :extra_conditions => { order: "created_at DESC", limit: n } 
+    Job.find_jobs :extra_conditions => { order: "created_at DESC", limit: n }
   end
 
   def self.human_attribute_name(attr, options = {})
@@ -341,7 +341,7 @@ class Job < ActiveRecord::Base
     end
     return super
   end
-  
+
   ***REMOVED*** Returns a string containing the category names taken by this Job
   ***REMOVED*** e.g. "robotics,signal processing"
   def category_list_of_job(add_spaces = false)
@@ -350,14 +350,14 @@ class Job < ActiveRecord::Base
       category_list << cat.name + ','
       category_list << ' ' if add_spaces
     end
-    
+
     if add_spaces
       return category_list[0..(category_list.length - 3)].downcase
     else
       return category_list[0..(category_list.length - 2)].downcase
     end
   end
-  
+
   ***REMOVED*** Returns a string containing the 'required course' names taken by this Job
   ***REMOVED*** e.g. "CS61A,CS61B"
   def course_list_of_job(add_spaces = false)
@@ -366,14 +366,14 @@ class Job < ActiveRecord::Base
       course_list << c.name + ','
       course_list << ' ' if add_spaces
     end
-    
+
     if add_spaces
       return course_list[0..(course_list.length - 3)].upcase
     else
       return course_list[0..(course_list.length - 2)].upcase
     end
   end
-  
+
   ***REMOVED*** Returns a string containing the 'desired proglang' names taken by this Job
   ***REMOVED*** e.g. "java,scheme,c++"
   def proglang_list_of_job(add_spaces = false)
@@ -382,14 +382,14 @@ class Job < ActiveRecord::Base
       proglang_list << pl.name.capitalize + ','
       proglang_list << ' ' if add_spaces
     end
-    
+
     if add_spaces
       return proglang_list[0..(proglang_list.length - 3)]
     else
       return proglang_list[0..(proglang_list.length - 2)]
     end
   end
-  
+
   ***REMOVED*** Ensures all fields are valid
   def mend
     ***REMOVED*** Check for deleted/bad faculty
@@ -410,7 +410,7 @@ class Job < ActiveRecord::Base
   end
 
   ***REMOVED*** Reassigns it an activation code.
-  ***REMOVED*** Used when creating a job or if, when updating the job, a new 
+  ***REMOVED*** Used when creating a job or if, when updating the job, a new
   ***REMOVED***   faculty sponsor is specified.
   def resend_email(send_email = false)
     self.activation_code = SecureRandom.random_number(10e6.to_i)
@@ -435,9 +435,9 @@ class Job < ActiveRecord::Base
   end
 
   protected
-  
+
   def earliest_start_date_must_be_before_latest
-    errors[:earliest_start_date] << "cannot be later than the latest start date" if 
+    errors[:earliest_start_date] << "cannot be later than the latest start date" if
       latest_start_date.present? && earliest_start_date.present? && earliest_start_date > latest_start_date
   end
 

@@ -6,6 +6,7 @@ include CASControllerIncludes
   ***REMOVED*** Entry point for user login
   def new
     auth_hash = request.env['omniauth.auth']
+    puts auth_hash
     session[:auth_provider] = auth_hash[:provider]
 
     ***REMOVED*** look up auth_field, auth_value of User by provider, from config/initializers/omniauth.rb
