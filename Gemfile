@@ -91,3 +91,5 @@ gem 'momentjs-rails'
 
 gem 'derailed_benchmarks'
 gem 'stackprof'
+
+gem 'puma'

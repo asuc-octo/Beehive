@@ -198,6 +198,7 @@ GEM
       omniauth (~> 1.2.0)
     pg (0.18.4)
     pothoven-attachment_fu (3.2.16)
+    puma (3.11.3)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -352,6 +353,7 @@ DEPENDENCIES
   omniauth-cas
   pg
   pothoven-attachment_fu
+  puma
   rails (~> 4)
   rails-observers
   rails_12factor
