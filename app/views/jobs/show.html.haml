@@ -113,7 +113,7 @@
         - unfilterredownapps = @job.applics
         - ownapps = Array.new
         - unless unfilterredownapps.empty?
-          - for app in unfilterredownapps do 
+          - for app in unfilterredownapps do
             - ownapps << app
 
         %h2= pluralize ownapps.length, 'Application'

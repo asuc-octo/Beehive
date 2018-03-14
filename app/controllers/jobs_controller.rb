@@ -16,7 +16,7 @@ class JobsController < ApplicationController
   ***REMOVED***before_filter CASClient::Frameworks::Rails::Filter
 
   ***REMOVED*** Ensures that only logged-in users can create, edit, or delete jobs
-  before_filter :rm_login_required ***REMOVED***, :except => [ :index, :show ]
+  ***REMOVED*** before_filter :rm_login_required ***REMOVED***, :except => [ :index, :show ]
 
   ***REMOVED*** Ensures that only the user who created a job -- and no other users -- can edit
   ***REMOVED*** or destroy it.
@@ -73,8 +73,9 @@ class JobsController < ApplicationController
     @compensation  = params[:compensation]
 
     respond_to do |format|
-      format.html { render :action => :index }
-      format.xml { render :xml => @jobs }
+      ***REMOVED*** format.html { render :action => :index }
+      ***REMOVED*** format.xml { render :xml => @jobs }
+      format.html { render nil }
     end
   end
 
