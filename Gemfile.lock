@@ -286,6 +286,7 @@ GEM
     sshkit (1.8.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    stackprof (0.2.11)
     syck (1.0.5)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
@@ -359,6 +360,7 @@ DEPENDENCIES
   rubycas-client (~> 2.3.9)
   sass-rails (>= 3.2)
   simplecov
+  stackprof
   syck
   therubyracer
   ucb_ldap (= 2.0.0.pre5)

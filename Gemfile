@@ -90,3 +90,4 @@ gem 'bootstrap-datepicker-rails'
 gem 'momentjs-rails'
 
 gem 'derailed_benchmarks'
+gem 'stackprof'
