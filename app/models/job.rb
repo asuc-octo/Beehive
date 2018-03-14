@@ -248,9 +248,16 @@ class Job < ActiveRecord::Base
     query = Job.sanitize_query(query)
     tables = Job.generate_relation_tables
     relation = Job.make_relation
+    puts 'start filtering by query'
     relation = Job.filter_by_query(query, relation, tables) if query
+    puts 'start filtering by options'
     relation = Job.filter_by_options(options, relation, tables) if options
-    relation = relation.where(status: Job::Status::Open).sort_by(&:updated_at).reverse
+    puts 'start filtering by open'
+    relation = relation.where(status: Job::Status::Open)
+    puts 'start sorting'
+    ***REMOVED*** relation = relation.sort_by(&:updated_at).reverse
+    relation = relation.order(updated_at: :desc)
+    puts 'end filtering'
     page = options[:page] || 1
     per_page = options[:per_page] || 16
     return relation.paginate(:page => page, :per_page => per_page)

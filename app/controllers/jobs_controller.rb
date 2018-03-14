@@ -65,17 +65,18 @@ class JobsController < ApplicationController
     query_parms[:page         ] = params[:page]     || 1
     query_parms[:per_page     ] = params[:per_page] || 10
 
-    @query = params[:query] || ''
+    @query = params[:query] || nil
+    puts 'start find jobs'
     @jobs = Job.find_jobs(@query, query_parms)
+    puts 'end find jobs'
     ***REMOVED*** Set some view props
     @department_id = params[:department]   ? params[:department].to_i : 0
     @faculty_id    = params[:faculty]      ? params[:faculty].to_i    : 0
     @compensation  = params[:compensation]
 
     respond_to do |format|
-      ***REMOVED*** format.html { render :action => :index }
-      ***REMOVED*** format.xml { render :xml => @jobs }
-      format.html { render nil }
+      format.html { render :action => :index }
+      format.xml { render :xml => @jobs }
     end
   end
 

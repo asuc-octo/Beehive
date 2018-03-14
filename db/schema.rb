@@ -11,7 +11,7 @@
 ***REMOVED***
 ***REMOVED*** It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118002801) do
+ActiveRecord::Schema.define(version: 20180314234341) do
 
   ***REMOVED*** These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,6 +136,8 @@ ActiveRecord::Schema.define(version: 20151118002801) do
     t.string   "question_2"
     t.string   "question_3"
   end
+
+  add_index "jobs", ["updated_at"], name: "index_jobs_on_updated_at", using: :btree
 
   create_table "memberships", force: :cascade do |t|
     t.integer  "org_id"
