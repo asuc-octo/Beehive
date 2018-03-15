@@ -6,7 +6,7 @@
   <p>
     <%= @exception.inspect %>
     <ol>
-      <%= @exception.backtrace.collect {|x| "<li>***REMOVED***{x}</li>"} .join.html_safe %>
+      <%= @exception.backtrace.collect {|x| "<li>#{x}</li>"} .join.html_safe %>
     </ol>
   </p>
 <% end %>

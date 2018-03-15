@@ -12,11 +12,11 @@ describe "/categories/new.html.erb" do
   end
 
   it "renders new category form" do
-    ***REMOVED***render
+    #render
 
-    ***REMOVED***response.should have_tag("form[action=?][method=post]", categories_path) do
-    ***REMOVED***  with_tag("input***REMOVED***category_name[name=?]", "category[name]")
-    ***REMOVED***  with_tag("input***REMOVED***category_job[name=?]", "category[job]")
-    ***REMOVED***end
+    #response.should have_tag("form[action=?][method=post]", categories_path) do
+    #  with_tag("input#category_name[name=?]", "category[name]")
+    #  with_tag("input#category_job[name=?]", "category[job]")
+    #end
   end
 end

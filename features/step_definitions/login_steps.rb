@@ -1,6 +1,6 @@
 Given /^I am logged in as "(.*)"$/ do |user|
-  ***REMOVED***CASClient::Frameworks::Rails::Filter.fake(user)
-  ***REMOVED***visit "/login"
+  #CASClient::Frameworks::Rails::Filter.fake(user)
+  #visit "/login"
   OmniAuth.config.add_mock(:cas, {
     :uid => user
   })
@@ -25,33 +25,33 @@ Given /^I am signed in with provider "([^"]*)" as Justin$/ do |provider|
   OmniAuth.config.add_mock(:cas, {
     :uid => '758752'
   })
-  visit "/auth/***REMOVED***{provider.downcase}"
+  visit "/auth/#{provider.downcase}"
 end
 
 Given /^I am signed in with provider "([^"]*)" as Justina$/ do |provider|
   OmniAuth.config.add_mock(:cas, {
     :uid => '1005472'
   })
-  visit "/auth/***REMOVED***{provider.downcase}"
+  visit "/auth/#{provider.downcase}"
 end
 
 Given /^I am signed in with provider "([^"]*)" as Fox$/ do |provider|
   OmniAuth.config.add_mock(:cas, {
     :uid => '49538'
   })
-  visit "/auth/***REMOVED***{provider.downcase}"
+  visit "/auth/#{provider.downcase}"
 end
 
 Given /^I am signed in with provider "([^"]*)" as Stoica$/ do |provider|
   OmniAuth.config.add_mock(:cas, {
     :uid => '174817'
   })
-  visit "/auth/***REMOVED***{provider.downcase}"
+  visit "/auth/#{provider.downcase}"
 end
 
 Then /^I should see "(.*)" after "(.*)"$/ do |e1, e2|
-  ***REMOVED***  ensure that that e1 occurs before e2.
-  ***REMOVED***  page.content  is the entire content of the page as a string.
-  regexp = /***REMOVED***{e2}.****REMOVED***{e1}/m
+  #  ensure that that e1 occurs before e2.
+  #  page.content  is the entire content of the page as a string.
+  regexp = /#{e2}.*#{e1}/m
   assert_match regexp, page.body
 end

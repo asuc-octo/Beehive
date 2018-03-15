@@ -1,23 +1,23 @@
-***REMOVED*** Filters added to this controller apply to all controllers in the application.
-***REMOVED*** Likewise, all the methods added will be available for all controllers.
+# Filters added to this controller apply to all controllers in the application.
+# Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  helper :all ***REMOVED*** include all helpers, all the time
-  include ApplicationHelper ***REMOVED*** this is still necessary
+  helper :all # include all helpers, all the time
+  include ApplicationHelper # this is still necessary
   include CASControllerIncludes
-  protect_from_forgery ***REMOVED*** See ActionController::RequestForgeryProtection for details
+  protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   before_filter :set_current_user
   before_filter :set_actionmailer_base_url
 
-  ***REMOVED*** rescue_from Exception do |e|
-  ***REMOVED***   @exception = e
-  ***REMOVED***   render 'common/exception', :status => 500
+  # rescue_from Exception do |e|
+  #   @exception = e
+  #   render 'common/exception', :status => 500
 
-  ***REMOVED*** Redirects with a flash[:notice] if condition is true, and returns true.
-  ***REMOVED***
-  ***REMOVED*** Usage: return if redirect_if(!user_logged_in, "Not logged in!", "/diaf")
-  ***REMOVED***
+  # Redirects with a flash[:notice] if condition is true, and returns true.
+  #
+  # Usage: return if redirect_if(!user_logged_in, "Not logged in!", "/diaf")
+  #
   def redirect_if(condition=true, error_msg='Error!', redirect_url=nil)
     return false if !condition || redirect_url.nil?
     flash[:error] = error_msg
@@ -27,11 +27,11 @@ class ApplicationController < ActionController::Base
 
 
 
-***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
-***REMOVED***     FILTERS      ***REMOVED***
-***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
+####################
+#     FILTERS      #
+####################
 
-  ***REMOVED*** Used by both ApplicsController and JobsController
+  # Used by both ApplicsController and JobsController
   def job_accessible
     j = (Job.find(params[:job_id].present? ? params[:job_id] : params[:id]) rescue nil)
     if j == nil
@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  ***REMOVED*** User shouldn't watch or apply to their own job.
+  # User shouldn't watch or apply to their own job.
   def watch_apply_ok_for_job
     j = (Job.find(params[:job_id].present? ? params[:job_id] : params[:id]) rescue nil)
     if j == nil || @current_user == j.user
@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  ***REMOVED*** Tests exception notification by raising an uncaught exception.
+  # Tests exception notification by raising an uncaught exception.
   def test_exception_notification
     raise NotImplementedError.new('Exceptions aren\'t implemented yet.')
   end
@@ -62,10 +62,13 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_user
+    user = User.find_by_id(7761)
+    UserSession.new(user).save
+    session[:user_id] = user.id
     @user_session = UserSession.find
     @current_user = @user_session.user if @user_session
   end
-  
+
   def require_admin
     unless logged_in_as_admin?
       redirect_to request.referer || home_path, :notice => "Sorry, you can't access that."

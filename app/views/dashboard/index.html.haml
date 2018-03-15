@@ -1,16 +1,16 @@
 - content_for :title, 'Dashboard'
-.container***REMOVED***dashboard
+.container#dashboard
   %h1 Dashboard
   .tabs-container
     .btn-group{"data-toggle" => "buttons", :role => "group"}
-      %label***REMOVED***browsebtn{:class => "btn btn-primary ***REMOVED***{'active' if @current_user.apply?}", "data-target" => "***REMOVED***browse", "data-toggle" => "tab"}
+      %label#browsebtn{:class => "btn btn-primary #{'active' if @current_user.apply?}", "data-target" => "#browse", "data-toggle" => "tab"}
         %input{"aria-controls" => "browse", "aria-expanded" => "true", :autocomplete => "off", :checked => "checked", :type => "radio"}/
         Browse
-      %label***REMOVED***postbtn{:class => "btn btn-primary ***REMOVED***{'active' unless @current_user.apply?}", "data-target" => "***REMOVED***post", "data-toggle" => "tab"}
-        %input{"aria-controls" => "post", "aria-expanded" => "false", :autocomplete => "off", "data-target" => "***REMOVED***post", "data-toggle" => "tab", :type => "radio"}/
+      %label#postbtn{:class => "btn btn-primary #{'active' unless @current_user.apply?}", "data-target" => "#post", "data-toggle" => "tab"}
+        %input{"aria-controls" => "post", "aria-expanded" => "false", :autocomplete => "off", "data-target" => "#post", "data-toggle" => "tab", :type => "radio"}/
         Post
   .tab-content
-    ***REMOVED***post.tab-pane
+    #post.tab-pane
 
       - unfilterredownapps = @current_user.jobs.collect(&:applics)
       - ownapps = Array.new
@@ -38,13 +38,13 @@
       .card
         %h2 Manage Projects
         - if @current_user.jobs.empty? && @current_user.owned_jobs.empty?
-          You have not posted any projects. ***REMOVED***{link_to 'Post one', :controller => :jobs, :action => :new} now.
+          You have not posted any projects. #{link_to 'Post one', :controller => :jobs, :action => :new} now.
         - if @current_user.jobs.present?
           = render @current_user.jobs
         - if @current_user.owned_jobs.present?
           %p You can administer these projects:
           = render :partial => 'jobs/your_job', :collection => @current_user.owned_jobs
-    ***REMOVED***browse.tab-pane.active
+    #browse.tab-pane.active
       .card
         %h2 Your Applications
         - if @current_user.applics.empty?

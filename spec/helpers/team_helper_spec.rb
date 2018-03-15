@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-***REMOVED*** Specs in this file have access to a helper object that includes
-***REMOVED*** the TeamHelper. For example:
-***REMOVED***
-***REMOVED*** describe TeamHelper do
-***REMOVED***   describe "string concat" do
-***REMOVED***     it "concats two strings with spaces" do
-***REMOVED***       expect(helper.concat_strings("this","that")).to eq("this that")
-***REMOVED***     end
-***REMOVED***   end
-***REMOVED*** end
+# Specs in this file have access to a helper object that includes
+# the TeamHelper. For example:
+#
+# describe TeamHelper do
+#   describe "string concat" do
+#     it "concats two strings with spaces" do
+#       expect(helper.concat_strings("this","that")).to eq("this that")
+#     end
+#   end
+# end
 RSpec.describe TeamHelper, type: :helper do
-  pending "add some examples to (or delete) ***REMOVED***{__FILE__}"
+  pending "add some examples to (or delete) #{__FILE__}"
 end

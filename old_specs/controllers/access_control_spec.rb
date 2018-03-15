@@ -1,8 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-***REMOVED***
-***REMOVED*** A test controller with and without access controls
-***REMOVED***
+#
+# A test controller with and without access controls
+#
 class AccessControlTestController < ApplicationController
   before_filter :rm_login_required, :only => :login_is_required
   def login_is_required
@@ -23,9 +23,9 @@ class AccessControlTestController < ApplicationController
   end
 end
 
-***REMOVED***
-***REMOVED*** Access Control
-***REMOVED***
+#
+# Access Control
+#
 
 ACCESS_CONTROL_FORMATS = [
   ['',     "success"],
@@ -41,17 +41,17 @@ ACCESS_CONTROL_IS_LOGIN_REQD = [
 describe AccessControlTestController do
   fixtures        :users
   before do
-***REMOVED***    TODO this breaks everything
-***REMOVED***    Rails.application.routes.draw do |map|
-***REMOVED***      match '/login_is_required'  => 'access_control_test***REMOVED***login_is_required'
-***REMOVED***      match '/login_not_required' => 'access_control_test***REMOVED***login_not_required'
-***REMOVED***    end
+#    TODO this breaks everything
+#    Rails.application.routes.draw do |map|
+#      match '/login_is_required'  => 'access_control_test#login_is_required'
+#      match '/login_not_required' => 'access_control_test#login_not_required'
+#    end
   end
 
   ACCESS_CONTROL_FORMATS.each do |format, success_text|
     ACCESS_CONTROL_AM_I_LOGGED_IN.each do |logged_in_status, user_login|
       ACCESS_CONTROL_IS_LOGIN_REQD.each do |login_reqd_status|
-        describe "requesting ***REMOVED***{format.blank? ? 'html' : format}; ***REMOVED***{logged_in_status.to_s.humanize} and ***REMOVED***{login_reqd_status.to_s.humanize}" do
+        describe "requesting #{format.blank? ? 'html' : format}; #{logged_in_status.to_s.humanize} and #{login_reqd_status.to_s.humanize}" do
           before do
             logout
             if user_login.present?
@@ -64,8 +64,8 @@ describe AccessControlTestController do
           if ((login_reqd_status == :login_not_required) ||
               (login_reqd_status == :login_is_required && logged_in_status == :i_am_logged_in))
             it "succeeds" do
-              ***REMOVED***response.should have_text(success_text)
-              ***REMOVED***response.code.to_s.should == '200'
+              #response.should have_text(success_text)
+              #response.code.to_s.should == '200'
             end
 
           elsif (login_reqd_status == :login_is_required && logged_in_status == :i_am_not_logged_in)
@@ -80,12 +80,12 @@ describe AccessControlTestController do
             end
 
           else
-            warn "Oops no case for ***REMOVED***{format} and ***REMOVED***{logged_in_status.to_s.humanize} and ***REMOVED***{login_reqd_status.to_s.humanize}"
+            warn "Oops no case for #{format} and #{logged_in_status.to_s.humanize} and #{login_reqd_status.to_s.humanize}"
           end
-        end ***REMOVED*** describe
+        end # describe
 
       end
     end
-  end ***REMOVED*** cases
+  end # cases
 
 end

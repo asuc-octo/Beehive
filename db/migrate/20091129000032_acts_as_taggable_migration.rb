@@ -8,8 +8,8 @@ class ActsAsTaggableMigration < ActiveRecord::Migration
       t.column :tag_id, :integer
       t.column :taggable_id, :integer
       
-      ***REMOVED*** You should make sure that the column created is
-      ***REMOVED*** long enough to store the required class names.
+      # You should make sure that the column created is
+      # long enough to store the required class names.
       t.column :taggable_type, :string
       
       t.column :created_at, :datetime

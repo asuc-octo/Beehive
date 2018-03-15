@@ -1,10 +1,10 @@
 Autotest.add_hook :initialize do |at|
-  ***REMOVED*** These things cause cucumber to run infinitely. Don't watch them.
+  # These things cause cucumber to run infinitely. Don't watch them.
   [ 'log',
     '.git',
     'tmp',
     'db',
     'Gemfile.lock'
-  ***REMOVED***].each {|x| at.add_exception(%r{^\./x})}
+  #].each {|x| at.add_exception(%r{^\./x})}
   ].each {|x| at.add_exception(%r{x})}
 end

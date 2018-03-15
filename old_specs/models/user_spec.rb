@@ -1,8 +1,8 @@
-***REMOVED*** -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 require File.dirname(__FILE__) + '/../spec_helper'
 
-***REMOVED*** Be sure to include AuthenticatedTestHelper in spec/spec_helper.rb instead.
-***REMOVED*** Then, you can remove it from this and the functional test.
+# Be sure to include AuthenticatedTestHelper in spec/spec_helper.rb instead.
+# Then, you can remove it from this and the functional test.
 include AuthenticatedTestHelper
 
 @@next_user_login = 11
@@ -19,19 +19,19 @@ describe User do
       @user = nil
       @creating_user = lambda do
         @user = create_user
-        fail "***REMOVED***{@user.errors.full_messages.to_sentence}" if @user.new_record?
+        fail "#{@user.errors.full_messages.to_sentence}" if @user.new_record?
       end
     end
 
-    it 'increments User***REMOVED***count' do
+    it 'increments User#count' do
       @creating_user.should change(User, :count).by(1)
     end
 
   end
 
-  ***REMOVED***
-  ***REMOVED*** Validations
-  ***REMOVED***
+  #
+  # Validations
+  #
 
   describe 'email' do
     it 'should be required' do
@@ -44,7 +44,7 @@ describe User do
     describe 'should be allowed:' do
       ['foo@berkeley.edu', 'foo@newskool-tld.lbl.gov', 'foo@calmail.berkeley.edu', 'foo@cory.eecs.berkeley.edu'
       ].each do |email_str|
-        it "'***REMOVED***{email_str}'" do
+        it "'#{email_str}'" do
           lambda do
             u = create_user(:email => email_str)
             u.errors_on(:email).should     be_empty
@@ -60,10 +60,10 @@ describe User do
        'Iñtërnâtiônàlizætiøn@hasnt.happened.to.email', 'need.domain.and.tld@de',
        "tab\t", "newline\n",
        'r@.wk', '1234567890-234567890-234567890-234567890-234567890-234567890-234567890-234567890-234567890@gmail2.com',
-       ***REMOVED*** these are technically allowed but not seen in practice:
+       # these are technically allowed but not seen in practice:
        'uucp!addr@gmail.com', 'semicolon;@gmail.com', 'quote"@gmail.com', 'backtick`@gmail.com', 'space @gmail.com', 'bracket<@gmail.com', 'bracket>@gmail.com'
       ].each do |email_str|
-        it "'***REMOVED***{email_str}'" do
+        it "'#{email_str}'" do
           lambda do
             u = create_user(:email => email_str)
             u.errors_on(:email).should_not be_empty
@@ -71,14 +71,14 @@ describe User do
         end
       end
     end
-  end ***REMOVED*** email
+  end # email
 
   describe 'name' do
     describe 'should be allowed:' do
       ['Andrew Andrews',
         'Jane Doe',
       ].each do |name_str|
-        it "'***REMOVED***{name_str}'" do
+        it "'#{name_str}'" do
           lambda do
             u = create_user(:name => name_str,
                               :email => "valid@email.com",
@@ -92,7 +92,7 @@ describe User do
       ["tab\t", "newline\n",
        '1234567890_234567890_234567890_234567890_234567890_234567890_234567890_234567890_234567890_234567890_',
        ].each do |name_str|
-        it "'***REMOVED***{name_str}'" do
+        it "'#{name_str}'" do
           lambda do
             u = create_user(:name => name_str)
             u.errors_on(:name).should_not be_empty
@@ -100,7 +100,7 @@ describe User do
         end
       end
     end
-  end ***REMOVED*** name
+  end # name
 
   describe 'type' do
     describe 'undergrad' do
@@ -129,35 +129,35 @@ describe User do
       end
     end
 
-  end ***REMOVED*** user type
+  end # user type
 
-  ***REMOVED***
-  ***REMOVED*** Authentication
-  ***REMOVED***
+  #
+  # Authentication
+  #
 
-***REMOVED*** it 'remembers me until one week' do
-***REMOVED***   time = 1.week.from_now.utc
-***REMOVED***   users(:quentin).remember_me_until time
-***REMOVED***   users(:quentin).remember_token.should_not be_nil
-***REMOVED***   users(:quentin).remember_token_expires_at.should_not be_nil
-***REMOVED***   users(:quentin).remember_token_expires_at.should == time
-***REMOVED*** end
+# it 'remembers me until one week' do
+#   time = 1.week.from_now.utc
+#   users(:quentin).remember_me_until time
+#   users(:quentin).remember_token.should_not be_nil
+#   users(:quentin).remember_token_expires_at.should_not be_nil
+#   users(:quentin).remember_token_expires_at.should == time
+# end
 
-***REMOVED*** it 'remembers me default two weeks' do
-***REMOVED***   before = 2.weeks.from_now.utc
-***REMOVED***   users(:quentin).remember_me
-***REMOVED***   after = 2.weeks.from_now.utc
-***REMOVED***   users(:quentin).remember_token.should_not be_nil
-***REMOVED***   users(:quentin).remember_token_expires_at.should_not be_nil
-***REMOVED***   users(:quentin).remember_token_expires_at.between?(before, after).should be_true
-***REMOVED*** end
+# it 'remembers me default two weeks' do
+#   before = 2.weeks.from_now.utc
+#   users(:quentin).remember_me
+#   after = 2.weeks.from_now.utc
+#   users(:quentin).remember_token.should_not be_nil
+#   users(:quentin).remember_token_expires_at.should_not be_nil
+#   users(:quentin).remember_token_expires_at.between?(before, after).should be_true
+# end
 
 protected
   def create_user(options = {})
     record = User.new
     {
       :name => 'quire',
-      :email => "quire***REMOVED***{@@next_user_login}@berkeley.edu",
+      :email => "quire#{@@next_user_login}@berkeley.edu",
       :login => @@next_user_login,
       :user_type => User::Types::Undergrad
     }.merge(options).each_pair do |attr,val|

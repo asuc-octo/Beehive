@@ -1,7 +1,7 @@
 = javascript_include_tag 'autocomplete_setup'
 = form_for(@job) do |f|
   - if @job.errors.any?
-    ***REMOVED***error_explanation
+    #error_explanation
       %h2
         %span.urgent
           = pluralize(@job.errors.count, "error")

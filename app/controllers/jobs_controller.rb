@@ -1,45 +1,45 @@
 class JobsController < ApplicationController
 
-  ***REMOVED*** GET /jobs
-  ***REMOVED*** GET /jobs.xml
+  # GET /jobs
+  # GET /jobs.xml
 
   include CASControllerIncludes
   include AttribsHelper
 
-  ***REMOVED*** skip_before_filter :verify_authenticity_token, :only => [:auto_complete_for_category_name,
-    ***REMOVED*** :auto_complete_for_course_name, :auto_complete_for_proglang_name]
-  ***REMOVED*** auto_complete_for :category, :name
-  ***REMOVED*** auto_complete_for :course, :name
-  ***REMOVED*** auto_complete_for :proglang, :name
+  # skip_before_filter :verify_authenticity_token, :only => [:auto_complete_for_category_name,
+    # :auto_complete_for_course_name, :auto_complete_for_proglang_name]
+  # auto_complete_for :category, :name
+  # auto_complete_for :course, :name
+  # auto_complete_for :proglang, :name
 
-  ***REMOVED***CalNet / CAS Authentication
-  ***REMOVED***before_filter CASClient::Frameworks::Rails::Filter
+  #CalNet / CAS Authentication
+  #before_filter CASClient::Frameworks::Rails::Filter
 
-  ***REMOVED*** Ensures that only logged-in users can create, edit, or delete jobs
-  ***REMOVED*** before_filter :rm_login_required ***REMOVED***, :except => [ :index, :show ]
+  # Ensures that only logged-in users can create, edit, or delete jobs
+  before_filter :rm_login_required #, :except => [ :index, :show ]
 
-  ***REMOVED*** Ensures that only the user who created a job -- and no other users -- can edit
-  ***REMOVED*** or destroy it.
+  # Ensures that only the user who created a job -- and no other users -- can edit
+  # or destroy it.
   before_filter :correct_user_access, :only => [ :edit, :update, :resend_activation_email,
                                                   :delete, :destroy ]
 
   before_filter :job_accessible, :only => [ :show, :apply ]
 
-  ***REMOVED*** Prohibits a user from watching his/her own job
+  # Prohibits a user from watching his/her own job
   before_filter :watch_apply_ok_for_job, :only => [ :watch ]
 
   protected
   def search_params_hash
     h = {}
-    ***REMOVED*** booleans
-    ***REMOVED***h[:include_ended] = params[:include_ended] if ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:include_ended]) ***REMOVED***unless params[param].nil?
+    # booleans
+    #h[:include_ended] = params[:include_ended] if ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:include_ended]) #unless params[param].nil?
 
-    ***REMOVED*** strings, directly copy attribs
+    # strings, directly copy attribs
     [:query, :tags, :page, :per_page, :as, :compensation].each do |param|
       h[param] = params[param] unless params[param].blank?
     end
 
-    ***REMOVED*** dept. 0 => all
+    # dept. 0 => all
     h[:post_status]     = params[:post_status]     if params[:post_status]
     h[:department] = params[:department] if params[:department].to_i > 0
     h[:faculty]    = params[:faculty]    if params[:faculty].to_i    > 0
@@ -48,20 +48,20 @@ class JobsController < ApplicationController
 
   public
 
-  def index ***REMOVED***list
-    ***REMOVED*** strip out some weird args
-    ***REMOVED*** may cause double-request but that's okay
+  def index #list
+    # strip out some weird args
+    # may cause double-request but that's okay
     redirect_to(search_params_hash) and return if [:commit, :utf8].any? {|k| !params[k].nil?}
 
-    ***REMOVED*** Advanced search
+    # Advanced search
     query_parms = {}
     query_parms[:department_id] = params[:department].to_i if params[:department] && params[:department].to_i > 0
     query_parms[:faculty_id   ] = params[:faculty].to_i    if params[:faculty] && params[:faculty].to_i > 0
-    ***REMOVED***query_parms[:include_ended] = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:include_ended])
+    #query_parms[:include_ended] = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:include_ended])
     query_parms[:compensation ] = params[:compensation] if params[:compensation].present?
     query_parms[:tags         ] = params[:tags] if params[:tags].present?
 
-    ***REMOVED*** will_paginate
+    # will_paginate
     query_parms[:page         ] = params[:page]     || 1
     query_parms[:per_page     ] = params[:per_page] || 10
 
@@ -69,43 +69,48 @@ class JobsController < ApplicationController
     puts 'start find jobs'
     @jobs = Job.find_jobs(@query, query_parms)
     puts 'end find jobs'
-    ***REMOVED*** Set some view props
+    # Set some view props
     @department_id = params[:department]   ? params[:department].to_i : 0
     @faculty_id    = params[:faculty]      ? params[:faculty].to_i    : 0
     @compensation  = params[:compensation]
 
+    puts 'start response'
     respond_to do |format|
       format.html { render :action => :index }
       format.xml { render :xml => @jobs }
     end
+    puts 'end response'
   end
 
-  ***REMOVED*** GET /jobs/1
-  ***REMOVED*** GET /jobs/1.xml
+  # GET /jobs/1
+  # GET /jobs/1.xml
   def show
+    @current_user = User.find_by_id(7761)
     @job = Job.find(params[:id])
     @actions = @job.actions(@current_user)
     @curations = @job.curations(@current_user)
 
     respond_to do |format|
-      format.html ***REMOVED*** show.html.erb
+      format.html # show.html.erb
       format.xml  { render :xml => @job }
     end
   end
 
-  ***REMOVED*** GET /jobs/new
-  ***REMOVED*** GET /jobs/new.xml
+  # GET /jobs/new
+  # GET /jobs/new.xml
   def new
+    @current_user = User.find_by_id(7761)
     @job = Job.new(num_positions: 0)
     @faculty = Faculty.all
-    ***REMOVED*** @faculty = Faculty.where("email != ? OR email != ?", "None", "nil")
+    # @faculty = Faculty.where("email != ? OR email != ?", "None", "nil")
     @current_owners = @job.owners.select{|i| i != @current_user}
     owners = @job.owners + [@job.user]
     @owners_list = User.all.select{|i| !(owners).include?(i)}.sort_by{|u| u.name}
   end
 
-  ***REMOVED*** GET /jobs/1/edit
+  # GET /jobs/1/edit
   def edit
+    @current_user = User.find_by_id(7761)
     @job = Job.find(params[:id])
     @job.mend
 
@@ -131,10 +136,11 @@ class JobsController < ApplicationController
     end
   end
 
-  ***REMOVED*** POST /jobs
-  ***REMOVED*** POST /jobs.xml
+  # POST /jobs
+  # POST /jobs.xml
   def create
-    @faculty = Faculty.all ***REMOVED*** used in form
+    @current_user = User.find_by_id(7761)
+    @faculty = Faculty.all # used in form
     sponsor = Faculty.find(params[:faculty_id]) rescue nil
     @job = Job.create(job_params)
     @job.update(primary_contact_id: @current_user.id)
@@ -160,12 +166,13 @@ class JobsController < ApplicationController
     end
   end
 
-  ***REMOVED*** PUT /jobs/1
-  ***REMOVED*** PUT /jobs/1.xml
+  # PUT /jobs/1
+  # PUT /jobs/1.xml
   def update
+    @current_user = User.find_by_id(7761)
     job_params
     @job = Job.find(params[:id])
-    changed_sponsors = update_sponsorships and false ***REMOVED*** TODO: remove when :active is resolved
+    changed_sponsors = update_sponsorships and false # TODO: remove when :active is resolved
     @job.update_attribs(params)
 
     @faculty = Faculty.all
@@ -180,10 +187,10 @@ class JobsController < ApplicationController
         end
         @job.tag_list = @job.field_list
 
-        ***REMOVED*** If the faculty sponsor changed, require activation again.
-        ***REMOVED*** (require the faculty to confirm again)
+        # If the faculty sponsor changed, require activation again.
+        # (require the faculty to confirm again)
         if changed_sponsors
-          @job.resend_email(true) ***REMOVED*** sends the email too
+          @job.resend_email(true) # sends the email too
         end
         flash[:notice] = 'Listing was successfully updated.'
         if params[:open_ended_end_date] == "true"
@@ -201,8 +208,8 @@ class JobsController < ApplicationController
   end
 
 
-  ***REMOVED*** Just the page that asks for confirmation for deletion of the job.
-  ***REMOVED*** The actual deletion is performed by the "destroy" action.
+  # Just the page that asks for confirmation for deletion of the job.
+  # The actual deletion is performed by the "destroy" action.
   def delete
     @job = Job.find(params[:id])
 
@@ -212,8 +219,8 @@ class JobsController < ApplicationController
     end
   end
 
-  ***REMOVED*** DELETE /jobs/1
-  ***REMOVED*** DELETE /jobs/1.xml
+  # DELETE /jobs/1
+  # DELETE /jobs/1.xml
   def destroy
     @job = Job.find(params[:id])
     @job.destroy
@@ -226,7 +233,7 @@ class JobsController < ApplicationController
   end
 
   def activate
-    ***REMOVED*** /jobs/activate/job_id?a=xxx
+    # /jobs/activate/job_id?a=xxx
     @job = Job.find :first, conditions: { activation_code: params[:a] }
 
     unless @job
@@ -262,13 +269,14 @@ class JobsController < ApplicationController
   end
 
   def watch
+    @current_user = User.find_by_id(7761)
     job = Job.find(params[:id])
     watch = Watch.new({:user=> @current_user, :job => job})
 
     respond_to do |format|
       if watch.save
         flash[:notice] = 'Job is now watched. You can find a list of your watched jobs on the dashboard.'
-        format.html { redirect_to(job) } ***REMOVED***:controller=>:dashboard) }
+        format.html { redirect_to(job) } #:controller=>:dashboard) }
       else
         flash[:notice] = 'Unsuccessful job watch. Perhaps you\'re already watching this job?'
         format.html { redirect_to(job) }
@@ -277,6 +285,7 @@ class JobsController < ApplicationController
   end
 
   def unwatch
+    @current_user = User.find_by_id(7761)
     job = Job.find(params[:id])
     @current_user.watches.find_by_job_id(job.id).destroy
     flash[:notice] = 'Job is now unwatched. You can find a list of your watched jobs on the dashboard.'
@@ -287,15 +296,15 @@ class JobsController < ApplicationController
 
   protected
 
-  ***REMOVED*** Processes form data for Job.update
+  # Processes form data for Job.update
   def job_params
-    ***REMOVED*** TODO FIXME this sets the primary user as whoever is editing, which is quite broken.
+    # TODO FIXME this sets the primary user as whoever is editing, which is quite broken.
     params[:job][:user_id] = @current_user.id
     params[:job][:end_date] = nil if params[:job].delete(:open_ended_end_date)
 
-    ***REMOVED*** Handles the text_fields for categories, courses, and programming languages
+    # Handles the text_fields for categories, courses, and programming languages
     [:category, :course, :proglang].each do |k|
-      params[:job]["***REMOVED***{k.to_s}_names".to_sym] = params[k][:name]
+      params[:job]["#{k.to_s}_names".to_sym] = params[k][:name]
     end
 
     params[:job] = params.require(:job).permit(:title, :desc, :project_type,
@@ -311,11 +320,11 @@ class JobsController < ApplicationController
   end
 
 
-  ***REMOVED*** Saves sponsorship specified in the params page.
-  ***REMOVED*** Returns true if sponsorships changed at all for this update,
-  ***REMOVED***   and false if they did not.
+  # Saves sponsorship specified in the params page.
+  # Returns true if sponsorships changed at all for this update,
+  #   and false if they did not.
   def update_sponsorships
-    ***REMOVED*** TODO allow more than one sponsor
+    # TODO allow more than one sponsor
     if params[:faculty_id] != '-1'
       @job.sponsorships.delete_all
       @job.sponsorships.create(faculty_id: params[:faculty_id])
@@ -324,9 +333,9 @@ class JobsController < ApplicationController
 
   end
 
-***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
-***REMOVED***     FILTERS      ***REMOVED***
-***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
+####################
+#     FILTERS      #
+####################
 
   private
   def correct_user_access

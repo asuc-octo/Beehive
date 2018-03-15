@@ -1,12 +1,12 @@
-***REMOVED*** == Schema Information
-***REMOVED***
-***REMOVED*** Table name: categories
-***REMOVED***
-***REMOVED***  id         :integer          not null, primary key
-***REMOVED***  name       :string(255)
-***REMOVED***  created_at :datetime
-***REMOVED***  updated_at :datetime
-***REMOVED***
+# == Schema Information
+#
+# Table name: categories
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
 
 class Category < ActiveRecord::Base
 

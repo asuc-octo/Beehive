@@ -1,4 +1,4 @@
-<%***REMOVED*** Basic user application-related info
+<%# Basic user application-related info
     @param user [User]
 -%>
 <%- raise ArgumentError.new('No User provided') unless user -%>
@@ -16,7 +16,7 @@
 
     :separator,
 
-    ***REMOVED*** [ :research_blurb, 'Motivation'],
+    # [ :research_blurb, 'Motivation'],
     [ :experience,     'Experience'],
 
     [ :url,            'URL'      ]
@@ -26,10 +26,10 @@
 
 <%- else
     val = user.send(attr)
-    val = {true=>'Yes',false=>'No'}[val] if (!!val == val) ***REMOVED*** if val is a boolean
+    val = {true=>'Yes',false=>'No'}[val] if (!!val == val) # if val is a boolean
     val = (val.nil? or val.blank?) ? 'Not specified' : val
     val = val.to_s.html_safe
 -%>
-  <%= "***REMOVED***{label}:".ljust(14) %><%= val %>
+  <%= "#{label}:".ljust(14) %><%= val %>
 <%- end -%>
 <%- end -%>

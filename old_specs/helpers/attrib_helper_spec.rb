@@ -13,6 +13,6 @@ describe AttribsHelper do
 
     it "should join with spaces" do
     end
-  end ***REMOVED*** attrib_names_for_type
+  end # attrib_names_for_type
 end
 

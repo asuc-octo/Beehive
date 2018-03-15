@@ -7,9 +7,9 @@ describe Category do
     }
   end
 
-  ***REMOVED***
-  ***REMOVED*** Validation
-  ***REMOVED***
+  #
+  # Validation
+  #
   
   it "should create a new instance given valid attributes" do
     Category.create!(@valid_attributes)

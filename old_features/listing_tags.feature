@@ -38,7 +38,7 @@ Feature: Use tags and classes to search for listings
 		Then I should see "Uber RAD Lab Research Assistant"
 		 And I should see "Any RAD Lab Research Assistant"
 		 And I should see "Babak's apprentice"
-		 And I should see "Okay RAD Lab Research Assistant" 4th	***REMOVED***last because it doesn't have the java tag
+		 And I should see "Okay RAD Lab Research Assistant" 4th	#last because it doesn't have the java tag
 		
 	Scenario: Find listing by multiple classes
 		Given I am logged in as "superjoe"

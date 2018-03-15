@@ -1,4 +1,4 @@
-***REMOVED*** Hook into Google Analytics
+# Hook into Google Analytics
 
 if ENV['ANALYTICS_ID'].present?
   ResearchMatch::Application.config.analytics = {

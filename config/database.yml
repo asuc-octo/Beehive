@@ -1,12 +1,12 @@
-***REMOVED*** ***REMOVED***
-***REMOVED***     adapter: postgresql
-***REMOVED***     database: dc8gh7b3pjl8l3
-***REMOVED***     host: localhost
-***REMOVED***     username: jessica
-***REMOVED***     pool: 5
-***REMOVED***     timeout: 5000
+# development:
+#     adapter: postgresql
+#     database: dc8gh7b3pjl8l3
+#     host: localhost
+#     username: jessica
+#     pool: 5
+#     timeout: 5000
 
-***REMOVED***
+development:
     adapter: postgresql
     database: dc8gh7b3pjl8l3
     host: localhost
@@ -14,7 +14,7 @@
     pool: 5
     timeout: 5000
 
-***REMOVED*** 
+test: 
     adapter: postgresql
     database: dc8gh7b3pjl8l3
     host: localhost

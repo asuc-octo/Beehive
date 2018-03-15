@@ -7,9 +7,9 @@ Story: Logging in
   I want to log in to my account
   So that I can be myself
 
-  ***REMOVED***
-  ***REMOVED*** Log in: get form
-  ***REMOVED***
+  #
+  # Log in: get form
+  #
   Scenario: Anonymous user can get a login form.
     Given an anonymous user
     When  she goes to /login
@@ -17,9 +17,9 @@ Story: Logging in
      And  the page should look AWESOME
      And  she should see a <form> containing a textfield: Login, password: Password, and submit: 'Log in'
   
-  ***REMOVED***
-  ***REMOVED*** Log in successfully, but don't remember me
-  ***REMOVED***
+  #
+  # Log in successfully, but don't remember me
+  #
   Scenario: Anonymous user can log in
     Given an anonymous user
      And  an activated user named 'reggie'
@@ -40,9 +40,9 @@ Story: Logging in
      And  reggie should be logged in
      And  she should not have an auth_token cookie
   
-  ***REMOVED***
-  ***REMOVED*** Log in successfully, remember me
-  ***REMOVED***
+  #
+  # Log in successfully, remember me
+  #
   Scenario: Anonymous user can log in and be remembered
     Given an anonymous user
      And  an activated user named 'reggie'
@@ -52,12 +52,12 @@ Story: Logging in
     Then  she should see a notice message 'Logged in successfully'
      And  reggie should be logged in
      And  she should have an auth_token cookie
-	      ***REMOVED*** assumes fixtures were run sometime
+	      # assumes fixtures were run sometime
      And  her session store should have user_id: 4
    
-  ***REMOVED***
-  ***REMOVED*** Log in unsuccessfully
-  ***REMOVED***
+  #
+  # Log in unsuccessfully
+  #
   
   Scenario: Logged-in user who fails logs in should be logged out
     Given an activated user named 'oona'
@@ -106,13 +106,13 @@ Story: Logging in
     Then  she should see a notice message 'Logged in successfully'
      And  reggie should be logged in
      And  she should have an auth_token cookie
-	      ***REMOVED*** assumes fixtures were run sometime
+	      # assumes fixtures were run sometime
      And  her session store should have user_id: 4
 
 
-  ***REMOVED***
-  ***REMOVED*** Log out successfully (should always succeed)
-  ***REMOVED***
+  #
+  # Log out successfully (should always succeed)
+  #
   Scenario: Anonymous (logged out) user can log out.
     Given an anonymous user
     When  she goes to /logout

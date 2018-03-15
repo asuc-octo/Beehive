@@ -2,20 +2,20 @@ class UsersController < ApplicationController
   include AttribsHelper
   include CASControllerIncludes
 
-  ***REMOVED*** skip_before_filter :verify_authenticity_token, :only => [:auto_complete_for_course_name,
-  ***REMOVED***   :auto_complete_for_category_name, :auto_complete_for_proglang_name]
-  ***REMOVED*** auto_complete_for :course, :name
-  ***REMOVED*** auto_complete_for :category, :name
-  ***REMOVED*** auto_complete_for :proglang, :name
+  # skip_before_filter :verify_authenticity_token, :only => [:auto_complete_for_course_name,
+  #   :auto_complete_for_category_name, :auto_complete_for_proglang_name]
+  # auto_complete_for :course, :name
+  # auto_complete_for :category, :name
+  # auto_complete_for :proglang, :name
 
-  ***REMOVED***CalNet / CAS Authentication
-  ***REMOVED***before_filter CASClient::Frameworks::Rails::Filter
+  #CalNet / CAS Authentication
+  #before_filter CASClient::Frameworks::Rails::Filter
   before_filter :ensure_new_user, :only => [:new, :create]
   before_filter :rm_login_required, :except => [:new, :create]
   before_filter :correct_user_access, :only => [:edit, :update]
   before_filter :require_admin, :only => [:index, :delete]
 
-  def show ***REMOVED*** TODO restrict access
+  def show # TODO restrict access
     @user = User.find_by_id(params[:id])
     unless @user && (@user.jobs != nil && @user.jobs.length != 0)
       flash[:error] = 'We couldn\'t find that user.'
@@ -23,23 +23,23 @@ class UsersController < ApplicationController
     end
   end
 
-  ***REMOVED*** Handles new users. Flow from user_sessions***REMOVED***new
+  # Handles new users. Flow from user_sessions#new
   def new
     @user = User.new(session[:auth_field] => session[:auth_value])
-    if params[:course].nil? ***REMOVED*** so edit view doesn't complain
+    if params[:course].nil? # so edit view doesn't complain
       params[:course] = params[:proglang] = params[:category] = {}
     end
 
     if session[:auth_provider].to_sym == :cas
       unless @user.fill_from_ldap
-        logger.warn "UsersController.new: Failed to find LDAP::Person for uid ***REMOVED***{session[:auth_value]}"
+        logger.warn "UsersController.new: Failed to find LDAP::Person for uid #{session[:auth_value]}"
       end
     end
   end
 
-  ***REMOVED*** Create account for a new user.
+  # Create account for a new user.
   def create
-    new ***REMOVED*** set @user
+    new # set @user
     if @user.apply?
       @user.handle_courses(params[:course][:name])
       @user.handle_proglangs(params[:proglang][:name])
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     end
   end
 
-  ***REMOVED*** Edit any user (only be available to Admin)
+  # Edit any user (only be available to Admin)
   def edit
     @user = User.find(params[:id])
     prepare_attribs_in_params(@user)

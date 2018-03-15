@@ -5,7 +5,7 @@ module SmartMatch
 	courses = my.course_list_of_user.gsub ",", " "
 	cats = my.category_list_of_user.gsub ",", " "
 	pls = my.proglang_list_of_user.gsub ",", " "
-	query = "***REMOVED***{cats} ***REMOVED***{courses} ***REMOVED***{pls}"
+	query = "#{cats} #{courses} #{pls}"
 	Job.find_by_solr_by_relevance(query)
   end
 end
@@ -106,11 +106,11 @@ describe JobsController, :type => :controller do
     end
 
     describe "with invalid params" do
-      ***REMOVED***it "assigns a newly created but unsaved job as @job" do
-      ***REMOVED***  Job.stub!(:new).with({'these' => 'params'}).and_return(mock_job(:save => false))
-      ***REMOVED***  post :create, :job => {:these => 'params'}
-      ***REMOVED***  assigns[:job].should equal(mock_job)
-      ***REMOVED***end
+      #it "assigns a newly created but unsaved job as @job" do
+      #  Job.stub!(:new).with({'these' => 'params'}).and_return(mock_job(:save => false))
+      #  post :create, :job => {:these => 'params'}
+      #  assigns[:job].should equal(mock_job)
+      #end
 
       it "re-renders the 'new' template" do
         @faculty = mock_model(Faculty, :id=>1)
@@ -262,9 +262,9 @@ describe JobsController, :type => :controller do
 		@user1.courses = [ Course.create(:name => "CS61A") ]
 		@user2 = User.create(:name => "Someone Name", :email => "someonesname3333@berkeley.edu")
 		@user2.courses = [ Course.create(:name => "CS61C") ]
-		***REMOVED***@sm_user1 = smartmatches_for(@user1)
-		***REMOVED***@sm_user2 = smartmatches_for(@user2)
-		***REMOVED***We couldn't figure out how to mock Solr properly, there were errors associated with it when we tried to test it using Rspec
+		#@sm_user1 = smartmatches_for(@user1)
+		#@sm_user2 = smartmatches_for(@user2)
+		#We couldn't figure out how to mock Solr properly, there were errors associated with it when we tried to test it using Rspec
 		@sm_user1 = [@job1, @job2]
 		@sm_user2 = [@job2]
 		@sm_user1.should include(@job1)
@@ -276,8 +276,8 @@ describe JobsController, :type => :controller do
 	it "should return jobs that match programming language requirements" do
 		@user1 = User.create(:name => "Someone Name", :email => "someonesname333@berkeley.edu", :proficiencies => [ Proficiency.create(:proglang_id => @java_proglang.id) ])
 		@user2 = User.create(:name => "Someone Name", :email => "someonesname3333@berkeley.edu", :proficiencies => [ Proficiency.create(:proglang_id => @python_proglang.id) ])
-		***REMOVED***@sm_user1 = smartmatches_for(@user1)
-		***REMOVED***@sm_user2 = smartmatches_for(@user2)
+		#@sm_user1 = smartmatches_for(@user1)
+		#@sm_user2 = smartmatches_for(@user2)
 		@sm_user1 = [@job1, @job2]
 		@sm_user2 = [@job2]
 		
@@ -291,8 +291,8 @@ describe JobsController, :type => :controller do
 	it "should return jobs that match interests/tags" do
 		@user1 = User.create(:name => "Someone Name", :email => "someonesname333@berkeley.edu", :categories => [ Category.create(:name => "tag1") ])
 		@user2 = User.create(:name => "Someone Name", :email => "someonesname3333@berkeley.edu", :categories => [ Category.create(:name => "tag2") ])
-		***REMOVED***@sm_user1 = smartmatches_for(@user1)
-		***REMOVED***@sm_user2 = smartmatches_for(@user2)
+		#@sm_user1 = smartmatches_for(@user1)
+		#@sm_user2 = smartmatches_for(@user2)
 		@sm_user1 = [@job1]
 		@sm_user2 = [@job1]
 		
@@ -304,7 +304,7 @@ describe JobsController, :type => :controller do
 	
 	it "should return jobs in relevance order" do
 		@user1 = User.create(:name => "Someone Name", :email => "someonesname333@berkeley.edu", :categories => [ Category.create(:name => "tag1"), Category.create(:name => "tag3") ], :courses => [ Course.create(:name => "CS61A") ])
-		***REMOVED***@sm_user1 = smartmatches_for(@user1)
+		#@sm_user1 = smartmatches_for(@user1)
 		@sm_user1 = [@job1, @job2]
 		
 		@sm_user1.first.should equal(@job1)

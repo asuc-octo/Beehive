@@ -1,8 +1,8 @@
-***REMOVED***fields_faculty {
+#fields_faculty {
     display: none;
 }
 
-***REMOVED***signup_fields div {
+#signup_fields div {
     margin-top: 10px;
     margin-bottom: 10px;
 }

@@ -12,7 +12,7 @@ describe "/users/edit.html.erb" do
   it "renders the edit user form" do
     render
 
-    response.should have_tag("form[action=***REMOVED***{user_path(@user)}][method=post]") do
+    response.should have_tag("form[action=#{user_path(@user)}][method=post]") do
     end
   end
 end

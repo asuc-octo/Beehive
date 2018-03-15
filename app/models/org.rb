@@ -1,14 +1,14 @@
-***REMOVED*** == Schema Information
-***REMOVED***
-***REMOVED*** Table name: orgs
-***REMOVED***
-***REMOVED***  id         :integer          not null, primary key
-***REMOVED***  name       :string(255)
-***REMOVED***  desc       :text
-***REMOVED***  created_at :datetime         not null
-***REMOVED***  updated_at :datetime         not null
-***REMOVED***  abbr       :string(255)
-***REMOVED***
+# == Schema Information
+#
+# Table name: orgs
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  desc       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  abbr       :string(255)
+#
 
 class Org < ActiveRecord::Base
   has_many :memberships
@@ -16,7 +16,7 @@ class Org < ActiveRecord::Base
   has_many :curations
   has_many :jobs, :through => :curations
 
-  ***REMOVED*** overriden so that org_path uses 
+  # overriden so that org_path uses 
   def to_param
     abbr
   end

@@ -1,19 +1,19 @@
-***REMOVED*** == Schema Information
-***REMOVED***
-***REMOVED*** Table name: orgs
-***REMOVED***
-***REMOVED***  id         :integer          not null, primary key
-***REMOVED***  name       :string(255)
-***REMOVED***  desc       :text
-***REMOVED***  created_at :datetime         not null
-***REMOVED***  updated_at :datetime         not null
-***REMOVED***  abbr       :string(255)
-***REMOVED***
+# == Schema Information
+#
+# Table name: orgs
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  desc       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  abbr       :string(255)
+#
 
 require 'test_helper'
 
 class OrgTest < ActiveSupport::TestCase
-  ***REMOVED*** test "the truth" do
-  ***REMOVED***   assert true
-  ***REMOVED*** end
+  # test "the truth" do
+  #   assert true
+  # end
 end

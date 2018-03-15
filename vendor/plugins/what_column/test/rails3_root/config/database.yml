@@ -1,15 +1,15 @@
-***REMOVED*** SQLite version 3.x
-***REMOVED***   gem install sqlite3-ruby (not necessary on OS X Leopard)
-***REMOVED***
+# SQLite version 3.x
+#   gem install sqlite3-ruby (not necessary on OS X Leopard)
+development:
   adapter: sqlite3
   database: ":memory:"
   pool: 5
   timeout: 5000
 
-***REMOVED*** Warning: The database defined as "test" will be erased and
-***REMOVED*** re-generated from your development database when you run "rake".
-***REMOVED*** Do not set this db to the same as development or production.
-***REMOVED***
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
   adapter: sqlite3
   database: ":memory:"
   pool: 5

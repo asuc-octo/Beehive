@@ -1,45 +1,31 @@
-***REMOVED***
-***REMOVED*** This file configures the New Relic Agent.  New Relic monitors Ruby, Java,
-***REMOVED*** .NET, PHP, Python, Node, and Go applications with deep visibility and low
-***REMOVED*** overhead.  For more information, visit www.newrelic.com.
-***REMOVED***
-***REMOVED*** Generated March 14, 2018
-***REMOVED***
-***REMOVED*** This configuration file is custom generated for researchmatch Heroku
-***REMOVED***
-***REMOVED*** For full documentation of agent configuration options, please refer to
-***REMOVED*** https://docs.newrelic.com/docs/agents/ruby-agent/installation-configuration/ruby-agent-configuration
-
-***REMOVED***
-  ***REMOVED*** Required license key associated with your New Relic account.
-***REMOVED***
-
-  ***REMOVED*** Your application name. Renaming here affects where data displays in New
-  ***REMOVED*** Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
-***REMOVED***
-
-  ***REMOVED*** To disable the agent regardless of other settings, uncomment the following:
-  ***REMOVED*** agent_enabled: false
-
-  ***REMOVED*** Logging level for log/newrelic_agent.log
-***REMOVED***
+#
+# This file configures the New Relic Agent.  New Relic monitors Ruby, Java,
+# .NET, PHP, Python, Node, and Go applications with deep visibility and low
+# overhead.  For more information, visit www.newrelic.com.
+#
+# Generated March 15, 2018
+#
+# This configuration file is custom generated for researchmatch Heroku
+#
+# For full documentation of agent configuration options, please refer to
+# https://docs.newrelic.com/docs/agents/ruby-agent/installation-configuration/ruby-agent-configuration
 
 
-***REMOVED*** Environment-specific settings are in this section.
-***REMOVED*** RAILS_ENV or RACK_ENV (as appropriate) is used to determine the environment.
-***REMOVED*** If your application has other named environments, configure them here.
-***REMOVED***
-***REMOVED***
-***REMOVED*** (Development)
+# Environment-specific settings are in this section.
+# RAILS_ENV or RACK_ENV (as appropriate) is used to determine the environment.
+# If your application has other named environments, configure them here.
+development:
+  <<: *default_settings
+  app_name: My Application (Development)
 
-***REMOVED***
-***REMOVED***
-  ***REMOVED*** It doesn't make sense to report to New Relic from automated test runs.
-***REMOVED***
+test:
+  <<: *default_settings
+  # It doesn't make sense to report to New Relic from automated test runs.
+  monitor_mode: false
 
-***REMOVED***
-***REMOVED***
-***REMOVED*** (Staging)
+staging:
+  <<: *default_settings
+  app_name: My Application (Staging)
 
-***REMOVED***
-***REMOVED***
+production:
+  <<: *default_settings

@@ -21,14 +21,14 @@ describe Job do
     @mock_category    ||= stub_model(Category)
   end
   
-  ***REMOVED***
-  ***REMOVED*** Validation
-  ***REMOVED***
+  #
+  # Validation
+  #
   describe "validation:" do
 
-    ***REMOVED***
-    ***REMOVED*** Setup
-    ***REMOVED***
+    #
+    # Setup
+    #
 
     before :each do
       @valid_jobs = []
@@ -38,9 +38,9 @@ describe Job do
       @valid_jobs.each {|j| j.destroy}
     end
 
-    ***REMOVED***
-    ***REMOVED*** Specs
-    ***REMOVED***
+    #
+    # Specs
+    #
 
     it "should create a new instance given valid attributes" do
       create_job.should be_valid
@@ -59,7 +59,7 @@ describe Job do
           Job.new(:title => 'a'*n).errors_on(:title).empty?.should == valid
         end
       end
-    end ***REMOVED*** title
+    end # title
 
     describe "description" do
       it "should be within 10 and 20000 characters" do
@@ -99,7 +99,7 @@ describe Job do
           Job.new(:earliest_start_date => @b, :latest_start_date => @c, :end_date => @a).errors_on(:latest_start_date).should_not be_empty
         end
       end
-    end ***REMOVED*** start dates
+    end # start dates
 
     describe "required attributes" do
       it "should include title, desc, department" do
@@ -111,9 +111,9 @@ describe Job do
       it "should include sponsorships" do
         pending
       end
-    end ***REMOVED*** required attribs
+    end # required attribs
     
-  end ***REMOVED*** validations
+  end # validations
 
   describe "searching" do
     
@@ -246,9 +246,9 @@ describe Job do
         expected = [jobs(:awe), jobs(:sejits)]
         verify_match results, expected
         
-        ***REMOVED*** results = Job.find_jobs "Data Structures"
-        ***REMOVED*** expected = [jobs(:awe), jobs(:sejits)]
-        ***REMOVED*** verify_match results, expected
+        # results = Job.find_jobs "Data Structures"
+        # expected = [jobs(:awe), jobs(:sejits)]
+        # verify_match results, expected
       end
       
       it "should match programming languages" do
@@ -290,21 +290,21 @@ describe Job do
         expected = [jobs(:brain)]
         verify_match results, expected
         
-        ***REMOVED*** results = Job.find_jobs "Operatin"
-        ***REMOVED*** expected = [jobs(:console)]
-        ***REMOVED*** verify_match results, expected
-***REMOVED***         
-        ***REMOVED*** results = Job.find_jobs "Operating System"
-        ***REMOVED*** expected = [jobs(:console)]
-        ***REMOVED*** verify_match results, expected
-***REMOVED***         
-        ***REMOVED*** results = Job.find_jobs "Data Structure"
-        ***REMOVED*** expected = [jobs(:awe), jobs(:sejits)]
-        ***REMOVED*** verify_match results, expected
-***REMOVED***         
-        ***REMOVED*** results = Job.find_jobs "Visual Bas"
-        ***REMOVED*** expected = [jobs(:awe)]
-        ***REMOVED*** verify_match results, expected
+        # results = Job.find_jobs "Operatin"
+        # expected = [jobs(:console)]
+        # verify_match results, expected
+#         
+        # results = Job.find_jobs "Operating System"
+        # expected = [jobs(:console)]
+        # verify_match results, expected
+#         
+        # results = Job.find_jobs "Data Structure"
+        # expected = [jobs(:awe), jobs(:sejits)]
+        # verify_match results, expected
+#         
+        # results = Job.find_jobs "Visual Bas"
+        # expected = [jobs(:awe)]
+        # verify_match results, expected
       end
       
       it "should be case insensitive" do
@@ -358,7 +358,7 @@ describe Job do
         expected = [jobs(:bridges)]
         verify_match results, expected
         
-        results = Job.find_jobs "\\\\test" ***REMOVED***this actually searches "\\test"
+        results = Job.find_jobs "\\\\test" #this actually searches "\\test"
         expected = [jobs(:bridges)]
         verify_match results, expected
       end
@@ -484,7 +484,7 @@ describe Job do
         verify_exclusion results, excluded
       end
     end
-  end ***REMOVED*** searching
+  end # searching
   
 def verify_match(actual_results, expected_results)
   unexpected_results = [jobs(:sejits), jobs(:awe), jobs(:console), jobs(:scads),
@@ -522,7 +522,7 @@ protected
     j.valid?
     j.errors.should == {} and j.should be_valid
 
-    ***REMOVED*** wtf
+    # wtf
     @mock_category.should_receive(:record_timestamps)
     @mock_sponsorship.should_receive(:[]=)
 

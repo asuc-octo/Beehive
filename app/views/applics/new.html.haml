@@ -3,9 +3,9 @@
   .card
     .row
       .large-10.col-sm-12.columns
-        %h1="Apply for Project - ***REMOVED***{@job.title}"
+        %h1="Apply for Project - #{@job.title}"
         %p
-          To apply for the following project, please enter a message to send to the faculty ***REMOVED***{'sponsor'.pluralize_for @job.faculties.count} and review the info that will be provided.
+          To apply for the following project, please enter a message to send to the faculty #{'sponsor'.pluralize_for @job.faculties.count} and review the info that will be provided.
         = form_for(@applic, :url=>create_job_applic_path(@applic.job.id, @applic.id), :method => :post ) do |f|
           = render(:partial => "jobs/job_snippet", :job => @job )
           %strong Message to faculty
@@ -16,24 +16,24 @@
             %p
               Please answer the following questions
             - if @job.question_1 != nil && @job.question_1 != ""
-              %strong ***REMOVED***{@job.question_1}
+              %strong #{@job.question_1}
               = f.text_area :answer_1, :rows=>3, :value => @applic.answer_1, :class => "form-control"
             - if @job.question_2 != nil && @job.question_2 != ""
-              %strong ***REMOVED***{@job.question_2}
+              %strong #{@job.question_2}
               = f.text_area :answer_2, :rows=>3, :value => @applic.answer_2, :class => "form-control"
             - if @job.question_3 != nil  && @job.question_3 != ""
-              %strong ***REMOVED***{@job.question_3}
+              %strong #{@job.question_3}
               = f.text_area :answer_3, :rows=>3, :value => @applic.answer_3, :class => "form-control"
 
           %hr
           %h2 Application
           %p
-            By applying for this listing, you grant the faculty ***REMOVED***{'sponsor'.pluralize_for @job.faculties.count}
-            (***REMOVED***{@job.faculties.collect(&:name).join(', ')}) access to view ***REMOVED***{link_to 'your profile', profile_path, :target => '_blank'} and any information you've entered there.
+            By applying for this listing, you grant the faculty #{'sponsor'.pluralize_for @job.faculties.count}
+            (#{@job.faculties.collect(&:name).join(', ')}) access to view #{link_to 'your profile', profile_path, :target => '_blank'} and any information you've entered there.
             Please review the following information before submitting. A copy will be emailed to the faculty
-            \***REMOVED***{'sponsor'.pluralize_for @job.faculties.count}.
+            \#{'sponsor'.pluralize_for @job.faculties.count}.
           = render 'users/applic_info', :format => :html, :user => @current_user
           = f.submit 'Submit', class: "btn btn-primary"
           = f.submit 'Save', class: "btn btn-info"
-          %input{:onclick => "location.href='***REMOVED***{url_for(@job)}'", :type => "button", :value => "Cancel", :class => "btn btn-danger"}/
+          %input{:onclick => "location.href='#{url_for(@job)}'", :type => "button", :value => "Cancel", :class => "btn btn-danger"}/
         = link_to raw('« Back to listings'), jobs_path

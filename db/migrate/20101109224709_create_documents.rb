@@ -4,7 +4,7 @@ class CreateDocuments < ActiveRecord::Migration
       t.references :user
       t.integer    :document_type
       
-      ***REMOVED*** attachment_fu
+      # attachment_fu
       t.integer :size
       t.string :content_type
       t.string :filename

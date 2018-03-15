@@ -20,7 +20,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "rails_bootstrap_forms";
-$ucb-blue: ***REMOVED***003262;
+$ucb-blue: #003262;
 
 html, body{
    margin:0;
@@ -38,12 +38,12 @@ select {
   outline: none;
   padding-left: 10px;
   border: none;
-  background-color: ***REMOVED***eee;
+  background-color: #eee;
   border-radius: 3px;
   margin: 3px 0px 3px 0px;
 }
 
-***REMOVED***advanced_search {
+#advanced_search {
   select {
     width: 100%;
   }
@@ -55,7 +55,7 @@ select {
 }
 
 pre {
-  background-color: ***REMOVED***eee;
+  background-color: #eee;
   padding: 10px;
   font-size: 11px;
 }
@@ -97,7 +97,7 @@ pre {
 .navbar-right {
   .dropdown-menu, li.open {
     border-radius: 0;
-    box-shadow: ***REMOVED***dedede 3px 2px 2px 1px;
+    box-shadow: #dedede 3px 2px 2px 1px;
   }
   .dropdown-menu > li > a {
     font-weight: 300;
@@ -135,7 +135,7 @@ pre {
     .open .dropdown-menu {
       position: absolute;
       margin-left: -92px;
-      box-shadow: ***REMOVED***dedede 0px 2px 2px 0px;
+      box-shadow: #dedede 0px 2px 2px 0px;
       background-color: white;
     }
     // next blocks override bootstrap dropdown-in-mobile-nav
@@ -174,7 +174,7 @@ pre {
   float: right!important;
 }
 
-***REMOVED***home-page {
+#home-page {
   .navbar-default {
     background-color: transparent !important;
     border-color: transparent !important;
@@ -185,7 +185,7 @@ pre {
     box-shadow: none;
     li {
       a {
-        color: ***REMOVED***003366;
+        color: #003366;
         font-family: sans-serif;
         font-weight: bold;
         text-transform: uppercase;
@@ -212,7 +212,7 @@ pre {
 footer, .footer {
   height: 50px;
   padding-top: 16px;
-  background: ***REMOVED***003366;
+  background: #003366;
   width: 100%;
   color: white;
   padding-left: 20px;
@@ -226,24 +226,24 @@ footer, .footer {
 
 /**Menu**/
 
-***REMOVED***department_speech {
+#department_speech {
   display: none;
 }
 
-***REMOVED***department_speech_top {
+#department_speech_top {
   width: 163px;
   height: 32px;
   background: url("../images/research_department_speechbubble_01.png");
 }
 
-***REMOVED***department_speech_bot {
+#department_speech_bot {
   width: 163px;
   height: 37px;
   background: url("../images/research_department_speechbubble_02.png");
   z-index: 10;
 }
 
-***REMOVED***create_job_hidden {
+#create_job_hidden {
   display: none;
 }
 
@@ -262,10 +262,10 @@ a:hover {
 }
 
 
-.fieldWithErrors, ***REMOVED***errorExplanation {
+.fieldWithErrors, #errorExplanation {
   color: red;
 }
 
 .navbar-header .icon-bar {
-  background-color: ***REMOVED***FFF;
+  background-color: #FFF;
 }

@@ -58,7 +58,7 @@ private
   def debug(msg, d_indent=0)
     return unless @debug
     @indent_level ||= 0
-    puts "***REMOVED***{'  '*@indent_level}***REMOVED***{msg}" if msg
+    puts "#{'  '*@indent_level}#{msg}" if msg
     @indent_level = [0, @indent_level+d_indent].max
   end
 
@@ -66,39 +66,39 @@ private
     require 'nokogiri'
     require 'open-uri'
 
-    doc = Nokogiri::HTML(open(@url)) || raise(ImportError("Failed to open ***REMOVED***{@url}"))
+    doc = Nokogiri::HTML(open(@url)) || raise(ImportError("Failed to open #{@url}"))
 
-    ***REMOVED*** As of 2011-10-16
-    ***REMOVED*** The faculty page is structured in a table.
-    ***REMOVED*** Each entry consists of three <tr>s:
-    ***REMOVED***   <tr> : divider (garbage)
-    ***REMOVED***   <tr> : name
-    ***REMOVED***       <td> spacer (garbage)
-    ***REMOVED***       <td>
-    ***REMOVED***           <a> homepage
-    ***REMOVED***               <text> name
-    ***REMOVED***           <text> title
-    ***REMOVED***   <tr> : other info
-    ***REMOVED***       <td> spacer (garbage)
-    ***REMOVED***       <td> portrait
-    ***REMOVED***       <td>
-    ***REMOVED***           <text> office, phone; email
-    ***REMOVED***           <strong> "Research Interests"
-    ***REMOVED***           <a> link to research area landing page
-    ***REMOVED***            :  <text> interest name
-    ***REMOVED***            :
-    ***REMOVED***            :
-    ***REMOVED***           <strong> "Teaching Schedule"
+    # As of 2011-10-16
+    # The faculty page is structured in a table.
+    # Each entry consists of three <tr>s:
+    #   <tr> : divider (garbage)
+    #   <tr> : name
+    #       <td> spacer (garbage)
+    #       <td>
+    #           <a> homepage
+    #               <text> name
+    #           <text> title
+    #   <tr> : other info
+    #       <td> spacer (garbage)
+    #       <td> portrait
+    #       <td>
+    #           <text> office, phone; email
+    #           <strong> "Research Interests"
+    #           <a> link to research area landing page
+    #            :  <text> interest name
+    #            :
+    #            :
+    #           <strong> "Teaching Schedule"
 
-    state = :start   ***REMOVED*** Expected look-ahead
-    ***REMOVED*** Valid states are :divider, :name, :info
+    state = :start   # Expected look-ahead
+    # Valid states are :divider, :name, :info
 
-    faculty = {}   ***REMOVED*** current faculty
-    error = false  ***REMOVED*** if true, quit parsing current prof
+    faculty = {}   # current faculty
+    error = false  # if true, quit parsing current prof
 
     doc.xpath('//div[@id="content"]//tr').each do |tr|
-      1.times do  ***REMOVED*** to get 'redo' behavior
-        debug "-- entering state ***REMOVED***{state}"
+      1.times do  # to get 'redo' behavior
+        debug "-- entering state #{state}"
         case state
         when :start
           faculty = {}
@@ -110,7 +110,7 @@ private
           redo
 
         when :divider
-          ***REMOVED*** Discard this element
+          # Discard this element
           state = :name
           break if error
 
@@ -133,7 +133,7 @@ private
           td = tr.at_xpath('td[3]')
           raise(ImportError::ParseError.new('Could not find info')) unless td
 
-          ***REMOVED*** Office, phone, email
+          # Office, phone, email
           begin
             info = td.at_xpath('text()').text.strip
             faculty[:office], faculty[:phone], faculty[:email] =
@@ -149,11 +149,11 @@ private
           state = :start
 
           if error
-            $stderr.puts "Record not saved due to errors: ***REMOVED***{faculty}"
+            $stderr.puts "Record not saved due to errors: #{faculty}"
             break
           end
 
-          debug "Saving ***REMOVED***{faculty.inspect}"
+          debug "Saving #{faculty.inspect}"
 
           @faculties << faculty
 

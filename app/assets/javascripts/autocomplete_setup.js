@@ -77,7 +77,7 @@ $(function() {
     });
   }
 
-  // autocomplete_setup('/courses/json', '***REMOVED***courses-input', 20, true);
-  // autocomplete_setup('/categories/json', '***REMOVED***categories-input', 50, false);
-  // autocomplete_setup('/proglangs/json', '***REMOVED***proglangs-input', 20, true);
+  autocomplete_setup('/courses/json', '#courses-input', 20, true);
+  autocomplete_setup('/categories/json', '#categories-input', 50, false);
+  autocomplete_setup('/proglangs/json', '#proglangs-input', 20, true);
 });

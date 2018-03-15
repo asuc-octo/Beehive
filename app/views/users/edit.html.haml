@@ -1,5 +1,5 @@
-- content_for :title, "***REMOVED***{@user.firstname}'s Profile"
+- content_for :title, "#{@user.firstname}'s Profile"
 .container.user-profile
-  %h1= "***REMOVED***{@user.firstname}'s Profile"
+  %h1= "#{@user.firstname}'s Profile"
   = render partial: 'edit'
   

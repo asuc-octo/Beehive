@@ -23,7 +23,7 @@ describe UsersController do
       before :each do; login_user users(:quentin); end
 
       it 'should succeed trivially' do
-        put :update, :id => @current_user.id ***REMOVED*** without any params
+        put :update, :id => @current_user.id # without any params
         response.should redirect_to(edit_user_path(@current_user.id))
       end
     end

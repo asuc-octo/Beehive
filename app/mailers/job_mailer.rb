@@ -1,6 +1,6 @@
 
-***REMOVED*** The mailer for jobs, e.g. to send activation emails out
-***REMOVED*** or to notify of applications to jobs
+# The mailer for jobs, e.g. to send activation emails out
+# or to notify of applications to jobs
 class JobMailer < ApplicationMailer
   def activate_job_email(job)
     @job = job

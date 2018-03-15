@@ -1,4 +1,4 @@
-module WhatColumnMigrator ***REMOVED***:nodoc:
+module WhatColumnMigrator #:nodoc:
   
   def self.included(base)
     base.class_eval do

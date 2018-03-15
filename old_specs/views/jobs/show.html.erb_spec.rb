@@ -19,13 +19,13 @@ describe "/jobs/show.html.erb" do
   end
 
   it "renders attributes in <p>" do
-    ***REMOVED***render
-    ***REMOVED***response.should have_text(/1/)
-    ***REMOVED***response.should have_text(/value\ for\ title/)
-    ***REMOVED***response.should have_text(/value\ for\ desc/)
-    ***REMOVED***response.should have_text(/1/)
-    ***REMOVED***response.should have_text(/1/)
-    ***REMOVED***response.should have_text(/false/)
-    ***REMOVED***response.should have_text(/false/)
+    #render
+    #response.should have_text(/1/)
+    #response.should have_text(/value\ for\ title/)
+    #response.should have_text(/value\ for\ desc/)
+    #response.should have_text(/1/)
+    #response.should have_text(/1/)
+    #response.should have_text(/false/)
+    #response.should have_text(/false/)
   end
 end

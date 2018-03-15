@@ -1,6 +1,6 @@
 class FixJobInactivesTable < ActiveRecord::Migration
-***REMOVED*** This migration drops the "job_inactive" table and creates the "job_inactives" 
-***REMOVED*** table in order to comply with Rails conventions.
+# This migration drops the "job_inactive" table and creates the "job_inactives" 
+# table in order to comply with Rails conventions.
   def self.up
 	    drop_table :job_inactive
 		create_table :job_inactives do |t|

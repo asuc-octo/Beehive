@@ -1,10 +1,10 @@
 require 'rubygems'
 
-***REMOVED*** Set up gems listed in the Gemfile.
+# Set up gems listed in the Gemfile.
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
 require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
 
 require 'yaml'
 require 'syck'
-***REMOVED***YAML::ENGINE.yamler='syck'
+#YAML::ENGINE.yamler='syck'

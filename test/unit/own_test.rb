@@ -1,18 +1,18 @@
-***REMOVED*** == Schema Information
-***REMOVED***
-***REMOVED*** Table name: owns
-***REMOVED***
-***REMOVED***  id         :integer          not null, primary key
-***REMOVED***  job_id     :integer
-***REMOVED***  user_id    :integer
-***REMOVED***  created_at :datetime
-***REMOVED***  updated_at :datetime
-***REMOVED***
+# == Schema Information
+#
+# Table name: owns
+#
+#  id         :integer          not null, primary key
+#  job_id     :integer
+#  user_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
 
 require 'test_helper'
 
 class OwnTest < ActiveSupport::TestCase
-  ***REMOVED*** Replace this with your real tests.
+  # Replace this with your real tests.
   test "the truth" do
     assert true
   end

@@ -46,15 +46,15 @@ function textChange(elementID, defaultText)
 /* users/new signup page sliding effects */
 
 function user_signup_student_fields() {
-    $('***REMOVED***fields_student_above_password').slideDown();
-    $('***REMOVED***fields_student_below_password').slideDown();
-    $('***REMOVED***fields_faculty').slideUp();
+    $('#fields_student_above_password').slideDown();
+    $('#fields_student_below_password').slideDown();
+    $('#fields_faculty').slideUp();
 }
 
 function user_signup_faculty_fields() {
-    $('***REMOVED***fields_student_above_password').slideUp();
-    $('***REMOVED***fields_student_below_password').slideUp();
-    $('***REMOVED***fields_faculty').slideDown();
+    $('#fields_student_above_password').slideUp();
+    $('#fields_student_below_password').slideUp();
+    $('#fields_faculty').slideDown();
 }
 
 $(document).ready(function(){

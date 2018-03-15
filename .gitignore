@@ -19,12 +19,16 @@ tmp/**/*
 *.sublime-workspace
 .DS_Store
 
-***REMOVED***ignore database.yml
+#ignore database.yml
 config/database.yml
 
-***REMOVED*** ignore extra dump files
+# ignore extra dump files
 *.dump
 
-***REMOVED***ignore hiddern files
+#ignore hiddern files
 .*
 app/assets/.*
+
+# ignore test files
+test_mem_prod.rb
+test_mem.rb

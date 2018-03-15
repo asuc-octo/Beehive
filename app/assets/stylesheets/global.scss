@@ -1,8 +1,8 @@
-$ucb-blue: ***REMOVED***003262;
-$ucb-orange: ***REMOVED***fdb515;
+$ucb-blue: #003262;
+$ucb-orange: #fdb515;
 
 body {
-  background-color: ***REMOVED***f3f3f3 !important;
+  background-color: #f3f3f3 !important;
 }
 
 body,div,h1,h2,h3,h4,h5,h6,a,li,ul,div,td,th,span {
@@ -22,12 +22,12 @@ body,div,h1,h2,h3,h4,h5,h6,a,li,ul,div,td,th,span {
 .navbar.navbar,
 .navbar-default.navbar {
   background-color: white !important;
-  color: ***REMOVED***022d63;
+  color: #022d63;
   box-shadow: rgb(222, 222, 222) 4px 4px 0px 0px;
 }
 
 .navbar .navbar-nav > li > a {
-  color: ***REMOVED***022d63 !important;
+  color: #022d63 !important;
 }
 
 h1 {
@@ -70,23 +70,23 @@ dd {
 }
 
 .btn-cal:not(.btn-link):not(.btn-flat) {
-  background-color: ***REMOVED***003366 !important;
+  background-color: #003366 !important;
   color: white !important;
   margin-top: 30px;
   &:hover {
-    background-color: ***REMOVED***1A436B !important;
+    background-color: #1A436B !important;
   }
 }
 
-***REMOVED***flash_error, ***REMOVED***flash_notice {
-  color: ***REMOVED***D5F5E2;
-  background: ***REMOVED***1ABC9C;
+#flash_error, #flash_notice {
+  color: #D5F5E2;
+  background: #1ABC9C;
   padding: 10px;
   margin: auto;
   text-align: center;
   width: 600px;
   height: 40px;
-  box-shadow: ***REMOVED***16A085 2px 2px 0px 0px !important;
+  box-shadow: #16A085 2px 2px 0px 0px !important;
   position: fixed;
   right: 30px;
   top: 30px;
@@ -97,12 +97,12 @@ dd {
   transition: right 0.5s linear;
 }
 
-***REMOVED***flash_error {
-  background: ***REMOVED***E74C3C;
-  box-shadow: ***REMOVED***C0392B 2px 2px 0px 0px !important;
+#flash_error {
+  background: #E74C3C;
+  box-shadow: #C0392B 2px 2px 0px 0px !important;
 }
 
-***REMOVED***error_explanation {
-  color: ***REMOVED***E74C3C;
+#error_explanation {
+  color: #E74C3C;
   font-weight: bold;
 }

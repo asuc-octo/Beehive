@@ -1,55 +1,55 @@
 class OrgsController < ApplicationController
 
-  ***REMOVED*** Only logged in users can view this page
+  # Only logged in users can view this page
   before_filter :rm_login_required
 
-  ***REMOVED*** Only users in the org can modify it
+  # Only users in the org can modify it
   before_filter :correct_user_access, :only => [:edit, :update, :curate]
 
-  ***REMOVED*** Only admins can create or delete orgs
+  # Only admins can create or delete orgs
   before_filter :require_admin, :only => [:new, :create, :destroy]
 
-  ***REMOVED*** GET /orgs
-  ***REMOVED*** GET /orgs.json
+  # GET /orgs
+  # GET /orgs.json
   def index
     @orgs = Org.all
 
     respond_to do |format|
-      format.html ***REMOVED*** index.html.erb
+      format.html # index.html.erb
       format.json { render json: @orgs }
     end
   end
 
-  ***REMOVED*** GET /orgs/1
-  ***REMOVED*** GET /orgs/1.json
+  # GET /orgs/1
+  # GET /orgs/1.json
   def show
     @org = Org.from_param(params[:abbr])
-    ***REMOVED*** @jobs = Job.find(Curation.where(:org_id => @org.id).pluck(:job_id))
+    # @jobs = Job.find(Curation.where(:org_id => @org.id).pluck(:job_id))
     @jobs = @org.jobs
     respond_to do |format|
-      format.html ***REMOVED*** show.html.erb
+      format.html # show.html.erb
       format.json { render json: @org }
     end
   end
 
-  ***REMOVED*** GET /orgs/new
-  ***REMOVED*** GET /orgs/new.json
+  # GET /orgs/new
+  # GET /orgs/new.json
   def new
     @org = Org.new
 
     respond_to do |format|
-      format.html ***REMOVED*** new.html.erb
+      format.html # new.html.erb
       format.json { render json: @org }
     end
   end
 
-  ***REMOVED*** GET /orgs/1/edit
+  # GET /orgs/1/edit
   def edit
     @org = Org.from_param(params[:abbr])
   end
 
-  ***REMOVED*** POST /orgs
-  ***REMOVED*** POST /orgs.json
+  # POST /orgs
+  # POST /orgs.json
   def create
     @org = Org.new(params[:org])
 
@@ -64,8 +64,8 @@ class OrgsController < ApplicationController
     end
   end
 
-  ***REMOVED*** PUT /orgs/1
-  ***REMOVED*** PUT /orgs/1.json
+  # PUT /orgs/1
+  # PUT /orgs/1.json
   def update
     @org = Org.from_param(params[:abbr])
 
@@ -80,7 +80,7 @@ class OrgsController < ApplicationController
     end
   end
 
-  ***REMOVED*** GET /orgs/1/curate?job_id=2
+  # GET /orgs/1/curate?job_id=2
   def curate
     curate = Curation.new({:org => Org.from_param(params[:abbr]), :job_id => params[:job_id], :user=> @current_user})
     if curate.save
@@ -101,8 +101,8 @@ class OrgsController < ApplicationController
     redirect_to(:back)
   end
 
-  ***REMOVED*** DELETE /orgs/1
-  ***REMOVED*** DELETE /orgs/1.json
+  # DELETE /orgs/1
+  # DELETE /orgs/1.json
   def destroy
     @org = Org.from_param(params[:abbr])
     @org.destroy
@@ -113,9 +113,9 @@ class OrgsController < ApplicationController
     end
   end
 
-***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
-***REMOVED***     FILTERS      ***REMOVED***
-***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
+####################
+#     FILTERS      #
+####################
 
   private
   def correct_user_access

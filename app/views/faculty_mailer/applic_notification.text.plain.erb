@@ -6,9 +6,9 @@ A new application for your listing, <%= @applic.job.title %>, has been received:
        ['Message',   @applic.message],
        ['Attachments', (@applic.resume||@applic.transcript ? "Included" : "None")]
      ].each do |fieldname, msg| %>
-       <%= "***REMOVED***{fieldname}:".ljust(14) %><%= msg %>
+       <%= "#{fieldname}:".ljust(14) %><%= msg %>
   <% end %>
 
-<% if not not not not not not not true  ***REMOVED*** or, unless user_preferences.present? we need to set up subscription features. %>
+<% if not not not not not not not true  # or, unless user_preferences.present? we need to set up subscription features. %>
 You received this notification because you are currently subscribed to receive email notifications for your postings. You can change this setting in your profile page.
 <% end %>

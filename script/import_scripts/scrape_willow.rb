@@ -1,22 +1,22 @@
-***REMOVED***!/usr/bin/env ruby
-***REMOVED***
-***REMOVED*** This script scrapes research listings from the Willow site.
-***REMOVED*** Deprecated
-***REMOVED***
+#!/usr/bin/env ruby
+#
+# This script scrapes research listings from the Willow site.
+# Deprecated
+#
 @options = {:listings_page => "jobs.html", :verbose => true}
 
-***REMOVED*** Helpers
+# Helpers
 class String
   def unescape
     CGI.unescapeHTML(URI.unescape(self))
   end
-  def like(s) ***REMOVED*** is one string a substring of the other?
-    (self =~ /***REMOVED***{s}/i) || (s =~ /***REMOVED***{self}/i)
+  def like(s) # is one string a substring of the other?
+    (self =~ /#{s}/i) || (s =~ /#{self}/i)
   end
 end
 
 
-***REMOVED*** Scraper
+# Scraper
 class WillowScraper
   def initialize
     @doc
@@ -30,45 +30,45 @@ class WillowScraper
   def end_current_job
     return unless @current_job
 
-    ***REMOVED*** params
+    # params
     @current_job.desc = @current_job.desc.join("\n\n")
     @current_job.department = Department.find_or_create_by_name("EECS")
     @current_job.active = true
     @current_job.categories << @current_category
 
-    ***REMOVED*** check and save
+    # check and save
     unless @current_job.valid?
-      puts "*** error validating job ***REMOVED***{@current_job.inspect}"
+      puts "*** error validating job #{@current_job.inspect}"
     else
      set_sponsor
-     @current_job.save ? puts("Parsed job: ***REMOVED***{@current_job.inspect}\n***REMOVED***{@current_job.desc}\n") : puts("*** error saving job ***REMOVED***{@current_job.inspect}")
+     @current_job.save ? puts("Parsed job: #{@current_job.inspect}\n#{@current_job.desc}\n") : puts("*** error saving job #{@current_job.inspect}")
     end
     
     puts '-'*80
 
-    ***REMOVED*** reset for next job
+    # reset for next job
     @current_job = nil
     @current_fields = {:primary_contact=>{}, :alternate_contact=>{}}
   end
 
-  ***REMOVED*** extract info from footer of job listing
+  # extract info from footer of job listing
   def parse_strong(p)
-    ***REMOVED*** structure is like: [ field, ... ]
+    # structure is like: [ field, ... ]
     kids = p.children.to_ary
     field = kids.shift.inner_text().to_s.unescape
-    puts "  field: ***REMOVED***{field}"
+    puts "  field: #{field}"
     case field.downcase
     when 'primary contact'
-      ***REMOVED*** structure is like:
-      ***REMOVED*** [ ": Contact Name -", "<a>email@address</a>" ]
+      # structure is like:
+      # [ ": Contact Name -", "<a>email@address</a>" ]
       contact = kids.shift.inner_text().to_s.unescape.scan(/(\w[\w\s\.]+)\s+-/).to_s.titleize
       email = kids.shift.inner_text().to_s.unescape
-      puts "  Primary Contact: '***REMOVED***{contact}' [email: ***REMOVED***{email}]"
+      puts "  Primary Contact: '#{contact}' [email: #{email}]"
       @current_fields[:primary_contact] = {:name=>contact, :email=>email}
     when 'alternate contact'
-      ***REMOVED*** structure is like:
-      ***REMOVED*** [ ": Contact Name (title) -", "<a>email@address</a>" ]
-      ***REMOVED***                                                            [  name   ]   [  title        ]
+      # structure is like:
+      # [ ": Contact Name (title) -", "<a>email@address</a>" ]
+      #                                                            [  name   ]   [  title        ]
       contact, title = kids.shift.inner_text().to_s.unescape.scan(/(\w[\w\s\.]+)\s+(?:\(([^\)]+)\))?/).first
       title ||= ''
       contact = contact.to_s.titleize
@@ -76,25 +76,25 @@ class WillowScraper
       @current_fields[:alternate_contact] = {:name=>contact, :email=>email}
       @current_fields[:alternate_contact][:type] = case
       when title =~ /grad/i
-        puts "  Grad contact: ***REMOVED***{contact} [email: ***REMOVED***{email}]"
+        puts "  Grad contact: #{contact} [email: #{email}]"
         :grad
       when title =~ /faculty/i
-        puts "  Faculty contact: '***REMOVED***{contact}' [email: ***REMOVED***{email}]"
+        puts "  Faculty contact: '#{contact}' [email: #{email}]"
         if contact.like(@current_fields[:primary_contact][:name]) && email.like(@current_fields[:primary_contact][:email])
-          ***REMOVED*** everything went better than expected 8)
+          # everything went better than expected 8)
         else
-          ***REMOVED*** wat? two faculties?
-          puts "*** Conflict: ***REMOVED***{@current_fields[:primary_contact].inspect}\n              ***REMOVED***{@current_fields[:alternate_contact].inspect}"
+          # wat? two faculties?
+          puts "*** Conflict: #{@current_fields[:primary_contact].inspect}\n              #{@current_fields[:alternate_contact].inspect}"
         end
         :faculty
       else
-        puts "*** Unknown alternate contact type ***REMOVED***{title}: ***REMOVED***{contact} [***REMOVED***{email}]"
+        puts "*** Unknown alternate contact type #{title}: #{contact} [#{email}]"
         nil
       end
     when 'submit student application'
-      ***REMOVED*** discard this
+      # discard this
     else
-      ***REMOVED*** unknown field, just add it onto the description so we don't lose information
+      # unknown field, just add it onto the description so we don't lose information
       @current_job.desc << p.children.to_ary.flatten.collect(&:inner_text).join(' ')
     end
   end
@@ -114,33 +114,33 @@ class WillowScraper
       elms.each do |elm|
         text = elm.xpath('text()').to_s.unescape
         case elm.name
-	when 'h3' ***REMOVED*** category
+	when 'h3' # category
           end_current_job
 	  @current_category = Category.find_or_create_by_name(text)
-          puts "Category: ***REMOVED***{text}"
-	when 'h4' ***REMOVED*** job title, indicates new job
+          puts "Category: #{text}"
+	when 'h4' # job title, indicates new job
           end_current_job
 	  @current_job = Job.find_or_initialize_by_title(text)
-          @current_job.desc = [] ***REMOVED*** temporarily build info as array of paragraphs
-          puts "Job.title: ***REMOVED***{text}"
-	when 'p' ***REMOVED*** job content
+          @current_job.desc = [] # temporarily build info as array of paragraphs
+          puts "Job.title: #{text}"
+	when 'p' # job content
           next unless @current_job
-          if elm.children.first && elm.children.first.name.downcase.eql?('strong')  ***REMOVED*** info (like contact info)
+          if elm.children.first && elm.children.first.name.downcase.eql?('strong')  # info (like contact info)
             parse_strong elm
-          else  ***REMOVED*** just a content para
+          else  # just a content para
             @current_job.desc << text
           end
 	else
-	  puts "idk what to do with ***REMOVED***{elm.name}"
-	end ***REMOVED*** case elm.name
-      end ***REMOVED*** elms.each
+	  puts "idk what to do with #{elm.name}"
+	end # case elm.name
+      end # elms.each
 
-    end ***REMOVED*** open(page)
+    end # open(page)
   end
 end
 
 
-***REMOVED*** main
+# main
 puts "Warming up..."
 require 'rubygems'
 require 'nokogiri'
@@ -150,5 +150,5 @@ require File.join(File.dirname(__FILE__), '..', '..', 'config', 'environment')
 puts '*'*80
 w = WillowScraper.new
 w.scrape!(@options[:listings_page])
-***REMOVED*** end main
+# end main
 

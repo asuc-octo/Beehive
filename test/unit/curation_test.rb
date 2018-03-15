@@ -1,19 +1,19 @@
-***REMOVED*** == Schema Information
-***REMOVED***
-***REMOVED*** Table name: curations
-***REMOVED***
-***REMOVED***  id         :integer          not null, primary key
-***REMOVED***  job_id     :integer
-***REMOVED***  org_id     :integer
-***REMOVED***  user_id    :integer
-***REMOVED***  created_at :datetime         not null
-***REMOVED***  updated_at :datetime         not null
-***REMOVED***
+# == Schema Information
+#
+# Table name: curations
+#
+#  id         :integer          not null, primary key
+#  job_id     :integer
+#  org_id     :integer
+#  user_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 
 require 'test_helper'
 
 class CurationsTest < ActiveSupport::TestCase
-  ***REMOVED*** test "the truth" do
-  ***REMOVED***   assert true
-  ***REMOVED*** end
+  # test "the truth" do
+  #   assert true
+  # end
 end

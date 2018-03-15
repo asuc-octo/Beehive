@@ -3,7 +3,7 @@ def server_pid
 end
 
 def memory_size_mb
-  (`ps -o rss= -p ***REMOVED***{server_pid}`.to_i * 1024).to_f / 2**20
+  (`ps -o rss= -p #{server_pid}`.to_i * 1024).to_f / 2**20
 end
 
 puts memory_size_mb

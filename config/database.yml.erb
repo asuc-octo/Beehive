@@ -1,18 +1,18 @@
-***REMOVED*** store your custom template at foo/bar/database.yml.erb
+# store your custom template at foo/bar/database.yml.erb
 set :template_dir, "config"
-***REMOVED***
-***REMOVED*** example of database template
+#
+# example of database template
 
 base: &base
   adapter: sqlite3
   timeout: 5000
-***REMOVED***
+development:
   database: <%= shared_path %>/db/development.sqlite3
   <<: *base
-***REMOVED***
+test:
   database: <%= shared_path %>/db/test.sqlite3
   <<: *base
-***REMOVED***
+production:
   adapter: mysql2
   database: Beehive_production
   username: <%= user %>

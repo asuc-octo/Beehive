@@ -4,7 +4,7 @@ $LOAD_PATH << what_column_path
 require 'what_column'
 require 'what_column_migrator'
 
-***REMOVED*** Load the environment
+# Load the environment
 ENV['RAILS_ENV'] ||= 'test'
 ENV['RAILS_VERSION'] ||= '2.3.8'
 

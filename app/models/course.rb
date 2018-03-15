@@ -1,13 +1,13 @@
-***REMOVED*** == Schema Information
-***REMOVED***
-***REMOVED*** Table name: courses
-***REMOVED***
-***REMOVED***  id         :integer          not null, primary key
-***REMOVED***  created_at :datetime
-***REMOVED***  updated_at :datetime
-***REMOVED***  name       :string(255)
-***REMOVED***  desc       :text
-***REMOVED***
+# == Schema Information
+#
+# Table name: courses
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
+#  name       :string(255)
+#  desc       :text
+#
 
 class Course < ActiveRecord::Base
 

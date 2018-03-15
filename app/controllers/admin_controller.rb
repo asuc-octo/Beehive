@@ -32,7 +32,7 @@ class AdminController < ApplicationController
         u = User.find_by_email(params['user_role'])
         u.user_type = params['user_role_new'].to_i
         u.save!
-        flash[:notice] = "User ***REMOVED***{u.name} successfully set as ***REMOVED***{u.user_type_string}."
+        flash[:notice] = "User #{u.name} successfully set as #{u.user_type_string}."
       end
     end
     @non_admins = []
@@ -57,12 +57,12 @@ class AdminController < ApplicationController
       flash[:error] = 'Oops! No CSV file selected'
       return redirect_to admin_path
     end
-    ***REMOVED***Write CSV file to filesystem
+    #Write CSV file to filesystem
     csv_file_handle = Rails.root.join('tmp', uploaded_file.original_filename)
     File.open(csv_file_handle, 'w') do |file|
       file.write(uploaded_file.read)
     end
-    ***REMOVED***Initial check for simple parse problems in CSV
+    #Initial check for simple parse problems in CSV
     begin
       CSV.parse(csv_file_handle.to_s)
     rescue 
@@ -70,7 +70,7 @@ class AdminController < ApplicationController
       File.delete(csv_file_handle)
       return redirect_to admin_path
     end
-    ***REMOVED***Two passes: 1st pass checks each row is valid, 2nd updates the users table
+    #Two passes: 1st pass checks each row is valid, 2nd updates the users table
     for i in 0..1 do
       CSV.foreach(csv_file_handle, {:headers => true, :header_converters => :symbol}) do |row|
         row_hash = row.to_hash
@@ -93,12 +93,12 @@ class AdminController < ApplicationController
           user.user_type = row_hash[:user_role]
         end
         if !user.valid? && !row_hash.empty?
-          ***REMOVED*** invalid user and not a newline
+          # invalid user and not a newline
           flash[:error] = 'The following error(s) occurred with the CSV upload: ' + user.errors.full_messages.join(",")
           File.delete(csv_file_handle)
           return redirect_to admin_path
         elsif user.valid? && i == 1
-          ***REMOVED***if on second pass and user is valid, save to db
+          #if on second pass and user is valid, save to db
           user.save!
         end
       end

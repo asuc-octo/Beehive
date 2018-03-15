@@ -1,93 +1,93 @@
-***REMOVED*** 
-***REMOVED*** = Capistrano database.yml task
-***REMOVED***
-***REMOVED*** Provides a couple of tasks for creating the database.yml 
-***REMOVED*** configuration file dynamically when deploy:setup is run.
-***REMOVED***
-***REMOVED*** Category::    Capistrano
-***REMOVED*** Package::     Database
-***REMOVED*** Author::      Simone Carletti <weppos@weppos.net>
-***REMOVED*** Copyright::   2007-2010 The Authors
-***REMOVED*** License::     MIT License
-***REMOVED*** Link::        http://www.simonecarletti.com/
-***REMOVED*** Source::      http://gist.github.com/2769
-***REMOVED***
-***REMOVED***
-***REMOVED*** == Requirements
-***REMOVED***
-***REMOVED*** This extension requires the original <tt>config/database.yml</tt> to be excluded
-***REMOVED*** from source code checkout. You can easily accomplish this by renaming
-***REMOVED*** the file (for example to database.example.yml) and appending <tt>database.yml</tt>
-***REMOVED*** value to your SCM ignore list.
-***REMOVED***
-***REMOVED***   ***REMOVED*** Example for Subversion
-***REMOVED***
-***REMOVED***   $ svn mv config/database.yml config/database.example.yml
-***REMOVED***   $ svn propset svn:ignore 'database.yml' config
-***REMOVED***
-***REMOVED***   ***REMOVED*** Example for Git
-***REMOVED***
-***REMOVED***   $ git mv config/database.yml config/database.example.yml
-***REMOVED***   $ echo 'config/database.yml' >> .gitignore 
-***REMOVED***
-***REMOVED*** 
-***REMOVED*** == Usage
-***REMOVED*** 
-***REMOVED*** Include this file in your <tt>deploy.rb</tt> configuration file.
-***REMOVED*** Assuming you saved this recipe as capistrano_database_yml.rb:
-***REMOVED*** 
-***REMOVED***   require "capistrano_database_yml"
-***REMOVED*** 
-***REMOVED*** Now, when <tt>deploy:setup</tt> is called, this script will automatically
-***REMOVED*** create the <tt>database.yml</tt> file in the shared folder.
-***REMOVED*** Each time you run a deploy, this script will also create a symlink
-***REMOVED*** from your application <tt>config/database.yml</tt> pointing to the shared configuration file. 
-***REMOVED*** 
-***REMOVED*** == Custom template
-***REMOVED*** 
-***REMOVED*** By default, this script creates an exact copy of the default
-***REMOVED*** <tt>database.yml</tt> file shipped with a new Rails 2.x application.
-***REMOVED*** If you want to overwrite the default template, simply create a custom Erb template
-***REMOVED*** called <tt>database.yml.erb</tt> and save it into <tt>config/deploy</tt> folder.
-***REMOVED*** 
-***REMOVED*** Although the name of the file can't be changed, you can customize the directory
-***REMOVED*** where it is stored defining a variable called <tt>:template_dir</tt>.
-***REMOVED*** 
-***REMOVED***   ***REMOVED*** store your custom template at foo/bar/database.yml.erb
-***REMOVED***   set :template_dir, "foo/bar"
-***REMOVED*** 
-***REMOVED***   ***REMOVED*** example of database template
-***REMOVED***   
-***REMOVED***   base: &base
-***REMOVED***     adapter: sqlite3
-***REMOVED***     timeout: 5000
-***REMOVED***   ***REMOVED***
-***REMOVED***     database: ***REMOVED***{shared_path}/db/development.sqlite3
-***REMOVED***     <<: *base
-***REMOVED***   ***REMOVED***
-***REMOVED***     database: ***REMOVED***{shared_path}/db/test.sqlite3
-***REMOVED***     <<: *base
-***REMOVED***   ***REMOVED***
-***REMOVED***     adapter: mysql
-***REMOVED***     database: ***REMOVED***{application}_production
-***REMOVED***     username: ***REMOVED***{user}
-***REMOVED***     password: ***REMOVED***{Capistrano::CLI.ui.ask("Enter MySQL database password: ")}
-***REMOVED***     encoding: utf8
-***REMOVED***     timeout: 5000
-***REMOVED***
-***REMOVED*** Because this is an Erb template, you can place variables and Ruby scripts
-***REMOVED*** within the file.
-***REMOVED*** For instance, the template above takes advantage of Capistrano CLI
-***REMOVED*** to ask for a MySQL database password instead of hard coding it into the template.
-***REMOVED***
-***REMOVED*** === Password prompt
-***REMOVED***
-***REMOVED*** For security reasons, in the example below the password is not
-***REMOVED*** hard coded (or stored in a variable) but asked on setup.
-***REMOVED*** I don't like to store passwords in files under version control
-***REMOVED*** because they will live forever in your history.
-***REMOVED*** This is why I use the Capistrano::CLI utility.
-***REMOVED***
+# 
+# = Capistrano database.yml task
+#
+# Provides a couple of tasks for creating the database.yml 
+# configuration file dynamically when deploy:setup is run.
+#
+# Category::    Capistrano
+# Package::     Database
+# Author::      Simone Carletti <weppos@weppos.net>
+# Copyright::   2007-2010 The Authors
+# License::     MIT License
+# Link::        http://www.simonecarletti.com/
+# Source::      http://gist.github.com/2769
+#
+#
+# == Requirements
+#
+# This extension requires the original <tt>config/database.yml</tt> to be excluded
+# from source code checkout. You can easily accomplish this by renaming
+# the file (for example to database.example.yml) and appending <tt>database.yml</tt>
+# value to your SCM ignore list.
+#
+#   # Example for Subversion
+#
+#   $ svn mv config/database.yml config/database.example.yml
+#   $ svn propset svn:ignore 'database.yml' config
+#
+#   # Example for Git
+#
+#   $ git mv config/database.yml config/database.example.yml
+#   $ echo 'config/database.yml' >> .gitignore 
+#
+# 
+# == Usage
+# 
+# Include this file in your <tt>deploy.rb</tt> configuration file.
+# Assuming you saved this recipe as capistrano_database_yml.rb:
+# 
+#   require "capistrano_database_yml"
+# 
+# Now, when <tt>deploy:setup</tt> is called, this script will automatically
+# create the <tt>database.yml</tt> file in the shared folder.
+# Each time you run a deploy, this script will also create a symlink
+# from your application <tt>config/database.yml</tt> pointing to the shared configuration file. 
+# 
+# == Custom template
+# 
+# By default, this script creates an exact copy of the default
+# <tt>database.yml</tt> file shipped with a new Rails 2.x application.
+# If you want to overwrite the default template, simply create a custom Erb template
+# called <tt>database.yml.erb</tt> and save it into <tt>config/deploy</tt> folder.
+# 
+# Although the name of the file can't be changed, you can customize the directory
+# where it is stored defining a variable called <tt>:template_dir</tt>.
+# 
+#   # store your custom template at foo/bar/database.yml.erb
+#   set :template_dir, "foo/bar"
+# 
+#   # example of database template
+#   
+#   base: &base
+#     adapter: sqlite3
+#     timeout: 5000
+#   development:
+#     database: #{shared_path}/db/development.sqlite3
+#     <<: *base
+#   test:
+#     database: #{shared_path}/db/test.sqlite3
+#     <<: *base
+#   production:
+#     adapter: mysql
+#     database: #{application}_production
+#     username: #{user}
+#     password: #{Capistrano::CLI.ui.ask("Enter MySQL database password: ")}
+#     encoding: utf8
+#     timeout: 5000
+#
+# Because this is an Erb template, you can place variables and Ruby scripts
+# within the file.
+# For instance, the template above takes advantage of Capistrano CLI
+# to ask for a MySQL database password instead of hard coding it into the template.
+#
+# === Password prompt
+#
+# For security reasons, in the example below the password is not
+# hard coded (or stored in a variable) but asked on setup.
+# I don't like to store passwords in files under version control
+# because they will live forever in your history.
+# This is why I use the Capistrano::CLI utility.
+#
 
 unless Capistrano::Configuration.respond_to?(:instance)
   abort "This extension requires Capistrano 2"
@@ -120,14 +120,14 @@ Capistrano::Configuration.instance.load do
         base: &base
           adapter: sqlite3
           timeout: 5000
-        ***REMOVED***
-          database: ***REMOVED***{shared_path}/db/development.sqlite3
+        development:
+          database: #{shared_path}/db/development.sqlite3
           <<: *base
-        ***REMOVED***
-          database: ***REMOVED***{shared_path}/db/test.sqlite3
+        test:
+          database: #{shared_path}/db/test.sqlite3
           <<: *base
-        ***REMOVED***
-          database: ***REMOVED***{shared_path}/db/production.sqlite3
+        production:
+          database: #{shared_path}/db/production.sqlite3
           <<: *base
         EOF
 
@@ -136,20 +136,20 @@ Capistrano::Configuration.instance.load do
 
         config = ERB.new(template)
 
-        run "mkdir -p ***REMOVED***{shared_path}/db" 
-        run "mkdir -p ***REMOVED***{shared_path}/config" 
-        put config.result(binding), "***REMOVED***{shared_path}/config/database.yml"
+        run "mkdir -p #{shared_path}/db" 
+        run "mkdir -p #{shared_path}/config" 
+        put config.result(binding), "#{shared_path}/config/database.yml"
       end
 
       desc <<-DESC
         [internal] Updates the symlink for database.yml file to the just deployed release.
       DESC
       task :symlink, :except => { :no_release => true } do
-        run "ln -nfs ***REMOVED***{shared_path}/config/database.yml ***REMOVED***{release_path}/config/database.yml" 
+        run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml" 
         
-        ***REMOVED*** for LDAP and SMTP_PW shared files
-        run "ln -nfs ***REMOVED***{shared_path}/config/ldap.yml ***REMOVED***{release_path}/config/ldap.yml" 
-        run "ln -nfs ***REMOVED***{shared_path}/config/smtp_settings.rb ***REMOVED***{release_path}/config/smtp_settings.rb"         
+        # for LDAP and SMTP_PW shared files
+        run "ln -nfs #{shared_path}/config/ldap.yml #{release_path}/config/ldap.yml" 
+        run "ln -nfs #{shared_path}/config/smtp_settings.rb #{release_path}/config/smtp_settings.rb"         
       end
 
     end

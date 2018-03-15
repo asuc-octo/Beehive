@@ -1,26 +1,26 @@
-***REMOVED*** == Schema Information
-***REMOVED***
-***REMOVED*** Table name: jobs
-***REMOVED***
-***REMOVED***  id                  :integer          not null, primary key
-***REMOVED***  user_id             :integer
-***REMOVED***  title               :string(255)
-***REMOVED***  desc                :text
-***REMOVED***  category_id         :integer
-***REMOVED***  num_positions       :integer
-***REMOVED***  created_at          :datetime
-***REMOVED***  updated_at          :datetime
-***REMOVED***  department_id       :integer
-***REMOVED***  activation_code     :integer
-***REMOVED***  delta               :boolean          default(TRUE), not null
-***REMOVED***  earliest_start_date :datetime
-***REMOVED***  latest_start_date   :datetime
-***REMOVED***  end_date            :datetime
-***REMOVED***  compensation        :integer          default(0)
-***REMOVED***  status              :integer          default(0)
-***REMOVED***  primary_contact_id  :integer
-***REMOVED***  project_type        :integer
-***REMOVED***
+# == Schema Information
+#
+# Table name: jobs
+#
+#  id                  :integer          not null, primary key
+#  user_id             :integer
+#  title               :string(255)
+#  desc                :text
+#  category_id         :integer
+#  num_positions       :integer
+#  created_at          :datetime
+#  updated_at          :datetime
+#  department_id       :integer
+#  activation_code     :integer
+#  delta               :boolean          default(TRUE), not null
+#  earliest_start_date :datetime
+#  latest_start_date   :datetime
+#  end_date            :datetime
+#  compensation        :integer          default(0)
+#  status              :integer          default(0)
+#  primary_contact_id  :integer
+#  project_type        :integer
+#
 
 require 'will_paginate/array'
 
@@ -28,7 +28,7 @@ class Job < ActiveRecord::Base
 
   include AttribsHelper
 
-  module Compensation         ***REMOVED*** bit flags
+  module Compensation         # bit flags
     None   = 0
     Pay    = 1
     Credit = 2
@@ -54,13 +54,13 @@ class Job < ActiveRecord::Base
 
   acts_as_taggable
 
-  ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
-  ***REMOVED***  ASSOCIATIONS  ***REMOVED***
-  ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
+  ##################
+  #  ASSOCIATIONS  #
+  ##################
 
   belongs_to :user
   belongs_to :department
-  has_many :pictures ***REMOVED*** unused
+  has_many :pictures # unused
   has_one :contacter,     :class_name => 'User', :foreign_key => 'id', :primary_key => 'primary_contact_id'
   has_many :owns
   has_many :owners,       :through => :owns, :source => :user
@@ -73,22 +73,22 @@ class Job < ActiveRecord::Base
   has_many :courses,      :through => :coursereqs
   has_many :proglangreqs, :dependent => :destroy
   has_many :proglangs,    :through => :proglangreqs
-  has_and_belongs_to_many :categories ***REMOVED*** TODO deprecate in favor of tags
+  has_and_belongs_to_many :categories # TODO deprecate in favor of tags
 
   has_many :watches
-  has_many :users,        :through => :watches ***REMOVED*** TODO rename to watchers
+  has_many :users,        :through => :watches # TODO rename to watchers
   has_many :applics,      :dependent => :destroy
   has_many :applicants,   :through => :applics, :source => :user
-  ***REMOVED***has_many :applicants, :class_name => 'User', :through => :applics
+  #has_many :applicants, :class_name => 'User', :through => :applics
 
-  ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
-  ***REMOVED***  VALIDATIONS  ***REMOVED***
-  ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
+  #################
+  #  VALIDATIONS  #
+  #################
 
   validates_presence_of :title, :department, :project_type, :desc
   validates_presence_of :earliest_start_date, :latest_start_date, :end_date
 
-  ***REMOVED*** Validates that end dates are no earlier than right now.
+  # Validates that end dates are no earlier than right now.
   validates_each :end_date do |record, attr, value|
     record.errors.add attr, 'cannot be earlier than right now' if
       value.present? && (value < Time.now - 1.hour)
@@ -102,23 +102,23 @@ class Job < ActiveRecord::Base
 
   validates_inclusion_of :compensation, :in => Compensation::All.values
 
-  ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
-  ***REMOVED*** Scopes ***REMOVED***
-  ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
+  ##########
+  # Scopes #
+  ##########
 
 
   attr_accessor :category_names
   attr_accessor :course_names
   attr_accessor :proglang_names
 
-  ***REMOVED*** If true, handle_categories, handle_courses, and handle_proglangs don't do anything.
-  ***REMOVED*** The purpose of this is so that in activating a job, these data aren't lost.
+  # If true, handle_categories, handle_courses, and handle_proglangs don't do anything.
+  # The purpose of this is so that in activating a job, these data aren't lost.
   @skip_handlers = false
   attr_accessor :skip_handlers
 
-  ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
-  ***REMOVED***  METHODS  ***REMOVED***
-  ***REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED******REMOVED***
+  #############
+  #  METHODS  #
+  #############
 
   def project_string
     case project_type
@@ -128,7 +128,7 @@ class Job < ActiveRecord::Base
       'Student Group'
     when 3
       'Design Project'
-    else ***REMOVED*** including 4: 'Other'
+    else # including 4: 'Other'
       ''
     end
   end
@@ -153,13 +153,13 @@ class Job < ActiveRecord::Base
     end_date.blank?
   end
 
-  ***REMOVED*** Returns true if the specified user has admin rights (can view applications,
-  ***REMOVED*** edit, etc.) for this job.
+  # Returns true if the specified user has admin rights (can view applications,
+  # edit, etc.) for this job.
   def can_admin?(user)
     owner?(user) || user.admin?
   end
 
-  ***REMOVED*** @return array of actions the user can take, not including curations
+  # @return array of actions the user can take, not including curations
   def actions(user)
     actions = []
 
@@ -192,7 +192,7 @@ class Job < ActiveRecord::Base
     actions
   end
 
-  ***REMOVED*** @return hash{ org => curated }
+  # @return hash{ org => curated }
   def curations(user)
     curations = {}
     (user.admin? ? Org.all : user.orgs).each do |org|
@@ -201,8 +201,8 @@ class Job < ActiveRecord::Base
     curations
   end
 
-  def self.smartmatches_for(my, limit=4) ***REMOVED*** matches for a user
-    list_separator = ','        ***REMOVED*** string that separates items in the stored list
+  def self.smartmatches_for(my, limit=4) # matches for a user
+    list_separator = ','        # string that separates items in the stored list
 
     query = []
     [my.course_list_of_user,
@@ -211,7 +211,7 @@ class Job < ActiveRecord::Base
       query << list.split(list_separator)
     end
 
-    ***REMOVED*** magic
+    # magic
     smartmatch_ranker = "@weight"
 
     qu = query.join(list_separator).chomp(list_separator)
@@ -223,27 +223,27 @@ class Job < ActiveRecord::Base
     Job.find_jobs(qu, opts)
   end
 
-  ***REMOVED*** The main search handler.
-  ***REMOVED*** It should be the ONLY interface between search queries and jobs;
-  ***REMOVED*** hopefully this will make the choice of search engine transparent
-  ***REMOVED*** to our app.
-  ***REMOVED***
-  ***REMOVED*** By default, it finds an unlimited number of non-ended jobs.
-  ***REMOVED*** You can also restrict by query, department, faculty, paid, credit,
-  ***REMOVED*** and set a limit of max number of results.
-  ***REMOVED***
-  ***REMOVED*** @param query [Array, String] search terms
-  ***REMOVED*** @param options [Hash]
-  ***REMOVED*** @option options [Boolean] :included_ended if +false+, don't include jobs with end dates in the past
-  ***REMOVED*** @option options [Integer] :department_id ID of department you want to search, or +0+ for all depts
-  ***REMOVED*** @option options [Integer] :faculty ID of faculty member you want to search, or +0+ for all
-  ***REMOVED*** @option options [Integer] :compensation a constant from {Compensation}. If {Compensation::Both},
-  ***REMOVED***                             search for {Compensation::Paid paid} OR {Compensation::Credit credit}.
-  ***REMOVED*** @option options [Integer] :limit max. number of results, or +0+ for no limit
-  ***REMOVED*** @option options [Array] :tags tag strings to match (searches only tags and not body, title, etc.)
-  ***REMOVED*** @option options [Array] :order custom sorting conditions, besides @relevance. Conditions concatenated left to right.
-  ***REMOVED*** @option options [Boolean] :include_inactive if +true+, include inactive jobs
-  ***REMOVED***
+  # The main search handler.
+  # It should be the ONLY interface between search queries and jobs;
+  # hopefully this will make the choice of search engine transparent
+  # to our app.
+  #
+  # By default, it finds an unlimited number of non-ended jobs.
+  # You can also restrict by query, department, faculty, paid, credit,
+  # and set a limit of max number of results.
+  #
+  # @param query [Array, String] search terms
+  # @param options [Hash]
+  # @option options [Boolean] :included_ended if +false+, don't include jobs with end dates in the past
+  # @option options [Integer] :department_id ID of department you want to search, or +0+ for all depts
+  # @option options [Integer] :faculty ID of faculty member you want to search, or +0+ for all
+  # @option options [Integer] :compensation a constant from {Compensation}. If {Compensation::Both},
+  #                             search for {Compensation::Paid paid} OR {Compensation::Credit credit}.
+  # @option options [Integer] :limit max. number of results, or +0+ for no limit
+  # @option options [Array] :tags tag strings to match (searches only tags and not body, title, etc.)
+  # @option options [Array] :order custom sorting conditions, besides @relevance. Conditions concatenated left to right.
+  # @option options [Boolean] :include_inactive if +true+, include inactive jobs
+  #
   def self.find_jobs(query=nil, options={})
     query = Job.sanitize_query(query)
     tables = Job.generate_relation_tables
@@ -255,7 +255,7 @@ class Job < ActiveRecord::Base
     puts 'start filtering by open'
     relation = relation.where(status: Job::Status::Open)
     puts 'start sorting'
-    ***REMOVED*** relation = relation.sort_by(&:updated_at).reverse
+    # relation = relation.sort_by(&:updated_at).reverse
     relation = relation.order(updated_at: :desc)
     puts 'end filtering'
     page = options[:page] || 1
@@ -263,13 +263,13 @@ class Job < ActiveRecord::Base
     return relation.paginate(:page => page, :per_page => per_page)
   end
 
-  ***REMOVED*** @return query for jobs joined with relevant tables
+  # @return query for jobs joined with relevant tables
   def self.make_relation
     Job.all.includes(:faculties).includes(:department).includes(:tags)
        .includes(:proglangs).includes(:courses).includes(:categories)
   end
 
-  ***REMOVED*** @return all results with at least one field that matches the search query
+  # @return all results with at least one field that matches the search query
   def self.filter_by_query(query, relation, tables)
     relation.where(tables['jobs'][:title].matches(query)
                   .or(tables['jobs'][:desc].matches(query))
@@ -282,13 +282,13 @@ class Job < ActiveRecord::Base
             .references(:proglangs).references(:courses).references(:categories)
   end
 
-  ***REMOVED*** @return results filtered by the options
+  # @return results filtered by the options
   def self.filter_by_options(options, relation, tables)
     relation = relation.where(tables['jobs'][:end_date].gt(Time.now).or(tables['jobs'][:end_date].eq(nil))) unless options[:include_ended]
     relation = relation.where(tables['departments'][:id].eq(options[:department_id])) if options[:department_id]
     relation = relation.where(tables['faculties'][:id].eq(options[:faculty_id])) if options[:faculty_id]
 
-    ***REMOVED*** Search paid, credit
+    # Search paid, credit
     if options[:compensation].present? and options[:compensation].to_i != Compensation::None
       compensations = []
       compensations << Compensation::Pay if (options[:compensation].to_i & Compensation::Pay) != 0
@@ -308,7 +308,7 @@ class Job < ActiveRecord::Base
     return relation
   end
 
-  ***REMOVED*** Build complex queries with arel tables
+  # Build complex queries with arel tables
   def self.generate_relation_tables
     {
       'jobs' => Job.arel_table,
@@ -321,7 +321,7 @@ class Job < ActiveRecord::Base
     }
   end
 
-  ***REMOVED*** Processes user input to send to the database
+  # Processes user input to send to the database
   def self.sanitize_query(query)
     throw "Query must be a string" unless query.nil? || query.is_a?(String)
     query ||= ""
@@ -335,7 +335,7 @@ class Job < ActiveRecord::Base
     params[:query]          = options[:query]               if options[:query]
     params[:department]     = options[:department_id]       if options[:department_id] and Department.exists?(options[:department_id])
     params[:compensation]   = options[:compensation]        if options[:compensation] and Job::Compensation::All.key(options[:compensation].to_i)
-    url_for(:controller => 'jobs', :only_path=>true)+"?***REMOVED***{params.collect { |param, value| param+'='+value }.join('&')}"
+    url_for(:controller => 'jobs', :only_path=>true)+"?#{params.collect { |param, value| param+'='+value }.join('&')}"
   end
 
   def self.find_recently_added(n)
@@ -349,8 +349,8 @@ class Job < ActiveRecord::Base
     return super
   end
 
-  ***REMOVED*** Returns a string containing the category names taken by this Job
-  ***REMOVED*** e.g. "robotics,signal processing"
+  # Returns a string containing the category names taken by this Job
+  # e.g. "robotics,signal processing"
   def category_list_of_job(add_spaces = false)
     category_list = ''
     self.categories.each do |cat|
@@ -365,8 +365,8 @@ class Job < ActiveRecord::Base
     end
   end
 
-  ***REMOVED*** Returns a string containing the 'required course' names taken by this Job
-  ***REMOVED*** e.g. "CS61A,CS61B"
+  # Returns a string containing the 'required course' names taken by this Job
+  # e.g. "CS61A,CS61B"
   def course_list_of_job(add_spaces = false)
     course_list = ''
     self.courses.each do |c|
@@ -381,8 +381,8 @@ class Job < ActiveRecord::Base
     end
   end
 
-  ***REMOVED*** Returns a string containing the 'desired proglang' names taken by this Job
-  ***REMOVED*** e.g. "java,scheme,c++"
+  # Returns a string containing the 'desired proglang' names taken by this Job
+  # e.g. "java,scheme,c++"
   def proglang_list_of_job(add_spaces = false)
     proglang_list = ''
     self.proglangs.each do |pl|
@@ -397,15 +397,15 @@ class Job < ActiveRecord::Base
     end
   end
 
-  ***REMOVED*** Ensures all fields are valid
+  # Ensures all fields are valid
   def mend
-    ***REMOVED*** Check for deleted/bad faculty
+    # Check for deleted/bad faculty
     if not self.faculties.empty? and not Faculty.exists?(self.faculties.first.id)
         self.faculties = []
     end
   end
 
-  ***REMOVED*** Returns a list of relevant fields used to generate tags
+  # Returns a list of relevant fields used to generate tags
   def field_list
     [ self.department.name,
       self.category_list_of_job,
@@ -416,26 +416,26 @@ class Job < ActiveRecord::Base
     ].compact.reject(&:blank?)
   end
 
-  ***REMOVED*** Reassigns it an activation code.
-  ***REMOVED*** Used when creating a job or if, when updating the job, a new
-  ***REMOVED***   faculty sponsor is specified.
+  # Reassigns it an activation code.
+  # Used when creating a job or if, when updating the job, a new
+  #   faculty sponsor is specified.
   def resend_email(send_email = false)
     self.activation_code = SecureRandom.random_number(10e6.to_i)
 
-    ***REMOVED*** Save, skipping validations, so that we just change the activation code
-    ***REMOVED*** and leave the rest alone! (Also so that we don't encounter weird bugs with
-    ***REMOVED*** activating jobs whose end dates are in the past, etc.)
+    # Save, skipping validations, so that we just change the activation code
+    # and leave the rest alone! (Also so that we don't encounter weird bugs with
+    # activating jobs whose end dates are in the past, etc.)
     self.save(:validate => false)
 
     if send_email
-      ***REMOVED*** Send the email for activation.
+      # Send the email for activation.
       begin
         email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
         if !faculties.collect(&:email).select{|email| email === email_regex}.empty?
           JobMailer.activate_job_email(self).deliver
         end
       rescue => e
-        Rails.logger.error "Failed to send activation mail for job***REMOVED******REMOVED***{self.id}: ***REMOVED***{e.inspect}"
+        Rails.logger.error "Failed to send activation mail for job##{self.id}: #{e.inspect}"
         raise if Rails.development?
       end
     end

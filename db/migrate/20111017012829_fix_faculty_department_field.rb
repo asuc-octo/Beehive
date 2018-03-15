@@ -1,7 +1,7 @@
 class FixFacultyDepartmentField < ActiveRecord::Migration
 
-  ***REMOVED*** Faculty.department was a string.
-  ***REMOVED*** Make it a foreign key to Department.
+  # Faculty.department was a string.
+  # Make it a foreign key to Department.
 
   def self.up
     depts = Faculty.all.collect {|f| [f.id, f.department]}
@@ -10,7 +10,7 @@ class FixFacultyDepartmentField < ActiveRecord::Migration
 
     Faculty.reset_column_information
     depts.each do |f_id, dept_name|
-      Faculty.find(f_id).update_attribute(:department, Department.find_or_create_by(name: dept_name)) || raise("Unable to reset department for faculty ***REMOVED******REMOVED***{f_id}")
+      Faculty.find(f_id).update_attribute(:department, Department.find_or_create_by(name: dept_name)) || raise("Unable to reset department for faculty ##{f_id}")
     end
   end
 
@@ -21,7 +21,7 @@ class FixFacultyDepartmentField < ActiveRecord::Migration
 
     Faculty.reset_column_information
     depts.each do |f_id, dept_name|
-      Faculty.find(f_id).update_attribute(:department, dept_name) || raise("Unable to reset department for faculty ***REMOVED******REMOVED***{f_id}")
+      Faculty.find(f_id).update_attribute(:department, dept_name) || raise("Unable to reset department for faculty ##{f_id}")
     end
   end
 end

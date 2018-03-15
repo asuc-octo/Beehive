@@ -3,7 +3,7 @@
   raise ArgumentError.new("No :limit provided") unless limit
 %>
 
-<% my_id = "char-counter-***REMOVED***{linked.to_s.underscore}" %>
+<% my_id = "char-counter-#{linked.to_s.underscore}" %>
 
 <div class="char-counter" id="<%= my_id %>">
 [ ]

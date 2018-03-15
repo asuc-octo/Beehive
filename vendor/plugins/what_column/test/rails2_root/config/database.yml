@@ -1,7 +1,7 @@
-***REMOVED***
+test:
   :adapter: sqlite3
   :database: ":memory:"
 
-***REMOVED***
+development:
   :adapter: sqlite3
   :database: ":memory:"

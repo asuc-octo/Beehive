@@ -10,9 +10,9 @@ describe "/users/new.html.erb" do
   end
 
   it "renders new user form" do
-    ***REMOVED***render
+    #render
 
-    ***REMOVED***response.should have_tag("form[action=?][method=post]", users_path) do
-    ***REMOVED***end
+    #response.should have_tag("form[action=?][method=post]", users_path) do
+    #end
   end
 end

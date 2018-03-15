@@ -1,5 +1,5 @@
 - actions = job.actions(@current_user)
-%div{:class => "job_***REMOVED***{cycle('even', 'odd')}", :id => "job***REMOVED***{job.id}"}
+%div{:class => "job_#{cycle('even', 'odd')}", :id => "job#{job.id}"}
   .job_table_left
     .job_title
       = link_to job.title, job_path(job)
@@ -8,12 +8,12 @@
     - job_tags = job.tag_list
     %div
       .job_desc
-        %span{:id => "job_desc_***REMOVED***{job.id}"}
+        %span{:id => "job_desc_#{job.id}"}
           = truncate job.desc, :length => 200, :omission => '...'
-        %span{:id => "job_***REMOVED***{job.id}", :style => "display:none;overflow:hidden;height0px;"}
+        %span{:id => "job_#{job.id}", :style => "display:none;overflow:hidden;height0px;"}
           = job.desc
         .posted
-          Last updated at: ***REMOVED***{job.updated_at.strftime("%m/%d/%Y")}
+          Last updated at: #{job.updated_at.strftime("%m/%d/%Y")}
       - if job_tags.present?
         = render partial: 'jobs/tag', collection: job.tag_list
 %hr

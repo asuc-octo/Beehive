@@ -1,16 +1,16 @@
-***REMOVED*** == Schema Information
-***REMOVED***
-***REMOVED*** Table name: documents
-***REMOVED***
-***REMOVED***  id            :integer          not null, primary key
-***REMOVED***  user_id       :integer
-***REMOVED***  document_type :integer
-***REMOVED***  size          :integer
-***REMOVED***  content_type  :string(255)
-***REMOVED***  filename      :string(255)
-***REMOVED***  created_at    :datetime
-***REMOVED***  updated_at    :datetime
-***REMOVED***
+# == Schema Information
+#
+# Table name: documents
+#
+#  id            :integer          not null, primary key
+#  user_id       :integer
+#  document_type :integer
+#  size          :integer
+#  content_type  :string(255)
+#  filename      :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#
 
 class Document < ActiveRecord::Base
 

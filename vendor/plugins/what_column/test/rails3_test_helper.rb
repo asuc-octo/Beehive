@@ -3,14 +3,14 @@ def rails_root
 end
 
 ENV['BUNDLE_GEMFILE'] = rails_root + '/Gemfile'
-require "***REMOVED***{rails_root}/config/environment.rb"
+require "#{rails_root}/config/environment.rb"
 
-***REMOVED*** Load the testing framework
+# Load the testing framework
 require 'rails/test_help'
 
-***REMOVED*** Run the migrations
+# Run the migrations
 
 ActiveRecord::Migration.verbose = true
-ActiveRecord::Migrator.migrate("***REMOVED***{rails_root}/db/migrate")
+ActiveRecord::Migrator.migrate("#{rails_root}/db/migrate")
 
 

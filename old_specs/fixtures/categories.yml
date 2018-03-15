@@ -1,4 +1,4 @@
-***REMOVED*** Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 signalprocessing:
   name: Signal Processing
@@ -33,7 +33,7 @@ operatingsystems:
 parallelism:
   name: Parallelism
   
-web***REMOVED***
+webdevelopment:
   name: Web Development
   
 databases:

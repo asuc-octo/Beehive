@@ -12,11 +12,11 @@ describe "/categories/edit.html.erb" do
   end
 
   it "renders the edit category form" do
-   ***REMOVED*** render
+   # render
 
-    ***REMOVED***response.should have_tag("form[action=***REMOVED***{category_path(@category)}][method=post]") do
-    ***REMOVED***  with_tag('input***REMOVED***category_name[name=?]', "category[name]")
-    ***REMOVED***  with_tag('input***REMOVED***category_job[name=?]', "category[job]")
-    ***REMOVED***end
+    #response.should have_tag("form[action=#{category_path(@category)}][method=post]") do
+    #  with_tag('input#category_name[name=?]', "category[name]")
+    #  with_tag('input#category_job[name=?]', "category[job]")
+    #end
   end
 end

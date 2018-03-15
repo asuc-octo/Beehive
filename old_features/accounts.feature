@@ -8,9 +8,9 @@ Story: Creating an account
   I want to be able to create an account
   So that I can be one of the cool kids
 
-  ***REMOVED***
-  ***REMOVED*** Account Creation: Get entry form
-  ***REMOVED***
+  #
+  # Account Creation: Get entry form
+  #
   Scenario: Anonymous user can start creating an account
     Given an anonymous user
     When  she goes to /signup
@@ -18,9 +18,9 @@ Story: Creating an account
      And  the page should look AWESOME
      And  she should see a <form> containing a textfield: Login, textfield: Email, password: Password, password: 'Confirm Password', submit: 'Sign up'
 
-  ***REMOVED***
-  ***REMOVED*** Account Creation
-  ***REMOVED***
+  #
+  # Account Creation
+  #
   Scenario: Anonymous user can create an account
     Given an anonymous user
      And  no user with login: 'Oona' exists
@@ -34,9 +34,9 @@ Story: Creating an account
      And  oona should be logged in
 
 
-  ***REMOVED***
-  ***REMOVED*** Account Creation Failure: Account exists
-  ***REMOVED***
+  #
+  # Account Creation Failure: Account exists
+  #
 
 
   Scenario: Anonymous user can not create an account replacing an activated account
@@ -54,9 +54,9 @@ Story: Creating an account
      And  the user's updated_at should stay the same under to_s
      And  she should not be logged in
 
-  ***REMOVED***
-  ***REMOVED*** Account Creation Failure: Incomplete input
-  ***REMOVED***
+  #
+  # Account Creation Failure: Incomplete input
+  #
   Scenario: Anonymous user can not create an account with incomplete or incorrect input
     Given an anonymous user
      And  no user with login: 'Oona' exists

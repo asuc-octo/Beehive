@@ -15,10 +15,10 @@ describe "/pictures/edit.html.erb" do
   it "renders the edit picture form" do
     render
 
-    response.should have_tag("form[action=***REMOVED***{picture_path(@picture)}][method=post]") do
-      with_tag('input***REMOVED***picture_url[name=?]', "picture[url]")
-      with_tag('input***REMOVED***picture_user[name=?]', "picture[user]")
-      with_tag('input***REMOVED***picture_job[name=?]', "picture[job]")
+    response.should have_tag("form[action=#{picture_path(@picture)}][method=post]") do
+      with_tag('input#picture_url[name=?]', "picture[url]")
+      with_tag('input#picture_user[name=?]', "picture[user]")
+      with_tag('input#picture_job[name=?]', "picture[job]")
     end
   end
 end

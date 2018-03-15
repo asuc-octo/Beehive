@@ -2,9 +2,9 @@
 .card
   = form_for @user do |f|
     - if @user.errors.any?
-      ***REMOVED***error_explanation
+      #error_explanation
         %h2
-          Couldn't save due to ***REMOVED***{pluralize(@user.errors.count, "error")}.
+          Couldn't save due to #{pluralize(@user.errors.count, "error")}.
         %ul
           - @user.errors.full_messages.each do |msg|
             %li= msg

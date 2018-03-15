@@ -93,8 +93,8 @@ index d96e0ff..49c06a9 100644
 -<% end %>
 +<%= render 'form' %>
  <br />
--<%= link_to '&***REMOVED***0171; Back to Listings', jobs_path %>
-+<%= link_to raw('&***REMOVED***0171; Back to listings'), jobs_path %>
+-<%= link_to '&#0171; Back to Listings', jobs_path %>
++<%= link_to raw('&#0171; Back to listings'), jobs_path %>
 
 commit d53c2106d8333c2574570dbf66cdae2d761b9c40
 Author: Oren Blasberg <oblasberg@gmail.com>
@@ -530,7 +530,7 @@ index cba3112..db071ca 100644
  <% end %>
  <br />
 -<%= link_to 'Back', jobs_path %>
-+<%= link_to '&***REMOVED***0171; Back to Listings', jobs_path %>
++<%= link_to '&#0171; Back to Listings', jobs_path %>
 
 commit 4a4177500ec64201efe642d467e8b1b4b0f8feb2
 Author: Oren Blasberg <oblasberg@gmail.com>
@@ -1309,7 +1309,7 @@ index 42c5eb9..b9667a1 100644
    <p>
 -    Faculty Member Sponsorship: <br />
 -    <%
--	***REMOVED***f.select :sponsorships, @faculty_names, :options => {:value => ""} 
+-	#f.select :sponsorships, @faculty_names, :options => {:value => ""} 
 -	%>
 -	<select>
 -		<% @faculty_names.each do |faculty| %>
@@ -1339,7 +1339,7 @@ index d6eefa9..42c5eb9 100644
    <p>
 +    Faculty Member Sponsorship: <br />
 +    <%
-+	***REMOVED***f.select :sponsorships, @faculty_names, :options => {:value => ""} 
++	#f.select :sponsorships, @faculty_names, :options => {:value => ""} 
 +	%>
 +	<select>
 +		<% @faculty_names.each do |faculty| %>

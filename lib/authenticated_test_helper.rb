@@ -1,5 +1,5 @@
 module AuthenticatedTestHelper
-  ***REMOVED*** Sets the current user in the session from the user fixtures.
+  # Sets the current user in the session from the user fixtures.
   def login_as(user)
     @request.session[:user_id] = user ? (user.is_a?(User) ? user.id : users(user).id) : nil
   end
@@ -9,7 +9,7 @@ module AuthenticatedTestHelper
   end
   
 
-  ***REMOVED*** rspec
+  # rspec
   def mock_user
     user = mock_model(User, :id => 1,
       :login  => 'user_name',

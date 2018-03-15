@@ -1,8 +1,8 @@
 module WhatColumn
   class Columnizer
 
-    HEADER = "***REMOVED*** === List of columns ==="
-    FOOTER = "***REMOVED*** ======================="
+    HEADER = "# === List of columns ==="
+    FOOTER = "# ======================="
     INCREMENT = "  "
 
     def add_column_details_to_models
@@ -29,13 +29,13 @@ module WhatColumn
           if class_can_be_columnized?(ar_class)
 
             max_width = ar_class.columns.map {|c| c.name.length + 1}.max
-            ***REMOVED*** the format string is used to line up the column types correctly
-            format_string = "***REMOVED***{INCREMENT}***REMOVED***   %-***REMOVED***{max_width}s: %s \n"
+            # the format string is used to line up the column types correctly
+            format_string = "#{INCREMENT}#   %-#{max_width}s: %s \n"
 
             file.rewind
             read_lines = file.readlines
             output_lines = []
-            ***REMOVED*** find the lines that start with the appropriate class
+            # find the lines that start with the appropriate class
             read_lines.each do |line|
               output_lines << line
               if line.match(/class (.*)\</)
@@ -68,7 +68,7 @@ module WhatColumn
         lines.each_with_index do |line, index|
           if line_has_header?(line)
             removing_what_columns = true
-            ***REMOVED*** And remove previous empty line
+            # And remove previous empty line
             out.pop if out.last == "\n"
           end
 
@@ -90,15 +90,15 @@ module WhatColumn
     end
 
     def should_keep_line?(removing_what_columns, line, previous_line)
-      !((removing_what_columns and line.match(/^\s****REMOVED***/)) or (line_has_footer?(previous_line) and line == "\n"))
+      !((removing_what_columns and line.match(/^\s*#/)) or (line_has_footer?(previous_line) and line == "\n"))
     end
 
     def line_has_header?(line)
-      line.match(/^\s****REMOVED***{HEADER}\s*$/)
+      line.match(/^\s*#{HEADER}\s*$/)
     end
 
     def line_has_footer?(line)
-      line.match(/^\s****REMOVED***{FOOTER}\s*$/)
+      line.match(/^\s*#{FOOTER}\s*$/)
     end
 
     def class_can_be_columnized?(class_to_check)

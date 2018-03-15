@@ -1,18 +1,18 @@
-***REMOVED*** == Schema Information
-***REMOVED***
-***REMOVED*** Table name: proficiencies
-***REMOVED***
-***REMOVED***  id          :integer          not null, primary key
-***REMOVED***  proglang_id :integer
-***REMOVED***  user_id     :integer
-***REMOVED***  created_at  :datetime
-***REMOVED***  updated_at  :datetime
-***REMOVED***
+# == Schema Information
+#
+# Table name: proficiencies
+#
+#  id          :integer          not null, primary key
+#  proglang_id :integer
+#  user_id     :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
 
 require 'test_helper'
 
 class ProficiencyTest < ActiveSupport::TestCase
-  ***REMOVED*** Replace this with your real tests.
+  # Replace this with your real tests.
   test "the truth" do
     assert true
   end

@@ -1,1 +1,1 @@
-***REMOVED*** Uninstall hook code here
+# Uninstall hook code here

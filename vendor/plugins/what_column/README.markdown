@@ -20,12 +20,12 @@ Everytime you run migrations in development mode your models will be updated wit
 
     class User < ActiveRecord::Base
 
-      ***REMOVED*** === List of columns ===
-      ***REMOVED***   id         : integer 
-      ***REMOVED***   name       : string 
-      ***REMOVED***   created_at : datetime 
-      ***REMOVED***   updated_at : datetime 
-      ***REMOVED*** =======================
+      # === List of columns ===
+      #   id         : integer 
+      #   name       : string 
+      #   created_at : datetime 
+      #   updated_at : datetime 
+      # =======================
 
     end
 
@@ -33,9 +33,9 @@ It only works for those models under app/models.  And as it writes directly to y
 
 Should you wish to run the commands manually there are rake commands.  Check 'em out:
 
-    rake what_column:add ***REMOVED***=> Adds column details to models
+    rake what_column:add #=> Adds column details to models
   
-    rake what_column:remove ***REMOVED***=> Removes column details from models
+    rake what_column:remove #=> Removes column details from models
 
 
 Copyright (c) 2009 Chris O'Sullivan, released under the MIT license

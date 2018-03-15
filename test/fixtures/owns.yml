@@ -1,22 +1,22 @@
-***REMOVED*** == Schema Information
-***REMOVED***
-***REMOVED*** Table name: owns
-***REMOVED***
-***REMOVED***  id         :integer          not null, primary key
-***REMOVED***  job_id     :integer
-***REMOVED***  user_id    :integer
-***REMOVED***  created_at :datetime
-***REMOVED***  updated_at :datetime
-***REMOVED***
+# == Schema Information
+#
+# Table name: owns
+#
+#  id         :integer          not null, primary key
+#  job_id     :integer
+#  user_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
 
-***REMOVED*** Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-***REMOVED*** This model initially had no columns defined.  If you add columns to the
-***REMOVED*** model remove the '{}' from the fixture names and add the columns immediately
-***REMOVED*** below each fixture, per the syntax in the comments below
-***REMOVED***
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
 one: {}
-***REMOVED*** column: value
-***REMOVED***
+# column: value
+#
 two: {}
-***REMOVED***  column: value
+#  column: value

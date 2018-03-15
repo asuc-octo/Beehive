@@ -4,19 +4,19 @@ class ApplicsController < ApplicationController
 
   before_filter :find_objects
 
-  ***REMOVED*** These filters verify that @current_user has the right permissions
+  # These filters verify that @current_user has the right permissions
   before_filter :verify_applic_ownership, :only => [:destroy]
-    ***REMOVED*** only applicant can withdraw
+    # only applicant can withdraw
   before_filter :verify_applic_admin,     :only => [:show, :resume, :transcript]
-    ***REMOVED*** applicant, job admin can view applic
+    # applicant, job admin can view applic
   before_filter :verify_job_ownership,    :only => [:index, :delete]
-    ***REMOVED*** show applics only if can admin
+    # show applics only if can admin
   before_filter :verify_job_unapplied,    :only => [:create]
-    ***REMOVED*** don't allow multiple applications
+    # don't allow multiple applications
 
   before_filter :job_accessible, :only => [ :new, :create, :index ]
 
-  ***REMOVED*** Prohibits a user from applying to his/her own job
+  # Prohibits a user from applying to his/her own job
   before_filter :watch_apply_ok_for_job, :only => [ :new, :create ]
 
   protected
@@ -39,21 +39,21 @@ class ApplicsController < ApplicationController
   end
 
   def verify_applic_ownership
-    a = @applic ***REMOVED***Applic.find(params[:id])
+    a = @applic #Applic.find(params[:id])
     return if redirect_if(a.nil?, "Couldn't find that application.", jobs_path)
     return if redirect_if(a.user != @current_user,
       'Only the original applicant can withdraw an application.', job_path(a.job))
   end
 
   def verify_applic_admin
-    a = @applic ***REMOVED***Applic.find(params[:id])
+    a = @applic #Applic.find(params[:id])
     return if redirect_if(a.nil?, "Couldn't find that application.", jobs_path)
     return if redirect_if(a.user == @current_user || !a.job.can_admin?(@current_user),
       'You are not authorized to view that application.', job_path(a.job))
   end
 
   def verify_job_ownership
-    j = @job ***REMOVED***Job.find(params[:job_id])
+    j = @job #Job.find(params[:job_id])
     a = @applic
     return if redirect_if(j.nil? && a.nil?, "Couldn't find that job.", jobs_path)
     if !j.nil?
@@ -90,7 +90,7 @@ class ApplicsController < ApplicationController
     @status = @applic.status.nil? ? 'Undecided' : @applic.status.capitalize
 
     respond_to do |format|
-      format.html ***REMOVED*** show.html.erb
+      format.html # show.html.erb
       format.xml  { render :xml => @applic }
     end
   end
@@ -104,7 +104,7 @@ class ApplicsController < ApplicationController
 
   end
 
-  ***REMOVED*** the action for actually applying.
+  # the action for actually applying.
   def create
     @applic = Applic.where({:user_id => @current_user.id, :job_id => @job.id}).first
     if @applic
@@ -129,12 +129,12 @@ class ApplicsController < ApplicationController
       @current_user.resume.present?
     @applic.transcript_id = @current_user.transcript.id if
       params[:include_transcript] && @current_user.transcript.present?
-    ***REMOVED*** submit an application
+    # submit an application
     if params[:commit] == 'Submit'
-      ***REMOVED*** update an existing application
+      # update an existing application
       @applic.applied = true
       if @applic.save
-        ***REMOVED*** Validate and send emails
+        # Validate and send emails
         user_email = @job.user.email
         contact_email = @job.contacter.email
 
@@ -153,7 +153,7 @@ class ApplicsController < ApplicationController
         render 'new'
       end
 
-    else ***REMOVED*** save an application
+    else # save an application
       @applic.applied = false
 
       if @applic.save
@@ -178,7 +178,7 @@ class ApplicsController < ApplicationController
     redirect_to('/jobs/%s' % job_id)
   end
 
-  ***REMOVED*** withdraw from an application (destroy the applic)
+  # withdraw from an application (destroy the applic)
   def destroy
     applic = Applic.find(:job_id=>params[:id])
     if !applic.nil? && applic.user == @current_user

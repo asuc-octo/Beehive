@@ -1,17 +1,17 @@
 //colors
-$color_midnight_blue_approx: ***REMOVED***003162;
+$color_midnight_blue_approx: #003162;
 $white: white;
-$color_bon_jour_approx: ***REMOVED***e2e2e2;
-$color_waterloo__approx: ***REMOVED***798493;
-$color_orinoco_approx: ***REMOVED***f0ffd2;
-$color_polo_blue_approx: ***REMOVED***92afc9;
+$color_bon_jour_approx: #e2e2e2;
+$color_waterloo__approx: #798493;
+$color_orinoco_approx: #f0ffd2;
+$color_polo_blue_approx: #92afc9;
 $black: black;
-$color_zircon_approx: ***REMOVED***f3f6ff;
-$color_mine_shaft_approx: ***REMOVED***333;
-$color_st_tropaz_approx: ***REMOVED***2a6496;
+$color_zircon_approx: #f3f6ff;
+$color_mine_shaft_approx: #333;
+$color_st_tropaz_approx: #2a6496;
 
-$ucb-blue: ***REMOVED***003262;
-$ucb-orange: ***REMOVED***fdb515;
+$ucb-blue: #003262;
+$ucb-orange: #fdb515;
 
 //fonts
 $font_0: tahoma;
@@ -30,7 +30,7 @@ $url_2: url("../images/dashboard_box_grad_darker.png");
 }
 
 @media screen and (min-width: 1200px) {
-  ***REMOVED***advanced_search {
+  #advanced_search {
     .card.card-x.fix {
       position: fixed;
       width: 350px;
@@ -68,10 +68,10 @@ $url_2: url("../images/dashboard_box_grad_darker.png");
 .job_title {
   font-weight: normal;
   font-size: 19px;
-  color: ***REMOVED***003162;
+  color: #003162;
 
   .glyphicon {
-    color: darken(***REMOVED***009688, 5%);
+    color: darken(#009688, 5%);
     padding: 0px 3px;
     vertical-align: 1px;
     font-size: 14px;
@@ -86,7 +86,7 @@ $url_2: url("../images/dashboard_box_grad_darker.png");
 .read-more {
   border-radius: 3px;
   padding: 2px 6px 3px 6px;
-  background-color: ***REMOVED***92AFC9;
+  background-color: #92AFC9;
   color: white;
 }
 .tags {
@@ -125,7 +125,7 @@ strong.tags-icon {
     padding: 1px 3px;
     margin: 2px 0px;
     border-radius: 3px;
-    box-shadow: 1px 1px 1px ***REMOVED***ddd;
+    box-shadow: 1px 1px 1px #ddd;
     text-transform: capitalize;
   }
   a.wide {
@@ -172,7 +172,7 @@ strong.tags-icon {
 
 .view-job-options {
   border-radius: 3px;
-  background-color: ***REMOVED***ddd;
+  background-color: #ddd;
   padding: 3px 10px;
   display: inline-block;
   color: white;
@@ -183,22 +183,22 @@ a.view-job-options:hover {
   color: black;
 }
 .view-job-options.edit {
-  background-color: ***REMOVED***f1c40f;
+  background-color: #f1c40f;
 }
 .view-job-options.delete {
-  background-color: ***REMOVED***c0392b;
+  background-color: #c0392b;
 }
 .view-job-options.watch {
-  background-color: ***REMOVED***3498db;
+  background-color: #3498db;
 }
 .view-job-options.curate {
   background-color: BlueViolet;
 }
 .view-job-options.uncurate {
-  background-color: ***REMOVED***bdc3c7;
+  background-color: #bdc3c7;
 }
 .view-job-options.apply {
-  background-color: ***REMOVED***2ecc71;
+  background-color: #2ecc71;
 }
 .job_credit {
   text-align: center;
@@ -226,7 +226,7 @@ a.view-job-options:hover {
     content: "credit";
   }
 }
-***REMOVED***tag_cloud {
+#tag_cloud {
   padding-top: 15px;
   padding-bottom: 10px;
 }
@@ -248,38 +248,38 @@ a.view-job-options:hover {
 .right {
   float: right;
 }
-***REMOVED***browse_results_wrapper {
+#browse_results_wrapper {
 }
-***REMOVED***browse_results_pagination {
+#browse_results_pagination {
   text-align: right;
 }
-***REMOVED***browse_results {
+#browse_results {
   padding-left: 10px;
   border-left: 1px solid $color_bon_jour_approx;
   margin-bottom: 10px;
 }
-***REMOVED***browse_search_bar {
+#browse_search_bar {
   text-align: left;
 }
-***REMOVED***more_options {
+#more_options {
   font-size: x-small;
 }
-***REMOVED***browse_header {
+#browse_header {
   font-weight: bold;
   background: $color_waterloo__approx $url_2 repeat-x bottom left;
   color: $white;
   width: 100%;
   height: 47px;
 }
-***REMOVED***browse_header_table {
+#browse_header_table {
   height: 40px;
   width: 100%;
 }
-***REMOVED***description {
+#description {
   margin-left: 15px;
   margin-bottom: 15px;
   padding-left: 15px;
-  border-left: 1px solid ***REMOVED***F0FFD2;
+  border-left: 1px solid #F0FFD2;
 }
 .browse_header_table {
   height: 40px;
@@ -334,15 +334,15 @@ a.view-job-options:hover {
   top: -50%;
   background-color: $white;
 }
-***REMOVED***job_show_main p {
+#job_show_main p {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 span.tag {
-  background-color: ***REMOVED***92AFC9;
+  background-color: #92AFC9;
   //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
   border-radius: 4px;
-  border: 1px solid ***REMOVED***92AFC9;
+  border: 1px solid #92AFC9;
   line-height: 2.5;
   padding-left: 4px;
   padding-right: 4px;
@@ -358,7 +358,7 @@ span.tag {
 input.wide {
   width: 300px;
 }
-table.job_attributes td***REMOVED***description {
+table.job_attributes td#description {
   padding-bottom: 15px;
   padding-top: 5px;
 }

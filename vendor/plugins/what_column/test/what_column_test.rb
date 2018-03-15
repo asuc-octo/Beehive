@@ -12,7 +12,7 @@ class WhatColumnTest < ActiveSupport::TestCase
 
   context "before columnization" do
     should "not have name column detailed if not add_column_details_to_modelsd" do
-      assert_no_match(/***REMOVED*** name\s+: string/, open_file("user.rb").read)
+      assert_no_match(/# name\s+: string/, open_file("user.rb").read)
     end    
   end
 
@@ -28,7 +28,7 @@ class WhatColumnTest < ActiveSupport::TestCase
     end
 
     should "not display footer" do
-      assert_no_match(/***REMOVED***{WhatColumn::Columnizer::FOOTER}/, @file.read)      
+      assert_no_match(/#{WhatColumn::Columnizer::FOOTER}/, @file.read)      
     end
 
     should "not remove class information" do
@@ -63,20 +63,20 @@ class WhatColumnTest < ActiveSupport::TestCase
     end
     
     should "add column details at the top of class" do
-      assert_match(/class.****REMOVED***{WhatColumn::Columnizer::HEADER}.*/, @file.read.delete("\n"))
+      assert_match(/class.*#{WhatColumn::Columnizer::HEADER}.*/, @file.read.delete("\n"))
     end
     
     should "add header to comments" do
-      assert_match(/***REMOVED***{WhatColumn::Columnizer::HEADER}/, @file.read)
+      assert_match(/#{WhatColumn::Columnizer::HEADER}/, @file.read)
     end
     
     should "add footer to comments" do
-      assert_match(/***REMOVED***{WhatColumn::Columnizer::FOOTER}/, @file.read)
+      assert_match(/#{WhatColumn::Columnizer::FOOTER}/, @file.read)
     end
     
     should "only have the one columnization if columnizing twice" do
       @columnizer.add_column_details_to_models
-      assert_no_match(/***REMOVED***{WhatColumn::Columnizer::FOOTER}.****REMOVED***{WhatColumn::Columnizer::FOOTER}/, @file.read.delete("\n"))
+      assert_no_match(/#{WhatColumn::Columnizer::FOOTER}.*#{WhatColumn::Columnizer::FOOTER}/, @file.read.delete("\n"))
     end
     
     should "justify the columns" do
@@ -147,7 +147,7 @@ class WhatColumnTest < ActiveSupport::TestCase
     end
 
     should "not have any what column stuff" do
-      assert_no_match(/***REMOVED***{WhatColumn::Columnizer::FOOTER}/, @file.read)
+      assert_no_match(/#{WhatColumn::Columnizer::FOOTER}/, @file.read)
     end
   end
   
@@ -158,7 +158,7 @@ class WhatColumnTest < ActiveSupport::TestCase
     end
 
     should "not have any what column stuff" do
-      assert_no_match(/***REMOVED***{WhatColumn::Columnizer::FOOTER}/, @file.read)
+      assert_no_match(/#{WhatColumn::Columnizer::FOOTER}/, @file.read)
     end
   end
 
@@ -169,7 +169,7 @@ class WhatColumnTest < ActiveSupport::TestCase
     end
 
     should "not have any what column stuff" do
-      assert_no_match(/***REMOVED***{WhatColumn::Columnizer::FOOTER}/, @file.read)
+      assert_no_match(/#{WhatColumn::Columnizer::FOOTER}/, @file.read)
     end
   end    
 end

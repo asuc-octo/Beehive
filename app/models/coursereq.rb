@@ -1,13 +1,13 @@
-***REMOVED*** == Schema Information
-***REMOVED***
-***REMOVED*** Table name: coursereqs
-***REMOVED***
-***REMOVED***  id         :integer          not null, primary key
-***REMOVED***  course_id  :integer
-***REMOVED***  job_id     :integer
-***REMOVED***  created_at :datetime
-***REMOVED***  updated_at :datetime
-***REMOVED***
+# == Schema Information
+#
+# Table name: coursereqs
+#
+#  id         :integer          not null, primary key
+#  course_id  :integer
+#  job_id     :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
 
 class Coursereq < ActiveRecord::Base
   belongs_to :course

@@ -4,7 +4,7 @@ describe ContactUsController do
   fixtures :users
   integrate_views
   
-  describe "***REMOVED***contact" do
+  describe "#contact" do
     
     context "with a user logged in" do
       
@@ -42,7 +42,7 @@ describe ContactUsController do
     end
   end
   
-  describe "***REMOVED***send_email" do
+  describe "#send_email" do
     
     it "calls FeedbackMailer.send_feedback.deliver with proper arguments" do
       @mail = FeedbackMailer.send_feedback("fake sender", "fake subject", "fake body")

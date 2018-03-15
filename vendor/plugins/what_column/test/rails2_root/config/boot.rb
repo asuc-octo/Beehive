@@ -1,7 +1,7 @@
-***REMOVED*** Don't change this file!
-***REMOVED*** Configure your app in config/environment.rb and config/environments/*.rb
+# Don't change this file!
+# Configure your app in config/environment.rb and config/environments/*.rb
 
-RAILS_ROOT = "***REMOVED***{File.dirname(__FILE__)}/.." unless defined?(RAILS_ROOT)
+RAILS_ROOT = "#{File.dirname(__FILE__)}/.." unless defined?(RAILS_ROOT)
 
 module Rails
   class << self
@@ -21,7 +21,7 @@ module Rails
     end
 
     def vendor_rails?
-      File.exist?("***REMOVED***{RAILS_ROOT}/vendor/rails")
+      File.exist?("#{RAILS_ROOT}/vendor/rails")
     end
 
     def preinitialize
@@ -29,7 +29,7 @@ module Rails
     end
 
     def preinitializer_path
-      "***REMOVED***{RAILS_ROOT}/config/preinitializer.rb"
+      "#{RAILS_ROOT}/config/preinitializer.rb"
     end
   end
 
@@ -42,7 +42,7 @@ module Rails
 
   class VendorBoot < Boot
     def load_initializer
-      require "***REMOVED***{RAILS_ROOT}/vendor/rails/railties/lib/initializer"
+      require "#{RAILS_ROOT}/vendor/rails/railties/lib/initializer"
       Rails::Initializer.run(:install_gem_spec_stubs)
       Rails::GemDependency.add_frozen_gem_path
     end
@@ -62,7 +62,7 @@ module Rails
         gem 'rails'
       end
     rescue Gem::LoadError => load_error
-      $stderr.puts %(Missing the Rails ***REMOVED***{version} gem. Please `gem install -v=***REMOVED***{version} rails`, update your RAILS_GEM_VERSION setting in config/environment.rb for the Rails version you do have installed, or comment out RAILS_GEM_VERSION to use the latest version installed.)
+      $stderr.puts %(Missing the Rails #{version} gem. Please `gem install -v=#{version} rails`, update your RAILS_GEM_VERSION setting in config/environment.rb for the Rails version you do have installed, or comment out RAILS_GEM_VERSION to use the latest version installed.)
       exit 1
     end
 
@@ -85,26 +85,26 @@ module Rails
         require 'rubygems'
         min_version = '1.3.1'
         unless rubygems_version >= min_version
-          $stderr.puts %Q(Rails requires RubyGems >= ***REMOVED***{min_version} (you have ***REMOVED***{rubygems_version}). Please `gem update --system` and try again.)
+          $stderr.puts %Q(Rails requires RubyGems >= #{min_version} (you have #{rubygems_version}). Please `gem update --system` and try again.)
           exit 1
         end
 
       rescue LoadError
-        $stderr.puts %Q(Rails requires RubyGems >= ***REMOVED***{min_version}. Please install RubyGems and try again: http://rubygems.rubyforge.org)
+        $stderr.puts %Q(Rails requires RubyGems >= #{min_version}. Please install RubyGems and try again: http://rubygems.rubyforge.org)
         exit 1
       end
 
       def parse_gem_version(text)
-        $1 if text =~ /^[^***REMOVED***]*RAILS_GEM_VERSION\s*=\s*["']([!~<>=]*\s*[\d.]+)["']/
+        $1 if text =~ /^[^#]*RAILS_GEM_VERSION\s*=\s*["']([!~<>=]*\s*[\d.]+)["']/
       end
 
       private
         def read_environment_rb
-          File.read("***REMOVED***{RAILS_ROOT}/config/environment.rb")
+          File.read("#{RAILS_ROOT}/config/environment.rb")
         end
     end
   end
 end
 
-***REMOVED*** All that for this:
+# All that for this:
 Rails.boot!

@@ -1,13 +1,13 @@
-***REMOVED*** == Schema Information
-***REMOVED***
-***REMOVED*** Table name: watches
-***REMOVED***
-***REMOVED***  id         :integer          not null, primary key
-***REMOVED***  job_id     :integer
-***REMOVED***  user_id    :integer
-***REMOVED***  created_at :datetime
-***REMOVED***  updated_at :datetime
-***REMOVED***
+# == Schema Information
+#
+# Table name: watches
+#
+#  id         :integer          not null, primary key
+#  job_id     :integer
+#  user_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
 
 class Watch < ActiveRecord::Base
   belongs_to :job

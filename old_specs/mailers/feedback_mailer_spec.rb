@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe FeedbackMailer do
   
-  describe "***REMOVED***send_feedback()" do
+  describe "#send_feedback()" do
     
     it "sends an email using its parameters (as sender, subject_line, body_text)" do
       email = FeedbackMailer.send_feedback("dtrump@money.com", "Important News", "You're Fired!").deliver

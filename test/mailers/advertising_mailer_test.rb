@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class AdvertisingMailerTest < ActionMailer::TestCase
-  ***REMOVED*** test "the truth" do
-  ***REMOVED***   assert true
-  ***REMOVED*** end
+  # test "the truth" do
+  #   assert true
+  # end
 end

@@ -1,8 +1,8 @@
-***REMOVED*** Methods added to this helper will be available to all templates in the application.
+# Methods added to this helper will be available to all templates in the application.
 include JobsHelper
 
 module ApplicationHelper
-  ***REMOVED*** include TagsHelper
+  # include TagsHelper
 
   module NonEmpty
       def nonempty?
@@ -10,8 +10,8 @@ module ApplicationHelper
       end
   end
 
-  ***REMOVED*** Checks if user is logged in as an admin.
-  ***REMOVED*** @return [Boolean] true if {***REMOVED***current_user} is set and is {User***REMOVED***admin?}
+  # Checks if user is logged in as an admin.
+  # @return [Boolean] true if {#current_user} is set and is {User#admin?}
   def logged_in_as_admin?
     @current_user and @current_user.admin?
   end
@@ -24,8 +24,8 @@ module ApplicationHelper
     /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   end
 
-  ***REMOVED*** TODO merge with job.can_admin?
-  ***REMOVED*** TODO faculties cannot be compared with user
+  # TODO merge with job.can_admin?
+  # TODO faculties cannot be compared with user
   def can_view_apps(user, job)
     user.present? && (job.contacter == user || job.sponsorships.include?(user) ||
                       job.owners.include?(user) || job.faculties.include?(user))
@@ -35,7 +35,7 @@ end
 module ActionView
   module Helpers
     def tag_search_path(tagstring)
-      "***REMOVED***{jobs_path}?tags=***REMOVED***{tagstring}"
+      "#{jobs_path}?tags=#{tagstring}"
     end
 
     ThreeStateLabels = {true=>'Yes', false=>'No', nil=>'N/A'}
@@ -47,7 +47,7 @@ module ActionView
       end
 
 
-      ***REMOVED*** Select box that maps {true=>1, false=>0, nil=>2}
+      # Select box that maps {true=>1, false=>0, nil=>2}
       def three_state_select_tag(name, value=nil, options={})
         labels = options.delete(:labels) || ThreeStateLabels
         values = options.delete(:values) || {true=>1, false=>0, nil=>2}
@@ -60,7 +60,7 @@ end
 class String
     include ApplicationHelper::NonEmpty
 
-    ***REMOVED*** Translates \n line breaks to <br />'s.
+    # Translates \n line breaks to <br />'s.
     def to_br
         self.gsub("\n", "<br />")
     end
@@ -87,34 +87,34 @@ end
 
 
 
-***REMOVED*** Finds value in find_from, and returns the corresponding item from choose_from,
-***REMOVED*** or default (nil) if find_from does not contain the value.
-***REMOVED*** Comparisons are done using == and then eql? .
-***REMOVED***
-***REMOVED*** Ex. find_and_choose(["apples", "oranges"], [:red, :orange], "apples")
-***REMOVED***        would return :red.
-***REMOVED***
+# Finds value in find_from, and returns the corresponding item from choose_from,
+# or default (nil) if find_from does not contain the value.
+# Comparisons are done using == and then eql? .
+#
+# Ex. find_and_choose(["apples", "oranges"], [:red, :orange], "apples")
+#        would return :red.
+#
 def find_and_choose(find_from=[], choose_from=[], value=nil, default=nil)
   find_from.each_index do |i|
-      puts "\n\nchecking ***REMOVED***{value} == ***REMOVED***{find_from[i]}\n"
+      puts "\n\nchecking #{value} == #{find_from[i]}\n"
       return choose_from[i] if find_from[i] == value || find_from[i].eql?(value)
-      puts "\n\n\n***REMOVED***{value} wasn't ***REMOVED***{find_from[i]}\n\n\n"
+      puts "\n\n\n#{value} wasn't #{find_from[i]}\n\n\n"
   end
   return default
 end
 
 
-***REMOVED*** Amazing logic that returns correct booleans.
-***REMOVED***
-***REMOVED***        n   |  output
-***REMOVED***      ------+----------
-***REMOVED***        0   |  false
-***REMOVED***        1   |  true
-***REMOVED***      false |  false
-***REMOVED***      true  |  true
-***REMOVED***
+# Amazing logic that returns correct booleans.
+#
+#        n   |  output
+#      ------+----------
+#        0   |  false
+#        1   |  true
+#      false |  false
+#      true  |  true
+#
 def from_binary(n)
-***REMOVED***      puts "\n\n***REMOVED***{n} => ***REMOVED***{n && n!=0}\n\n"
+#      puts "\n\n#{n} => #{n && n!=0}\n\n"
   n && n!=0
 end
 

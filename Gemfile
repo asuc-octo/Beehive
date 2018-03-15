@@ -1,29 +1,29 @@
 source 'http://rubygems.org'
 
 ruby '2.2.3'
-***REMOVED*** Bundle edge Rails instead:
-***REMOVED*** gem 'rails', :git => 'git://github.com/rails/rails.git'
+# Bundle edge Rails instead:
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'rails', '~> 4'
 gem 'pg'
-***REMOVED*** store sessions in db rather than in cookies
+# store sessions in db rather than in cookies
 gem 'activerecord-session_store'
-***REMOVED*** deprecated, to remove, user.UserObserver is the only place we use this
+# deprecated, to remove, user.UserObserver is the only place we use this
 gem 'rails-observers'
 gem "haml-rails", "~> 0.9"
 
-***REMOVED*** web server
+# web server
 gem 'unicorn'
 
-***REMOVED*** pagination & tagging
+# pagination & tagging
 gem "kaminari", "~> 0.15.1"
 gem 'will_paginate', "~> 3.0.pre2"
 gem 'acts-as-taggable-on'
 
-***REMOVED*** Emails
+# Emails
 gem 'actionmailer-with-request', '~> 0.3'
 gem 'exception_notification' , '~> 4'
 
-***REMOVED*** Security
+# Security
 gem 'authlogic'
 gem 'rubycas-client', "~> 2.3.9", :require => ['casclient', 'casclient/frameworks/rails/filter']
 gem 'ucb_ldap', "2.0.0.pre5"
@@ -31,24 +31,24 @@ gem 'omniauth'
 gem 'omniauth-cas'
 gem 'bcrypt'
 
-***REMOVED*** Misc
+# Misc
 gem 'pothoven-attachment_fu'
 gem 'nokogiri'
 gem 'email_validator'
 
-***REMOVED*** Support for syck. Syck was removed from the ruby stdlib.
+# Support for syck. Syck was removed from the ruby stdlib.
 gem 'syck'
 
-***REMOVED*** Deploy with Capistrano
+# Deploy with Capistrano
 gem 'capistrano'
 gem 'capistrano-passenger'
 
-***REMOVED*** Production-specific
+# Production-specific
 group :production do
   gem 'rails_12factor'
 end
 
-***REMOVED*** Development
+# Development
 group :development do
   gem 'yard'
   gem 'better_errors', "1.1.0"
@@ -58,7 +58,7 @@ group :development do
   gem 'byebug'
 end
 
-***REMOVED*** Testing
+# Testing
 group :test do
   gem 'autotest-rails'
   gem 'cucumber-rails', "~> 1.4.2"
@@ -67,14 +67,14 @@ group :test do
   gem 'simplecov'
 end
 
-***REMOVED*** Rspec
+# Rspec
 group :test, :development do
   gem 'rspec-rails', '~>3.0'
   gem 'rspec', '~> 3.3'
   gem 'factory_girl_rails', "~> 4.0"
 end
 
-***REMOVED*** UI
+# UI
 gem 'therubyracer'
 gem 'uglifier'
 gem 'sass-rails', '>= 3.2'

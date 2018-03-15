@@ -6,10 +6,10 @@ preload_app!
 
 rackup      DefaultRackup
 port        ENV['PORT']     || 3000
-environment ENV['RACK_ENV'] || 'development'
+environment ENV['RAILS_ENV'] || 'production'
 
 on_worker_boot do
-  ***REMOVED*** Worker specific setup for Rails 4.1+
-  ***REMOVED*** See: https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server***REMOVED***on-worker-boot
+  # Worker specific setup for Rails 4.1+
+  # See: https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server#on-worker-boot
   ActiveRecord::Base.establish_connection
 end

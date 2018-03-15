@@ -1,7 +1,7 @@
 'use strict';
 
 $(function() {
-  var filter_box = $('***REMOVED***advanced_search .card.card-x');
+  var filter_box = $('#advanced_search .card.card-x');
   var body = $('body');
 
   $(window).on('scroll', function() {
