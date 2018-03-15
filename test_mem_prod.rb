@@ -5,7 +5,7 @@ def do_request
   Net::HTTP.get(uri)
 end
 
-  (1..50).map do |n|
+  (1..10000).map do |n|
     puts "Request ***REMOVED***{n}..."
     do_request
   end
