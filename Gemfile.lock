@@ -117,6 +117,10 @@ GEM
       thor (~> 0.19)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     email_validator (1.6.0)
       activemodel
     erubis (2.7.0)
@@ -339,6 +343,7 @@ DEPENDENCIES
   cucumber-rails (~> 1.4.2)
   database_cleaner
   derailed_benchmarks
+  dotenv-rails
   email_validator
   exception_notification (~> 4)
   factory_girl_rails (~> 4.0)

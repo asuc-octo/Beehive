@@ -1,6 +1,10 @@
 source 'http://rubygems.org'
 
 ruby '2.2.3'
+
+# env variables for test/dev
+gem 'dotenv-rails', groups: [:development, :test]
+require 'dotenv/load'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'rails', '~> 4'
