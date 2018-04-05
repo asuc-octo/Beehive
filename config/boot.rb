@@ -7,4 +7,5 @@ require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
 
 require 'yaml'
 require 'syck'
+require 'dotenv/load'
 #YAML::ENGINE.yamler='syck'

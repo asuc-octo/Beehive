@@ -32,3 +32,6 @@ app/assets/.*
 # ignore test files
 test_mem_prod.rb
 test_mem.rb
+
+#ignore dotenv
+.env
