@@ -85,7 +85,6 @@ class JobsController < ApplicationController
   # GET /jobs/1
   # GET /jobs/1.xml
   def show
-    @current_user = User.find_by_id(7761)
     @job = Job.find(params[:id])
     @actions = @job.actions(@current_user)
     @curations = @job.curations(@current_user)
@@ -99,7 +98,6 @@ class JobsController < ApplicationController
   # GET /jobs/new
   # GET /jobs/new.xml
   def new
-    @current_user = User.find_by_id(7761)
     @job = Job.new(num_positions: 0)
     @faculty = Faculty.all
     # @faculty = Faculty.where("email != ? OR email != ?", "None", "nil")
@@ -110,7 +108,6 @@ class JobsController < ApplicationController
 
   # GET /jobs/1/edit
   def edit
-    @current_user = User.find_by_id(7761)
     @job = Job.find(params[:id])
     @job.mend
 
@@ -139,7 +136,6 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.xml
   def create
-    @current_user = User.find_by_id(7761)
     @faculty = Faculty.all # used in form
     sponsor = Faculty.find(params[:faculty_id]) rescue nil
     @job = Job.create(job_params)
@@ -169,7 +165,6 @@ class JobsController < ApplicationController
   # PUT /jobs/1
   # PUT /jobs/1.xml
   def update
-    @current_user = User.find_by_id(7761)
     job_params
     @job = Job.find(params[:id])
     changed_sponsors = update_sponsorships and false # TODO: remove when :active is resolved
@@ -269,7 +264,6 @@ class JobsController < ApplicationController
   end
 
   def watch
-    @current_user = User.find_by_id(7761)
     job = Job.find(params[:id])
     watch = Watch.new({:user=> @current_user, :job => job})
 
@@ -285,7 +279,6 @@ class JobsController < ApplicationController
   end
 
   def unwatch
-    @current_user = User.find_by_id(7761)
     job = Job.find(params[:id])
     @current_user.watches.find_by_job_id(job.id).destroy
     flash[:notice] = 'Job is now unwatched. You can find a list of your watched jobs on the dashboard.'
