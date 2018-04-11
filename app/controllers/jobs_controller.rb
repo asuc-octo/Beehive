@@ -187,12 +187,18 @@ class JobsController < ApplicationController
         if changed_sponsors
           @job.resend_email(true) # sends the email too
         end
-        flash[:notice] = 'Listing was successfully updated.'
+
         if params[:open_ended_end_date] == "true"
           @job.end_date = nil
         end
 
+        # Reopen the listing automatically
+        @job.status = Job::Status::Open
+
+        flash[:notice] = 'Listing was successfully updated.'
+
         @job.save
+
         format.html { redirect_to(@job) }
         format.xml  { head :ok }
       else

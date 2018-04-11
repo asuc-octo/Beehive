@@ -248,16 +248,18 @@ class Job < ActiveRecord::Base
     query = Job.sanitize_query(query)
     tables = Job.generate_relation_tables
     relation = Job.make_relation
-    puts 'start filtering by query'
+    puts 'apply search query'
     relation = Job.filter_by_query(query, relation, tables) if query
-    puts 'start filtering by options'
+    puts 'apply search options'
     relation = Job.filter_by_options(options, relation, tables) if options
-    puts 'start filtering by open'
+    puts 'remove closed posts'
     relation = relation.where(status: Job::Status::Open)
-    puts 'start sorting'
+    puts 'remove posts more than 8 months old'
+    relation = relation.where(updated_at: (Time.now.midnight - 8.month)..(Time.now.midnight + 1.day))
+    puts 'start by update date'
     # relation = relation.sort_by(&:updated_at).reverse
     relation = relation.order(updated_at: :desc)
-    puts 'end filtering'
+    puts 'finished processing'
     page = options[:page] || 1
     per_page = options[:per_page] || 16
     return relation.paginate(:page => page, :per_page => per_page)
@@ -296,6 +298,7 @@ class Job < ActiveRecord::Base
       compensations << Compensation::Both unless compensations.empty?
       relation = relation.where(tables['jobs'][:compensation].in_any(compensations))
     end
+
     if options[:post_status].present?
       statuses = [options[:post_status]]
       relation = relation.where(tables['jobs'][:status].in_any(statuses))
@@ -303,8 +306,6 @@ class Job < ActiveRecord::Base
 
     relation = relation.where(tables['tags'][:name].matches(options[:tags])) if options[:tags].present?
     relation = relation.limit(options[:limit]) if options[:limit]
-    order = options[:order] || "jobs.created_at DESC"
-    relation = relation.order(order)
     return relation
   end
 
