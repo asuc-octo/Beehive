@@ -258,6 +258,7 @@ class Job < ActiveRecord::Base
     relation = relation.where(updated_at: (Time.now.midnight - 8.month)..(Time.now.midnight + 1.day))
     puts 'start by update date'
     # relation = relation.sort_by(&:updated_at).reverse
+    relation = relation.order(created_at: :desc)
     relation = relation.order(updated_at: :desc)
     puts 'finished processing'
     page = options[:page] || 1
