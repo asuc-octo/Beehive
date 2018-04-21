@@ -5,6 +5,6 @@ class PostingMailer < ApplicationMailer
   end
 
   def long_time_no_update_notice email
-    mail(:to => email, :subject => "Please udpate your Beehive job posting").deliver
+    mail(:to => email, :subject => "Please update your Beehive job posting").deliver
   end
 end

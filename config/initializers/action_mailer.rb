@@ -16,11 +16,9 @@ ResearchMatch::Application.configure do
   ActionMailer::Base.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :domain               => $smtp_username,
     :user_name            => $smtp_username,
     :password             => $smtp_password,
     :authentication       => :plain,
     :enable_starttls_auto => true
   }
 end
-
