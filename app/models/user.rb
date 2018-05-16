@@ -175,12 +175,11 @@ class User < ActiveRecord::Base
   end
 
   def apply?
-    user_type == User::Types::Undergrad || user_type == User::Types::Admin || User::Types::Grad
+    user_type == User::Types::Undergrad || user_type == User::Types::Admin || user_type == User::Types::Grad
   end
 
   def post?
-    # user_type != User::Types::Undergrad || user_type == User::Types::Admin
-    true
+    user_type != User::Types::Undergrad
   end
 
   # Readable user type

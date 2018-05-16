@@ -9,6 +9,8 @@
       %ul
         - @job.errors.full_messages.each do |msg|
           %li= msg
+  %p.center
+    Please feel free to use any form field you deem necessary—not all are required, but they may provide undergrads with useful information about your project!
   %dl.dl-horizontal
     %dt
       = f.label :title, 'Title *'
@@ -65,9 +67,9 @@
 
   .row
     %h2.center Ask a Potential Researcher
-    %p.center 
-      Questions 
-      %b required 
+    %p.center
+      Questions
+      %b required
       to be answered by applicants
     %dl.dl-horizontal
       %dt

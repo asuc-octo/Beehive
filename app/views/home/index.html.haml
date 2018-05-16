@@ -18,7 +18,7 @@
       .main-icons
   .main-btn-container.clearfix
     - if @current_user.present?
-      = link_to "EXPLORE", jobs_path, class: "btn btn-cal btn-landing"
+      = link_to "EXPLORE", dashboard_path, class: "btn btn-cal btn-landing"
     - else
       = link_to "EXPLORE", login_path, class: "btn btn-cal btn-landing"
   .row.main-bottom

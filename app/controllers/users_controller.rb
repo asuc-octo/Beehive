@@ -49,7 +49,11 @@ class UsersController < ApplicationController
 
     if @user.save && @user.errors.empty?
       flash[:notice] = 'Your profile was successfully updated.'
-      redirect_to jobs_path
+      if @user.post?
+        redirect_to new_job_path
+      else
+        redirect jobs_path
+      end
     else
       render 'new'
     end

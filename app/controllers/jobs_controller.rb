@@ -28,6 +28,8 @@ class JobsController < ApplicationController
   # Prohibits a user from watching his/her own job
   before_filter :watch_apply_ok_for_job, :only => [ :watch ]
 
+  before_filter :not_undergrad, :only => [ :new ]
+
   protected
   def search_params_hash
     h = {}
@@ -337,10 +339,19 @@ class JobsController < ApplicationController
 ####################
 
   private
+
   def correct_user_access
     job = Job.find(params[:id])
     if !job || !job.can_admin?(@current_user)
       flash[:error] = "You don't have permissions to edit or delete that listing."
+      redirect_to :controller => 'dashboard', :action => :index
+    end
+  end
+
+  # Prevent undergrads from posting
+  def not_undergrad
+    if !@current_user.post?
+      flash[:error] = "Sorry, undergrads are not permitted to post research openings. Please contact cto@asuc.org to request an exception."
       redirect_to :controller => 'dashboard', :action => :index
     end
   end

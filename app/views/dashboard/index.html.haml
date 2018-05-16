@@ -3,64 +3,114 @@
   %h1 Dashboard
   .tabs-container
     .btn-group{"data-toggle" => "buttons", :role => "group"}
-      %label#browsebtn{:class => "btn btn-primary #{'active' if @current_user.apply?}", "data-target" => "#browse", "data-toggle" => "tab"}
+      %label#browsebtn{:class => "btn btn-primary #{'active' unless @current_user.post?}", "data-target" => "#browse", "data-toggle" => "tab"}
         %input{"aria-controls" => "browse", "aria-expanded" => "true", :autocomplete => "off", :checked => "checked", :type => "radio"}/
-        Browse
-      %label#postbtn{:class => "btn btn-primary #{'active' unless @current_user.apply?}", "data-target" => "#post", "data-toggle" => "tab"}
-        %input{"aria-controls" => "post", "aria-expanded" => "false", :autocomplete => "off", "data-target" => "#post", "data-toggle" => "tab", :type => "radio"}/
-        Post
+        Undergrads
+      %label#postbtn{:class => "btn btn-primary #{'active' if @current_user.post?}", "data-target" => "#post", "data-toggle" => "tab"}
+        %input{"aria-controls" => "post", "aria-expanded" => "false", :autocomplete => "off", :checked => "checked", :type => "radio"}/
+        Researchers
   .tab-content
-    #post.tab-pane
-
-      - unfilterredownapps = @current_user.jobs.collect(&:applics)
-      - ownapps = Array.new
-      - unless unfilterredownapps.empty?
-        - for app in unfilterredownapps do 
-          - for applic in app do
-            - ownapps << applic
-      - unless ownapps.empty?
-        - ownapps.flatten!
-
-      .card
-        %h2 Applications Received
+    - if @current_user.post?
+      #post.tab-pane.active
+        - unfilterredownapps = @current_user.jobs.collect(&:applics)
+        - ownapps = Array.new
+        - unless unfilterredownapps.empty?
+          - for app in unfilterredownapps do
+            - for applic in app do
+              - ownapps << applic
         - unless ownapps.empty?
-          %table.job_table.table.table-striped.table-condensed
-            %thead
-              %tr
-                %th.col-md-2 Application Date
-                %th.col-md-4 Project
-                %th.col-md-2 Applicant
-                %th.col-md-2 Status
-
-            = render ownapps, :mine => false
-        - else
-          You have not yet received any applications.
-      .card
-        %h2 Manage Projects
-        - if @current_user.jobs.empty? && @current_user.owned_jobs.empty?
-          You have not posted any projects. #{link_to 'Post one', :controller => :jobs, :action => :new} now.
-        - if @current_user.jobs.present?
-          = render @current_user.jobs
-        - if @current_user.owned_jobs.present?
-          %p You can administer these projects:
-          = render :partial => 'jobs/your_job', :collection => @current_user.owned_jobs
-    #browse.tab-pane.active
-      .card
-        %h2 Your Applications
-        - if @current_user.applics.empty?
-          You have not applied to any research positions.
-        - else
-          %table.job_table.table.table-striped.table-condensed
-            %thead
-              %tr
-                %th.col-md-2 Application Date
-                %th.col-md-4 Project
-                %th.col-md-2 Contact
-                %th.col-md-2 Status
-            = render @current_user.applics, :mine => true
-      .card
-        %h2 Watching Jobs
-        - if @current_user.watched_jobs.empty?
-          You are not watching any projects.
-        - else
-        = render @current_user.watched_jobs
+          - ownapps.flatten!
+        .card
+          %h2 Applications Received
+          - unless ownapps.empty?
+            %table.job_table.table.table-striped.table-condensed
+              %thead
+                %tr
+                  %th.col-md-2 Application Date
+                  %th.col-md-4 Project
+                  %th.col-md-2 Applicant
+                  %th.col-md-2 Status
+              = render ownapps, :mine => false
+          - else
+            You have not yet received any applications.
+        .card
+          %h2 Manage Projects
+          - if @current_user.jobs.empty? && @current_user.owned_jobs.empty?
+            You have not posted any projects. #{link_to 'Post one', :controller => :jobs, :action => :new} now.
+          - if @current_user.jobs.present?
+            = render @current_user.jobs
+          - if @current_user.owned_jobs.present?
+            %p You can administer these projects:
+            = render :partial => 'jobs/your_job', :collection => @current_user.owned_jobs
+      #browse.tab-pane
+        .card
+          %h2 Your Applications
+          - if @current_user.applics.empty?
+            You have not applied to any research positions.
+          - else
+            %table.job_table.table.table-striped.table-condensed
+              %thead
+                %tr
+                  %th.col-md-2 Application Date
+                  %th.col-md-4 Project
+                  %th.col-md-2 Contact
+                  %th.col-md-2 Status
+              = render @current_user.applics, :mine => true
+        .card
+          %h2 Watching Jobs
+          - if @current_user.watched_jobs.empty?
+            You are not watching any projects.
+          - else
+          = render @current_user.watched_jobs
+    - else
+      #post.tab-pane
+        - unfilterredownapps = @current_user.jobs.collect(&:applics)
+        - ownapps = Array.new
+        - unless unfilterredownapps.empty?
+          - for app in unfilterredownapps do
+            - for applic in app do
+              - ownapps << applic
+        - unless ownapps.empty?
+          - ownapps.flatten!
+        .card
+          %h2 Applications Received
+          - unless ownapps.empty?
+            %table.job_table.table.table-striped.table-condensed
+              %thead
+                %tr
+                  %th.col-md-2 Application Date
+                  %th.col-md-4 Project
+                  %th.col-md-2 Applicant
+                  %th.col-md-2 Status
+              = render ownapps, :mine => false
+          - else
+            You have not yet received any applications.
+        .card
+          %h2 Manage Projects
+          - if @current_user.jobs.empty? && @current_user.owned_jobs.empty?
+            You have not posted any projects. #{link_to 'Post one', :controller => :jobs, :action => :new} now.
+          - if @current_user.jobs.present?
+            = render @current_user.jobs
+          - if @current_user.owned_jobs.present?
+            %p You can administer these projects:
+            = render :partial => 'jobs/your_job', :collection => @current_user.owned_jobs
+      #browse.tab-pane.active
+        .card
+          %h2 Your Applications
+          - if @current_user.applics.empty?
+            You have not applied to any research positions.
+          - else
+            %table.job_table.table.table-striped.table-condensed
+              %thead
+                %tr
+                  %th.col-md-2 Application Date
+                  %th.col-md-4 Project
+                  %th.col-md-2 Contact
+                  %th.col-md-2 Status
+              = render @current_user.applics, :mine => true
+        .card
+          %h2 Watching Jobs
+          - if @current_user.watched_jobs.empty?
+            You are not watching any projects.
+          - else
+          = render @current_user.watched_jobs
