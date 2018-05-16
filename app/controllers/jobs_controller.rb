@@ -28,7 +28,7 @@ class JobsController < ApplicationController
   # Prohibits a user from watching his/her own job
   before_filter :watch_apply_ok_for_job, :only => [ :watch ]
 
-  before_filter :not_undergrad, :only => [ :new ]
+  # before_filter :not_undergrad, :only => [ :new ]
 
   protected
   def search_params_hash
