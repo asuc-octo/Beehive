@@ -3,7 +3,10 @@ source 'http://rubygems.org'
 ruby '2.2.3'
 
 # env variables for test/dev
-gem 'dotenv-rails', groups: [:development, :test]
+# gem 'dotenv-rails', groups: [:development, :test]
+
+# Rollbar
+gem 'rollbar'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
