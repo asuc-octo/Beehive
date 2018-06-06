@@ -3,14 +3,14 @@
     %dt Full Name
     %dd
       = user.name
-    %dt Major 
+    %dt Major
     %dd
       = user.major_code
     %dt Email
     %dd
       = user.email
 
-    
+
     - y = ['Senior', 'Junior', 'Sophomore', 'Freshman']
     - year = Time.now.year
     - if Time.now.month >= 6
@@ -32,8 +32,8 @@
         %dt Year
         %dd
           = y[user.class_of.to_i - year.to_i]
-      
-      
+
+
       / = user.year
 
     / %dt Units
@@ -44,12 +44,12 @@
     %dd
       = user.free_hours
 
-    %dt Summer
-    %dd
-      - if user.summer
-        Available
-      - else
-        Not Available
+    / %dt Summer
+    / %dd
+    /   - if user.summer
+    /     Available
+    /   - else
+    /     Not Available
 
     / %dt Motivation
     / %dd
@@ -59,16 +59,17 @@
     %dd
       - user.courses.each do |course|
         %span.tags.course-tag= course.name
-          
+
     %dt Interests
     %dd
       - user.categories.each do |category|
         = category.name
 
-    %dt Proficient Languages
+    %dt Proficient Skills
     %dd
       - user.proglangs.each do |lang|
         %span.tags.lang-tag= lang.name
+
     %dt Experience
     %dd
       = user.experience

@@ -27,8 +27,8 @@
           %dd= f.select :class_of, options_for_select((Time.now.year - 3)..(Time.now.year + 4), @user.class_of.present? ? @user.class_of : Time.now.year+3), {}, :id => 'right-label'
 
         -if @user.post? or (@user.jobs != nil && @user.jobs.length != 0)
-          %dt Description
-          %dd= f.text_area :research_blurb, class: 'form-control', :rows => 5, :placeholder => "If you would like to post a research position, please describe your research interests here!"
+          %dt Research Interests
+          %dd= f.text_area :research_blurb, class: 'form-control', :rows => 5, :placeholder => "If you would like to POST a research position, please describe your research interests here!"
 
     - if !@user.post?
       %hr
@@ -48,7 +48,7 @@
           %dd= text_field :course, :name, :value => params[:course][:name], class: 'form-control', id: 'courses-input', :placeholder => "Relevant courses, separated by commas"
 
           %dt Skills
-          %dd= text_field :proglang, :name, :value => params[:proglang][:name], class: 'form-control', id: 'proglangs-input', :placeholder => "Languages in which you are proficient, separated by commas"
+          %dd= text_field :proglang, :name, :value => params[:proglang][:name], class: 'form-control', id: 'proglangs-input', :placeholder => "Skills in which you are proficient, separated by commas"
 
           %dt Interests
           %dd= text_field :category, :name, :value => params[:category][:name], class: 'form-control', id: 'categories-input', :placeholder => "What areas are you interested in?"

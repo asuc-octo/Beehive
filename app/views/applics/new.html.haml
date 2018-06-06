@@ -11,7 +11,7 @@
           %strong Message to faculty
           = f.text_area :message, :rows=>10, :value => @applic.message, :class => "form-control"
           - if (@job.question_1 != nil && @job.question_1 != "") || (@job.question_2 != nil && @job.question_2 != "")|| (@job.question_3 != nil  && @job.question_3 != "")
-            %h2 
+            %h2
               Faculty Questions
             %p
               Please answer the following questions

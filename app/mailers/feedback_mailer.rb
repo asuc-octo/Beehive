@@ -3,12 +3,12 @@
 class FeedbackMailer < ApplicationMailer
 
   def send_feedback(sender, subject_line, body_text)
-    #recipients  'beehive-support@lists.berkeley.edu'
+    #recipients  'octo.beehive@asuc.org'
     #reply_to    sender
     #from        sender
     #subject     "[Beehive Feedback] #{subject_line}"
     #body        body_text
-    mail(:to => 'beehive-support@lists.berkeley.edu',
+    mail(:to => 'octo.beehive@asuc.org',
          :from => sender,
          :reply_to => sender,
          :subject => "Beehive Feedback #{subject_line}",

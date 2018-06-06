@@ -14,7 +14,7 @@ end
 
 ResearchMatch::Application.configure do
   ActionMailer::Base.smtp_settings = {
-    :address              => "smtp.gmail.com",
+    :address              => "smtp.sendgrid.net",
     :port                 => 587,
     :user_name            => $smtp_username,
     :password             => $smtp_password,

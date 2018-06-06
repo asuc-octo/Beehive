@@ -303,7 +303,7 @@ class JobsController < ApplicationController
     params[:job][:user_id] = @current_user.id
     params[:job][:end_date] = nil if params[:job].delete(:open_ended_end_date)
 
-    # Handles the text_fields for categories, courses, and programming languages
+    # Handles the text_fields for categories, courses, and skills
     [:category, :course, :proglang].each do |k|
       params[:job]["#{k.to_s}_names".to_sym] = params[k][:name]
     end

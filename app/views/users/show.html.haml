@@ -14,13 +14,13 @@
         / %dd
         /   - @user.courses.each do |course|
         /     %span.tags.course-tag= course.name
-            
+
         / %dt Interests
         / %dd
         /   - @user.categories.each do |category|
         /     = category.name
 
-        / %dt Proficient Languages
+        / %dt Proficient Skills
         / %dd
         /   - @user.proglangs.each do |lang|
         /     %span.tags.lang-tag= lang.name
@@ -54,13 +54,13 @@
         /   - if @user.url.present?
         /     =link_to url_with_protocol(@user.url), url_with_protocol(@user.url)
 
-        / - else 
+        / - else
         / - if @user.research_blurb != nil && @user.research_blurb != ""
         %dt Research Description
-        %dd 
+        %dd
           = @user.research_blurb
 
-        %dt All Posted Jobs
+        %dt All Posted Projects
         %dd
           - if @user.jobs.present?
             = render @user.jobs

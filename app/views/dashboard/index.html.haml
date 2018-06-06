@@ -57,7 +57,7 @@
                   %th.col-md-2 Status
               = render @current_user.applics, :mine => true
         .card
-          %h2 Watching Jobs
+          %h2 Watched Projects
           - if @current_user.watched_jobs.empty?
             You are not watching any projects.
           - else
@@ -109,7 +109,7 @@
                   %th.col-md-2 Status
               = render @current_user.applics, :mine => true
         .card
-          %h2 Watching Jobs
+          %h2 Watched Projects
           - if @current_user.watched_jobs.empty?
             You are not watching any projects.
           - else

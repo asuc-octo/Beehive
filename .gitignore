@@ -35,3 +35,5 @@ test_mem.rb
 
 #ignore dotenv
 .env
+
+beehive.psql
