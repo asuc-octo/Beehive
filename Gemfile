@@ -8,6 +8,9 @@ ruby '2.2.3'
 # Rollbar
 gem 'rollbar'
 
+# Add Segment
+gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'rails', '~> 4'
