@@ -3,6 +3,8 @@ class DashboardController < ApplicationController
   before_filter :rm_login_required
 
   def index
-      Analytics.track(user_id: @current_user.id, event: "Dashboard Viewed")
+      Analytics.page(user_id: @current_user.id,
+                      name: 'Dashboard',
+                      properties: { email: @current_user.email, name: @current_user.name })
   end
 end
