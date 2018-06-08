@@ -82,6 +82,10 @@ class JobsController < ApplicationController
       format.xml { render :xml => @jobs }
     end
     puts 'end response'
+
+    Analytics.page(user_id: @current_user.id,
+                    name: 'Jobs',
+                    properties: { email: @current_user.email, name: @current_user.name })
   end
 
   # GET /jobs/1
