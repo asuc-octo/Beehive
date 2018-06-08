@@ -52,7 +52,7 @@ class UsersController < ApplicationController
       if @user.post?
         redirect_to new_job_path
       else
-        redirect jobs_path
+        redirect_to jobs_path
       end
     else
       render 'new'
