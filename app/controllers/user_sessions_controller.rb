@@ -26,7 +26,7 @@ include CASControllerIncludes
     if user.present?
       UserSession.new(user).save
       session[:user_id] = user.id # TODO remove (use only @user_session)
-      redirect_to back
+      redirect_to dashboard_path
     else
       redirect_to new_user_path
     end
