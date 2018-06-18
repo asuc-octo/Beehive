@@ -19,10 +19,7 @@
 
         - if !@user.post?
           %dt Major
-          - if @user.major_code == "" or @user.major_code == nil or @user.major_code == "double"
-            %dd= f.text_field :major_code, class: 'form-control'
-          - else
-            %dd= @user.major_code
+          %dd= f.text_field :major_code, class: 'form-control'
           %dt Class of
           %dd= f.select :class_of, options_for_select((Time.now.year - 3)..(Time.now.year + 4), @user.class_of.present? ? @user.class_of : Time.now.year+3), {}, :id => 'right-label'
 
