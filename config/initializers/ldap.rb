@@ -7,12 +7,7 @@ begin
   # This has to go in the initializer (not environments/*) because
   # we need the ucb_ldap plugin to be loaded, which happens after
   # environments are loaded.
-  UCB::LDAP.host = case Rails.env
-    when 'production'
-      UCB::LDAP::HOST_PRODUCTION
-    # else
-    #   UCB::LDAP::HOST_TEST
-  end
+  UCB::LDAP.host = UCB::LDAP::HOST_PRODUCTION
 
   username, password = ENV['LDAP_USERNAME'], ENV['LDAP_PASSWORD']
   if username && password
