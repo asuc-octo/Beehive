@@ -1,13 +1,9 @@
 # UCB::LDAP initialization
-# To supplyi bind credentials, set LDAP_USERNAME and LDAP_PASSWORD environment vars
+# To supply bind credentials, set LDAP_USERNAME and LDAP_PASSWORD environment vars
 
 require 'ucb_ldap'
 
 begin
-  # This has to go in the initializer (not environments/*) because
-  # we need the ucb_ldap plugin to be loaded, which happens after
-  # environments are loaded.
-  UCB::LDAP.host = UCB::LDAP::HOST_PRODUCTION
 
   username, password = ENV['LDAP_USERNAME'], ENV['LDAP_PASSWORD']
   if username && password

@@ -1,28 +1,15 @@
 source 'http://rubygems.org'
 
 ruby '2.2.3'
-
-# env variables for test/dev
-gem 'dotenv-rails', groups: [:development, :test]
-
-# Rollbar
-gem 'rollbar'
-
-# Add Segment
-gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'rails', '~> 4'
 gem 'pg'
-# store sessions in db rather than in cookies
-gem 'activerecord-session_store'
-# deprecated, to remove, user.UserObserver is the only place we use this
-gem 'rails-observers'
+gem 'puma'
+gem 'dotenv-rails'
 gem "haml-rails", "~> 0.9"
-
-# web server
-gem 'unicorn'
+gem 'activerecord-session_store' # store sessions in db rather than in cookies
+gem 'syck' # Support for syck. Syck was removed from the ruby stdlib.
+gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
+gem 'rollbar'
 
 # pagination & tagging
 gem "kaminari", "~> 0.15.1"
@@ -36,7 +23,6 @@ gem 'exception_notification' , '~> 4'
 # Security
 gem 'authlogic'
 gem 'rubycas-client', "~> 2.3.9", :require => ['casclient', 'casclient/frameworks/rails/filter']
-# gem 'ucb_ldap', "2.0.0.pre5"
 gem 'ucb_ldap', '3.0.0'
 gem 'omniauth'
 gem 'omniauth-cas'
@@ -46,13 +32,6 @@ gem 'bcrypt'
 gem 'pothoven-attachment_fu'
 gem 'nokogiri'
 gem 'email_validator'
-
-# Support for syck. Syck was removed from the ruby stdlib.
-gem 'syck'
-
-# Deploy with Capistrano
-gem 'capistrano'
-gem 'capistrano-passenger'
 
 # Development
 group :development do
@@ -73,11 +52,13 @@ group :test do
   gem 'simplecov'
 end
 
-# Rspec
+# Testing or Development
 group :test, :development do
   gem 'rspec-rails', '~>3.0'
   gem 'rspec', '~> 3.3'
   gem 'factory_girl_rails', "~> 4.0"
+  gem 'derailed_benchmarks'
+  gem 'stackprof'
 end
 
 # UI
@@ -94,8 +75,3 @@ gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'will_paginate-bootstrap'
 gem 'bootstrap-datepicker-rails'
 gem 'momentjs-rails'
-
-gem 'derailed_benchmarks'
-gem 'stackprof'
-
-gem 'puma'
