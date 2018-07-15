@@ -5,12 +5,22 @@ ResearchMatch::Application.configure do
   # Code is not reloaded between requests
   config.cache_classes = true
 
-  # for multithreaded deploy
   config.eager_load = true
 
-  # Full error reports are disabled and caching is turned on
+  # Log error messages when you accidentally call methods on nil.
+  config.whiny_nils = false
+
+  # Disable full error reports and enable caching
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
+
+  # Send deprecation notices to registered listeners
+  config.active_support.deprecation = :notify
+
+  # CAS authentication
+  CASClient::Frameworks::Rails::Filter.configure(
+    :cas_base_url => "https://auth.berkeley.edu/cas/"
+  )
 
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
@@ -51,14 +61,4 @@ ResearchMatch::Application.configure do
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
 
-  # Send deprecation notices to registered listeners
-  config.active_support.deprecation = :notify
-
-  # CAS authentication
-  CASClient::Frameworks::Rails::Filter.configure(
-    :cas_base_url => "https://auth.berkeley.edu/cas/"
-  )
-
-  # Enable Action Mailer
-  config.action_mailer.delivery_method = :smtp
 end

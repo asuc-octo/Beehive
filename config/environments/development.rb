@@ -11,22 +11,12 @@ ResearchMatch::Application.configure do
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
 
-  # Show full error reports and disable caching
+  # Enable full error reports and disable caching
   config.consider_all_requests_local       = true
-  #config.action_view.debug_rjs             = true
   config.action_controller.perform_caching = false
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
-
-  # Only use best-standards-support built into browsers
-  config.action_dispatch.best_standards_support = :builtin
-
-  # Logging
-  config.log_level = :info
-
-  #asset
-  config.serve_static_assets = true
 
   # CAS authentication
   CASClient::Frameworks::Rails::Filter.configure(
@@ -34,6 +24,12 @@ ResearchMatch::Application.configure do
   )
 
   # ActionMailer
-  config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
+
+  # Only use best-standards-support built into browsers
+  config.action_dispatch.best_standards_support = :builtin
+
+  # Logging
+  config.log_level = :info
+
 end

@@ -53,11 +53,6 @@ gem 'syck'
 gem 'capistrano'
 gem 'capistrano-passenger'
 
-# Production-specific
-group :production do
-  gem 'rails_12factor'
-end
-
 # Development
 group :development do
   gem 'yard'

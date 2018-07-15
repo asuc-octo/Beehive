@@ -38,6 +38,8 @@ module ResearchMatch
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    config.serve_static_assets = true
+
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
@@ -49,5 +51,8 @@ module ResearchMatch
     config.exceptions_app = self.routes
 
     ActsAsTaggableOn.strict_case_match = true
+
+    config.action_mailer.delivery_method = :smtp
+
   end
 end
