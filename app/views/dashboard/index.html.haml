@@ -3,14 +3,14 @@
   %h1 Dashboard
   .tabs-container
     .btn-group{"data-toggle" => "buttons", :role => "group"}
-      %label#browsebtn{:class => "btn btn-primary #{'active' unless @current_user.post?}", "data-target" => "#browse", "data-toggle" => "tab"}
+      %label#browsebtn{:class => "btn btn-primary #{'active' unless @current_user.not_undergrad?}", "data-target" => "#browse", "data-toggle" => "tab"}
         %input{"aria-controls" => "browse", "aria-expanded" => "true", :autocomplete => "off", :checked => "checked", :type => "radio"}/
         Undergrads
-      %label#postbtn{:class => "btn btn-primary #{'active' if @current_user.post?}", "data-target" => "#post", "data-toggle" => "tab"}
+      %label#postbtn{:class => "btn btn-primary #{'active' if @current_user.not_undergrad?}", "data-target" => "#post", "data-toggle" => "tab"}
         %input{"aria-controls" => "post", "aria-expanded" => "false", :autocomplete => "off", :checked => "checked", :type => "radio"}/
         Researchers
   .tab-content
-    - if @current_user.post?
+    - if @current_user.not_undergrad?
       #post.tab-pane.active
         - unfilterredownapps = @current_user.jobs.collect(&:applics)
         - ownapps = Array.new

@@ -62,9 +62,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_user
-    # user = User.find_by_id(7761)
-    # UserSession.new(user).save
-    # session[:user_id] = user.id
+    if Rails.env.staging?
+      user = User.where(:name => 'Beehive Team').first
+      UserSession.new(user).save
+      session[:user_id] = user.id
+    end
+    
     @user_session = UserSession.find
     @current_user = @user_session.user if @user_session
   end

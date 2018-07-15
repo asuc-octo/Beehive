@@ -178,7 +178,7 @@ class User < ActiveRecord::Base
     user_type == User::Types::Undergrad || user_type == User::Types::Admin || user_type == User::Types::Grad
   end
 
-  def post?
+  def not_undergrad?
     user_type != User::Types::Undergrad
   end
 

@@ -352,12 +352,4 @@ class JobsController < ApplicationController
     end
   end
 
-  # Prevent undergrads from posting
-  def not_undergrad
-    if !@current_user.post?
-      flash[:error] = "Sorry, undergrads are not permitted to post research openings. Please contact cto@asuc.org to request an exception."
-      redirect_to :controller => 'dashboard', :action => :index
-    end
-  end
-
 end

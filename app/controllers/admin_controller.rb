@@ -48,7 +48,7 @@ class AdminController < ApplicationController
       end
     end
     @non_admins = @non_admins.sort
-    @roles = [['Undergrad', 0], ['Grad Student', 1], ['Faculty', 2], ['Staff', 3], ['Affiliate', 4], ['Admin', 4]]
+    @roles = [['Undergrad', 0], ['Grad Student', 1], ['Faculty', 2], ['Staff', 3], ['Affiliate', 4], ['Admin', 5]]
   end
 
   def upload
@@ -65,7 +65,7 @@ class AdminController < ApplicationController
     #Initial check for simple parse problems in CSV
     begin
       CSV.parse(csv_file_handle.to_s)
-    rescue 
+    rescue
       flash[:error] = 'The CSV was malformed! Please correct the CSV and try again.'
       File.delete(csv_file_handle)
       return redirect_to admin_path

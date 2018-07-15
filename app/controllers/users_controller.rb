@@ -46,10 +46,9 @@ class UsersController < ApplicationController
       @user.handle_categories(params[:category][:name])
     end
     @user.assign_attributes(user_params)
-
     if @user.save && @user.errors.empty?
       flash[:notice] = 'Your profile was successfully updated.'
-      if @user.post?
+      if @user.not_undergrad?
         redirect_to new_job_path
       else
         redirect_to jobs_path

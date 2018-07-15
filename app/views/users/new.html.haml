@@ -3,7 +3,7 @@
   %center
     %h1= "Welcome, #{@user.firstname}!"
     %h2 Please complete your profile
-    - if @user.post?
+    - if @user.not_undergrad?
       %p We will use this information to help undergraduates learn more about you!
     - else
       %p We will use this information to recommend the best projects for you. This information will also be submitted when you apply to a research project.
