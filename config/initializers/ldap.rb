@@ -15,8 +15,8 @@ begin
   UCB::LDAP.host = case Rails.env
     when 'production'
       UCB::LDAP::HOST_PRODUCTION
-    else
-      UCB::LDAP::HOST_TEST
+    # else
+    #   UCB::LDAP::HOST_TEST
   end
 
   unless Rails.env == 'test'
