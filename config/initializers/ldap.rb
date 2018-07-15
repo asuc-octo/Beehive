@@ -1,10 +1,5 @@
-#
 # UCB::LDAP initialization
-#
-# Two options for supplying bind credentials:
-#   1) set LDAP_USERNAME and LDAP_PASSWORD environment vars
-#   2) use config/ldap.yml (generate one with rake ldap:setup)
-#
+# To supplyi bind credentials, set LDAP_USERNAME and LDAP_PASSWORD environment vars
 
 require 'ucb_ldap'
 
@@ -19,16 +14,11 @@ begin
     #   UCB::LDAP::HOST_TEST
   end
 
-  unless Rails.env == 'test'
-    # 1) Try using env vars
-    username, password = ENV['LDAP_USERNAME'], ENV['LDAP_PASSWORD']
-    if username && password
-      UCB::LDAP::authenticate(username, password)
-    # 2) Use config/ldap.yml
-    else
-      UCB::LDAP.bind_for_rails
-
-    end
+  username, password = ENV['LDAP_USERNAME'], ENV['LDAP_PASSWORD']
+  if username && password
+    UCB::LDAP::authenticate(username, password)
+  else
+    $stderr.puts "ERROR: LDAP bind credentials have not been set!"
   end
 
 rescue UCB::LDAP::BindFailedException => e

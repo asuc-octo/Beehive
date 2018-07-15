@@ -119,6 +119,10 @@ GEM
       thor (~> 0.19)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    dotenv (2.5.0)
+    dotenv-rails (2.5.0)
+      dotenv (= 2.5.0)
+      railties (>= 3.2, < 6.0)
     email_validator (1.6.0)
       activemodel
     erubis (2.7.0)
@@ -185,7 +189,7 @@ GEM
       railties (>= 3.1)
     multi_json (1.11.2)
     multi_test (0.1.2)
-    net-ldap (0.2.2)
+    net-ldap (0.16.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.0.1)
@@ -297,8 +301,8 @@ GEM
     tilt (2.0.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    ucb_ldap (2.0.0.pre5)
-      net-ldap (= 0.2.2)
+    ucb_ldap (3.0.0)
+      net-ldap (= 0.16.1)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -340,6 +344,7 @@ DEPENDENCIES
   cucumber-rails (~> 1.4.2)
   database_cleaner
   derailed_benchmarks
+  dotenv-rails
   email_validator
   exception_notification (~> 4)
   factory_girl_rails (~> 4.0)
@@ -366,7 +371,7 @@ DEPENDENCIES
   stackprof
   syck
   therubyracer
-  ucb_ldap (= 2.0.0.pre5)
+  ucb_ldap (= 3.0.0)
   uglifier
   unicorn
   will_paginate (~> 3.0.pre2)

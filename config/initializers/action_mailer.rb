@@ -5,11 +5,7 @@ $smtp_username ||= ENV['SMTP_USERNAME']
 $smtp_password ||= ENV['SMTP_PASSWORD']
 
 unless $smtp_username and $smtp_password
-  begin
-    require settings_path
-  rescue LoadError
-    $stderr.puts "Warning: Could not determine ActionMailer settings: see https://github.com/jonathank/ResearchMatch/wiki/Usage-Notes-(IMPORTANT)"
-  end
+    $stderr.puts "WARNING: SMTP credentials have not been set as env vars!"
 end
 
 ResearchMatch::Application.configure do

@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 ruby '2.2.3'
 
 # env variables for test/dev
-# gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', groups: [:development, :test]
 
 # Rollbar
 gem 'rollbar'
@@ -36,7 +36,8 @@ gem 'exception_notification' , '~> 4'
 # Security
 gem 'authlogic'
 gem 'rubycas-client', "~> 2.3.9", :require => ['casclient', 'casclient/frameworks/rails/filter']
-gem 'ucb_ldap', "2.0.0.pre5"
+# gem 'ucb_ldap', "2.0.0.pre5"
+gem 'ucb_ldap', '3.0.0'
 gem 'omniauth'
 gem 'omniauth-cas'
 gem 'bcrypt'
