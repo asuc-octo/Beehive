@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 	factory :user do |u|
 		u.name "bingbong"
 		u.login "abc"

@@ -92,11 +92,11 @@ RSpec.configure do |config|
 
 require 'factory_girl_rails'
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 end
 
 config.before(:all) do
-  FactoryGirl.reload
+  FactoryBot.reload
 end
 
 end

@@ -59,11 +59,11 @@ RSpec.describe JobsController, type: :controller do
 
 	context "when logged in" do
 		before (:each) do 
-				user = FactoryGirl.build(:user)
+				user = FactoryBot.build(:user)
 				Authlogic::Session::Base.controller = Authlogic::ControllerAdapters::RailsAdapter.new(self)
 				UserSession.new(user).save
 				session[:user_id] = user.id
-				@job = FactoryGirl.create(:job)
+				@job = FactoryBot.create(:job)
 		end
 		
 		describe "GET show" do		

@@ -1,6 +1,6 @@
 require 'date'
 
-FactoryGirl.define do
+FactoryBot.define do
 	factory :job do |j|
 		j.title "beehive"
 		j.project_type 1
