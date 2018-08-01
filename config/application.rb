@@ -38,14 +38,14 @@ module ResearchMatch
     # Enable the asset pipeline
     config.assets.enabled = true
 
-    config.serve_static_files = true
+    config.serve_static_files = false
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
     config.assets.initialize_on_precompile = true
 
-    config.assets.precompile += ["*.js"]
+    # config.assets.precompile += ["*.js"]
 
     # Tells Rails to use dynamic error pages
     config.exceptions_app = self.routes
