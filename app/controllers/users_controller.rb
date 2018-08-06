@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   # Create account for a new user.
   def create
     new # set @user
-    if @user.apply?
+    if @user.undergrad?
       @user.handle_courses(params[:course][:name])
       @user.handle_proglangs(params[:proglang][:name])
       @user.handle_categories(params[:category][:name])
@@ -48,10 +48,10 @@ class UsersController < ApplicationController
     @user.assign_attributes(user_params)
     if @user.save && @user.errors.empty?
       flash[:notice] = 'Your profile was successfully updated.'
-      if @user.not_undergrad?
-        redirect_to new_job_path
-      else
+      if @user.undergrad?
         redirect_to jobs_path
+      else
+        redirect_to new_job_path
       end
     else
       render 'new'
@@ -71,17 +71,16 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @current_user.apply?
-      @current_user.handle_courses(params[:course][:name])
-      @current_user.handle_proglangs(params[:proglang][:name])
-      @current_user.handle_categories(params[:category][:name])
+    @user = params != nil ? User.find(params[:id]) : @current_user
+    if @user.undergrad?
+      @user.handle_courses(params[:course][:name])
+      @user.handle_proglangs(params[:proglang][:name])
+      @user.handle_categories(params[:category][:name])
     end
-    if @current_user.update_attributes(user_params)
+    if @user.update_attributes(user_params)
       flash[:notice] = 'Your profile was successfully updated.'
-
       redirect_to profile_path
     else
-      @user = @current_user
       render :edit
     end
   end

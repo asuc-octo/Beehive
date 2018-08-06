@@ -178,8 +178,8 @@ class User < ActiveRecord::Base
     user_type == User::Types::Undergrad || user_type == User::Types::Admin || user_type == User::Types::Grad
   end
 
-  def not_undergrad?
-    user_type != User::Types::Undergrad
+  def undergrad?
+    user_type == User::Types::Undergrad
   end
 
   # Readable user type
@@ -274,7 +274,7 @@ class User < ActiveRecord::Base
   # Parses the textbox list of courses from "CS162,CS61A,EE123"
   # etc. to an enumerable object courses
   def handle_courses(course_names)
-    return if !self.apply? || course_names.nil?
+    return if !self.undergrad? || course_names.nil?
     self.courses = []  # eliminates any previous enrollments so as to avoid duplicates
     course_array = []
     course_array = course_names.split(',').uniq if course_names
@@ -286,7 +286,7 @@ class User < ActiveRecord::Base
   # Parses the textbox list of categories from "signal processing,robotics"
   # etc. to an enumerable object categories
   def handle_categories(category_names)
-    return if !self.apply? || category_names.nil?
+    return if !self.undergrad? || category_names.nil?
     self.categories = []  # eliminates any previous interests so as to avoid duplicates
     category_array = []
     category_array = category_names.split(',').uniq if category_names
@@ -298,7 +298,7 @@ class User < ActiveRecord::Base
   # Parses the textbox list of proglangs from "c++,python"
   # etc. to an enumerable object proglangs
   def handle_proglangs(proglang_names)
-    return if !self.apply? || proglang_names.nil?
+    return if !self.undergrad? || proglang_names.nil?
     self.proglangs = []  # eliminates any previous proficiencies so as to avoid duplicates
     proglang_array = []
     proglang_array = proglang_names.split(',').uniq if proglang_names

@@ -1,4 +1,4 @@
-.not_undergrad?= javascript_include_tag 'autocomplete_setup'
+= javascript_include_tag 'autocomplete_setup'
 .card
   = form_for @user do |f|
     - if @user.errors.any?
@@ -17,17 +17,17 @@
         %dt Email*
         %dd= f.text_field :email, class: 'form-control'
 
-        - if !@user.not_undergrad?
+        - if @user.undergrad?
           %dt Major
           %dd= f.text_field :major_code, class: 'form-control'
           %dt Class of
           %dd= f.select :class_of, options_for_select((Time.now.year - 3)..(Time.now.year + 4), @user.class_of.present? ? @user.class_of : Time.now.year+3), {}, :id => 'right-label'
 
-        -if @user.not_undergrad? or (@user.jobs != nil && @user.jobs.length != 0)
+        -if !@user.undergrad? or (@user.jobs != nil && @user.jobs.length != 0)
           %dt Research Interests
           %dd= f.text_area :research_blurb, class: 'form-control', :rows => 5, :placeholder => "If you would like to POST a research position, please describe your research interests here!"
 
-    - if !@user.not_undergrad?
+    - if @user.undergrad?
       %hr
       .row
         %h2 In-Depth Information
