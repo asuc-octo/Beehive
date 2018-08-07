@@ -45,7 +45,7 @@ module ResearchMatch
 
     config.assets.initialize_on_precompile = true
 
-    config.assets.precompile += ["autocomplete_setup.js"]
+    config.assets.precompile += ["*.js"]
 
     # Tells Rails to use dynamic error pages
     config.exceptions_app = self.routes
