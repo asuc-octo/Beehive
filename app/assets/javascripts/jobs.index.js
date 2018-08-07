@@ -5,7 +5,7 @@ $(function() {
   var body = $('body');
 
   $(window).on('scroll', function() {
-    if (document.body.scrollTop > 300) {
+    if (window.scrollY > 300) {
       filter_box.addClass('fix');
     } else {
       filter_box.removeClass('fix');
