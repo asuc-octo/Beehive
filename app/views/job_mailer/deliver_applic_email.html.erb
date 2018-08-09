@@ -1,5 +1,5 @@
 <p>
-  Dear <b><%= @job.faculties.collect(&:name).join(', ') %></b>,
+  Dear <b><%= @job.user.name %></b>,
 </p>
 
 <p>
@@ -34,4 +34,3 @@ Regards,<br/><br/>
 <p>
 If you believe you have received this e-mail in error, please disregard this notice.<br/>
 </p>
-

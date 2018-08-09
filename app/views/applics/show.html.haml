@@ -16,17 +16,17 @@
 
       %dt Message
       %dd= @applic.message
-    
+
 
 
     %h2 Applicant Profile
     = render 'users/applic_info', :user => @applic.user
 
     - if (@job.question_1 != nil && @job.question_1 != "") || (@job.question_2 != nil && @job.question_2 != "")|| (@job.question_3 != nil  && @job.question_3 != "")
-      %h2 Faculty Questions 
+      %h2 Faculty Questions
       - if @job.question_1 != nil && @job.question_1 != ""
         %dt #{@job.question_1}
-        %dd= @applic.answer_1 
+        %dd= @applic.answer_1
       - if @job.question_2 != nil && @job.question_2 != ""
         %dt #{@job.question_2}
         %dd= @applic.answer_2
@@ -34,19 +34,19 @@
         %dt #{@job.question_3}
         %dd= @applic.answer_3
 
-    .row
-      - if @applic.status != "accepted"
-        .col-md-2
-          = form_tag('/applics/applications/%s' % @applic.id, :method => "post") do
-            = submit_tag "Accept", class: "btn btn-success"
+    - if @job.can_admin?(@current_user)
+      .row
+        - if @applic.status != "accepted"
+          .col-md-2
+            = form_tag('/applics/applications/%s' % @applic.id, :method => "post") do
+              = submit_tag "Accept", class: "btn btn-success"
+          .col-md-1
+            = form_tag('/applics/applications/%s/delete' % @applic.id, :method => "get") do
+              = submit_tag "Reject", class: "btn btn-danger"
+        - if @applic.status == "accepted"
+          .col-md-1
+            = form_tag('/applics/applications/%s/unaccept' % @applic.id, :method => "post") do
+              = submit_tag "Unhire Accepted Applicant", class: "btn btn-warning"
+      .row
         .col-md-1
-          = form_tag('/applics/applications/%s/delete' % @applic.id, :method => "get") do
-            = submit_tag "Reject", class: "btn btn-danger"
-      - if @applic.status == "accepted"
-        .col-md-1
-          = form_tag('/applics/applications/%s/unaccept' % @applic.id, :method => "post") do
-            = submit_tag "Unhire Accepted Applicant", class: "btn btn-warning"
-    .row
-      .col-md-1
-        = link_to 'Return to Project', '/jobs/%s' % @applic.job.id, class: "btn btn-primary"
-
+          = link_to 'Return to Project', '/jobs/%s' % @applic.job.id, class: "btn btn-primary"

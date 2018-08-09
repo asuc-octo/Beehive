@@ -1,13 +1,7 @@
 <% job = applic.job -%>
 <% if job!=nil -%>
 <tr class="job_<%= cycle('even', 'odd') %>">
-  <td>
-    <% if mine -%>
-      <%= applic.updated_at.strftime('%B %d, %Y') %>
-    <% else -%>
-      <%= link_to applic.updated_at.strftime('%B %d, %Y'), applic_path(applic) -%>
-    <% end %>
-  </td>
+  <td><%= link_to applic.updated_at.strftime('%B %d, %Y'), applic_path(applic) -%></td>
   <td><%= link_to job.title, job_path(job) %></td>
   <td>
     <% if mine -%>
