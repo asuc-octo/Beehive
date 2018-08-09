@@ -29,8 +29,8 @@ class ApplicsController < ApplicationController
     existing = Applic.where({:user_id => @current_user, :job_id => @job.id, :applied => true}).first
     if existing
       flash[:error] = "Whoa, slow down! You've already applied for this job. "
-      flash[:error] << "If you'd like to update your application, please "
-      flash[:error] << "withdraw your existing one first."
+      # flash[:error] << "To update your application, please "
+      # flash[:error] << "withdraw your existing one first."
       redirect_to(url_for(existing))
       return false
     else
@@ -48,7 +48,7 @@ class ApplicsController < ApplicationController
   def verify_applic_admin
     a = @applic #Applic.find(params[:id])
     return if redirect_if(a.nil?, "Couldn't find that application.", jobs_path)
-    return if redirect_if(a.user == @current_user || !a.job.can_admin?(@current_user),
+    return if redirect_if(a.user != @current_user && !a.job.can_admin?(@current_user),
       'You are not authorized to view that application.', job_path(a.job))
   end
 
@@ -98,10 +98,7 @@ class ApplicsController < ApplicationController
   def new
     if verify_job_unapplied
       @applic = Applic.find_or_initialize_by({:user => @current_user, :job => @job})
-    else
-      redirect_to(url_for(@job))
     end
-
   end
 
   # the action for actually applying.
