@@ -7,7 +7,7 @@
     .card.card-x
       = form_tag(jobs_search_path, :method => "get") do
         .col-md-10.job-search-input
-          = text_field_tag :query, @query, :placeholder => "Start typing what you want to search...", :class => "form-control"
+          = text_field_tag :query, @query, :placeholder => "Start typing what you want to search...", :class => "form-control", :oninput => "submit();"
         .col-md-2
           = submit_tag @query, :class => "btn btn-info pull-right", :id => "do-job-search", :value => "Search"
   .row
@@ -44,3 +44,12 @@
           = render @jobs
           .row.center
             = will_paginate @jobs , renderer: BootstrapPagination::Rails
+
+:javascript
+$(document).ready(function() {
+  function submit() {
+    document.getElementById('do-job-search').submit();
+  }
+});
+  
+  
