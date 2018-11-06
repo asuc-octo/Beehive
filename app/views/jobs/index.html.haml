@@ -7,7 +7,7 @@
     .card.card-x
       = form_tag(jobs_search_path, :method => "get") do
         .col-md-10.job-search-input
-          = text_field_tag :query, @query, :placeholder => "Start typing what you want to search...", :class => "form-control", :oninput => "submit();"
+          = text_field_tag :query, @query, :placeholder => "Start typing what you want to search...", :class => "form-control", :oninput => "submit();" , :autofocus => true
         .col-md-2
           = submit_tag @query, :class => "btn btn-info pull-right", :id => "do-job-search", :value => "Search"
   .row
