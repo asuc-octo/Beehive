@@ -3,6 +3,7 @@ development:
     database: dc8gh7b3pjl8l3
     host: localhost
     username: postgres
+    password: gobears
     pool: 5
     timeout: 5000
 
@@ -11,5 +12,6 @@ test:
     database: dc8gh7b3pjl8l3
     host: localhost
     username: postgres
+    password: gobears
     pool: 5
     timeout: 5000

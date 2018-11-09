@@ -147,6 +147,8 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
+    fuzzily (0.3.3)
+      activerecord (>= 2.3.17)
     get_process_mem (0.2.2)
     gherkin (5.1.0)
     globalid (0.4.1)
@@ -351,6 +353,7 @@ DEPENDENCIES
   email_validator
   exception_notification (~> 4)
   factory_bot_rails (~> 4.0)
+  fuzzily
   haml-rails (~> 0.9)
   jquery-datatables-rails (~> 3.3.0)
   jquery-rails

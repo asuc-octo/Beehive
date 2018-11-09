@@ -1,0 +1,62 @@
+<% content_for :title, "Listings" %>
+  <%= javascript_include_tag 'jobs.index' %>
+  <div class="container">
+    <div class="col-md-12">
+      <h1>Browse Projects</h1>
+    </div>
+    <div class="col-md-12">
+      <div class="card card-x">
+        <%= form_tag(jobs_search_path, :method => "get") do %>
+          <div class="col-md-10 job-search-input">
+            <%= text_field_tag :query, @query, :placeholder => "Start typing what you want to search...", :class => "form-control", :oninput => "submit();" , :autofocus => true %>
+          </div>
+          <div class="col-md-2">
+            <%= submit_tag @query, :class => "btn btn-info pull-right", :id => "do-job-search", :value => "Search" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-sm-12" id="advanced_search">
+        <div class="card card-x">
+          <%= label_tag :department, "Department", class: "filter-dropdown-label" %>
+          <%= select_tag :department, options_for_select([["All Departments",0]]) + | %>
+            options_from_collection_for_select(Department.all, "id", "name",      |
+            @department_id), { :class => 'medium data-dropdown content' }         |
+          <% end %>
+          <%= label_tag :compensation, "Compensation", class: "filter-dropdown-label" %>
+          <%= select_tag :compensation,                   | %>
+            options_for_select({                        |
+            }, @compensation)                           |
+          <% end %>
+          <%= hidden_field_tag :as, params[:as] %>
+          <%= label_tag :per_page, "Listings per page", class: "filter-dropdown-label" %>
+          <%= select_tag :per_page, options_for_select([8,16,32,64,128], params[:per_page].to_i), :multiple=>false %>
+          <%= submit_tag "Filter", :class => "btn btn-info", :id => "do-job-filter" %>
+        </div>
+      </div>
+      <div class="col-lg-8 col-sm-12">
+        <div class="card card-x job-list">
+          <% if @jobs.empty? %>
+            <h3>No matching listings were found! Try a different search.</h3>
+          <% else %>
+            <%= render @jobs %>
+            <div class="row center">
+              <%= will_paginate @jobs , renderer: BootstrapPagination::Rails %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    $(document).ready(function() {
+      function submit() {
+        document.getElementById('do-job-search').submit();
+      }
+    });
+
+
+  </script>
+<% end %>

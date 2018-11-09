@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180721070234) do
+ActiveRecord::Schema.define(version: 20181106043824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,9 +69,9 @@ ActiveRecord::Schema.define(version: 20180721070234) do
   add_index "curations", ["user_id"], name: "index_curations_on_user_id", using: :btree
 
   create_table "departments", force: :cascade do |t|
-    t.text     "name",                         null: false
-    t.datetime "created_at", default: "now()"
-    t.datetime "updated_at", default: "now()"
+    t.text     "name",                                       null: false
+    t.datetime "created_at", default: '2018-10-26 03:44:28'
+    t.datetime "updated_at", default: '2018-10-26 03:44:28'
   end
 
   add_index "departments", ["name"], name: "departments_name_key", unique: true, using: :btree
@@ -96,10 +96,10 @@ ActiveRecord::Schema.define(version: 20180721070234) do
   end
 
   create_table "faculties", force: :cascade do |t|
-    t.string   "name",          limit: 255,                   null: false
+    t.string   "name",          limit: 255,                                 null: false
     t.string   "email",         limit: 255
-    t.datetime "created_at",                default: "now()"
-    t.datetime "updated_at",                default: "now()"
+    t.datetime "created_at",                default: '2018-10-26 03:44:28'
+    t.datetime "updated_at",                default: '2018-10-26 03:44:28'
     t.integer  "department_id"
     t.string   "calnetuid"
   end
@@ -205,8 +205,8 @@ ActiveRecord::Schema.define(version: 20180721070234) do
   create_table "sponsorships", force: :cascade do |t|
     t.integer  "faculty_id"
     t.integer  "job_id"
-    t.datetime "created_at", default: "now()"
-    t.datetime "updated_at", default: "now()"
+    t.datetime "created_at", default: '2018-10-26 03:44:28'
+    t.datetime "updated_at", default: '2018-10-26 03:44:28'
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -240,6 +240,11 @@ ActiveRecord::Schema.define(version: 20180721070234) do
     t.string "name",      limit: 255, null: false
     t.string "email",     limit: 255, null: false
     t.string "calnetuid", limit: 255, null: false
+  end
+
+  create_table "trigrams", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

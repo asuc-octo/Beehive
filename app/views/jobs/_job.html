@@ -1,0 +1,28 @@
+<div class="job_<%= cycle('even', 'odd') %>" id="job<%= job.id %>">
+  <div class="job_table_left">
+    <div class="job_title">
+      <%= link_to job.title, job_path(job) %>
+      <% if job.users.include?(@current_user) %>
+        <span class="glyphicon glyphicon-star" title="You are watching this job"></span>
+      <% end %>
+    </div>
+    <% job_tags = job.tag_list %>
+    <div>
+      <div class="job_desc">
+        <span id="job_desc_<%= job.id %>">
+          <%= truncate job.desc, :length => 200, :omission => '...' %>
+        </span>
+        <span id="job_<%= job.id %>" style="display:none;overflow:hidden;height0px;">
+          <%= job.desc %>
+        </span>
+        <div class="posted">
+          Last updated at: #{job.updated_at.strftime("%m/%d/%Y")}
+        </div>
+      </div>
+      <% if job_tags.present? %>
+        <%= render partial: 'jobs/tag', collection: job.tag_list %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<hr/>
