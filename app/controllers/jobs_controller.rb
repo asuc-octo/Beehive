@@ -68,24 +68,20 @@ class JobsController < ApplicationController
     query_parms[:per_page     ] = params[:per_page] || 10
 
     @query = params[:query] || nil
-    puts 'start find jobs'
     @jobs = Job.find_jobs(@query, query_parms)
-    puts 'end find jobs'
     # Set some view props
     @department_id = params[:department]   ? params[:department].to_i : 0
     @faculty_id    = params[:faculty]      ? params[:faculty].to_i    : 0
     @compensation  = params[:compensation]
 
-    puts 'start response'
+    Analytics.page(user_id: @current_user.id,
+                    name: 'Jobs',
+                    properties: { email: @current_user.email, name: @current_user.name })
+
     respond_to do |format|
       format.html { render :action => :index }
       format.xml { render :xml => @jobs }
     end
-    puts 'end response'
-
-    Analytics.page(user_id: @current_user.id,
-                    name: 'Jobs',
-                    properties: { email: @current_user.email, name: @current_user.name })
   end
 
   # GET /jobs/1
@@ -142,22 +138,25 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.xml
   def create
+    curr_job_params = job_params
     @faculty = Faculty.all # used in form
-    sponsor = Faculty.find(params[:faculty_id]) rescue nil
-    @job = Job.create(job_params)
-    @job.update(primary_contact_id: @current_user.id)
-    @current_owners = @job.owners.select{|i| i != @current_user}
-    owners = @job.owners + [@job.user]
-    @owners_list = User.all.select{|i| !(owners).include?(i)}.sort_by{|u| u.name}
+    @sponsor = Faculty.find(params[:faculty_id]) rescue nil
+    @job = Job.create(curr_job_params)
+    @job.primary_contact_id = @current_user.id
+    @job.user = @current_user
+    @job.handle_courses(curr_job_params[:course_names])
+    @job.handle_proglangs(curr_job_params[:proglang_names])
+    @job.handle_categories(curr_job_params[:category_names])
+    @job.save
     @job.tag_list = @job.field_list
 
     respond_to do |format|
       if @job.save
-        if sponsor
-          @sponsorship = Sponsorship.find_or_create_by(faculty_id: sponsor.id, job_id: @job.id)
+        if @sponsor
+          @sponsorship = Sponsorship.find_or_create_by(faculty_id: @sponsor.id, job_id: @job.id)
           @job.sponsorships << @sponsorship
         end
-        flash[:notice] = 'Thank your for submitting a listing. It should now be available for other people to browse.'
+        flash[:notice] = 'Thank you for submitting a listing. It should now be available for other people to browse.'
         format.html { redirect_to(@job) }
         format.xml  { render :xml => @job, :status => :created, :location => @job }
       else
@@ -171,43 +170,33 @@ class JobsController < ApplicationController
   # PUT /jobs/1
   # PUT /jobs/1.xml
   def update
-    job_params
-    @job = Job.find(params[:id])
-    changed_sponsors = update_sponsorships and false # TODO: remove when :active is resolved
-    @job.update_attribs(params)
-
+    curr_job_params = job_params
     @faculty = Faculty.all
-    @current_owners = @job.owners.select{|i| i != @current_user}
-    owners = @job.owners + [@job.user]
-    @owners_list = User.all.sort_by{|u| u.name}
+    @job = Job.find(params[:id])
+    @job.handle_courses(curr_job_params[:course_names])
+    @job.handle_proglangs(curr_job_params[:proglang_names])
+    @job.handle_categories(curr_job_params[:category_names])
+    @job.save
+    @job.tag_list = @job.field_list
+
+    was_closed = @job.status == Job::Status::Filled
+
+    # If the faculty sponsor changed, require activation again.
+    if update_sponsorships and false # TODO: remove when :active is resolved
+      @job.resend_email(true) # sends the email too
+    end
 
     respond_to do |format|
-      if @job.update_attributes(params[:job])
-        if params.has_key?(:delete_owners) and params[:delete_owners].to_i >= 0
-          @job.owners.delete(User.find(params[:delete_owners]))
+      if @job.update(curr_job_params)
+        if was_closed
+          @job.status = Job::Status::Open
         end
-        @job.tag_list = @job.field_list
-
-        # If the faculty sponsor changed, require activation again.
-        # (require the faculty to confirm again)
-        if changed_sponsors
-          @job.resend_email(true) # sends the email too
-        end
-
-        if params[:open_ended_end_date] == "true"
-          @job.end_date = nil
-        end
-
-        # Reopen the listing automatically
-        @job.status = Job::Status::Open
-
-        flash[:notice] = 'Listing was successfully updated.'
-
         @job.save
-
+        flash[:notice] = 'Listing was successfully updated.'
         format.html { redirect_to(@job) }
         format.xml  { head :ok }
       else
+        flash[:notice] = 'There was an error saving the edit.'
         format.html { render :action => "edit" }
         format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
       end
@@ -303,10 +292,6 @@ class JobsController < ApplicationController
 
   # Processes form data for Job.update
   def job_params
-    # TODO FIXME this sets the primary user as whoever is editing, which is quite broken.
-    params[:job][:user_id] = @current_user.id
-    params[:job][:end_date] = nil if params[:job].delete(:open_ended_end_date)
-
     # Handles the text_fields for categories, courses, and skills
     [:category, :course, :proglang].each do |k|
       params[:job]["#{k.to_s}_names".to_sym] = params[k][:name]
@@ -315,12 +300,13 @@ class JobsController < ApplicationController
     params[:job] = params.require(:job).permit(:title, :desc, :project_type,
       :user_id, :department_id, :status, :compensation, :num_positions,
       :end_date, :earliest_start_date, :latest_start_date,
-      :category_names, :course_names, :proglang_names, :question_1, :question_2, :question_3)
+      :category_names, :course_names, :proglang_names, :question_1, :question_2, :question_3, :tag_list)
     [:earliest_start_date, :latest_start_date, :end_date].each do |attribute|
       if params[:job][attribute].presence
         params[:job][attribute] = Date.parse(params[:job][attribute])
       end
     end
+
     params[:job]
   end
 

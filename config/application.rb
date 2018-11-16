@@ -50,7 +50,8 @@ module ResearchMatch
     # Tells Rails to use dynamic error pages
     config.exceptions_app = self.routes
 
-    ActsAsTaggableOn.strict_case_match = true
+    ActsAsTaggableOn.strict_case_match = false
+    ActsAsTaggableOn.force_lowercase = true
 
     config.action_mailer.delivery_method = :smtp
 

@@ -53,6 +53,7 @@ class Job < ActiveRecord::Base
   end
 
   acts_as_taggable
+  acts_as_taggable_on :courses, :categories, :proglangs
 
   ##################
   #  ASSOCIATIONS  #
@@ -86,12 +87,12 @@ class Job < ActiveRecord::Base
   #################
 
   validates_presence_of :title, :department, :project_type, :desc
-  validates_presence_of :earliest_start_date, :latest_start_date, :end_date
+  validates_presence_of :earliest_start_date, :latest_start_date
 
   # Validates that end dates are no earlier than right now.
   validates_each :end_date do |record, attr, value|
     record.errors.add attr, 'cannot be earlier than right now' if
-      value.present? && (value < Time.now - 1.hour)
+      value.present? && (value < Time.now - 1.hour) && record.open?
   end
 
   validates_numericality_of :num_positions, :greater_than_or_equal_to => 0,
@@ -138,19 +139,19 @@ class Job < ActiveRecord::Base
   end
 
   def open?
-    status == Job::Status::Open
+    self.status == Job::Status::Open
   end
   def pay?
-    (self.compensation & Compensation::Pay) > 0
+    self.compensation == Job::Compensation::Pay
   end
   def credit?
-    (self.compensation & Compensation::Credit) > 0
+    self.compensation == Job::Compensation::Credit
   end
   def owner?(user)
     self.user == user || owners.include?(user)
   end
   def open_ended_end_date
-    end_date.blank?
+    self.end_date.blank?
   end
 
   # Returns true if the specified user has admin rights (can view applications,
@@ -258,7 +259,7 @@ class Job < ActiveRecord::Base
     relation = relation.where(updated_at: (Time.now.midnight - 8.month)..(Time.now.midnight + 1.day))
     puts 'start by update date'
     # relation = relation.sort_by(&:updated_at).reverse
-    relation = relation.order(created_at: :desc)
+    # relation = relation.order(created_at: :desc)
     relation = relation.order(updated_at: :desc)
     puts 'finished processing'
     page = options[:page] || 1
@@ -416,6 +417,40 @@ class Job < ActiveRecord::Base
       ('credit' if self.credit?),
       ('paid' if self.pay?)
     ].compact.reject(&:blank?)
+  end
+
+  def handle_courses(course_names)
+    return if course_names.nil?
+    self.courses = []
+    course_array = []
+    course_array = course_names.split(',').uniq if course_names
+    course_array.each do |item|
+      self.courses << Course.find_or_create_by(name: item.upcase.strip)
+    end
+  end
+
+  # Parses the textbox list of categories from "signal processing,robotics"
+  # etc. to an enumerable object categories
+  def handle_categories(category_names)
+    return if category_names.nil?
+    self.categories = []
+    category_array = []
+    category_array = category_names.split(',').uniq if category_names
+    category_array.each do |cat|
+      self.categories << Category.find_or_create_by(name: cat.downcase.strip)
+    end
+  end
+
+  # Parses the textbox list of proglangs from "c++,python"
+  # etc. to an enumerable object proglangs
+  def handle_proglangs(proglang_names)
+    return if proglang_names.nil?
+    self.proglangs = []
+    proglang_array = []
+    proglang_array = proglang_names.split(',').uniq if proglang_names
+    proglang_array.each do |pl|
+      self.proglangs << Proglang.find_or_create_by(name: pl.upcase.strip)
+    end
   end
 
   # Reassigns it an activation code.

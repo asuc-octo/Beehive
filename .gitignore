@@ -25,7 +25,7 @@ config/database.yml
 # ignore extra dump files
 *.dump
 
-#ignore hiddern files
+#ignore hidden files
 .*
 app/assets/.*
 

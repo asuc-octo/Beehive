@@ -53,7 +53,7 @@
     %dd
       = f.text_field :latest_start_date, :class => 'datepicker form-control', value: @job.latest_start_date.present? ? @job.latest_start_date.strftime("%Y-%m-%d") : nil
     %dt
-      = f.label :end_date, 'End date *'
+      = f.label :end_date, 'End date'
     %dd
       = f.text_field :end_date, :class => 'datepicker form-control', value: @job.end_date.present? ? @job.end_date.strftime("%Y-%m-%d") : nil
     %dt

@@ -5,7 +5,7 @@
   <td><%= link_to job.title, job_path(job) %></td>
   <td>
     <% if mine -%>
-      <%= job.user.nil? ? 'None' + (applic.unread? ? '[updated]' : '') : link_to(job.contacter.name, user_path(job.primary_contact_id)) %>
+      <%= job.user.nil? ? 'None' + (applic.unread? ? '[updated]' : '') : link_to(job.contacter.name, user_path(job.user_id)) %>
     <% else -%>
       <%= link_to applic.user.name, applic_path(applic) -%>
     <% end %>
