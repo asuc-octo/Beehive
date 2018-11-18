@@ -35,7 +35,7 @@ end
 module ActionView
   module Helpers
     def tag_search_path(tagstring, tag)
-      if tagstring == ''
+      if tagstring == '' || !tagstring
         new_tagstring = tag
       elsif tagstring.include?(tag)
         new_tagstring = tagstring.split(',').reject{|e| e == tag}.join(',')
