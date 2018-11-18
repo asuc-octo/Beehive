@@ -306,7 +306,7 @@ class Job < ActiveRecord::Base
       relation = relation.where(tables['jobs'][:status].in_any(statuses))
     end
 
-    relation = relation.where(tables['tags'][:name].matches(options[:tags])) if options[:tags].present?
+    relation = relation.where(tables['tags'][:name].matches_any(options[:tags].split(','))) if options[:tags].present?
     relation = relation.limit(options[:limit]) if options[:limit]
     return relation
   end

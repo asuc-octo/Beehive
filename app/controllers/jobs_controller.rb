@@ -73,6 +73,7 @@ class JobsController < ApplicationController
     @department_id = params[:department]   ? params[:department].to_i : 0
     @faculty_id    = params[:faculty]      ? params[:faculty].to_i    : 0
     @compensation  = params[:compensation]
+    @tags          = params[:tags] || ''
 
     Analytics.page(user_id: @current_user.id,
                     name: 'Jobs',

@@ -34,8 +34,15 @@ end
 
 module ActionView
   module Helpers
-    def tag_search_path(tagstring)
-      "#{jobs_path}?tags=#{tagstring}"
+    def tag_search_path(tagstring, tag)
+      if tagstring == ''
+        new_tagstring = tag
+      elsif tagstring.include?(tag)
+        new_tagstring = tagstring.split(',').reject{|e| e == tag}.join(',')
+      else
+        new_tagstring = tagstring + ',' + tag
+      end
+      "#{jobs_path}?tags=#{new_tagstring}"
     end
 
     ThreeStateLabels = {true=>'Yes', false=>'No', nil=>'N/A'}

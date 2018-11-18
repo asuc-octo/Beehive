@@ -8,7 +8,7 @@
       <div class="card card-x">
         <%= form_tag(jobs_search_path, :method => "get") do %>
           <div class="col-md-10 job-search-input">
-            <%= text_field_tag :query, @query, :placeholder => "Start typing what you want to search...", :class => "form-control", :oninput => "submit();" , :autofocus => true %>
+            <%= text_field_tag :query, @query, :placeholder => "Start typing what you want to search...", :class => "form-control", :autofocus => true %>
           </div>
           <div class="col-md-2">
             <%= submit_tag @query, :class => "btn btn-info pull-right", :id => "do-job-search", :value => "Search" %>
@@ -35,6 +35,13 @@
         </div>
       </div>
       <div class="col-lg-8 col-sm-12">
+        <% if @tags.present? %>
+          <div class="job_tags">
+            <%= image_tag 'tag.gif' %>
+            <strong class="tags-icon">Tags:</strong>
+            <%= render :partial => "tag", :collection => @tags.split(',') %>
+          </div>
+        <% end %>
         <div class="card card-x job-list">
           <% if @jobs.empty? %>
             <h3>No matching listings were found! Try a different search.</h3>
