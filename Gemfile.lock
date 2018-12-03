@@ -311,7 +311,7 @@ GEM
     tilt (2.0.8)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    ucb_ldap (3.0.0)
+    ucb_ldap (3.1.1)
       net-ldap (= 0.16.1)
     uglifier (4.1.15)
       execjs (>= 0.3.0, < 3)
@@ -373,7 +373,7 @@ DEPENDENCIES
   stackprof
   syck
   therubyracer
-  ucb_ldap (= 3.0.0)
+  ucb_ldap (>= 3.1.1)
   uglifier
   will_paginate (~> 3.0.pre2)
   will_paginate-bootstrap
