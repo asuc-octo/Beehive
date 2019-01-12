@@ -37,8 +37,8 @@
       <div class="col-lg-8 col-sm-12">
         <% if @tags.present? %>
           <div class="job_tags">
-            <%= image_tag 'tag.gif' %>
-            <strong class="tags-icon">Tags:</strong>
+            <%= image_tag "tag.gif", class: "tags-icon" %>
+            <strong class="tags-label">Tags:</strong>
             <%= render :partial => "tag", :collection => @tags.split(',') %>
           </div>
         <% end %>
