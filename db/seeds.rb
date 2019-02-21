@@ -21,4 +21,3 @@ if Rails.env == 'development' then
     f.save
   end
 end
-

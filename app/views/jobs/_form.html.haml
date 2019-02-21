@@ -19,7 +19,7 @@
     %dt
       = f.label :department, 'Department *'
     %dd
-      = f.select :department_id, Department.all.collect {|c| [c.name, c.id]}
+      = f.select :department_id, Department.all.order(:name).collect {|c| [c.name, c.id]}
     %dt
       = f.label :project_type, 'Project Type *'
     %dd
