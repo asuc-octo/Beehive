@@ -20,4 +20,12 @@
     <%= file_field_tag 'user_csv', :accept => 'text/csv' %>
     <%= submit_tag 'Upload' %>
   <% end %>
+  <br/>
+  <h2>Send Email</h2>
+  Paste message to email to all users.<br/><br/>
+  <% form_tag(mail_path) do %>
+    Subject: <br/><%= text_field_tag 'subject', '' %><br/>
+    Body: <%= text_area_tag 'body', '' %>
+    <%= submit_tag 'Send' %>
+  <% end %>
 </div>
