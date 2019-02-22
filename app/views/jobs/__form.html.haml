@@ -9,7 +9,9 @@
       %ul
         - @job.errors.full_messages.each do |msg|
           %li= msg
-  %p.center
+  %p.left
+    If this is your first time on Beehive, please check out our #{link_to "About Us", "/team"} page to learn how Beehive differs from Berkeley's other programs and platforms.
+  %p.left
     Please feel free to use any form field you deem necessary—not all are required, but they may provide undergrads with useful information about your project!
   %dl.dl-horizontal
     %dt
@@ -31,7 +33,7 @@
     %dt
       = f.label :desc, 'Description *'
     %dd
-      = f.text_area :desc, { rows: 12, class: "form-control" }
+      = f.text_area :desc, { rows: 12, class: "form-control", placeholder: "Describe your project! You may additionally provide a link to your own application (through Google Forms, for example) if you prefer." }
     %dt
       = f.label :category, 'Categories'
     %dd
@@ -66,7 +68,7 @@
       = f.select :status, options_for_select( Job::Status::All, @job.status )
 
   .row
-    %h2.center Ask a Potential Researcher
+    %h2.left Ask a Potential Researcher
     %p.center
       Questions
       %b required
