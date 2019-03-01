@@ -43,6 +43,14 @@
                 <li><%= link_to "Post", new_job_path %></li>
                 <li><%= link_to "", new_job_path, :class => "glyphicon glyphicon-plus" %></li>
 
+                <li><%= link_to 'About Us', team_path%></li>
+                <li><%= link_to "", team_path, :class => "glyphicon glyphicon-pencil" %></li>
+
+                <li><%= link_to 'What is Research?', intro_path %></li>
+                <li><%= link_to "", intro_path, :class => "glyphicon glyphicon-education" %></li>
+
+                <li><%= link_to 'Contact Us', contact_us_path %></li>
+                <li><%= link_to "", contact_us_path, :class => "glyphicon glyphicon-envelope" %></li>
 
                 <% if @current_user.admin? %>
                   <li><%= link_to "Statistics", statistics_path %></li>
@@ -61,9 +69,6 @@
                 <% end %>
                 <ul class="dropdown-menu">
                   <li><%= link_to 'Profile', profile_path %></li>
-                  <li><%= link_to 'About Us', team_path%></li>
-                  <li><%= link_to 'About Research', intro_path %></li>
-                  <li><%= link_to 'Contact Us', contact_us_path %></li>
                   <li><%= link_to 'Log Out', logout_path, :class => "login-button" %></li>
                 </ul>
               </li>
@@ -72,9 +77,6 @@
                 <span class="caret"></span>
                 <ul class="dropdown-menu dropdown-menu-mobile">
                   <li><%= link_to 'Profile', profile_path %></li>
-                  <li><%= link_to 'About', team_path%></li>
-                   <li><%= link_to 'Research', intro_path %></li>
-                  <li><%= link_to 'Contact', contact_us_path %></li>
                   <li><%= link_to 'Log Out', logout_path, :class => "login-button" %></li>
                 </ul>
               </a></li>
