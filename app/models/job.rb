@@ -169,24 +169,22 @@ class Job < ActiveRecord::Base
       actions.push('delete')
     end
 
-    unless owner?(user)
-      applic = applics.find_by_user_id(user) if open?
-      if self.user != user && !applic
-        if users.include?(user)
-          actions.push('unwatch')
-        else
-          actions.push('watch')
-        end
+    applic = applics.find_by_user_id(user) if open?
+    if (!(owner?(user)) && !applic) || (can_admin?(user))
+      if users.include?(user)
+        actions.push('unwatch')
+      else
+        actions.push('watch')
       end
 
-      if open? || applic
-        if !applic
-          actions.push('apply')
-        elsif applic.applied
-          actions.push('applied')
-        else
-          actions.push('resume')
-        end
+      actions.push('apply') if open? || can_admin?(user)
+    end
+
+    if applic
+      if applic.applied
+        actions.push('applied')
+      else
+        actions.push('resume')
       end
     end
 

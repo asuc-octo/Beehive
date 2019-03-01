@@ -23,6 +23,14 @@
         <%= file_field_tag 'user_csv', :accept => 'text/csv' %>
         <%= submit_tag 'Upload' %>
       <% end %>
+      <br/>
+      <h2>Send Email</h2>
+      Paste message to email to all users.<br/><br/>
+      <%= form_tag(admin_send_email_path, :method => "post") do %>
+        <%= text_field_tag 'subject', 'Subject' %><br/>
+        <%= text_area_tag 'body', 'Body' %><br/>
+        <%= submit_tag 'Send' %>
+      <% end %>
     </div>
   </div>
 </div>
