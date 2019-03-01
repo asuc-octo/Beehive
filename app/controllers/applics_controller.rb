@@ -17,7 +17,7 @@ class ApplicsController < ApplicationController
   before_filter :job_accessible, :only => [ :new, :create, :index ]
 
   # Prohibits a user from applying to his/her own job
-  before_filter :watch_apply_ok_for_job, :only => [ :new, :create ]
+  # before_filter :watch_apply_ok_for_job, :only => [ :new, :create ]
 
   protected
   def find_objects

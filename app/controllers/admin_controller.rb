@@ -107,4 +107,15 @@ class AdminController < ApplicationController
     File.delete(csv_file_handle)
     redirect_to admin_path
   end
+
+  def send_email
+    body = params[:body]
+    subject = params[:subject]
+    recipients = User.where(name: "Leon Ming")
+    recipients.each do |recipient|
+      AdvertisingMailer.execute(body, subject, recipient).deliver_now
+    end
+    flash[:notice] = 'Email sent!'
+    redirect_to admin_path
+  end
 end

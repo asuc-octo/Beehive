@@ -1,10 +1,8 @@
 class AdvertisingMailer < ApplicationMailer
-  def execute(body,subject)
+  def execute(body,subject,recipient)
     # emails = User.all.collect(&:email).select{|email| email.present?}
     @body = body
-    emails = [ENV["test_email_1"], ENV["test_email_2"]]
-    emails.each do |a|
-      mail :to => a, :subject => subject
-    end
+    @recipient = recipient
+    mail(:to => @recipient.email, :subject => subject)
   end
 end
