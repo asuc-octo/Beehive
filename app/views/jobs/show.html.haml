@@ -37,8 +37,8 @@
           %span.glyphicon.glyphicon-star{:title => "You are watching this job"}
       - if @job.tag_list.present?
         .job_tags
-          = image_tag 'tag.gif'
-          %strong.tags-icon Tags:
+          = image_tag 'tag.gif', class: "tags-icon"
+          %strong.tags-label Tags:
           = render :partial => "tag", :collection => @job.tag_list
       %dl.dl-horizontal
         %dt Project Type

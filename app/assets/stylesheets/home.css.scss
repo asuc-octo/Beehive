@@ -42,8 +42,8 @@
       transform: scale(1.1);
       z-index: -1;
       background: linear-gradient(to bottom, lighten(rgba(254, 218, 138, 0.8), 20%) 0%,
-                                             lighten(rgba(254, 218, 138, 0.35), 20%) 100%), 
-                                             url("engineering2.jpg") no-repeat center center;
+                                             lighten(rgba(254, 218, 138, 0.35), 20%) 100%),
+                                             image-url("engineering2.jpg") no-repeat center center;
       -moz-background-size: cover;
       -o-background-size: cover;
       background-size: cover;
@@ -60,7 +60,7 @@
       span {
         font-size: 4em;
       }
-    } 
+    }
   }
   .main-top {
     margin-left: auto;
@@ -74,7 +74,7 @@
       margin-left: 10%;
       width: 40%;
     }
-    
+
     .text-info-small {
       font-size: 1.6em;
       font-weight: 400;
@@ -91,7 +91,7 @@
     }
   }
   .main-icons {
-    background: url("main_icons.png") no-repeat center center;
+    background: image-url("main_icons.png") no-repeat center center;
     background-size: contain;
     height: 140px;
     margin-bottom: 25px;
@@ -132,7 +132,7 @@
       display: block;
       margin: 0 auto;
     }
-  
+
     .smartmatch {
       .title {
         color: #003366;
@@ -182,4 +182,3 @@
   }
 
 }
-

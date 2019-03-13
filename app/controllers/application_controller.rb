@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
 
   def set_current_user
     if Rails.env.staging?
-      user = User.where(:name => 'Beehive Team').first
+      user = User.find_by(:name => 'Beehive Team')
       UserSession.new(user).save
       session[:user_id] = user.id
       flash[:notice] = "Signed in automatically as Beehive Team"

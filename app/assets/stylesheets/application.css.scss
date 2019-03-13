@@ -68,14 +68,14 @@ pre {
 .navbar.navbar-default {
   z-index: 10;
   a.navbar-brand {
-    background: url("beehive_logo.png") no-repeat center center;
+    background: image-url("beehive_logo.png") no-repeat center center;
     background-size: contain;
     width: 120px;
     margin-left: 10px;
     margin-right: 20px;
   }
   a.navbar-mobile-brand {
-    background: url("beehive_icon.png") no-repeat center center;
+    background: image-url("beehive_icon.png") no-repeat center center;
     background-size: contain;
     width: auto;
     margin: 0px 5px 0px 20px;

@@ -23,7 +23,11 @@ ResearchMatch::Application.configure do
   )
 
   # Specifies the header that your server uses for sending files
-  config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  config.action_dispatch.x_sendfile_header = nil
+
+  config.assets.compile = false
+  config.serve_static_assets = true
 
   config.assets.js_compressor = :uglifier
 

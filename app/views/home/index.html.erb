@@ -13,12 +13,12 @@
     </div>
     <div class="main-top-info">
       <div class="text-info-small">
-        Search and filter over
+        Explore
         <span>
           <%= Job.find_jobs.count %>
         </span>
-        exciting projects.
-        Joining a project has never been easier!
+        exciting projects and counting.
+        Starting research has never been easier!
       </div>
     </div>
     <span class="main-icons-container">
@@ -29,10 +29,11 @@
     <% if @current_user.present? && @current_user.undergrad? %>
       <%= link_to "EXPLORE", jobs_path, class: "btn btn-cal btn-landing" %>
     <% elsif @current_user.present? %>
-      <%= link_to "EXPLORE", new_job_path, class: "btn btn-cal btn-landing" %>
+      <%= link_to "EXPLORE", dashboard_path, class: "btn btn-cal btn-landing" %>
     <% else %>
       <%= link_to "EXPLORE", login_path, class: "btn btn-cal btn-landing" %>
     <% end %>
+    <%= link_to "ABOUT US", team_path, class: "btn btn-cal btn-landing" %>
   </div>
   <div class="row main-bottom">
     <div class="col-md-4 col-landing-card">
@@ -68,5 +69,4 @@
       </div>
     </div>
   </div>
-  <div class="heightfix"></div>
 </div>

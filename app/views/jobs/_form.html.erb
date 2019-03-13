@@ -1,0 +1,135 @@
+<%= javascript_include_tag 'autocomplete_setup' %>
+<%= form_for(@job) do |f| %>
+    <% if @job.errors.any? %>
+        <div id="error_explanation">
+            <h2>
+                <span class="urgent">
+                    <%= pluralize(@job.errors.count, "error") %>
+                    prevented this listing from being submitted:
+                </span>
+            </h2>
+            <ul>
+                <% @job.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    <p class="left">
+        If this is your first time on Beehive, please check out our <%= link_to "About Us", "/team" %> page to learn how Beehive differs from Berkeley's other programs and platforms.
+    </p>
+    <p class="left">
+        Please feel free to use any form field you deem necessary—not all are required, but they may provide undergrads with useful information about your project!
+    </p>
+    <dl class="dl-horizontal">
+        <dt>
+            <%= f.label :title, 'Title *' %>
+        </dt>
+        <dd>
+            <%= f.text_field :title, class: "form-control" %>
+        </dd>
+        <dt>
+            <%= f.label :department, 'Department *' %>
+        </dt>
+        <dd>
+            <%= f.select :department_id, Department.all.order(:name).collect {|c| [c.name, c.id]}, include_blank: "Select Department" %>
+        </dd>
+        <dt>
+            <%= f.label :project_type, 'Project Type *' %>
+        </dt>
+        <dd>
+            <%= f.select :project_type, @job.get_all_project_strings %>
+        </dd>
+        <dt>
+            <%= f.label :faculty_sponsor, 'Faculty sponsor' %>
+        </dt>
+        <dd>
+            <%= select_tag :faculty_id, '<option value="-1">Select Sponsor</option>'.html_safe + options_from_collection_for_select(@faculty, :id, :name, @faculty_id || (@job.faculties.first.nil? ? 0 : @job.faculties.first.id)) %>
+        </dd>
+        <dt>
+            <%= f.label :desc, 'Description *' %>
+        </dt>
+        <dd>
+            <%= f.text_area :desc, { rows: 12, class: "form-control", style: "padding-top: 1%", placeholder: "Describe your project! You may additionally provide a link to your own application (through Google Forms, for example) if you prefer." } %>
+        </dd>
+        <dt>
+            <%= f.label :category, 'Categories' %>
+        </dt>
+        <dd>
+            <%= text_field :category, :name, :value => @job.category_list_of_job(true), :class => 'form-control', :id => 'categories-input', :placeholder => "(e.g. signal processing, environmental engineering)" %>
+        </dd>
+        <dt>
+            <%= f.label :course, 'Relevant courses' %>
+        </dt>
+        <dd>
+            <%= text_field :course, :name, :value => @job.course_list_of_job(true), :class => 'form-control', :id => 'courses-input', :placeholder => "(e.g. CS61A, BioE140L)" %>
+        </dd>
+        <dt>
+            <%= f.label :proglang, 'Relevant skills' %>
+        </dt>
+        <dd>
+            <%= text_field :proglang, :name, :value => @job.proglang_list_of_job(true), :class => 'form-control', :id => 'proglangs-input', :placeholder => "(e.g. Python, machine shop)" %>
+        </dd>
+        <dt>
+            <%= f.label :earliest_start_date, 'Earliest start date *' %>
+        </dt>
+        <dd>
+            <%= f.text_field :earliest_start_date, :class => 'datepicker form-control', value: @job.earliest_start_date.present? ? @job.earliest_start_date.strftime("%Y-%m-%d") : nil %>
+        </dd>
+        <dt>
+            <%= f.label :latest_start_date, 'Latest start date *' %>
+        </dt>
+        <dd>
+            <%= f.text_field :latest_start_date, :class => 'datepicker form-control', value: @job.latest_start_date.present? ? @job.latest_start_date.strftime("%Y-%m-%d") : nil %>
+        </dd>
+        <dt>
+            <%= f.label :end_date, 'End date' %>
+        </dt>
+        <dd>
+            <%= f.text_field :end_date, :class => 'datepicker form-control', value: @job.end_date.present? ? @job.end_date.strftime("%Y-%m-%d") : nil %>
+        </dd>
+        <dt>
+            <%= f.label :compensation, 'Form of Compensation' %>
+        </dt>
+        <dd>
+            <%= f.select :compensation, options_for_select(Job::Compensation::All, @job.compensation) %>
+        </dd>
+        <dt>
+            <%= f.label :status, 'Status' %>
+        </dt>
+        <dd>
+            <%= f.select :status, options_for_select(Job::Status::All, @job.status) %>
+        </dd>
+    </dl>
+    <div class="row">
+        <dl class="dl-horizontal">
+            <dd>Questions you would like applicants to answer, if any.</dd>
+            <dt>
+              <%= f.label :question_1, 'Question 1' %>
+            </dt>
+            <dd>
+              <%= f.text_field :question_1, class: "form-control", placeholder: "(e.g. why are you interested in this project?)" %>
+            </dd>
+            <dt>
+              <%= f.label :question_2, 'Question 2' %>
+            </dt>
+            <dd>
+              <%= f.text_field :question_2, class: "form-control", placeholder: "(e.g. what do you want to get out of this experience?)" %>
+            </dd>
+            <dt>
+              <%= f.label :question_3, 'Question 3' %>
+            </dt>
+            <dd>
+              <%= f.text_field :question_3, class: "form-control" %>
+            </dd>
+        </dl>
+    </div>
+    <div class="row">
+        <% if ['new', 'create'].include?(controller.action_name.downcase) %>
+            <%= f.submit 'Post', class: "btn btn-primary" %>
+        <% else %>
+            <%= f.submit 'Update', class: "btn btn-info" %>
+        <% end %>
+        <%= link_to "Cancel", jobs_path, class: "btn btn-danger" %>
+    </div>
+<% end %>

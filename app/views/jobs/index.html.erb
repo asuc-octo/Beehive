@@ -20,7 +20,7 @@
       <div class="col-lg-4 col-sm-12" id="advanced_search">
         <div class="card card-x">
           <%= label_tag :department, "Department", class: "filter-dropdown-label" %>
-          <%= select_tag :department, options_for_select([["All Departments",0]]) + options_from_collection_for_select(Department.all, "id", "name", @department_id), class: 'medium data-dropdown content' %>
+          <%= select_tag :department, options_for_select([["All Departments",0]]) + options_from_collection_for_select(Department.all.order(:name), "id", "name", @department_id), class: 'medium data-dropdown content' %>
           <%= label_tag :compensation, "Compensation", class: "filter-dropdown-label" %>
           <%= select_tag :compensation, options_for_select({
            "Don't care" => Job::Compensation::None,
@@ -37,8 +37,8 @@
       <div class="col-lg-8 col-sm-12">
         <% if @tags.present? %>
           <div class="job_tags">
-            <%= image_tag 'tag.gif' %>
-            <strong class="tags-icon">Tags:</strong>
+            <%= image_tag "tag.gif", class: "tags-icon" %>
+            <strong class="tags-label">Tags:</strong>
             <%= render :partial => "tag", :collection => @tags.split(',') %>
           </div>
         <% end %>
