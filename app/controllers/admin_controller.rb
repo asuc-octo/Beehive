@@ -111,7 +111,13 @@ class AdminController < ApplicationController
   def send_email
     body = params[:body]
     subject = params[:subject]
-    recipients = User.where(name: "Leon Ming")
+    recipients = params[:recipients]
+    case recipients
+    when 'group1'
+      recipients = User.where(name: "Kaitlyn Gunadhi")
+    when 'group2'
+      recipients = User.where(name: "Leon Ming")
+    end
     recipients.each do |recipient|
       AdvertisingMailer.execute(body, subject, recipient).deliver_now
     end

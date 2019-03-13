@@ -27,6 +27,7 @@
       <h2>Send Email</h2>
       Paste message to email to all users.<br/><br/>
       <%= form_tag(admin_send_email_path, :method => "post") do %>
+        <%= select_tag 'recipients', options_for_select([['Select Recipients', nil], 'group1', 'group2']) %><br/>
         <%= text_field_tag 'subject', 'Subject' %><br/>
         <%= text_area_tag 'body', 'Body' %><br/>
         <%= submit_tag 'Send' %>
