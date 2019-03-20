@@ -36,10 +36,6 @@ class AdminController < ApplicationController
       end
     end
     @non_admins = []
-    active_undergrad = User.where( :user_type => 0, last_login_at: (Time.current - 1.year)..Time.current)
-    active_grad = User.where( :user_type => 1, last_login_at: (Time.current - 1.year)..Time.current)
-    active_fs = User.where( :user_type => 2..3, last_login_at: (Time.current - 1.year)..Time.current)
-    active_all = User.where( :user_type => 0..3, last_login_at: (Time.current - 1.year)..Time.current)
     User.all.each do |i|
       if i.user_type == User::Types::Undergrad
         @non_admins << [i.name + ' - Undergrad', i.email]
@@ -113,6 +109,11 @@ class AdminController < ApplicationController
   end
 
   def send_email
+    active_undergrad = User.where( :user_type => 0, last_login_at: (Time.current - 1.year)..Time.current)
+    active_grad = User.where( :user_type => 1, last_login_at: (Time.current - 1.year)..Time.current)
+    active_fs = User.where( :user_type => 2..3, last_login_at: (Time.current - 1.year)..Time.current)
+    active_all = User.where( :user_type => 0..3, last_login_at: (Time.current - 1.year)..Time.current)
+    
     body = params[:body]
     subject = params[:subject]
     recipients = User.where(name: "Leon Ming")
