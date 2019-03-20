@@ -109,20 +109,23 @@ class AdminController < ApplicationController
   end
 
   def send_email
-    active_undergrad = User.where( :user_type => 0, last_login_at: (Time.current - 1.year)..Time.current)
-    active_grad = User.where( :user_type => 1, last_login_at: (Time.current - 1.year)..Time.current)
-    active_fs = User.where( :user_type => 2..3, last_login_at: (Time.current - 1.year)..Time.current)
-    active_all = User.where( :user_type => 0..3, last_login_at: (Time.current - 1.year)..Time.current)
-    
     body = params[:body]
     subject = params[:subject]
-    recipients = params[:recipients]
-    case recipients
-    when 'group1'
-      recipients = User.where(name: "Kaitlyn Gunadhi")
-    when 'group2'
-      recipients = User.where(name: "Leon Ming")
+    recipient_type = params[:recipients]
+
+    case recipient_type
+    when 'active_undergrad'
+      recipients = User.where(:user_type => 0, last_login_at: (Time.current - 1.year)..Time.current)
+    when 'active_grad'
+      recipients = User.where(:user_type => 1, last_login_at: (Time.current - 1.year)..Time.current)
+    when 'active_fs'
+      recipients = User.where(:user_type => 2..3, last_login_at: (Time.current - 1.year)..Time.current)
+    when 'active_all'
+      recipients = User.where(:user_type => 0..3, last_login_at: (Time.current - 1.year)..Time.current)
+    when 'test_to_leon'
+      recipients = User.where(email: "leon.ming@berkeley.edu")
     end
+
     recipients.each do |recipient|
       AdvertisingMailer.execute(body, subject, recipient).deliver_now
     end
