@@ -7,4 +7,13 @@ class PostingMailer < ApplicationMailer
   def long_time_no_update_notice email
     mail(:to => email, :subject => "Please update your Beehive job posting").deliver
   end
+
+  def new_listings(body,subject,recipient)
+    # emails = User.all.collect(&:email).select{|email| email.present?}
+    @body = body
+    @recipient = recipient
+    # @listing_1 = Job.
+    # @listing_2 = Job.
+    mail(:to => @recipient.email, :subject => subject)
+  end
 end
