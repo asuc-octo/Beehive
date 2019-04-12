@@ -124,6 +124,8 @@ class AdminController < ApplicationController
       recipients = User.where(:user_type => 0..3, last_login_at: (Time.current - 1.year)..Time.current)
     when 'test_to_leon'
       recipients = User.where(email: "leon.ming@berkeley.edu")
+    when 'test_to_kaitlyn'
+      recipients = User.where(email: "kgunadhi@berkeley.edu")
     end
 
     recipients.each do |recipient|
