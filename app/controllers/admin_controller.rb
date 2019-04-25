@@ -129,7 +129,7 @@ class AdminController < ApplicationController
     end
 
     recipients.each do |recipient|
-      AdvertisingMailer.execute(body, subject, recipient).deliver_now
+      AdvertisingMailer.advertising_email(body, subject, recipient).deliver_now
     end
     flash[:notice] = 'Email sent!'
     redirect_to admin_path

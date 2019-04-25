@@ -1,13 +1,16 @@
 ResearchMatch::Application.routes.draw do
 
-  get "contact_us/contact", :as => :contact_us
-  post "contact_us/send_email", :as => :feedback_email_link
-
   resources :pictures
 
-  # Jobs
+  # Home
+  get '/' => 'home#index', :as => :home
+
+  # Dashboard
+  get '/dashboard' => 'dashboard#index', :as => :dashboard
+
+  # Browse
   scope '/jobs', :as => :jobs do
-    get  '/search' => 'jobs#index', :as => :search
+    get '/search' => 'jobs#index', :as => :search
   end
 
   resources :jobs do
@@ -20,11 +23,18 @@ ResearchMatch::Application.routes.draw do
     end
   end
 
-  #Intro
+  # About Us
+  get '/team', :to => 'team#team'
+
+  # What Is Research?
   get '/intro', :to => 'intro#intro'
 
-  #Team
-  get '/team', :to => 'team#team'
+  # Contact Us
+  get "contact_us/contact", :as => :contact_us
+  post "contact_us/send_email", :as => :feedback_email_link
+
+  # Statistics
+  get '/statistics'      => 'statistics#index', :as => :statistics
 
   # Applics
   scope :applics do
@@ -52,21 +62,17 @@ ResearchMatch::Application.routes.draw do
 
   # Users
   resources :users
-  get  '/dashboard' => 'dashboard#index', :as => :dashboard
   get  '/profile'   => 'users#profile', :as => :profile
 
   # Faculty
   resources :faculties, only: :show
-  # Home
-  get  '/' => 'home#index', :as => :home
 
   # Orgs
   resources :orgs, param: :abbr
   post '/orgs/:abbr/curate' => 'orgs#curate', :as => :orgs_curate
   post '/orgs/:abbr/uncurate' => 'orgs#uncurate', :as => :orgs_uncurate
 
-  # Statistics
-  get '/statistics'      => 'statistics#index', :as => :statistics
+
 
   # Autocomplete routes
   get '/categories/json' => 'categories#json', :as => :categories_json, :defaults => {format: 'json'}
@@ -77,6 +83,9 @@ ResearchMatch::Application.routes.draw do
   get '/admin' => 'admin#index', :as => :admin
   post '/admin/upload' => 'admin#upload', :as => :admin_upload
   post '/admin/send_email' => 'admin#send_email', :as => :admin_send_email
+
+  get '/rails/mailers' => "rails/mailers#index"
+  get '/rails/mailers/*path' => "rails/mailers#preview"
 
   # get  '/faculties' => 'faculties#index', :as => :faculties
   # put  'faculties/:id' => 'faculties#update', :as => :faculties_update

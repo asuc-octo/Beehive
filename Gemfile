@@ -41,6 +41,7 @@ group :development do
   gem 'bullet'
   gem 'annotate'
   gem 'byebug'
+  gem "letter_opener"
 end
 
 # Testing

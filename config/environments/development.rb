@@ -25,6 +25,7 @@ ResearchMatch::Application.configure do
 
   # ActionMailer
   config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :letter_opener
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin

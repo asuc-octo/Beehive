@@ -1,0 +1,173 @@
+<% content_for :title, @job.title %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 col-xs-6 no-padding">
+      <h1>Position Details</h1>
+    </div>
+    <div class="col-md-7 col-xs-6 no-padding">
+      <div class="view-job-actions pull-right">
+        <% @actions.each do |a| %>
+          <% case a %>
+          <% when 'edit' %>
+            <%= link_to 'edit', edit_job_path(@job), class: "btn btn-info" %>
+            <%= link_to 'delete', delete_job_path(@job), class: "btn btn-danger" %>
+          <% when 'watch' %>
+            <%= link_to 'watch', {:controller => :jobs, :action => :watch, :id => @job.id}, class: 'btn btn-primary' %>
+          <% when 'unwatch' %>
+            <%= link_to 'unwatch', unwatch_job_path(@job), class: "btn btn-primary" %>
+          <% when 'apply' %>
+            <%= link_to 'apply', new_job_applic_path(@job), class: 'btn btn-success' %>
+          <% when 'applied' %>
+            <% if @job.applics.find_by_user_id(@current_user).status == "accepted" %>
+              <h2>
+                <div class="label label-success">Accepted</div>
+              </h2>
+            <% elsif @job.applics.find_by_user_id(@current_user).status == "not accepted" %>
+              <h4>
+                <div class="label label-info">Not Accepted</div>
+              </h4>
+            <% else %>
+              <h3>
+                <div class="label label-success">Applied</div>
+              </h3>
+            <% end %>
+          <% when 'resume' %>
+            <%= link_to 'resume', new_job_applic_path(@job), class: 'btn btn-success' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="row">
+      <div class="view-job-title">
+        <%= @job.title %>
+        <% if @job.users.include?(@current_user) %>
+          <span class="glyphicon glyphicon-star" title="You are watching this job"></span>
+        <% end %>
+      </div>
+      <% if @job.tag_list.present? %>
+        <div class="job_tags">
+          <%= image_tag 'tag.gif', class: "tags-icon" %>
+          <strong class="tags-label">Tags:</strong>
+          <%= render :partial => "tag", :collection => @job.tag_list %>
+        </div>
+      <% end %>
+      <dl class="dl-horizontal">
+        <dt>Project Type</dt>
+        <dd>
+          <%= @job.project_string %>
+        </dd>
+        <dt>Contact</dt>
+        <dd>
+          <%= @job.user.nil? ? 'anonymous' : link_to(@job.contacter.name, :controller => :users, :action => :show, :id => @job.primary_contact_id) %>
+        </dd>
+        <dt>Sponsored by</dt>
+        <dd>
+          <% @job.sponsorships.each do |i| %>
+            <% if i.faculty %>
+              <%= link_to i.faculty.name, faculty_path(i.faculty) %>
+            <% end %>
+          <% end %>
+        </dd>
+        <dt>Description</dt>
+        <dd>
+          <%= simple_format @job.desc %>
+        </dd>
+        <dt>Posted</dt>
+        <dd>
+          <%= @job.created_at.strftime("%m/%d/%Y") %>
+        </dd>
+        <dt>Last Updated</dt>
+        <dd>
+          <%= @job.updated_at.strftime("%m/%d/%Y") %>
+        </dd>
+        <dt>Department</dt>
+        <dd>
+          <%= link_to @job.department.name, jobs_search_path(:department => @job.department.id), :class => 'tags' %>
+        </dd>
+        <dt>Category</dt>
+        <dd>
+          <% if !@job.category_list_of_job.empty? %>
+            <%= h @job.category_list_of_job(true) %>
+          <% else %>
+            (none)
+          <% end %>
+        </dd>
+        <dt>Required courses</dt>
+        <dd>
+          <% if !@job.course_list_of_job.empty? %>
+            <%= h @job.course_list_of_job(true) %>
+          <% else %>
+            (none)
+          <% end %>
+        </dd>
+        <dt>Desired skills</dt>
+        <dd>
+          <% if !@job.proglang_list_of_job.empty? %>
+            <%= h @job.proglang_list_of_job(true) %>
+          <% else %>
+            (none)
+          <% end %>
+        </dd>
+        <dt>Earliest start date</dt>
+        <dd>
+          <%= @job.earliest_start_date.strftime("%b %e, %Y") %>
+        </dd>
+        <dt>Latest start date</dt>
+        <dd>
+          <%= @job.latest_start_date.strftime("%b %e, %Y") %>
+        </dd>
+        <dt>Position end date</dt>
+        <dd>
+          <%= (@job.open_ended_end_date ? 'Open-ended' : @job.end_date.strftime("%b %e, %Y")) %>
+        </dd>
+        <dt>Form of Compensation</dt>
+        <dd>
+          <%= link_to Job::Compensation::All.key(@job.compensation), jobs_search_path(:compensation => @job.compensation), :class => 'tags' %>
+        </dd>
+        <dt>Number of positions</dt>
+        <dd>
+          <% if @job.num_positions && @job.num_positions > 0 %>
+            <%= h @job.num_positions %>
+          <% else %>
+            Unspecified
+          <% end %>
+        </dd>
+        <dt>Listing Status</dt>
+        <dd>
+          <%= Job::Status::All.key(@job.status) %>
+        </dd>
+      </dl>
+
+      <% if can_view_apps(@current_user, @job) %>
+        <% unfilterredownapps = @job.applics %>
+        <% ownapps = Array.new %>
+        <% unless unfilterredownapps.empty? %>
+          <% for app in unfilterredownapps do %>
+            <% ownapps << app %>
+          <% end %>
+        <% end %>
+
+        <h2>
+          <%= pluralize ownapps.length, 'Application' %>
+        </h2>
+        <% unless ownapps.empty? %>
+          <% ownapps.flatten! %>
+          <table class="job_table table table-striped table-condensed">
+            <thead>
+              <tr>
+                <th class="col-md-2">Application Date</th>
+                <th class="col-md-4">Project</th>
+                <th class="col-md-2">Applicant</th>
+                <th class="col-md-2">Status</th>
+              </tr>
+            </thead>
+            <%= render ownapps, :mine => false %>
+          </table>
+        <% end %>
+      <% end %>
+      <%= link_to raw('Back to listings'), jobs_path %>
+    </div>
+  </div>
+</div>

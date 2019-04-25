@@ -54,6 +54,7 @@ module ResearchMatch
     ActsAsTaggableOn.force_lowercase = true
 
     config.action_mailer.delivery_method = :smtp
+    config.action_mailer.preview_path = "/test/mailers/previews"
 
   end
 end
