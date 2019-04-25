@@ -12,8 +12,8 @@ class PostingMailer < ApplicationMailer
     # emails = User.all.collect(&:email).select{|email| email.present?}
     @body = body
     @recipient = recipient
-    # @listing_1 = Job.
-    # @listing_2 = Job.
+    @listing_1 = Job.order("created_at").last
+    @listing_2 = Job.order("created_at").last(2).first
     mail(:to => @recipient.email, :subject => subject)
   end
 end
