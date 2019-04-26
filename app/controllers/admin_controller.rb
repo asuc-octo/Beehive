@@ -112,6 +112,7 @@ class AdminController < ApplicationController
     body = params[:body]
     subject = params[:subject]
     recipient_type = params[:recipients]
+    email_type = params[:email_type]
 
     case recipient_type
     when 'active_undergrad'
@@ -138,7 +139,7 @@ class AdminController < ApplicationController
         PostingMailer.new_listings(body, subject, recipient).deliver_now
       end
     end
-    
+
     flash[:notice] = 'Email sent!'
     redirect_to admin_path
   end
