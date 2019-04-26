@@ -128,9 +128,17 @@ class AdminController < ApplicationController
       recipients = User.where(email: "kgunadhi@berkeley.edu")
     end
 
-    recipients.each do |recipient|
-      AdvertisingMailer.advertising_email(body, subject, recipient).deliver_now
+    case email_type
+    when 'advertising'
+      recipients.each do |recipient|
+        AdvertisingMailer.advertising_email(body, subject, recipient).deliver_now
+      end
+    when 'new_listings'
+      recipients.each do |recipient|
+        PostingMailer.new_listings(body, subject, recipient).deliver_now
+      end
     end
+    
     flash[:notice] = 'Email sent!'
     redirect_to admin_path
   end
