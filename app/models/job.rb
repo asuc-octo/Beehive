@@ -191,7 +191,6 @@ class Job < ActiveRecord::Base
     actions
   end
 
-  # @return hash{ org => curated }
   def curations(user)
     curations = {}
     (user.admin? ? Org.all : user.orgs).each do |org|

@@ -22,7 +22,6 @@ gem 'exception_notification' , '~> 4'
 
 # Security
 gem 'authlogic'
-gem 'rubycas-client', "~> 2.3.9", :require => ['casclient', 'casclient/frameworks/rails/filter']
 gem 'ucb_ldap', '>=3.1.1'
 gem 'omniauth'
 gem 'omniauth-cas'

@@ -41,7 +41,7 @@ include CASControllerIncludes
       session[:auth_provider] = session[:auth_field] = session[:auth_value] = nil
       session[:user_id] = nil
       # redirect to CAS logout
-      CASClient::Frameworks::Rails::Filter.logout(self)
+      redirect_to CAS_LOGOUT_URL
     else
       flash[:notice] = "You are already signed out."
       redirect_to home_path

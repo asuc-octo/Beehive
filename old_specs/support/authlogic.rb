@@ -4,9 +4,9 @@ activate_authlogic
 
 module LoginHelper
 
-  def disable_cas
-    CASClient::Frameworks::Rails.stub!(:Filter).and_return(true)
-  end
+  # def disable_cas
+  #   CASClient::Frameworks::Rails.stub!(:Filter).and_return(true)
+  # end
 
   # Logs in as the given user
   # @param u [User] user to log in

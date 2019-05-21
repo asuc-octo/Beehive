@@ -17,11 +17,6 @@ ResearchMatch::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  # CAS authentication
-  CASClient::Frameworks::Rails::Filter.configure(
-    :cas_base_url => "https://auth.berkeley.edu/cas/"
-  )
-
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile"
   config.action_dispatch.x_sendfile_header = nil

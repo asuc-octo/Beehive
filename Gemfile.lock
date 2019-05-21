@@ -277,8 +277,6 @@ GEM
     rspec-support (3.7.1)
     ruby_parser (3.11.0)
       sexp_processor (~> 4.9)
-    rubycas-client (2.3.9)
-      activesupport
     sass (3.5.7)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -372,7 +370,6 @@ DEPENDENCIES
   rollbar
   rspec (~> 3.3)
   rspec-rails (~> 3.0)
-  rubycas-client (~> 2.3.9)
   sass-rails (>= 3.2)
   simplecov
   stackprof
