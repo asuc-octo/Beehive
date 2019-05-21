@@ -6,7 +6,7 @@
       <h2>Modify User Role</h2>
       <%= form_tag(admin_path, :method => "get") do %>
         <%= label_tag :user_role, "User" %>
-        <span class="ui-widget">
+        <span>
           <%= select_tag :user_role, options_for_select([["Select User", nil]] + @non_admins) %>
         </span>
         <%= label_tag :user_role_new, "Role" %>
@@ -27,6 +27,7 @@
       <h2>Send Email</h2>
       Paste message to email to all users.<br/><br/>
       <%= form_tag(admin_send_email_path, :method => "post") do %>
+        <%= select_tag 'email_type', options_for_select(['Select Type', 'advertising', 'new_listings'], selected: 'Select Type') %><br/>
         <%= select_tag 'recipients', options_for_select(['Select Recipients', 'active_undergrad', 'active_grad', 'active_fs', 'active_all', 'test_to_leon', 'test_to_kaitlyn'], selected: 'Select Recipients') %><br/>
         <%= text_field_tag 'subject', 'Subject' %><br/>
         <%= text_area_tag 'body', 'Body' %><br/>

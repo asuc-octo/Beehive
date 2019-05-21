@@ -55,6 +55,7 @@ module ResearchMatch
 
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.preview_path = "/test/mailers/previews"
+    config.action_mailer.asset_host = "http://beehive.berkeley.edu"
 
   end
 end
