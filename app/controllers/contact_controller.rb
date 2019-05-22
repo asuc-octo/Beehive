@@ -1,4 +1,4 @@
-class ContactUsController < ApplicationController
+class ContactController < ApplicationController
   def contact
     if @current_user
       @user_email = @current_user.email
