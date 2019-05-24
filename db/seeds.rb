@@ -12,7 +12,7 @@
   Department.find_or_create_by(name: abbrev)
 end
 
-#   Development-specific seeds
+# Development-specific seeds
 if Rails.env == 'development' then
   [ ['Test Faculty', 'test@faculty.com']
   ].each do |name, email|
@@ -20,4 +20,13 @@ if Rails.env == 'development' then
     #f.department_id = Department.first  # TODO
     f.save
   end
+end
+
+# Staging seeds
+if Rails.env == 'staging' then
+  u = User.new
+  u.email = 'octobeehive@asuc.org'
+  u.name = 'Beehive Team'
+  u.user_type = '5'
+  u.save
 end
