@@ -17,5 +17,8 @@ RUN bundle install --deployment --path /bundle --jobs 4 --without development te
     && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt install -y nodejs
 
+RUN useradd -m beehive
+USER beehive
+
 # Start the application server
 ENTRYPOINT ["./entrypoint.sh"]
