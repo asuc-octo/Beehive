@@ -1,24 +1,16 @@
-FROM ruby:2.5.5
-
-# Make a directory in the container
-RUN mkdir -p /application 
-
-# Copy Gemfile and Gemfile.lock
+FROM ruby:2.5.5-alpine
+COPY Gemfile* /tmp/
+WORKDIR /tmp
+RUN apk add --no-cache --progress \
+                           nodejs \
+                   postgresql-dev \
+                       build-base \
+ && bundle check || bundle install --jobs 4 --without development test \
+ && apk del gcc g++ build-base
 COPY . /application
-
-# Change to the application's directory
 WORKDIR /application
-
 ENV RAILS_ENV=production
-ENV RACK_ENV=production
+RUN bundle exec rake assets:clean \
+ && bundle exec rake assets:precompile
 
-# Install gems and nodejs, and make entrypoint executable
-RUN bundle install --deployment --path /bundle --jobs 4 --without development test \
-    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-    && apt install -y nodejs
-
-RUN useradd -m beehive
-USER beehive
-
-# Start the application server
-ENTRYPOINT ["./entrypoint.sh"]
+CMD ["sh", "entrypoint.sh"]

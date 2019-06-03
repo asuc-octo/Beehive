@@ -10,6 +10,7 @@ gem 'activerecord-session_store', '~> 1.1' # store sessions in db rather than in
 gem 'syck', '~> 1.3' # Support for syck. Syck was removed from the ruby stdlib.
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 gem 'rollbar', '~> 2.16'
+gem 'tzinfo-data'
 
 # pagination & tagging
 gem 'kaminari', '~> 1.1'
@@ -62,7 +63,7 @@ group :test, :development do
 end
 
 # UI
-gem 'therubyracer'
+# gem 'therubyracer'
 gem 'uglifier'
 gem 'sass-rails', '>= 3.2'
 gem 'jquery-rails'

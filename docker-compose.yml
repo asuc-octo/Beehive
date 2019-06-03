@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   db:
     restart: always
@@ -28,11 +28,8 @@ services:
   web:
     restart: always
     build: .
-    volumes:
-      - .:/application
     ports:
       - "3000:3000"
-      - "${PORT-8000}:3000"
     depends_on:
       - db
     env_file:

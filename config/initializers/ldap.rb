@@ -9,7 +9,7 @@ begin
   if username && password
     UCB::LDAP::authenticate(username, password)
   else
-    $stderr.puts "ERROR: LDAP bind credentials have not been set!"
+    $stderr.puts "WARNING: LDAP bind credentials have not been set! See #{__FILE__}"
   end
 
 rescue UCB::LDAP::BindFailedException => e
