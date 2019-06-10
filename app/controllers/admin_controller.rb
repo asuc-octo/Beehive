@@ -36,18 +36,18 @@ class AdminController < ApplicationController
       end
     end
     @non_admins = []
-    User.all.each do |i|
-      if i.user_type == User::Types::Undergrad
-        @non_admins << [i.name + ' - Undergrad', i.email]
-      end
-      if i.user_type == User::Types::Grad
-        @non_admins << [i.name + ' - Grad Student', i.email]
-      end
-      if i.user_type == User::Types::Faculty
-        @non_admins << [i.name + ' - Faculty', i.email]
-      end
-    end
-    @non_admins = @non_admins.sort
+    # User.all.each do |i|
+    #   if i.user_type == User::Types::Undergrad
+    #     @non_admins << [i.name + ' - Undergrad', i.email]
+    #   end
+    #   if i.user_type == User::Types::Grad
+    #     @non_admins << [i.name + ' - Grad Student', i.email]
+    #   end
+    #   if i.user_type == User::Types::Faculty
+    #     @non_admins << [i.name + ' - Faculty', i.email]
+    #   end
+    # end
+    # @non_admins = @non_admins.sort
     @roles = [['Undergrad', 0], ['Grad Student', 1], ['Faculty', 2], ['Staff', 3], ['Affiliate', 4], ['Admin', 5]]
   end
 
