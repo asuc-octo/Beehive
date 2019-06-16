@@ -1,16 +1,29 @@
-FROM ruby:2.5.5-alpine
-COPY Gemfile* /tmp/
+FROM ruby:2.5.5-slim
 WORKDIR /tmp
-RUN apk add --no-cache --progress \
-                           nodejs \
-                   postgresql-dev \
-                       build-base \
- && bundle check || bundle install --jobs 4 --without development test \
- && apk del gcc g++ build-base
+
+RUN apt update \
+ && apt install -y dirmngr gnupg apt-transport-https \
+ && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 \
+ && echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list \
+ && echo "deb https://oss-binaries.phusionpassenger.com/apt/passenger stretch main" >> /etc/apt/sources.list.d/passenger.list \
+ && apt update \
+ && apt install -y \
+                   nodejs \
+                   libpq-dev \
+                   build-essential \
+                   apache2-dev \
+                   libapache2-mod-passenger \
+ && apt -t stretch-backports install -y libapache2-mod-shib
+
+COPY Gemfile* ./
+RUN bundle check || bundle install --jobs 4 --without development test
+# apk del apache2-dev gcc g++ build-base python3 python2
+
 COPY . /application
 WORKDIR /application
 ENV RAILS_ENV=production
+ENV PORT=3000
 RUN bundle exec rake assets:clean \
  && bundle exec rake assets:precompile
 
-CMD ["sh", "entrypoint.sh"]
+CMD ["bash", "entrypoint.sh"]
