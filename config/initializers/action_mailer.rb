@@ -1,6 +1,4 @@
 # Configure the Action Mailer.
-settings_path = File.join Rails.root, 'config', 'smtp_settings'
-
 $smtp_username ||= ENV['SMTP_USERNAME']
 $smtp_password ||= ENV['SMTP_PASSWORD']
 

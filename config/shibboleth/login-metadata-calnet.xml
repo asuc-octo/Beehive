@@ -1,0 +1,129 @@
+<EntityDescriptor entityID="urn:mace:incommon:berkeley.edu" 
+		xmlns="urn:oasis:names:tc:SAML:2.0:metadata" 
+		xmlns:ds="http://www.w3.org/2000/09/xmldsig#" 
+		xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <IDPSSODescriptor protocolSupportEnumeration="urn:mace:shibboleth:1.0 urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:2.0:protocol">
+
+        <Extensions>
+            <shibmd:Scope regexp="false">berkeley.edu</shibmd:Scope>
+        </Extensions>
+
+        <KeyDescriptor>
+            <ds:KeyInfo>
+                <ds:X509Data>
+                    <ds:X509Certificate>
+MIIE9DCCA9ygAwIBAgIJAPg8VmRSQ3pCMA0GCSqGSIb3DQEBBQUAMIGsMQswCQYD
+VQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTERMA8GA1UEBxMIQmVya2VsZXkx
+FDASBgNVBAoTC1VDIEJlcmtlbGV5MRMwEQYDVQQLEwpJU1QtQ2FsbmV0MRowGAYD
+VQQDExFzaGliLmJlcmtlbGV5LmVkdTEuMCwGCSqGSIb3DQEJARYfY2FsbmV0LWFk
+bWluQGxpc3RzLmJlcmtlbGV5LmVkdTAeFw0xMTA5MDEwNTU1MzRaFw0zMTA5MDEw
+NTU1MzRaMIGsMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTERMA8G
+A1UEBxMIQmVya2VsZXkxFDASBgNVBAoTC1VDIEJlcmtlbGV5MRMwEQYDVQQLEwpJ
+U1QtQ2FsbmV0MRowGAYDVQQDExFzaGliLmJlcmtlbGV5LmVkdTEuMCwGCSqGSIb3
+DQEJARYfY2FsbmV0LWFkbWluQGxpc3RzLmJlcmtlbGV5LmVkdTCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBAMEPHLk1prO4Trb9nAgtVYWaqpLi1j0d9rbA
+X6v+/O8zI9ltKshho/r9EWelfxCnVzL2ufs44n+Mgqovl03IJXYKJluHILHppPUW
+tu3FF1D6kD9yXIOqc4vw/GHs5IHEjmm7jWyisNULf9zywjykcswFoBplF4xyhlHA
+k79uN3yYEGlOIQnrQfgMrbrrWTjlbZ/bb3QeFBhFnS6yujyDD1GBl2pWQYFjp+TD
+JBluvuwCe5F7gehqq7mmCWadpVCE/GT2LEgiCMyJxerVwwLjGC63/YF5pJ2NnZhd
+f8g86/GmG3LL/BS4Q1fuZ5A4MBJGT2/iVsGMcmC+/jTzJ3RZC8sCAwEAAaOCARUw
+ggERMB0GA1UdDgQWBBRTW0Xhkt2L5j4f8BJ5RmbxtGNQ/TCB4QYDVR0jBIHZMIHW
+gBRTW0Xhkt2L5j4f8BJ5RmbxtGNQ/aGBsqSBrzCBrDELMAkGA1UEBhMCVVMxEzAR
+BgNVBAgTCkNhbGlmb3JuaWExETAPBgNVBAcTCEJlcmtlbGV5MRQwEgYDVQQKEwtV
+QyBCZXJrZWxleTETMBEGA1UECxMKSVNULUNhbG5ldDEaMBgGA1UEAxMRc2hpYi5i
+ZXJrZWxleS5lZHUxLjAsBgkqhkiG9w0BCQEWH2NhbG5ldC1hZG1pbkBsaXN0cy5i
+ZXJrZWxleS5lZHWCCQD4PFZkUkN6QjAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEB
+BQUAA4IBAQBuiTYdJVZE7K20QpIDdRAJb6dQuzaQfz783r3rdk8K4oCEMxclgdIF
+Y1kLF0zGKExTuHke5Jn4fPhSDc66273orJwfX8JPRhj0UsD0oJxiZzX1e47udpKO
+RrH0qjwpuWVq69aRQdNvg2ReEP0YLFrGE05GlBtM1wVXRy6N4TofybNVj9VvcIWR
+j+OKY/1E48QNYKEnxTdKbe5HEzm5Qzh9CwDpnWEEPTYVGXkcZr834c5rfCC9eJFW
+DwHJO2iXtfD8CCpYzg2Qm85yQo3LKavIRnDiPFC0SUliC9pyGGrf9Apsxfisx0Um
+qL/5vv0Vxy0Ba8FeI9WOTs3mSavQNGQ/
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+        
+        <ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding"
+                                   Location="https://shib.berkeley.edu:8443/idp/profile/SAML1/SOAP/ArtifactResolution" 
+                                   index="1"/>
+
+        <ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"
+                                   Location="https://shib.berkeley.edu:8443/idp/profile/SAML2/SOAP/ArtifactResolution" 
+                                   index="2"/>
+                                   
+        <NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://shib.berkeley.edu/idp/logout"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://shib.berkeley.edu/idp/logout"/>
+
+        <SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" 
+                             Location="https://shib.berkeley.edu/idp/profile/Shibboleth/SSO" />
+        
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
+                             Location="https://shib.berkeley.edu/idp/profile/SAML2/POST/SSO" />
+
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" 
+                             Location="https://shib.berkeley.edu/idp/profile/SAML2/POST-SimpleSign/SSO" />
+        
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" 
+                             Location="https://shib.berkeley.edu/idp/profile/SAML2/Redirect/SSO" />
+    </IDPSSODescriptor>
+
+    <AttributeAuthorityDescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:2.0:protocol">
+
+        <Extensions>
+            <shibmd:Scope regexp="false">berkeley.edu</shibmd:Scope>
+        </Extensions>
+
+        <KeyDescriptor>
+            <ds:KeyInfo>
+                <ds:X509Data>
+                    <ds:X509Certificate>
+MIIE9DCCA9ygAwIBAgIJAPg8VmRSQ3pCMA0GCSqGSIb3DQEBBQUAMIGsMQswCQYD
+VQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTERMA8GA1UEBxMIQmVya2VsZXkx
+FDASBgNVBAoTC1VDIEJlcmtlbGV5MRMwEQYDVQQLEwpJU1QtQ2FsbmV0MRowGAYD
+VQQDExFzaGliLmJlcmtlbGV5LmVkdTEuMCwGCSqGSIb3DQEJARYfY2FsbmV0LWFk
+bWluQGxpc3RzLmJlcmtlbGV5LmVkdTAeFw0xMTA5MDEwNTU1MzRaFw0zMTA5MDEw
+NTU1MzRaMIGsMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTERMA8G
+A1UEBxMIQmVya2VsZXkxFDASBgNVBAoTC1VDIEJlcmtlbGV5MRMwEQYDVQQLEwpJ
+U1QtQ2FsbmV0MRowGAYDVQQDExFzaGliLmJlcmtlbGV5LmVkdTEuMCwGCSqGSIb3
+DQEJARYfY2FsbmV0LWFkbWluQGxpc3RzLmJlcmtlbGV5LmVkdTCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBAMEPHLk1prO4Trb9nAgtVYWaqpLi1j0d9rbA
+X6v+/O8zI9ltKshho/r9EWelfxCnVzL2ufs44n+Mgqovl03IJXYKJluHILHppPUW
+tu3FF1D6kD9yXIOqc4vw/GHs5IHEjmm7jWyisNULf9zywjykcswFoBplF4xyhlHA
+k79uN3yYEGlOIQnrQfgMrbrrWTjlbZ/bb3QeFBhFnS6yujyDD1GBl2pWQYFjp+TD
+JBluvuwCe5F7gehqq7mmCWadpVCE/GT2LEgiCMyJxerVwwLjGC63/YF5pJ2NnZhd
+f8g86/GmG3LL/BS4Q1fuZ5A4MBJGT2/iVsGMcmC+/jTzJ3RZC8sCAwEAAaOCARUw
+ggERMB0GA1UdDgQWBBRTW0Xhkt2L5j4f8BJ5RmbxtGNQ/TCB4QYDVR0jBIHZMIHW
+gBRTW0Xhkt2L5j4f8BJ5RmbxtGNQ/aGBsqSBrzCBrDELMAkGA1UEBhMCVVMxEzAR
+BgNVBAgTCkNhbGlmb3JuaWExETAPBgNVBAcTCEJlcmtlbGV5MRQwEgYDVQQKEwtV
+QyBCZXJrZWxleTETMBEGA1UECxMKSVNULUNhbG5ldDEaMBgGA1UEAxMRc2hpYi5i
+ZXJrZWxleS5lZHUxLjAsBgkqhkiG9w0BCQEWH2NhbG5ldC1hZG1pbkBsaXN0cy5i
+ZXJrZWxleS5lZHWCCQD4PFZkUkN6QjAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEB
+BQUAA4IBAQBuiTYdJVZE7K20QpIDdRAJb6dQuzaQfz783r3rdk8K4oCEMxclgdIF
+Y1kLF0zGKExTuHke5Jn4fPhSDc66273orJwfX8JPRhj0UsD0oJxiZzX1e47udpKO
+RrH0qjwpuWVq69aRQdNvg2ReEP0YLFrGE05GlBtM1wVXRy6N4TofybNVj9VvcIWR
+j+OKY/1E48QNYKEnxTdKbe5HEzm5Qzh9CwDpnWEEPTYVGXkcZr834c5rfCC9eJFW
+DwHJO2iXtfD8CCpYzg2Qm85yQo3LKavIRnDiPFC0SUliC9pyGGrf9Apsxfisx0Um
+qL/5vv0Vxy0Ba8FeI9WOTs3mSavQNGQ/
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+
+        <AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" 
+                          Location="https://shib.berkeley.edu:8443/idp/profile/SAML1/SOAP/AttributeQuery" />
+        
+        <AttributeService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"
+                          Location="https://shib.berkeley.edu:8443/idp/profile/SAML2/SOAP/AttributeQuery" />
+        
+        <NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+        
+    </AttributeAuthorityDescriptor>
+    
+</EntityDescriptor>    

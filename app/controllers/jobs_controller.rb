@@ -125,6 +125,7 @@ class JobsController < ApplicationController
 
   end
 
+  # Deprecated
   def resend_activation_email
     @job = Job.find(params[:id])
     @job.resend_email(true)
@@ -182,10 +183,7 @@ class JobsController < ApplicationController
 
     was_closed = @job.status == Job::Status::Filled
 
-    # If the faculty sponsor changed, require activation again.
-    if update_sponsorships and false # TODO: remove when :active is resolved
-      @job.resend_email(true) # sends the email too
-    end
+    update_sponsorships
 
     respond_to do |format|
       if @job.update(curr_job_params)
@@ -229,6 +227,7 @@ class JobsController < ApplicationController
     end
   end
 
+  # Deprecated
   def activate
     # /jobs/activate/job_id?a=xxx
     @job = Job.find :first, conditions: { activation_code: params[:a] }
@@ -253,11 +252,13 @@ class JobsController < ApplicationController
 
   end
 
+  # Deprecated
   def job_read_more
     job = Job.find(params[:id])
     render :plain => job.desc
   end
 
+  # Deprecated
   def job_read_less
     job = Job.find(params[:id])
     desc = job.desc.first(100)

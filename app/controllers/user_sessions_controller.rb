@@ -22,6 +22,7 @@ include CASControllerIncludes
       return
     end
 
+
     user = User.where(auth_field => auth_value).first
     if user.present?
       UserSession.new(user).save
