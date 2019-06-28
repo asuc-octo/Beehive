@@ -450,9 +450,7 @@ class Job < ActiveRecord::Base
     end
   end
 
-  # Reassigns it an activation code.
-  # Used when creating a job or if, when updating the job, a new
-  #   faculty sponsor is specified.
+  # Deprecated
   def resend_email(send_email = false)
     self.activation_code = SecureRandom.random_number(10e6.to_i)
 

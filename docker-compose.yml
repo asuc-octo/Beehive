@@ -23,13 +23,14 @@ services:
       POSTGRES_HOST: db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD:
-      POSTGRES_EXTRA_OPTS: '--schema=public --blobs'
+      POSTGRES_EXTRA_DUMP_OPTS: '--schema=public --blobs --format=custom --no-owner --no-privileges'
+      POSTGRES_EXTRA_RESTORE_OPTS: '--format=custom --no-owner --no-privileges --clean --if-exists'
 
   web:
     restart: always
     build: .
     ports:
-      - "3000:3000"
+      - "3000:80"
       - "8080:80"
       - "443:443"
     depends_on:

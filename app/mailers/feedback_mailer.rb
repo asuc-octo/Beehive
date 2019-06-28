@@ -11,7 +11,7 @@ class FeedbackMailer < ApplicationMailer
     mail(:to => 'octo.beehive@asuc.org',
          :from => sender,
          :reply_to => sender,
-         :subject => "Beehive Feedback #{subject_line}",
+         :subject => "[Beehive Feedback] #{subject_line}",
          :body => body_text)
   end
 end

@@ -17,12 +17,10 @@ RUN apt update \
 
 COPY Gemfile* ./
 RUN bundle check || bundle install --jobs 4 --without development test
-# apk del apache2-dev gcc g++ build-base python3 python2
 
 COPY . /application
 WORKDIR /application
 ENV RAILS_ENV=production
-ENV PORT=3000
 RUN bundle exec rake assets:clean \
  && bundle exec rake assets:precompile
 
