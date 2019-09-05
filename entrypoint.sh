@@ -15,8 +15,6 @@ a2dissite 000-default
 a2ensite beehive
 a2ensite beehive-ssl
 
-bundle exec rake db:schema:load
-
 /etc/init.d/shibd restart -f -c /etc/shibboleth/shibboleth2.xml -p /var/run/shibboleth/shibd.pid
 
 /usr/sbin/apache2ctl -DFOREGROUND
