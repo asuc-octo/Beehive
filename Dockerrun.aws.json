@@ -4,11 +4,8 @@
         {
             "name": "beehive_web",
             "image": "lm4992/beehive_web:latest",
-            "links": [
-                "db"
-            ],
             "essential": true,
-            "memory": 768,
+            "memory": 1024,
             "mountPoints": [
                 {
                     "sourceVolume": "awseb-logs-beehive_web",
@@ -75,32 +72,6 @@
                     "value": "postgres://ffajqnhoulygqy:v4A1MXVCh8eWsC9shQaFFgRak1@ec2-54-243-207-88.compute-1.amazonaws.com:5432/de9mrnoctt0p1h"
                 }
             ]
-        },
-        {
-            "name": "db",
-            "image": "postgres:11",
-            "essential": true,
-            "memory": 256,
-            "mountPoints": [
-                {
-                    "sourceVolume": "beehive_db",
-                    "containerPath": "/var/lib/postgresql/data"
-                }
-            ],
-            "portMappings": [
-                {
-                    "hostPort": 5432,
-                    "containerPort": 5432
-                }
-            ]
-        }
-   ],
-    "volumes": [
-        {
-            "name": "beehive_db",
-            "host": {
-                "sourcePath": "/var/app/current/db"
-            }
         }
     ]
 }
