@@ -1,0 +1,9 @@
+*.dump
+tmp/db/*
+tmp/bundle/*
+.env
+.git/
+.DS_Store
+Dockerfile*
+docker-compose*
+Dockerrun*

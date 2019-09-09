@@ -1,0 +1,46 @@
+*.rbc
+*.sassc
+.sass-cache
+capybara-*.html
+.yardoc
+.bundle
+cscope.*
+.project
+*.swp
+**/*.pid
+config/smtp_settings.rb
+db/*.sqlite3
+files/
+mysql2/
+log/*.log
+tmp/**/*
+*.project
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+app/assets/.*
+
+# ignore database.yml
+config/database.yml
+
+# ignore extra dump files
+*.dump
+*.psql
+
+# ignore test files
+test_mem_prod.rb
+test_mem.rb
+
+# ignore dotenv
+.env
+.env.production
+
+# ignore experimental files
+*.alpine*
+*.old
+
+# ignore keys
+*.pem
+
+# ignore acme challenge
+public/.well-known
