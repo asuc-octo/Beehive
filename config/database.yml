@@ -15,13 +15,3 @@ test:
     password:
     pool: 5
     timeout: 5000
-
-production:
-    adapter: postgresql
-    encoding: unicode
-    database: postgres
-    host: db
-    username: postgres
-    password:
-    pool: 5
-    timeout: 5000

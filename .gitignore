@@ -35,6 +35,9 @@ test_mem.rb
 .env
 .env.production
 
+# ignore elastic beanstalk docker file
+Dockerrun.aws.json
+
 # ignore experimental files
 *.alpine*
 *.old
@@ -44,3 +47,6 @@ test_mem.rb
 
 # ignore acme challenge
 public/.well-known
+
+# ignore database tool
+update_database.sh

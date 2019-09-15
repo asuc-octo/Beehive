@@ -11,7 +11,6 @@ cp /application/config/shibboleth/* /etc/shibboleth/
 
 a2enmod ssl
 a2enmod passenger
-# a2enmod rewrite
 a2dissite 000-default
 a2ensite beehive
 a2ensite beehive-ssl
