@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    environment:
+      IMAGE_NAME: octobeehive/cicd
+    docker:
+      - image: circleci/ruby:2.5.6
+    steps:
+      - checkout
+      - setup_remote_docker
+
+      #Build and Push image to OCTO Dockerhub
+      - run: |
+          docker build -t $IMAGE_NAME:latest .
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
+          docker push $IMAGE_NAME:latest
+
+
+
+
