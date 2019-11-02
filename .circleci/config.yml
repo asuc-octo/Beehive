@@ -11,6 +11,7 @@ jobs:
 
       #Build and Push image to OCTO Dockerhub
       - run: |
+          touch conifg/database.yml
           docker build -t $IMAGE_NAME:latest .
           docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
           docker push $IMAGE_NAME:latest
