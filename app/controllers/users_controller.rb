@@ -35,6 +35,12 @@ class UsersController < ApplicationController
         logger.warn "UsersController.new: Failed to find LDAP::Person for uid #{session[:auth_value]}"
       end
     end
+
+    if session[:auth_provider].to_sym == :shibboleth
+      unless @user.fill_from_shib
+        logger.warn "UsersController.new: Failed to find shibboleth::Person for uid #{session[:auth_value]}"
+      end
+    end
   end
 
   # Create account for a new user.

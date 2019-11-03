@@ -12,7 +12,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     :info_fields               => {
                                     :affiliation => "affiliation",
                                     :surname => "surname",
-                                    :givenNAme => "givenName",
+                                    :givenName => "givenName",
                                     :email => "mail"
                                   },
     :debug                     => true
