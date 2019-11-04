@@ -21,7 +21,7 @@ tmp/**/*
 app/assets/.*
 
 # ignore database.yml
-config/database.yml
+# config/database.yml
 
 # ignore extra dump files
 *.dump
