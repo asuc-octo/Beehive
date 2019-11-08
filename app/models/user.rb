@@ -174,7 +174,7 @@ class User < ActiveRecord::Base
   end
 
   def fill_from_shib
-    info_hash = request.env['omniauth.auth'].info
+    info_hash = request.env['omniauth.auth'][:info]
     if info_hash.nil?
       if Rails.development?
         self.name = "Susan #{self.login}"
@@ -201,12 +201,12 @@ class User < ActiveRecord::Base
         return false
       end
     else
-      self.name = "#{info_hash.first_name} #{info_hash.last_name}".titleize
-      self.email = info_hash.email
+      self.name = "#{info_hash[:first_name]} #{info_hash[:last_name]}".titleize
+      self.email = info_hash[:email]
       self.user_type = case
-                      when info_hash.eduPersonScopedAffiliation == 'Staff@lbl.gov'
+                      when info_hash[:eduPersonScopedAffiliation] == 'Staff@lbl.gov'
                         User::Types::LBNL_Staff
-                      when info_hash.eduPersonScopedAffiliation == 'Member@lbl.gov'
+                      when info_hash[:eduPersonScopedAffiliation] == 'Member@lbl.gov'
                         User::Types::LBNL_Member
                       else
                         User::Types::Affiliate
