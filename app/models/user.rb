@@ -201,12 +201,12 @@ class User < ActiveRecord::Base
         return false
       end
     else
-      self.name = "#{info_hash[:first_name]} #{info_hash[:last_name]}".titleize
+      self.name = "#{info_hash[:givenName]} #{info_hash[:surname]}".titleize
       self.email = info_hash[:email]
       self.user_type = case
-                      when info_hash[:eduPersonScopedAffiliation] == 'Staff@lbl.gov'
+                      when info_hash[:affiliation] == 'Staff@lbl.gov'
                         User::Types::LBNL_Staff
-                      when info_hash[:eduPersonScopedAffiliation] == 'Member@lbl.gov'
+                      when info_hash[:affiliation] == 'Member@lbl.gov'
                         User::Types::LBNL_Member
                       else
                         User::Types::Affiliate
