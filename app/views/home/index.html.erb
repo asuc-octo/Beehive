@@ -1,72 +1,25 @@
 <% content_for :title, "Welcome" %>
-<div id="home-container">
-  <div class="main-top-bg-container">
-    <div class="main-top-bg"></div>
-  </div>
-  <div class="main-top">
-    <div class="main-title">
-      <div class="text-info-large">
-        <span>
-          Research made simple
-        </span>
-      </div>
-    </div>
-    <div class="main-top-info">
-      <div class="text-info-small">
-        Explore
-        <span>
-          <%= Job.find_jobs.count %>
-        </span>
-        exciting projects and counting.
-        Starting research has never been easier!
-      </div>
-    </div>
-    <span class="main-icons-container">
-      <div class="main-icons"></div>
-    </span>
-  </div>
-  <div class="main-btn-container clearfix">
-    <% if @current_user.present? && @current_user.undergrad? %>
+<% if @current_user.present? %>
+  <%= react_component("Home", {job_count:Job.find_jobs.count,
+                             present: @current_user.present?,
+                             undergrad: @current_user.undergrad?,
+                             jobs_path: jobs_path,
+                             dashboard_path: dashboard_path,
+                             login_path: login_path,
+                             team_path: team_path}) %>
+<% else %>
+  <%= react_component("Home", {job_count:Job.find_jobs.count,
+                             present: @current_user.present?,
+                             jobs_path: jobs_path,
+                             dashboard_path: dashboard_path,
+                             login_path: login_path,
+                             team_path: team_path}) %>
+<% end %>
+<!--<% if @current_user.present? && @current_user.undergrad? %>
       <%= link_to "EXPLORE", jobs_path, class: "btn btn-cal btn-landing" %>
     <% elsif @current_user.present? %>
       <%= link_to "EXPLORE", dashboard_path, class: "btn btn-cal btn-landing" %>
     <% else %>
       <%= link_to "EXPLORE", login_path, class: "btn btn-cal btn-landing" %>
     <% end %>
-    <%= link_to "ABOUT US", team_path, class: "btn btn-cal btn-landing" %>
-  </div>
-  <div class="row main-bottom">
-    <div class="col-md-4 col-landing-card">
-      <div class="smartmatch landing-card">
-        <div class="title">
-          BROWSE
-        </div>
-        <div class="details">
-          We've made it easy for you to find your perfect project.
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 col-landing-card">
-      <div class="smartmatch landing-card">
-        <div class="title">
-          EASY APPLYING
-        </div>
-        <div class="details">
-          No need to fill out endless forms.
-          Write what's relevant, and we'll take care of the rest.
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 col-landing-card">
-      <div class="smartmatch landing-card">
-        <div class="title">
-          SMARTMATCH
-        </div>
-        <div class="details">
-          Can't find a project you like?
-          We'll let you know when a new project matches your interests.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    <%= link_to "ABOUT US", team_path, class: "btn btn-cal btn-landing" %>-->
