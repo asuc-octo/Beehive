@@ -3,15 +3,6 @@ version: 2.1
 orbs:
   awsebcli: sbc-orbs/awsebcli@0.0.3
 
-workflows:
-  build-test-deploy:
-    jobs:
-      - build 
-      - display_env
-      - deploy
-          requires:
-            - build
-
 jobs:
   build:
     environment:
@@ -43,6 +34,15 @@ jobs:
     steps:
       - checkout
       - awsebcli/install
+
+workflows:
+  build-test-deploy:
+    jobs:
+      - build 
+      - display_env
+      - deploy
+          requires:
+            - build
      
 
 
