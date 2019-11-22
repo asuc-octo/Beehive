@@ -6,7 +6,7 @@ orbs:
 workflows:
   build-test-deploy:
     jobs:
-      - build
+      - build 
       - display_env
 
 jobs:
