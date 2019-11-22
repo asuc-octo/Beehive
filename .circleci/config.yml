@@ -17,17 +17,17 @@ jobs:
           docker build -t $IMAGE_NAME:latest .
           docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
           docker push $IMAGE_NAME:latest
-  display_env:
-    steps:
-      - checkout
-      - run: |
-          echo $DOCKERRUN
-          echo $FULLCHAIN
-          echo $PRIVKEYi
-  deploy:
-    steps:
-      - checkout
-      - awsebcli/install
+  # display_env:
+  #   steps:
+  #     - checkout
+  #     - run: |
+  #         echo $DOCKERRUN
+  #         echo $FULLCHAIN
+  #         echo $PRIVKEYi
+  # deploy:
+  #   steps:
+  #     - checkout
+  #     - awsebcli/install
      
 
 
