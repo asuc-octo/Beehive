@@ -17,13 +17,13 @@ jobs:
           docker build -t $IMAGE_NAME:latest .
           docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
           docker push $IMAGE_NAME:latest
-  # display_env:
-  #   steps:
-  #     - checkout
-  #     - run: |
-  #         echo $DOCKERRUN
-  #         echo $FULLCHAIN
-  #         echo $PRIVKEYi
+  display_env:
+    steps:
+      - checkout
+      - echo $DOCKERRUN
+      - echo $FULLCHAIN
+      - echo $PRIVKEY
+      
   # deploy:
   #   steps:
   #     - checkout
