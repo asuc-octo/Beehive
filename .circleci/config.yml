@@ -1,10 +1,16 @@
 version: 2.1
+
 orbs:
   awsebcli: sbc-orbs/awsebcli@0.0.3
+
 workflows:
   build-test-deploy:
     jobs:
-      build:
+      - build
+      - display_env
+
+jobs:
+  build:
         environment:
           IMAGE_NAME: octobeehive/cicd
         docker:
@@ -27,7 +33,6 @@ workflows:
           - echo $DOCKERRUN
           - echo $FULLCHAIN
           - echo $PRIVKEY
-
       # deploy:
       #   steps:
       #     - checkout
