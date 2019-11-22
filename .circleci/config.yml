@@ -8,6 +8,9 @@ workflows:
     jobs:
       - build 
       - display_env
+      - deploy
+          requires:
+            - build
 
 jobs:
   build:
@@ -34,10 +37,12 @@ jobs:
           echo $DOCKERRUN
           echo $FULLCHAIN
           echo $PRIVKEY
-      # deploy:
-      #   steps:
-      #     - checkout
-      #     - awsebcli/install
+  deploy:
+    docker:
+      - image: circleci/ruby:2.5.6
+    steps:
+      - checkout
+      - awsebcli/install
      
 
 
