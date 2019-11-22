@@ -11,28 +11,28 @@ workflows:
 
 jobs:
   build:
-        environment:
-          IMAGE_NAME: octobeehive/cicd
-        docker:
-          - image: circleci/ruby:2.5.6
-        steps:
-          - checkout
-          - setup_remote_docker
+    environment:
+      IMAGE_NAME: octobeehive/cicd
+    docker:
+      - image: circleci/ruby:2.5.6
+    steps:
+      - checkout
+      - setup_remote_docker
 
-          #Build and Push image to OCTO Dockerhub
-          - run: |
-              touch config/database.yml
-              docker build -t $IMAGE_NAME:latest .
-              docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
-              docker push $IMAGE_NAME:latest
-      display_env:
-        docker:
-          - image: circleci/ruby:2.5.6
-        steps:
-          - checkout
-          - echo $DOCKERRUN
-          - echo $FULLCHAIN
-          - echo $PRIVKEY
+      #Build and Push image to OCTO Dockerhub
+      - run: |
+          touch config/database.yml
+          docker build -t $IMAGE_NAME:latest .
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
+          docker push $IMAGE_NAME:latest
+  display_env:
+    docker:
+      - image: circleci/ruby:2.5.6
+    steps:
+      - checkout
+      - echo $DOCKERRUN
+      - echo $FULLCHAIN
+      - echo $PRIVKEY
       # deploy:
       #   steps:
       #     - checkout
