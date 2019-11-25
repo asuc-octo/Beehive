@@ -30,7 +30,7 @@ jobs:
           echo $PRIVKEY
   deploy:
     docker:
-      - image: circleci/ruby:2.5.6
+      - image: ubuntu:18.04
     steps:
       - checkout
       - awsebcli/install
