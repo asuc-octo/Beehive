@@ -1,8 +1,10 @@
 version: 2.1
 
+# orbs:
+#   awsebcli: sbc-orbs/awsebcli@0.0.3
 orbs:
-  awsebcli: sbc-orbs/awsebcli@0.0.3
-
+  common-beanstalk: mgmorbs/common-beanstalk@0.11.0
+  
 jobs:
   build:
     environment:
@@ -33,9 +35,9 @@ jobs:
       - image: circleci/ruby:2.5.6
     steps:
       - checkout
-      - sudo apt-get update
-      #- sudo add-apt-repository ppa:deadsnakes/ppa
-      - awsebcli/install
+      #- awsebcli/install
+      - common-beanstalk/install-awscli:
+          install-eb-cli: true
 
 workflows:
   build-test-deploy:
