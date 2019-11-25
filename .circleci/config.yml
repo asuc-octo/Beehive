@@ -16,9 +16,9 @@ jobs:
       #Build and Push image to OCTO Dockerhub
       - run: |
           touch config/database.yml
-          docker build -t $IMAGE_NAME:latest .
-          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
-          docker push $IMAGE_NAME:latest
+          # docker build -t $IMAGE_NAME:latest .
+          # docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
+          # docker push $IMAGE_NAME:latest
   display_env:
     docker:
       - image: circleci/ruby:2.5.6
