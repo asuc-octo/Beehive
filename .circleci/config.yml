@@ -1,7 +1,5 @@
 version: 2.1
 
-# orbs:
-#   awsebcli: sbc-orbs/awsebcli@0.0.3
 orbs:
   common-beanstalk: mgmorbs/common-beanstalk@0.11.0
   
@@ -18,9 +16,9 @@ jobs:
       #Build and Push image to OCTO Dockerhub
       - run: |
           touch config/database.yml
-          # docker build -t $IMAGE_NAME:latest .
-          # docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
-          # docker push $IMAGE_NAME:latest
+          docker build -t $IMAGE_NAME:latest .
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
+          docker push $IMAGE_NAME:latest
   display_env:
     docker:
       - image: circleci/ruby:2.5.6
@@ -35,9 +33,11 @@ jobs:
       - image: circleci/ruby:2.5.6
     steps:
       - checkout
-      #- awsebcli/install
       - common-beanstalk/install-awscli:
           install-eb-cli: true
+      - run: |
+          touch Dockerrun.aws.json
+          #echo $DOCKERRUN > Dockerrun.aws.json
 
 workflows:
   build-test-deploy:
