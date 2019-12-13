@@ -7,14 +7,12 @@ environment-defaults:
     repository: null
 global:
   application_name: beehive
-  default_ec2_keyname: beehive
   default_platform: arn:aws:elasticbeanstalk:us-west-2::platform/Multi-container Docker
     running on 64bit Amazon Linux/2.15.0
   default_region: us-west-2
-  include_git_submodules: true
   instance_profile: null
   platform_name: null
   platform_version: null
-  profile: eb-cli2
+  profile: eb-cli
   sc: git
   workspace_type: Application

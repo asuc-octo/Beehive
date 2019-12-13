@@ -50,3 +50,8 @@ public/.well-known
 
 # ignore database tool
 update_database.sh
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
