@@ -29,7 +29,7 @@
             <%= f.text_field :title, class: "form-control" %>
         </dd>
         <dt>
-            <%= f.label :department, 'Department *', :required => true %>
+            <%= f.label :department, 'Department *' %>
         </dt>
         <dd>
             <%= f.select :department_id, Department.all.order(:name).collect {|c| [c.name, c.id]}, include_blank: "Select Department" %>

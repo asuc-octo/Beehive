@@ -86,7 +86,7 @@ class Job < ActiveRecord::Base
   #  VALIDATIONS  #
   #################
 
-  validates_presence_of :title, :department, :project_type, :desc
+  validates_presence_of :title, :department_id, :project_type, :desc
   validates_presence_of :earliest_start_date, :latest_start_date
 
   # Validates that end dates are no earlier than right now.
@@ -407,7 +407,7 @@ class Job < ActiveRecord::Base
 
   # Returns a list of relevant fields used to generate tags
   def field_list
-    [ self.department.name,
+    [ self.department && self.department.name,
       self.category_list_of_job,
       self.course_list_of_job,
       self.proglang_list_of_job,
