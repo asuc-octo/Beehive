@@ -1,0 +1,24 @@
+version: 0.2
+
+env:
+  variables:
+    IMAGE_NAME: octobeehive/cicd
+
+phases:
+  build:
+      #Build and Push image to OCTO Dockerhub
+    commands:
+      - touch config/database.yml
+      - docker build -t $IMAGE_NAME:latest .
+      - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
+      - docker push $IMAGE_NAME:latest
+  display_env:
+    commands:
+      - echo $DOCKERRUN
+      - echo $FULLCHAIN
+      - echo $PRIVKEY
+artifacts:
+  files:
+    - Dockerrun.aws.json
+
+
