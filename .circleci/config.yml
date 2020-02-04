@@ -37,7 +37,7 @@ jobs:
           install-eb-cli: true
       - run: |
           touch Dockerrun.aws.json
-          #echo $DOCKERRUN > Dockerrun.aws.json
+          echo $DOCKERRUN > Dockerrun.aws.json
 
 workflows:
   build-test-deploy:
