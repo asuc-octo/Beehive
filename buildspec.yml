@@ -4,7 +4,7 @@ env:
   variables:
     IMAGE_NAME: octobeehive/cicd
   secrets-manager:
-    PRIVKEY: BeehivePrivKey
+    PRIVKEY: BeehivePrivkey
     FULLCHAIN: BeehiveFullchain
     DOCKERRUN: BeehiveDockerrun
 
