@@ -1,0 +1,216 @@
+<% content_for :title, 'Dashboard' %>
+<div class="container" id="dashboard">
+  <h1>Dashboard</h1>
+  <div class="tabs-container">
+    <div class="btn-group" data-toggle="buttons" role="group">
+      <label class="btn btn-primary <%= 'active' if @current_user.undergrad? %>" data-target="#browse" data-toggle="tab" id="browsebtn">
+        <input aria-controls="browse" aria-expanded="true" autocomplete="off" checked="checked" type="radio">Undergrads</input>
+        
+      </label>
+      <label class="btn btn-primary <%= 'active' unless @current_user.undergrad? %>" data-target="#post" data-toggle="tab" id="postbtn">
+        <input aria-controls="post" aria-expanded="false" autocomplete="off" checked="checked" type="radio">Researchers</input>
+        
+      </label>
+    </div>
+  </div>
+  <div class="tab-content">
+    <% if @current_user.undergrad? %>
+      <div class="tab-pane active" id="post">
+        <% unfilterredownapps = @current_user.jobs.collect(&:applics) %>
+        <% ownapps = Array.new %>
+        <% unless unfilterredownapps.empty? %>
+          <% for app in unfilterredownapps do %>
+            <% for applic in app do %>
+              <% ownapps << applic %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% unless ownapps.empty? %>
+          <% ownapps.flatten! %>
+        <% end %>
+
+        <%= react_component("ProjectTable", {table_name: "Applications Received",
+                             empty: ownapps.empty? ,
+                             empty_text: "You have not yet received any applications.",
+                             table_data:  render(ownapps, :mine => true)})%>
+
+        <!--<% puts  render @current_user.applics, :mine => true %>-->
+        
+        
+        <!--<div class="card">
+          <h2>Applications Received</h2>
+          <% unless ownapps.empty? %>
+            <table class="job_table table table-striped table-condensed">
+              <thead>
+                <tr>
+                  <th class="col-md-2">Application Date</th>
+                  <th class="col-md-4">Project</th>
+                  <th class="col-md-2">Applicant</th>
+                  <th class="col-md-2">Status</th>
+                </tr>
+              </thead>
+              <%= render ownapps, :mine => false %>
+            </table>
+          <% else %>
+            You have not yet received any applications.
+          <% end %>
+        </div>-->
+        <%= react_component("ProjectList", {list_name: "Manage Projects",
+                             jobs_empty: @current_user.jobs.empty? ,
+                             owned_jobs_empty: @current_user.owned_jobs.empty?,
+                             default_message: "You have not posted any projects. #{link_to 'Post one', :controller => :jobs, :action => :new} now.",
+                             jobs_present: @current_user.jobs.present?,
+                             jobs: render(@current_user.jobs),
+                             owned_jobs_present: @current_user.owned_jobs.present?,
+                             owned_jobs_heading: "You can administer these projects:",
+                             owned_jobs: render(@current_user.owned_jobs)})%>
+        <!--<div class="card">
+          <h2>Manage Projects</h2>
+          <% if @current_user.jobs.empty? && @current_user.owned_jobs.empty? %>
+            You have not posted any projects. <%= link_to 'Post one', :controller => :jobs, :action => :new %> now.
+          <% end %>
+          <% if @current_user.jobs.present? %>
+            <%= render @current_user.jobs %>
+          <% end %>
+          <% if @current_user.owned_jobs.present? %>
+            <p>You can administer these projects:</p>
+            <%= render :partial => 'jobs/your_job', :collection => @current_user.owned_jobs %>
+          <% end %>
+        </div>-->
+      </div>
+      <div class="tab-pane" id="browse">
+        <%= react_component("ProjectTable", {table_name: "Your Applications",
+                             empty: @current_user.applics.empty? ,
+                             empty_text: "You have not applied to any research positions.",
+                             table_data:  render(@current_user.applics, :mine => true)})%>
+        <!--<div class="card">
+          <h2>Your Applications</h2>
+          <% if @current_user.applics.empty? %>
+            You have not applied to any research positions.
+          <% else %>
+            <table class="job_table table table-striped table-condensed">
+              <thead>
+                <tr>
+                  <th class="col-md-2">Application Date</th>
+                  <th class="col-md-4">Project</th>
+                  <th class="col-md-2">Contact</th>
+                  <th class="col-md-2">Status</th>
+                </tr>
+              </thead>
+              <%= render @current_user.applics, :mine => true %>
+            </table>
+          <% end %>
+        </div>-->
+        <%= react_component("ProjectList", {list_name: "Watched Projects",
+                             watched_empty: @current_user.watched_jobs.empty? ,
+                             owned_jobs_empty: @current_user.owned_jobs.empty?,
+                             default_message: "You are not watching any projects.",
+                             watched_jobs: render(@current_user.watched_jobs)})%>
+        <!--<div class="card">
+          <h2>Watched Projects</h2>
+          <% if @current_user.watched_jobs.empty? %>
+            You are not watching any projects.
+          <% else %>
+          <% end %>
+          <%= render @current_user.watched_jobs %>
+        </div>-->
+      </div>
+    <% else %>
+      <div class="tab-pane active" id="post">
+        <% unfilterredownapps = @current_user.jobs.collect(&:applics) %>
+        <% ownapps = Array.new %>
+        <% unless unfilterredownapps.empty? %>
+          <% for app in unfilterredownapps do %>
+            <% for applic in app do %>
+              <% ownapps << applic %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% unless ownapps.empty? %>
+          <% ownapps.flatten! %>
+        <% end %>
+        <%= react_component("ProjectTable", {table_name: "Applications Received",
+                             empty: ownapps.empty? ,
+                             empty_text: "You have not yet received any applications.",
+                             table_data:  render(ownapps, :mine => true)})%>
+        <!--<div class="card">
+          <h2>Applications Received</h2>
+          <% unless ownapps.empty? %>
+            <table class="job_table table table-striped table-condensed">
+              <thead>
+                <tr>
+                  <th class="col-md-2">Application Date</th>
+                  <th class="col-md-4">Project</th>
+                  <th class="col-md-2">Applicant</th>
+                  <th class="col-md-2">Status</th>
+                </tr>
+              </thead>
+              <%= render ownapps, :mine => false %>
+            </table>
+          <% else %>
+            You have not yet received any applications.
+          <% end %>
+        </div>-->
+        <%= react_component("ProjectList", {list_name: "Manage Projects",
+                             jobs_empty: @current_user.jobs.empty? ,
+                             owned_jobs_empty: @current_user.owned_jobs.empty?,
+                             default_message: "You have not posted any projects. #{link_to 'Post one', :controller => :jobs, :action => :new} now.",
+                             jobs_present: @current_user.jobs.present?,
+                             jobs: render(@current_user.jobs),
+                             owned_jobs_present: @current_user.owned_jobs.present?,
+                             owned_jobs_heading: "You can administer these projects:",
+                             owned_jobs: render(@current_user.owned_jobs)})%>
+        <!--<div class="card">
+          <h2>Manage Projects</h2>
+          <% if @current_user.jobs.empty? && @current_user.owned_jobs.empty? %>
+            You have not posted any projects. <%= link_to 'Post one', :controller => :jobs, :action => :new %> now.
+          <% end %>
+          <% if @current_user.jobs.present? %>
+            <%= render @current_user.jobs %>
+          <% end %>
+          <% if @current_user.owned_jobs.present? %>
+            <p>You can administer these projects:</p>
+            <%= render :partial => 'jobs/your_job', :collection => @current_user.owned_jobs %>
+          <% end %>
+        </div>-->
+      </div>
+      <div class="tab-pane" id="browse">
+        <%= react_component("ProjectTable", {table_name: "Your Applications",
+                             empty: @current_user.applics.empty? ,
+                             empty_text: "You have not applied to any research positions.",
+                             table_data:  render(@current_user.applics, :mine => true)})%>
+        <!--<div class="card">
+          <h2>Your Applications</h2>
+          <% if @current_user.applics.empty? %>
+            You have not applied to any research positions.
+          <% else %>
+            <table class="job_table table table-striped table-condensed">
+              <thead>
+                <tr>
+                  <th class="col-md-2">Application Date</th>
+                  <th class="col-md-4">Project</th>
+                  <th class="col-md-2">Contact</th>
+                  <th class="col-md-2">Status</th>
+                </tr>
+              </thead>
+              <%= render @current_user.applics, :mine => true %>
+            </table>
+          <% end %>
+        </div>-->
+        <%= react_component("ProjectList", {list_name: "Watched Projects",
+                             watched_empty: @current_user.watched_jobs.empty? ,
+                             owned_jobs_empty: @current_user.owned_jobs.empty?,
+                             default_message: "You are not watching any projects.",
+                             watched_jobs: render(@current_user.watched_jobs)})%>
+        <!--<div class="card">
+          <h2>Watched Projects</h2>
+          <% if @current_user.watched_jobs.empty? %>
+            You are not watching any projects.
+          <% else %>
+          <% end %>
+          <%= render @current_user.watched_jobs %>
+        </div>-->
+      </div>
+    <% end %>
+  </div>
+</div>
