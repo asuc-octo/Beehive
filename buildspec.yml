@@ -7,15 +7,15 @@ env:
     PRIVKEY: BeehivePrivkey
     FULLCHAIN: BeehiveFullchain
     DOCKERRUN: BeehiveDockerrun
+    DATABASE: BeehiveDatabaseConfig
 
 phases:
   build:
       #Build and Push image to OCTO Dockerhub
     commands:
-      - touch config/database.yml
-      - touch fullchain.pem privkey.pem Dockerrun.aws.json
-      - echo $PRIVKEY > privkey.pem
-      - echo $FULLCHAIN > fullchain.pem
+      - echo $PRIVKEY > config/apache2/privkey.pem
+      - echo $FULLCHAIN > config/apache2/fullchain.pem
+      - echo $DATABASE > config/database.yml
       - docker build -t $IMAGE_NAME:latest .
       - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
       - docker push $IMAGE_NAME:latest
@@ -28,5 +28,4 @@ phases:
 artifacts:
   files:
     - Dockerrun.aws.json
-
 
