@@ -20,6 +20,7 @@ RUN bundle check || bundle install --jobs 4 --without development test
 
 COPY . /application
 WORKDIR /application
+ENV RAILS_ENV=production
 RUN bundle exec rake assets:clean \
  && bundle exec rake assets:precompile
 
