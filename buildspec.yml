@@ -1,0 +1,32 @@
+version: 0.2
+
+env:
+  variables:
+    IMAGE_NAME: octobeehive/cicd
+  secrets-manager:
+    PRIVKEY: BeehivePrivkey
+    FULLCHAIN: BeehiveFullchain
+    DOCKERRUN: BeehiveDockerrun
+
+phases:
+  build:
+      #Build and Push image to OCTO Dockerhub
+    commands:
+      - touch config/database.yml
+      - touch fullchain.pem privkey.pem Dockerrun.aws.json
+      - echo $PRIVKEY > privkey.pem
+      - echo $FULLCHAIN > fullchain.pem
+      - docker build -t $IMAGE_NAME:latest .
+      - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
+      - docker push $IMAGE_NAME:latest
+  post_build:
+    commands:
+      - echo $DOCKERRUN
+      - echo $FULLCHAIN
+      - echo $PRIVKEY
+      - echo $DOCKERRUN > Dockerrun.aws.json
+artifacts:
+  files:
+    - Dockerrun.aws.json
+
+
