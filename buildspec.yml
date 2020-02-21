@@ -16,9 +16,9 @@ phases:
       - echo $PRIVKEY > config/apache2/privkey.pem
       - echo $FULLCHAIN > config/apache2/fullchain.pem
       - echo $DOTENV > .env
-      - docker build -t $IMAGE_NAME:latest .
+      - docker build -t $IMAGE_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION .
       - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
-      - docker push $IMAGE_NAME:latest
+      - docker push $IMAGE_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
   post_build:
     commands:
       - echo $DOCKERRUN
