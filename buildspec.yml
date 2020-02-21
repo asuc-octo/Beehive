@@ -8,6 +8,10 @@ env:
     FULLCHAIN: BeehiveFullchain
     DOCKERRUN: BeehiveDockerrun
     DOTENV: BeehiveDotEnv
+    SPENCRYPTCERT: BeehiveSpEncryptCert
+    SPENCRYPTKEY: BeehiveSpEncryptKey
+    SPSIGNINGCERT: BeehiveSpSigningCert
+    SPSIGNINGKEY: BeehiveSpSigningKey
 
 phases:
   build:
@@ -16,6 +20,10 @@ phases:
       - echo $PRIVKEY > config/apache2/privkey.pem
       - echo $FULLCHAIN > config/apache2/fullchain.pem
       - echo $DOTENV > .env
+      - echo $SPENCRYPTCERT > config/shibboleth/sp-encrypt-cert.pem
+      - echo $SPENCRYPTKEY > config/shibboleth/sp-encrypt-key.pem
+      - echo $SPSIGNINGCERT > config/shibboleth/sp-signing-cert.pem
+      - echo $SPSIGNINGKEY > config/shibboleth/sp-signing-key.pem
       - docker build -t $IMAGE_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION .
       - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
       - docker push $IMAGE_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
@@ -24,6 +32,7 @@ phases:
       - echo $DOCKERRUN
       - echo $FULLCHAIN
       - echo $PRIVKEY
+      - echo $DOTENV
       - echo $DOCKERRUN > Dockerrun.aws.json
 artifacts:
   files:

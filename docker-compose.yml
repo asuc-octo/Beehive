@@ -2,7 +2,7 @@ version: '3.7'
 services:
   web:
     restart: always
-    image: octobeehive/cicd:latest
+    image: octobeehive/cicd:505a6f8bb537531cc3a8f0e694cfb3397d7df3ae
     ports:
       - "3000:80"
       - "8080:80"
