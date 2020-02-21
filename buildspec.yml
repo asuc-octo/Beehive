@@ -17,9 +17,9 @@ phases:
   build:
       #Build and Push image to OCTO Dockerhub
     commands:
-      - echo $PRIVKEY | base64 -D > config/apache2/privkey.pem
-      - echo $FULLCHAIN | base64 -D > config/apache2/fullchain.pem
-      - echo $DOTENV | base64 -D > .env
+      - echo $PRIVKEY | base64 -d > config/apache2/privkey.pem
+      - echo $FULLCHAIN | base64 -d > config/apache2/fullchain.pem
+      - echo $DOTENV | base64 -d > .env
       - echo $SPENCRYPTCERT > config/shibboleth/sp-encrypt-cert.pem
       - echo $SPENCRYPTKEY > config/shibboleth/sp-encrypt-key.pem
       - echo $SPSIGNINGCERT > config/shibboleth/sp-signing-cert.pem
