@@ -7,7 +7,6 @@ env:
     PRIVKEY: BeehivePrivkey
     FULLCHAIN: BeehiveFullchain
     DOCKERRUN: BeehiveDockerrun
-    DATABASE: BeehiveDatabaseConfig
 
 phases:
   build:
@@ -15,7 +14,6 @@ phases:
     commands:
       - echo $PRIVKEY > config/apache2/privkey.pem
       - echo $FULLCHAIN > config/apache2/fullchain.pem
-      - echo $DATABASE > config/database.yml
       - docker build -t $IMAGE_NAME:latest .
       - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
       - docker push $IMAGE_NAME:latest
