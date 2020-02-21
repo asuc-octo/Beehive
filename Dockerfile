@@ -13,6 +13,7 @@ RUN apt update \
                    build-essential \
                    apache2-dev \
                    libapache2-mod-passenger \
+                   certbot python-certbot-apache \
  && apt -t stretch-backports install -y libapache2-mod-shib
 
 COPY Gemfile* ./

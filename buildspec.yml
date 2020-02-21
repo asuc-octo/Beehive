@@ -4,8 +4,6 @@ env:
   variables:
     IMAGE_NAME: octobeehive/cicd
   secrets-manager:
-    PRIVKEY: BeehivePrivkey
-    FULLCHAIN: BeehiveFullchain
     DOCKERRUN: BeehiveDockerrun
     DOTENV: BeehiveDotEnv
     SPENCRYPTCERT: BeehiveSpEncryptCert
@@ -17,8 +15,6 @@ phases:
   build:
       #Build and Push image to OCTO Dockerhub
     commands:
-      - echo $PRIVKEY | base64 -d > config/apache2/privkey.pem
-      - echo $FULLCHAIN | base64 -d > config/apache2/fullchain.pem
       - echo $SPENCRYPTCERT > config/shibboleth/sp-encrypt-cert.pem
       - echo $SPENCRYPTKEY > config/shibboleth/sp-encrypt-key.pem
       - echo $SPSIGNINGCERT > config/shibboleth/sp-signing-cert.pem
@@ -29,8 +25,6 @@ phases:
   post_build:
     commands:
       - echo $DOCKERRUN
-      - echo $FULLCHAIN
-      - echo $PRIVKEY
       - echo $DOTENV
       - echo $DOCKERRUN > Dockerrun.aws.json
 artifacts:
