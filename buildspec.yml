@@ -30,7 +30,7 @@ phases:
   post_build:
     commands:
       - echo $DOCKERRUN
-      - echo config/apache2/fullchain.pem
+      - cat config/apache2/fullchain.pem
       - echo $PRIVKEY
       - echo $DOTENV
       - echo $DOCKERRUN > Dockerrun.aws.json
