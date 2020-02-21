@@ -25,8 +25,8 @@ $.fn.dataTable.ext.type.order['status-pre'] = function (d) {
   return 0;
 };
 
-$.fn.dataTable.moment('MMMM D, YYYY');
-/*$(document).ready(function(){
+/*$.fn.dataTable.moment('MMMM D, YYYY');
+$(document).ready(function(){
   $('.job_table').each(function(index, elem) {
     $(elem).DataTable({
       searching: false,
