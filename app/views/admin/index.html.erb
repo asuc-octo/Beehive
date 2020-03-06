@@ -6,7 +6,7 @@
       <h2>Modify User Role</h2>
       <%= form_tag(admin_path, :method => "get") do %>
         <%= label_tag :user_role, "User" %>
-        <span class="ui-widget">
+        <span>
           <%= select_tag :user_role, options_for_select([["Select User", nil]] + @non_admins) %>
         </span>
         <%= label_tag :user_role_new, "Role" %>
