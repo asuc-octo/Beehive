@@ -91,6 +91,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.2)
       xpath (~> 3.2)
+    chronic (0.10.2)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
@@ -328,6 +329,8 @@ GEM
     uglifier (4.1.20)
       execjs (>= 0.3.0, < 3)
     uniform_notifier (1.12.1)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     will_paginate (3.1.7)
     will_paginate-bootstrap (1.0.2)
       will_paginate (>= 3.0.3)
@@ -388,6 +391,7 @@ DEPENDENCIES
   tzinfo-data
   ucb_ldap (~> 3.1)
   uglifier
+  whenever
   will_paginate (~> 3.0)
   will_paginate-bootstrap (~> 1.0)
   yard

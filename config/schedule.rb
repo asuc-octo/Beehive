@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 7.days do
+every 1.minute do
   rake 'mailer:send_email'
 end
