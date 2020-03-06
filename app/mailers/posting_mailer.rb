@@ -15,6 +15,6 @@ class PostingMailer < ApplicationMailer
     @listing_1 = Job.order("created_at").last
     @listing_2 = Job.order("created_at").last(2).first
     @listing_3 = Job.order("created_at").last(3).first
-    mail(:to => @recipient.email, :subject => subject).deliver
+    mail(:to => @recipient.email, :subject => subject).deliver_now
   end
 end
