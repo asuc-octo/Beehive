@@ -51,7 +51,10 @@ class User < ActiveRecord::Base
     Staff     = 3
     Affiliate = 4
     Admin     = 5
-    All       = [Undergrad, Grad, Faculty, Staff, Affiliate, Admin]
+    LBNL_Staff = 6
+    LBNL_Member = 7
+
+    All = [Undergrad, Grad, Faculty, Staff, Affiliate, Admin, LBNL_Staff, LBNL_Member]
   end
 
   has_many :jobs,          :dependent => :nullify
@@ -166,6 +169,48 @@ class User < ActiveRecord::Base
                        else
                          User::Types::Affiliate
                        end
+      return true
+    end
+  end
+
+  def fill_from_shib
+    info_hash = request.env['omniauth.auth'][:info]
+    if info_hash.nil?
+      if Rails.development?
+        self.name = "Susan #{self.login}"
+        self.email = "beehive+#{self.login}@berkeley.edu"
+        self.major_code = 'undeclared'
+        self.user_type = case self.login
+                         when 212388, 232588
+                           User::Types::Grad
+                         when 212381, 300846, 300847, 300848, 300849, 300850
+                           User::Types::Undergrad
+                         when 212386, 322587, 322588, 322589, 322590
+                           User::Types::Faculty
+                         when 212387, 322583, 322584, 322585, 322586
+                           User::Types::Staff
+                         else
+                           User::Types::Affiliate
+                         end
+        return true
+      else
+        self.name = 'Unknown Name'
+        self.email = ''
+        self.major_code = ''
+        self.user_type = User::Types::Affiliate
+        return false
+      end
+    else
+      self.name = "#{info_hash[:givenName]} #{info_hash[:surname]}".titleize
+      self.email = info_hash[:email]
+      self.user_type = case
+                      when info_hash[:affiliation] == 'Staff@lbl.gov'
+                        User::Types::LBNL_Staff
+                      when info_hash[:affiliation] == 'Member@lbl.gov'
+                        User::Types::LBNL_Member
+                      else
+                        User::Types::Affiliate
+                      end
       return true
     end
   end

@@ -53,4 +53,3 @@ class Document < ActiveRecord::Base
     self.document_type = find_and_choose(values, doctypes, t, Types::Generic)
   end
 end
-

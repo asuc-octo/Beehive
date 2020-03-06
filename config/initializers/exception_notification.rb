@@ -3,8 +3,7 @@
 
 if (email=ENV['NOTIFIER_EMAIL']).blank?
   if Rails.env == 'production'
-    Rails.logger.fatal "No exception notification email set."
-    raise ArgumentError.new "No exception notification email set. See #{__FILE__}"
+    $stderr.puts "WARNING: No exception notification email set. See #{__FILE__}"
   end
 else
   ResearchMatch::Application.config.middleware.use ExceptionNotification::Rack,

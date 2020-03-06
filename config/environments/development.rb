@@ -18,14 +18,9 @@ ResearchMatch::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
-  # CAS authentication
-  CASClient::Frameworks::Rails::Filter.configure(
-    :cas_base_url => "https://auth-test.berkeley.edu/cas/"
-  )
-
   # ActionMailer
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.delivery_method = :letter_opener
+  # config.action_mailer.delivery_method = :letter_opener
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin

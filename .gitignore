@@ -11,29 +11,43 @@ cscope.*
 config/smtp_settings.rb
 db/*.sqlite3
 files/
-mysql2/
 log/*.log
 tmp/**/*
 *.project
 *.sublime-project
 *.sublime-workspace
 .DS_Store
-
-#ignore database.yml
-config/database.yml
+app/assets/.*
 
 # ignore extra dump files
 *.dump
-
-#ignore hidden files
-.*
-app/assets/.*
+*.psql
 
 # ignore test files
 test_mem_prod.rb
 test_mem.rb
 
-#ignore dotenv
+# ignore dotenv
 .env
+.env.production
 
-beehive.psql
+# ignore elastic beanstalk docker file
+Dockerrun.aws.json
+
+# ignore experimental files
+*.alpine*
+*.old
+
+# ignore keys
+*.pem
+
+# ignore acme challenge
+public/.well-known
+
+# ignore database tool
+update_database.sh
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

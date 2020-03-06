@@ -1,12 +1,12 @@
 FactoryBot.define do
-	factory :user do |u|
-		u.name "bingbong"
-		u.login "abc"
-		u.email "abc@hotmail.com"
-		u.user_type 5
-		u.id 1
-		u.persistence_token "a"
-		u.single_access_token "a"
-		u.perishable_token "a"
+	factory :user do
+		name { "bingbong" }
+		login { "abc" }
+		email { "abc@hotmail.com" }
+		user_type { 5 }
+		id { 1 }
+		persistence_token { "a" }
+		single_access_token { "a" }
+		perishable_token { "a" }
 	end
 end

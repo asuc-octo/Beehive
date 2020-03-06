@@ -1,11 +1,9 @@
 # Configure the Action Mailer.
-settings_path = File.join Rails.root, 'config', 'smtp_settings'
-
 $smtp_username ||= ENV['SMTP_USERNAME']
 $smtp_password ||= ENV['SMTP_PASSWORD']
 
 unless $smtp_username and $smtp_password
-    $stderr.puts "WARNING: SMTP credentials have not been set as env vars!"
+    $stderr.puts "WARNING: SMTP credentials have not been set as env vars! See #{__FILE__}"
 end
 
 ResearchMatch::Application.configure do

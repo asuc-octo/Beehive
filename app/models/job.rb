@@ -86,7 +86,7 @@ class Job < ActiveRecord::Base
   #  VALIDATIONS  #
   #################
 
-  validates_presence_of :title, :department, :project_type, :desc
+  validates_presence_of :title, :department_id, :project_type, :desc
   validates_presence_of :earliest_start_date, :latest_start_date
 
   # Validates that end dates are no earlier than right now.
@@ -191,7 +191,6 @@ class Job < ActiveRecord::Base
     actions
   end
 
-  # @return hash{ org => curated }
   def curations(user)
     curations = {}
     (user.admin? ? Org.all : user.orgs).each do |org|
@@ -408,7 +407,7 @@ class Job < ActiveRecord::Base
 
   # Returns a list of relevant fields used to generate tags
   def field_list
-    [ self.department.name,
+    [ self.department && self.department.name,
       self.category_list_of_job,
       self.course_list_of_job,
       self.proglang_list_of_job,
@@ -451,9 +450,7 @@ class Job < ActiveRecord::Base
     end
   end
 
-  # Reassigns it an activation code.
-  # Used when creating a job or if, when updating the job, a new
-  #   faculty sponsor is specified.
+  # Deprecated
   def resend_email(send_email = false)
     self.activation_code = SecureRandom.random_number(10e6.to_i)
 

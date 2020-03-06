@@ -30,8 +30,8 @@ ResearchMatch::Application.routes.draw do
   get '/intro', :to => 'intro#intro'
 
   # Contact Us
-  get "contact_us/contact", :as => :contact_us
-  post "contact_us/send_email", :as => :feedback_email_link
+  get '/contact' => 'contact#contact', :as => :contact_us
+  post '/contact/send_email', :as => :feedback_email_link
 
   # Statistics
   get '/statistics'      => 'statistics#index', :as => :statistics
@@ -56,7 +56,6 @@ ResearchMatch::Application.routes.draw do
 
   # Access control
   get '/logout' => 'user_sessions#destroy'
-  #match '/login'  => 'user_sessions#new'
   get '/login'  => redirect('/auth/cas')
   get '/auth/:provider/callback' => 'user_sessions#new'
 

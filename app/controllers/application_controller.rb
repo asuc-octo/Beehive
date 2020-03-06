@@ -68,7 +68,6 @@ class ApplicationController < ActionController::Base
       session[:user_id] = user.id
       flash[:notice] = "Signed in automatically as Beehive Team"
     end
-
     @user_session = UserSession.find
     @current_user = @user_session.user if @user_session
   end
