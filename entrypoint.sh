@@ -14,9 +14,8 @@ a2dissite 000-default
 a2ensite beehive
 a2ensite beehive-ssl
 
-/usr/sbin/apache2ctl restart
-
-# certbot -n --apache --agree-tos --redirect -m technology@asuc.org -d beehive.berkeley.edu
+# /usr/sbin/apache2ctl restart
+certbot certonly -n --apache --agree-tos --redirect -m technology@asuc.org -d beehive.berkeley.edu --dry-run &
 
 /etc/init.d/shibd restart -f -c /etc/shibboleth/shibboleth2.xml -p /var/run/shibboleth/shibd.pid
 /usr/sbin/apache2ctl -DFOREGROUND
