@@ -39,7 +39,7 @@ Dockerrun.aws.json
 *.old
 
 # ignore keys
-*.pem
+# *.pem
 
 # ignore acme challenge
 public/.well-known
