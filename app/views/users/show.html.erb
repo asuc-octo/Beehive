@@ -1,0 +1,6 @@
+<% content_for :title, @user.name %>
+<%= react_component("ContactShow", {name: @user.name,
+                                    user_type: @user.user_type_string,
+                                    research_blurb: @user.research_blurb,
+                                    has_jobs: @user.jobs.present?,
+                                    jobs: render(@user.jobs)})%>
