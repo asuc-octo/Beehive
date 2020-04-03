@@ -20,6 +20,7 @@ gem 'acts-as-taggable-on', '>= 4.0'
 # Emails
 gem 'actionmailer-with-request', '~> 0.3'
 gem 'exception_notification' , '~> 4.2'
+gem 'whenever', require: false
 
 # Security
 gem 'authlogic', '~> 4.4'
