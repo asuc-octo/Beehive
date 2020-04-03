@@ -1,10 +1,9 @@
 namespace :mailer do
-  desc "TODO"
+  desc "Weekly Mailer"
   task send_email: :environment do
-    # emails = ["kgunadhi@berkeley.edu"]
-    # emails.each do |email|
-    PostingMailer.new_listings("body", "subject", User.find_by(email: "kgunadhi@berkeley.edu")).deliver_now
-    # end
+    Users.each do |user|
+      PostingMailer.new_listings("Please check out these recent listings on Beehive!", "New Research Opportunities on Beehive", user).deliver_now
+    end
   end
 
 end
