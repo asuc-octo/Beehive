@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.minute do
+every :sunday, at: '9am' do
   rake 'mailer:send_email'
 end
