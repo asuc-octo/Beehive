@@ -19,6 +19,8 @@
 
 # Learn more: http://github.com/javan/whenever
 
+set :output, '/var/log/beehive_mailer_task.log'
+
 every :sunday, at: '9am' do
   rake 'mailer:send_email'
 end
