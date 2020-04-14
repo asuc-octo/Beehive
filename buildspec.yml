@@ -25,6 +25,7 @@ phases:
     commands:
       - echo $DOCKERRUN
       - echo $DOCKERRUN > Dockerrun.aws.json
+      - sed -i 's/GIT_HASH/'"$CODEBUILD_RESOLVED_SOURCE_VERSION/" Dockerrun.aws.json
 artifacts:
   files:
     - Dockerrun.aws.json
