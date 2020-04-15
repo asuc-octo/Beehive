@@ -60,6 +60,7 @@ ResearchMatch::Application.routes.draw do
   # Access control
   get '/logout' => 'user_sessions#destroy'
   get '/login'  => redirect('/auth/cas')
+  get '/login_with_google' => redirect('/auth/google_oauth2'), :as => :google_login
   get '/auth/:provider/callback' => 'user_sessions#new'
 
   # Users

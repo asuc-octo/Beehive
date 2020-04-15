@@ -4,6 +4,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :cas, :path => '/cas', :host => 'auth-test.berkeley.edu' if  Rails.env.test?
   provider :cas, :path => '/cas', :host => 'auth.berkeley.edu' if Rails.env.production?
 
+  provider :google_oauth2, ENV['GOOGLE_AUTH_ID'], ENV['GOOGLE_AUTH_SECRET']
+
   provider :shibboleth, {
     :shib_session_id_field     => "Shib-Session-ID",
     :shib_application_id_field => "Shib-Application-ID",
@@ -23,5 +25,6 @@ end
 
 ResearchMatch::Application.config.auth_providers = {
   :cas => {:auth_field => :login, :auth_value => :uid},
-  :shibboleth => {:auth_field => :shib_login, :auth_value => :uid}
+  :shibboleth => {:auth_field => :shib_login, :auth_value => :uid},
+  :google_oauth2 => {:auth_field => :google_login, :auth_value => :uid}
 }

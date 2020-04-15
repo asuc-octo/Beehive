@@ -81,8 +81,9 @@
                 </ul>
               </a></li>
             <% elsif not @user.present?%>
-              <li><%= link_to "Log In", login_path, :class => "login-button"%></li>
+              <li><%= link_to "Log In With CalNet", login_path, :class => "login-button"%></li>
               <li><%= link_to "", login_path, :class => "glyphicon glyphicon-log-in" %></li>
+              <li><%= link_to "Log In With Google", google_login_path, :class => "login-button"%></li>
             <% end %>
             </ul>
           </div><!-- /.navbar-collapse -->

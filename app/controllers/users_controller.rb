@@ -38,7 +38,13 @@ class UsersController < ApplicationController
 
     if session[:auth_provider].to_sym == :shibboleth
       unless @user.fill_from_shib
-        logger.warn "UsersController.new: Failed to find shibboleth::Person for uid #{session[:auth_value]}"
+        logger.warn "UsersController.new: Failed to create user for uid #{session[:auth_value]}"
+      end
+    end
+
+    if session[:auth_provider].to_sym == :google_oauth2
+      unless @user.fill_from_google_auth2(request.env['omniauth.auth'][:info])
+        logger.warn "UsersController.new: Failed to create user for uid #{session[:auth_value]}"
       end
     end
   end

@@ -215,6 +215,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def fill_from_google_auth2(info_hash)
+    if info_hash.nil?
+      flash[:error] = 'Google authentication failed.'
+      redirect_to home_path
+    else
+      self.name = info_hash[:email].titleize
+      self.email = info_hash[:email]
+      self.user_type = User::Types::Affiliate
+      return true
+    end
+  end
+
   def admin?
     user_type == User::Types::Admin
   end
