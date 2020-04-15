@@ -28,6 +28,7 @@ gem 'ucb_ldap', '~> 3.1'
 gem 'omniauth', '~> 1.8'
 gem 'omniauth-cas', '~> 1.1'
 gem 'omniauth-shibboleth'
+gem 'omniauth-google-oauth2'
 gem 'bcrypt', '~> 3.1'
 
 # Misc

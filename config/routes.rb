@@ -33,6 +33,9 @@ ResearchMatch::Application.routes.draw do
   get '/contact' => 'contact#contact', :as => :contact_us
   post '/contact/send_email', :as => :feedback_email_link
 
+  # Privacy Policy
+  get '/privacy' => 'privacy#index', :as => :privacy
+
   # Statistics
   get '/statistics'      => 'statistics#index', :as => :statistics
 
