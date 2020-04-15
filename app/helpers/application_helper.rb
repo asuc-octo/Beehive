@@ -131,6 +131,7 @@ module CASControllerIncludes
   def rm_login_required
     remember_location
     return true if @current_user && @user_session
-    (redirect_to login_path) and false
+    flash[:notice] = 'Please log in'
+    (redirect_to home_path) and false
   end
 end
