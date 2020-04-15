@@ -220,7 +220,7 @@ class User < ActiveRecord::Base
       flash[:error] = 'Google authentication failed.'
       redirect_to home_path
     else
-      self.name = info_hash[:email].titleize
+      self.name = info_hash[:name].titleize
       self.email = info_hash[:email]
       self.user_type = User::Types::Affiliate
       return true
