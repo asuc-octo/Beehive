@@ -25,10 +25,13 @@ class UsersController < ApplicationController
 
   # Handles new users. Flow from user_sessions#new
   def new
+    puts 'new_user_path'
     @user = User.new(session[:auth_field] => session[:auth_value])
     if params[:course].nil? # so edit view doesn't complain
       params[:course] = params[:proglang] = params[:category] = {}
     end
+
+    puts 'is it cas?'
 
     if session[:auth_provider].to_sym == :cas
       unless @user.fill_from_ldap
@@ -36,17 +39,24 @@ class UsersController < ApplicationController
       end
     end
 
+    puts 'is it shib?'
+
     if session[:auth_provider].to_sym == :shibboleth
       unless @user.fill_from_shib
         logger.warn "UsersController.new: Failed to create user for uid #{session[:auth_value]}"
       end
     end
 
+    puts 'is it google??'
+
     if session[:auth_provider].to_sym == :google_oauth2
-      unless @user.fill_from_google_auth2(request.env['omniauth.auth'][:info])
+      puts 'it is google'
+      unless @user.fill_from_google_auth2(session[:info_hash])
         logger.warn "UsersController.new: Failed to create user for uid #{session[:auth_value]}"
       end
     end
+
+    puts 'end of new_user_path'
   end
 
   # Create account for a new user.

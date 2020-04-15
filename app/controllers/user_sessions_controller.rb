@@ -29,6 +29,10 @@ include CASControllerIncludes
       session[:user_id] = user.id # TODO remove (use only @user_session)
       redirect_to dashboard_path
     else
+      if session[:auth_provider].to_sym == :google_oauth2
+        session[:info_hash] = auth_hash[:info]
+      end
+      puts 'redirect_to new_user_path'
       redirect_to new_user_path
     end
   end
