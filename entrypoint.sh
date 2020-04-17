@@ -15,6 +15,7 @@ a2ensite beehive
 a2ensite beehive-ssl
 
 bundle exec whenever --update-crontab
+/etc/init.d/cron start
 
 # /usr/sbin/apache2ctl restart
 # certbot -n --apache --agree-tos --redirect -m technology@asuc.org -d beehive.berkeley.edu &

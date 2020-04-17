@@ -19,8 +19,9 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :output, '/var/log/beehive_mailer_task.log'
+set :output, '/var/log/beehive_cron.log'
 
 every :sunday, at: '9am' do
   rake 'mailer:send_email'
+  command "echo 'sent mail to undergrads'"
 end
