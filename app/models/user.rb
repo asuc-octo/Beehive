@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   # validates_uniqueness_of   :email
 
   # Login
-  validates_uniqueness_of   :login
+  validates_uniqueness_of   :login, :allow_blank => true
 
   # Misc info
   validates_numericality_of :units,          :allow_nil => true
