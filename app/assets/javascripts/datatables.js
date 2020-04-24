@@ -25,7 +25,7 @@ $.fn.dataTable.ext.type.order['status-pre'] = function (d) {
   return 0;
 };
 
-$.fn.dataTable.moment('MMMM D, YYYY');
+/*$.fn.dataTable.moment('MMMM D, YYYY');
 $(document).ready(function(){
   $('.job_table').each(function(index, elem) {
     $(elem).DataTable({
@@ -34,4 +34,4 @@ $(document).ready(function(){
       columnDefs: [{targets: 0, orderData: [0, 3]}, {targets: 1, orderData: [1, 3]}, {targets: 2, orderData: [2, 3]}, {targets: 3, orderData: [3, 0], type: "status"}]
     });
   });
-});
+});*/

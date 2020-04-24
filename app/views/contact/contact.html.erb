@@ -1,4 +1,17 @@
-- content_for :title, 'Contact'
+<% content_for :title, "Contact" %>
+<div class="container">
+  <h1>Contact Us</h1>
+  <div class ="card">
+    <div class="row">
+      <%= form_tag(:feedback_email_link, :method => "post") do %>
+        <%= react_component("Contact", {email: @user_email}) %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<!--- content_for :title, 'Contact'
 .container
   %h1 Contact Us
   .card
@@ -17,3 +30,4 @@
             %dd= text_area_tag :body, nil, :placeholder => "Enter feedback...", :rows => 10, class: 'form-control'
 
         = submit_tag "Send Message", class: 'btn btn-primary'
+-->
