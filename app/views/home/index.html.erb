@@ -1,7 +1,6 @@
 <% content_for :title, "Welcome" %>
 <% if @current_user.present? %>
   <%= react_component("Home", {job_count:Job.find_jobs.count,
-                             present: @current_user.present?,
                              undergrad: @current_user.undergrad?,
                              jobs_path: jobs_path,
                              dashboard_path: dashboard_path,
@@ -9,7 +8,6 @@
                              team_path: team_path}) %>
 <% else %>
   <%= react_component("Home", {job_count:Job.find_jobs.count,
-                             present: @current_user.present?,
                              jobs_path: jobs_path,
                              dashboard_path: dashboard_path,
                              login_path: login_path,

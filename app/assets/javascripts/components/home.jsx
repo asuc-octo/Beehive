@@ -1,9 +1,7 @@
 class Home extends React.Component {
   	render() {
   		let explore_button;
-  		if (!this.props.present){
-  			explore_button = <LandingButton path={this.props.login_path} label="EXPLORE"/>
-  		} else if (this.props.present && this.props.undergrad) {
+  		if (this.props.undergrad){
 			explore_button = <LandingButton path={this.props.jobs_path} label="EXPLORE"/>
 		} else {
 			explore_button = <LandingButton path={this.props.dashboard_path} label="EXPLORE"/>
