@@ -34,6 +34,9 @@ test_mem.rb
 # ignore elastic beanstalk docker file
 Dockerrun.aws.json
 
+# Local Database config
+config/database.yml
+
 # ignore experimental files
 *.alpine*
 *.old
