@@ -1,8 +1,18 @@
 development:
     adapter: postgresql
-    database: beehive-local
+    database: dc8gh7b3pjl8l3
     host: localhost
     username: postgres
     password:
     pool: 5
     timeout: 5000
+
+test:
+    adapter: postgresql
+    database: dc8gh7b3pjl8l3
+    host: localhost
+    username: postgres
+    password:
+    pool: 5
+    timeout: 5000
+
