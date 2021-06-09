@@ -23,7 +23,8 @@ if [ "$RAILS_ENV" = "production" ]
 then
   { certbot certonly -n --webroot -w /var/www/html --agree-tos --redirect -m technology@asuc.org -d beehive.berkeley.edu;
   sed -i 's/SSLCertificateFile.*/SSLCertificateFile \/etc\/letsencrypt\/live\/beehive.berkeley.edu\/fullchain.pem/g' /etc/apache2/sites-enabled/beehive-ssl.conf;
-  sed -i 's/SSLCertificateKeyFile.*/SSLCertificateKeyFile \/etc\/letsencrypt\/live\/beehive.berkeley.edu\/privkey.pem/g' /etc/apache2/sites-enabled/beehive-ssl.conf; } &
+  sed -i 's/SSLCertificateKeyFile.*/SSLCertificateKeyFile \/etc\/letsencrypt\/live\/beehive.berkeley.edu\/privkey.pem/g' /etc/apache2/sites-enabled/beehive-ssl.conf;
+  /usr/sbin/apache2ctl restart; } &
 else
   echo "Running Development Environment"
 fi
