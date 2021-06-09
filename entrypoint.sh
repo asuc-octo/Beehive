@@ -28,6 +28,7 @@ fi
 
 # Patch to disable deprecated TLS versions
 sed -i 's/Include \/etc\/letsencrypt\/options-ssl-apache.conf//g' /etc/apache2/sites-available/beehive-ssl.conf
+/usr/sbin/apache2ctl restart
 
 /etc/init.d/shibd restart -f -c /etc/shibboleth/shibboleth2.xml -p /var/run/shibboleth/shibd.pid
 /usr/sbin/apache2ctl -DFOREGROUND
