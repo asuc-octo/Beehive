@@ -21,9 +21,8 @@ bundle exec whenever --update-crontab
 # /usr/sbin/apache2ctl restart
 if [ "$RAILS_ENV" = "production" ]
 then
-  { certbot certonly -n --webroot -w /var/www/html --agree-tos --redirect -m technology@asuc.org -d beehive.berkeley.edu;
-  sed -i 's/SSLCertificateFile.*/SSLCertificateFile \/etc\/letsencrypt\/live\/beehive.berkeley.edu\/fullchain.pem/g' /etc/apache2/sites-enabled/beehive-ssl.conf;
-  sed -i 's/SSLCertificateKeyFile.*/SSLCertificateKeyFile \/etc\/letsencrypt\/live\/beehive.berkeley.edu\/privkey.pem/g' /etc/apache2/sites-enabled/beehive-ssl.conf;
+  { certbot -n --apache --agree-tos --redirect -m technology@asuc.org -d beehive.berkeley.edu;
+  sed -i 's/SSLProtocol.*/SSLProtocol all -SSLv3 -TLSv1 -TLSv1.1/g' /etc/letsencrypt/options-ssl-apache.conf;
   /usr/sbin/apache2ctl restart; } &
 else
   echo "Running Development Environment"
