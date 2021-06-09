@@ -4,6 +4,7 @@ set -e
 rm -f /application/tmp/pids/server.pid
 
 cp /application/config/apache2/beehive* /etc/apache2/sites-available/
+cp /application/config/apache2/ssl.conf /etc/apache2/mods-available/ssl.conf
 cp /application/config/apache2/ports.conf /etc/apache2/ports.conf
 cp /application/config/apache2/apache2.conf /etc/apache2/apache2.conf
 cp /application/config/shibboleth/* /etc/shibboleth/
